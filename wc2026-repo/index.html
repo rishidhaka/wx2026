@@ -10,15 +10,18 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
 :root{
-  --navy:#0d1b2a;--navy-card:#111f2f;--navy-border:#1e3045;
-  --amber:#f5a623;--pitch:#1a3a2a;--pitch-border:#2a5a3a;
-  --green:#2ecc71;--red:#e74c3c;--blue:#3498db;
-  --white:#f0f4f8;--muted:#7a9ab5;
-  --gold:#ffd700;--silver:#c0c0c0;--bronze:#cd7f32;
-  --phase2:#6c3fc7;--phase2-light:#8b5cf6;
+  /* FIFA World Cup 2026 Colors */
+  --wc-teal:#0E4C92;--wc-aqua:#3AAFA9;--wc-gold:#FBB034;--wc-red:#C8102E;
+  --navy:#0a1628;--navy-card:#0f1e35;--navy-border:#1a2d4a;
+  --accent:var(--wc-aqua);--accent-light:#5fc9c4;--accent-dark:#2a8f8a;
+  --gold:var(--wc-gold);--pitch:#0a2a1a;--pitch-border:#1a4a2a;
+  --green:#10b981;--red:#ef4444;--blue:#3b82f6;
+  --white:#f8fafc;--muted:#94a3b8;
+  --silver:#c0c0c0;--bronze:#cd7f32;
+  --phase2:#8b5cf6;--phase2-light:#a78bfa;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;overscroll-behavior:none}
+body{background:linear-gradient(135deg,#0a1628 0%,#0f1e35 50%,#0a1628 100%);background-attachment:fixed;color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;overscroll-behavior:none}
 #app{max-width:600px;margin:0 auto}
 
 /* ── DESKTOP RESPONSIVE ── */
@@ -30,19 +33,20 @@ body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;mi
 }
 
 /* ── HEADER ── */
-.header{background:linear-gradient(135deg,#0a2a1a 0%,#0d1b2a 60%);border-bottom:2px solid var(--amber);padding:16px 16px 12px;text-align:center}
-.badge{display:inline-block;background:var(--amber);color:var(--navy);font-size:10px;letter-spacing:2px;padding:3px 10px;border-radius:2px;margin-bottom:6px;font-weight:900}
-h1{font-weight:900;font-size:clamp(24px,7vw,46px);letter-spacing:3px;line-height:1;color:var(--white)}
-h1 span{color:var(--amber)}
-.header-sub{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:1px;text-transform:uppercase}
+.header{background:linear-gradient(135deg,var(--wc-teal) 0%,var(--wc-aqua) 100%);border-bottom:3px solid var(--wc-gold);padding:20px 16px 16px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.badge{display:inline-block;background:var(--wc-gold);color:#0a1628;font-size:10px;letter-spacing:2px;padding:4px 12px;border-radius:20px;margin-bottom:8px;font-weight:900;box-shadow:0 2px 8px rgba(251,176,52,0.3)}
+h1{font-weight:900;font-size:clamp(24px,7vw,46px);letter-spacing:3px;line-height:1;color:var(--white);text-shadow:0 2px 10px rgba(0,0,0,0.5)}
+h1 span{color:var(--wc-gold)}
+.header-sub{font-size:11px;color:rgba(255,255,255,0.8);margin-top:6px;letter-spacing:1.5px;text-transform:uppercase}
 
 /* ── USER BAR ── */
-.user-bar{display:flex;align-items:center;gap:10px;padding:9px 14px;background:var(--navy-card);border-bottom:1px solid var(--navy-border)}
-.user-avatar{width:28px;height:28px;border-radius:50%;border:2px solid var(--amber);object-fit:cover;flex-shrink:0}
-.user-avatar-ph{width:28px;height:28px;border-radius:50%;background:var(--navy-border);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.user-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--navy-card);border-bottom:1px solid var(--navy-border);box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.user-avatar{width:32px;height:32px;border-radius:50%;border:2px solid var(--accent);object-fit:cover;flex-shrink:0;box-shadow:0 2px 8px rgba(58,175,169,0.3)}
+.user-avatar-ph{width:32px;height:32px;border-radius:50%;background:var(--navy-border);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
 .user-name{flex:1;font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .user-name small{display:block;font-size:10px;color:var(--muted);font-weight:400}
-.btn-signout{background:none;border:1px solid var(--navy-border);border-radius:5px;color:var(--muted);font-size:11px;padding:4px 9px;cursor:pointer}
+.btn-signout{background:rgba(255,255,255,0.05);border:1px solid var(--navy-border);border-radius:6px;color:var(--muted);font-size:11px;padding:5px 10px;cursor:pointer;transition:all .2s}
+.btn-signout:hover{background:rgba(255,255,255,0.1);border-color:var(--accent)}
 
 /* ── SIGN IN ── */
 .signin-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:28px 20px;text-align:center}
@@ -54,10 +58,12 @@ h1 span{color:var(--amber)}
 .signin-note{font-size:11px;color:var(--muted);margin-top:16px;line-height:1.7}
 
 /* ── TABS ── */
-.tabs{display:flex;background:var(--navy-card);border-bottom:1px solid var(--navy-border);overflow-x:auto;scrollbar-width:none}
+.tabs{display:flex;background:var(--navy-card);border-bottom:1px solid var(--navy-border);overflow-x:auto;scrollbar-width:none;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:1;min-width:56px;padding:11px 3px;text-align:center;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
-.tab.active{color:var(--amber);border-bottom-color:var(--amber)}
+.tab{flex:1;min-width:56px;padding:12px 4px;text-align:center;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .3s ease;white-space:nowrap;position:relative}
+.tab:hover{color:var(--accent-light);background:rgba(58,175,169,0.05)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);background:rgba(58,175,169,0.08)}
+.tab.admin-only{display:none}
 
 /* ── VIEWS ── */
 .view{display:none;padding:14px}
@@ -65,27 +71,31 @@ h1 span{color:var(--amber)}
 .section-title{font-weight:900;font-size:16px;letter-spacing:2px;color:var(--amber);margin-bottom:12px;text-transform:uppercase}
 
 /* ── CARDS ── */
-.card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:10px;padding:14px;margin-bottom:12px}
-.card-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-input{width:100%;background:#0a1520;border:1px solid var(--navy-border);border-radius:6px;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;padding:9px 12px;margin-bottom:10px;outline:none;transition:border-color .2s}
-input:focus{border-color:var(--amber)}
-input::placeholder{color:#3d5a72}
-.btn{width:100%;padding:11px;border:none;border-radius:6px;font-weight:800;font-size:13px;cursor:pointer;letter-spacing:1px;transition:all .15s}
-.btn-primary{background:var(--amber);color:var(--navy)}
+.card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.2);transition:all .3s ease}
+.card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.3);border-color:rgba(58,175,169,0.3)}
+.card-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+input{width:100%;background:rgba(10,21,32,0.8);border:1px solid var(--navy-border);border-radius:8px;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;padding:10px 14px;margin-bottom:10px;outline:none;transition:all .3s ease}
+input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(58,175,169,0.1)}
+input::placeholder{color:#475569}
+.btn{width:100%;padding:12px;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:0.5px;transition:all .3s ease;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+.btn-primary{background:linear-gradient(135deg,var(--wc-gold) 0%,#fcc866 100%);color:#0a1628}
+.btn-primary:hover{background:linear-gradient(135deg,#fcc866 0%,var(--wc-gold) 100%)}
 .btn-secondary{background:var(--navy-border);color:var(--white)}
-.btn-phase2{background:var(--phase2);color:var(--white)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-secondary:hover{background:#2a4060}
+.btn-phase2{background:linear-gradient(135deg,var(--phase2) 0%,var(--phase2-light) 100%);color:var(--white)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
 
 /* ── LEADERBOARD ── */
-.lb-row{display:flex;align-items:center;background:var(--navy-card);border:1px solid var(--navy-border);border-radius:8px;padding:10px 12px;margin-bottom:6px;gap:9px;cursor:pointer;transition:background .15s}
-.lb-row:hover{background:#162538}
-.lb-row.me{border-color:var(--amber);background:#0f2a1a}
+.lb-row{display:flex;align-items:center;background:var(--navy-card);border:1px solid var(--navy-border);border-radius:10px;padding:12px 14px;margin-bottom:8px;gap:10px;cursor:pointer;transition:all .3s ease;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.lb-row:hover{background:rgba(58,175,169,0.08);border-color:var(--accent);transform:translateX(4px);box-shadow:0 4px 16px rgba(0,0,0,0.25)}
+.lb-row.me{border-color:var(--wc-gold);background:linear-gradient(135deg,rgba(251,176,52,0.1) 0%,rgba(58,175,169,0.1) 100%);box-shadow:0 4px 16px rgba(251,176,52,0.2)}
 .rank{font-weight:900;font-size:17px;width:22px;text-align:center;flex-shrink:0}
 .lb-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;flex-shrink:0}
 .lb-avatar-ph{width:26px;height:26px;border-radius:50%;background:var(--navy-border);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
 .lb-name{flex:1;font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lb-you{font-size:10px;color:var(--amber);font-weight:700;margin-left:4px}
-.lb-pts{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--amber);white-space:nowrap}
+.lb-pts{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--wc-gold);white-space:nowrap;text-shadow:0 2px 8px rgba(251,176,52,0.3)}
 .lb-pts small{font-size:10px;color:var(--muted);font-weight:400}
 .lb-breakdown{font-size:10px;color:var(--muted)}
 .lb-empty{text-align:center;color:var(--muted);padding:32px 16px;font-size:14px}
@@ -94,10 +104,10 @@ input::placeholder{color:#3d5a72}
 .wizard-steps{display:flex;gap:0;margin-bottom:16px;border-radius:8px;overflow:hidden;border:1px solid var(--navy-border)}
 .wizard-step{flex:1;padding:8px 4px;text-align:center;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:var(--navy-card);cursor:pointer;transition:all .2s;border-right:1px solid var(--navy-border)}
 .wizard-step:last-child{border-right:none}
-.wizard-step.active{background:var(--pitch);color:var(--amber)}
+.wizard-step.active{background:linear-gradient(135deg,var(--wc-teal) 0%,var(--wc-aqua) 100%);color:var(--white);box-shadow:0 2px 8px rgba(58,175,169,0.3)}
 .wizard-step.done{background:#0a1a0a;color:var(--green)}
 .wizard-step.phase2{background:#1a0a2a}
-.wizard-step.phase2.active{background:var(--phase2);color:var(--white)}
+.wizard-step.phase2.active{background:linear-gradient(135deg,var(--phase2) 0%,var(--phase2-light) 100%);color:var(--white);box-shadow:0 2px 8px rgba(139,92,246,0.3)}
 
 /* ── THIRD PLACE QUALIFIERS ── */
 .tpq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:14px}
@@ -216,6 +226,26 @@ input::placeholder{color:#3d5a72}
 .phase-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;padding:2px 8px;border-radius:3px;text-transform:uppercase;margin-left:6px}
 .phase-label.p1{background:#0a2a1a;color:var(--green);border:1px solid #1a4a2a}
 .phase-label.p2{background:#1a0a2a;color:var(--phase2-light);border:1px solid var(--phase2)}
+
+/* ── HOW TO PLAY MODAL ── */
+.how-to-play-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:400;display:none;align-items:center;justify-content:center;padding:20px;animation:fadeIn .3s}
+.how-to-play-overlay.open{display:flex}
+.how-to-play{background:linear-gradient(135deg,var(--navy-card) 0%,#0a1628 100%);border:2px solid var(--accent);border-radius:16px;padding:0;width:100%;max-width:600px;max-height:85vh;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.5);animation:slideUp .4s}
+.how-to-play-header{background:linear-gradient(135deg,var(--wc-teal) 0%,var(--wc-aqua) 100%);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--wc-gold)}
+.how-to-play-title{font-size:20px;font-weight:900;letter-spacing:1px;color:var(--white);display:flex;align-items:center;gap:10px}
+.how-to-play-close{background:rgba(255,255,255,0.2);border:none;color:var(--white);font-size:24px;cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.how-to-play-close:hover{background:rgba(255,255,255,0.3);transform:rotate(90deg)}
+.how-to-play-content{padding:24px;overflow-y:auto;max-height:calc(85vh - 80px)}
+.how-to-play-content h3{color:var(--wc-gold);font-size:16px;font-weight:700;margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+.how-to-play-content h3:first-child{margin-top:0}
+.how-to-play-content p{line-height:1.7;color:var(--muted);font-size:14px;margin-bottom:12px}
+.how-to-play-content ul{list-style:none;padding-left:0;margin-bottom:16px}
+.how-to-play-content li{padding:8px 12px;margin-bottom:6px;background:rgba(58,175,169,0.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.6}
+.how-to-play-content strong{color:var(--white);font-weight:600}
+.how-to-play-footer{padding:16px 24px;background:rgba(0,0,0,0.2);border-top:1px solid var(--navy-border);display:flex;gap:12px}
+.how-to-play-footer .btn{margin:0}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
 </style>
 </head>
 <body>
@@ -357,13 +387,69 @@ input::placeholder{color:#3d5a72}
     <div class="modal-header">
       <div style="display:flex;align-items:center;gap:9px">
         <img id="modal-avatar" src="" style="width:30px;height:30px;border-radius:50%;display:none" referrerpolicy="no-referrer">
-        <div id="modal-name" style="font-weight:900;font-size:17px;color:var(--amber)"></div>
+        <div id="modal-name" style="font-weight:900;font-size:17px;color:var(--wc-gold)"></div>
       </div>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div id="modal-body"></div>
   </div>
 </div>
+
+<!-- HOW TO PLAY MODAL -->
+<div class="how-to-play-overlay" id="how-to-play-modal">
+  <div class="how-to-play">
+    <div class="how-to-play-header">
+      <div class="how-to-play-title">⚽ How to Play</div>
+      <button class="how-to-play-close" onclick="closeHowToPlay()">✕</button>
+    </div>
+    <div class="how-to-play-content">
+      <h3>📅 Phase 1: Pre-Tournament Predictions</h3>
+      <p><strong>Deadline:</strong> June 17, 2026 at 11:59 PM (before Matchday 1 completes)</p>
+      <ul>
+        <li><strong>Group Standings:</strong> Drag teams to predict the top 4 in each of 12 groups (1st=2pts, 2nd=2pts, 3rd=1pt)</li>
+        <li><strong>Third-Place Qualifiers:</strong> Pick which 8 of 12 third-placed teams advance to Round of 32 (2pts each = 16pts max)</li>
+        <li><strong>Knockout Bracket:</strong> Predict R32 → R16 → Quarters → Semis → Final (auto-seeded from your group picks)</li>
+        <li><strong>Golden Boot:</strong> Pick the tournament's top scorer (5pts)</li>
+      </ul>
+
+      <h3>⚡ Phase 2: Second Chance</h3>
+      <p><strong>Unlocks:</strong> June 27, 2026 (after group stage ends)</p>
+      <ul>
+        <li><strong>Real Bracket:</strong> Predict R16 → Final using the actual qualified teams (5pts per R16/QF, 10pts per SF, 15pts for Champion)</li>
+        <li><strong>Fresh Start:</strong> Bad Phase 1 picks? Phase 2 keeps you competitive!</li>
+        <li><strong>Updated Golden Boot:</strong> Change your pick if needed (5pts)</li>
+      </ul>
+
+      <h3>🏆 Mini Leagues</h3>
+      <ul>
+        <li><strong>Create:</strong> Make a private league with a 5-letter code</li>
+        <li><strong>Invite:</strong> Share the invite link or code with friends/colleagues</li>
+        <li><strong>Join Multiple:</strong> Compete in unlimited leagues at once</li>
+        <li><strong>Global Board:</strong> Everyone also appears on the global leaderboard</li>
+      </ul>
+
+      <h3>📊 Scoring & Updates</h3>
+      <ul>
+        <li><strong>Real-Time:</strong> Points awarded as each match finishes</li>
+        <li><strong>Live Data:</strong> Results sync automatically from API-Football</li>
+        <li><strong>Breakdown:</strong> Click any player to see detailed score breakdown</li>
+        <li><strong>Total:</strong> Phase 1 + Phase 2 combined = your final score</li>
+      </ul>
+
+      <h3>📱 Tips</h3>
+      <ul>
+        <li>Works on phone and desktop - picks are saved to your Google account</li>
+        <li>Make your picks early - Phase 1 closes before the tournament starts!</li>
+        <li>Come back after June 27 for Phase 2 - it's your second chance!</li>
+        <li>Check the Live tab for tournament results and standings</li>
+      </ul>
+    </div>
+    <div class="how-to-play-footer">
+      <button class="btn btn-primary" onclick="closeHowToPlay()">Got It! Let's Play →</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -397,6 +483,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth(), db=firebase.firestore();
 const provider=new firebase.auth.GoogleAuthProvider();
+
+// ══ ADMIN CONFIG ═══════════════════════════════════════════════════════════
+const ADMIN_PASS = "worldcup2026";
+const ADMIN_UID = "YOUR_ADMIN_UID_HERE"; // Replace with your Firebase Auth UID after first sign-in
 
 // ══ URL LEAGUE INVITATION ══════════════════════════════════════════════════
 function getLeagueCodeFromURL(){
@@ -434,8 +524,6 @@ const R32_SEEDING = [
   ["2K","1L"],["2I","1J"],["2G","1H"],["2E","1F"],
 ];
 
-const ADMIN_PASS = "worldcup2026";
-
 // ══ STATE ══════════════════════════════════════════════════════════════════
 let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={};
 let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""}};
@@ -460,6 +548,17 @@ auth.onAuthStateChanged(user=>{
     document.getElementById("signin-screen").style.display="none";
     document.getElementById("main-app").style.display="block";
     renderUserBar(); startListeners();
+    
+    // Show/hide admin tab based on user UID
+    const adminTab=document.querySelector('[data-tab="admin"]');
+    if(adminTab){
+      if(user.uid===ADMIN_UID){
+        adminTab.classList.remove('admin-only');
+      }else{
+        adminTab.classList.add('admin-only');
+      }
+    }
+    
     // Check for league invite in URL
     const urlLeague=getLeagueCodeFromURL();
     if(urlLeague){
@@ -518,8 +617,10 @@ function startListeners(){
       if(!myPicks.phase1.groups||!Object.keys(myPicks.phase1.groups).length)myPicks.phase1.groups=defaultGroups();
       if(!myPicks.phase1.thirdPlaceQualifiers)myPicks.phase1.thirdPlaceQualifiers=[];
     } else {
+      // First-time user - show How to Play modal
       myPicks.phase1.groups=defaultGroups();
       myPicks.phase1.thirdPlaceQualifiers=[];
+      setTimeout(()=>showHowToPlay(),1000);
     }
     if(document.getElementById("view-picks").classList.contains("active"))renderPicksView();
   });
