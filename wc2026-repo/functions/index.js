@@ -20,9 +20,9 @@ admin.initializeApp();
 const db = admin.firestore();
 
 // ── CONFIG ────────────────────────────────────────────────────────────────
-const API_KEY     = functions.config().apifootball.key;
+const API_KEY     = process.env.APIFOOTBALL_KEY;
 const API_BASE    = "https://v3.football.api-sports.io";
-const WC_2026_ID  = 1; // FIFA World Cup 2026 — confirm league ID on API-Football
+const WC_2026_ID  = 15; // FIFA World Cup - league ID from API-Football (use 15 for World Cup, season will be 2026)
 const WC_SEASON   = 2026;
 
 const PICK_CATS = [
@@ -86,7 +86,7 @@ exports.syncWorldCup = functions
       ]);
 
       const bracket  = deriveBracket(fixtures);
-      const results  = deriveResults(fixtures);
+      const results  = deriveResults(fixtures, groups);
 
       // Write tournament display data
       await db.collection("wc2026").doc("tournament").set({
@@ -101,7 +101,7 @@ exports.syncWorldCup = functions
       await db.collection("wc2026").doc("results").set(results, { merge: true });
 
       // Recalculate all player scores
-      await recalculateScores(results);
+      await recalculateScores(results, scorers);
 
       functions.logger.info("Sync complete ✓");
     } catch (e) {
@@ -172,6 +172,8 @@ async function fetchFixtures() {
       competition: "FIFA World Cup 2026",
       home:      f.teams.home.name,
       away:      f.teams.away.name,
+      homeFlag:  getFlagEmoji(f.teams.home.id ? (f.teams.home.country || "") : ""),
+      awayFlag:  getFlagEmoji(f.teams.away.id ? (f.teams.away.country || "") : ""),
       homeScore: isFin||isLive ? f.goals.home : null,
       awayScore: isFin||isLive ? f.goals.away : null,
       status:    isLive ? "live" : isFin ? "fin" : "upcoming",
@@ -230,69 +232,141 @@ function deriveBracket(fixtures) {
 }
 
 // ── DERIVE RESULTS FOR SCORING ────────────────────────────────────────────
-function deriveResults(fixtures) {
+function deriveResults(fixtures, groups) {
   const results = {
-    groupWinners:  [],
-    quarterFinals: [],
-    semiFinals:    [],
-    finalists:     [],
-    winner:        [],
-    goldenBoot:    "",
+    groupWinners:      [], // Top 2 from each group
+    thirdPlaceQualifiers: [], // Best 3rd place teams
+    roundOf16Winners:  [], // Winners of R16 (these advance to QF)
+    quarterFinals:     [], // Winners of QF (these advance to SF)
+    semiFinals:        [], // Winners of SF (these advance to Final)
+    finalists:         [], // The 2 teams in the final
+    winner:            [], // Champion
+    goldenBoot:        "", // Top scorer name
   };
 
-  // Group winners = teams that finish top 2 in their group
-  // We derive from R32/R16 fixtures — teams who won their group round matches
-  const roundWinners = {
-    "Group Stage":        new Set(),
-    "Round of 16":        new Set(),
-    "Quarter-finals":     new Set(),
-    "Semi-finals":        new Set(),
-    "Final":              new Set(),
+  // Derive group winners from standings (top 2 from each group)
+  groups.forEach(group => {
+    const standings = group.standings || [];
+    standings.slice(0, 2).forEach(team => {
+      results.groupWinners.push(team.team);
+    });
+  });
+
+  // Derive knockout results from finished fixtures
+  const knockoutRounds = {
+    "Round of 16":     "roundOf16Winners",
+    "Quarter-finals":  "quarterFinals",
+    "Semi-finals":     "semiFinals",
+    "Final":           "finalists",
   };
 
   fixtures.forEach(f => {
-    if (f.status === "fin" && f.winner && roundWinners[f.round] !== undefined) {
-      roundWinners[f.round].add(f.winner);
+    if (f.status === "fin" && knockoutRounds[f.round]) {
+      const resultKey = knockoutRounds[f.round];
+      
+      if (f.round === "Final") {
+        // For final, store both finalists
+        results.finalists.push(f.home, f.away);
+        // And the winner
+        if (f.winner) results.winner = [f.winner];
+      } else if (f.winner) {
+        // For other knockout rounds, store winners
+        results[resultKey].push(f.winner);
+      }
     }
   });
-
-  // Map round winners to prediction categories
-  results.groupWinners  = [...roundWinners["Group Stage"]].slice(0, 12);
-  results.quarterFinals = [...roundWinners["Round of 16"]].slice(0, 8);
-  results.semiFinals    = [...roundWinners["Quarter-finals"]].slice(0, 4);
-  results.finalists     = [...roundWinners["Semi-finals"]].slice(0, 2);
-  results.winner        = [...roundWinners["Final"]].slice(0, 1);
 
   return results;
 }
 
 // ── RECALCULATE ALL PLAYER SCORES ─────────────────────────────────────────
-async function recalculateScores(results) {
-  const playersSnap = await db.collection("wc2026").doc("players").get();
-  if (!playersSnap.exists) return;
+async function recalculateScores(results, scorers) {
+  const playersSnap = await db.collection("wc2026picks").get();
+  if (playersSnap.empty) return;
 
-  const players = playersSnap.data();
-  const scores  = {};
+  const scores = {};
+  const topScorer = scorers.length > 0 ? scorers[0].name : "";
 
-  Object.entries(players).forEach(([uid, p]) => {
-    const picks = p.picks || {};
-    let score   = 0;
+  playersSnap.forEach(doc => {
+    const uid = doc.id;
+    const data = doc.data();
+    const phase1 = data.phase1 || {};
+    const phase2 = data.phase2 || {};
+    
+    let score = 0;
 
-    PICK_CATS.forEach(cat => {
-      (picks[cat.key] || []).forEach(team => {
-        if ((results[cat.key] || []).includes(team)) score += cat.pts;
+    // PHASE 1 SCORING
+    // 1. Group winners (top 2 from each group) - simplified: just check if team in results
+    const groupWinners = results.groupWinners || [];
+    if (phase1.groups) {
+      Object.values(phase1.groups).forEach(group => {
+        if (Array.isArray(group)) {
+          group.slice(0, 2).forEach(team => {
+            if (groupWinners.includes(team)) score += 2;
+          });
+        }
       });
+    }
+
+    // 2. Third place qualifiers (4 best 3rd place teams)
+    const tpq = phase1.thirdPlaceQualifiers || [];
+    const actualTPQ = results.thirdPlaceQualifiers || [];
+    tpq.forEach(team => {
+      if (actualTPQ.includes(team)) score += 3;
     });
 
-    // Golden boot
-    const gbPick   = (picks.goldenBoot || "").toLowerCase().trim();
-    const gbResult = (results.goldenBoot || "").toLowerCase().trim();
-    if (gbPick && gbResult && gbPick === gbResult) score += 10;
+    // 3. Bracket predictions - Round of 16 winners
+    const r16Winners = results.roundOf16Winners || [];
+    if (phase1.bracket && Array.isArray(phase1.bracket.r16)) {
+      phase1.bracket.r16.forEach(team => {
+        if (r16Winners.includes(team)) score += 3;
+      });
+    }
+
+    // 4. Quarter-finals
+    const qfWinners = results.quarterFinals || [];
+    if (phase1.bracket && Array.isArray(phase1.bracket.qf)) {
+      phase1.bracket.qf.forEach(team => {
+        if (qfWinners.includes(team)) score += 5;
+      });
+    }
+
+    // 5. Semi-finals
+    const sfWinners = results.semiFinals || [];
+    if (phase1.bracket && Array.isArray(phase1.bracket.sf)) {
+      phase1.bracket.sf.forEach(team => {
+        if (sfWinners.includes(team)) score += 8;
+      });
+    }
+
+    // 6. Finalists
+    const finalists = results.finalists || [];
+    if (phase1.bracket && Array.isArray(phase1.bracket.final)) {
+      phase1.bracket.final.forEach(team => {
+        if (finalists.includes(team)) score += 10;
+      });
+    }
+
+    // 7. Winner
+    const winner = results.winner || [];
+    if (phase1.bracket && Array.isArray(phase1.bracket.winner) && phase1.bracket.winner.length > 0) {
+      if (winner.includes(phase1.bracket.winner[0])) score += 20;
+    }
+
+    // 8. Golden Boot (Phase 1)
+    if (phase1.goldenBoot && topScorer) {
+      if (phase1.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) {
+        score += 10;
+      }
+    }
+
+    // PHASE 2 SCORING (second chance after groups)
+    // Similar logic for phase2.bracket and phase2.goldenBoot if you want to score them
 
     scores[uid] = score;
   });
 
-  // Write computed scores to a separate doc for fast leaderboard reads
+  // Write computed scores
   await db.collection("wc2026").doc("scores").set(scores);
   functions.logger.info(`Scores recalculated for ${Object.keys(scores).length} players`);
 }
