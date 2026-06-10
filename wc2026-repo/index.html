@@ -21,6 +21,14 @@
 body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;overscroll-behavior:none}
 #app{max-width:600px;margin:0 auto}
 
+/* ── DESKTOP RESPONSIVE ── */
+@media (min-width: 1024px) {
+  #app{max-width:1100px}
+  .desktop-grid{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
+  .desktop-left{position:sticky;top:20px}
+  .view{padding:20px}
+}
+
 /* ── HEADER ── */
 .header{background:linear-gradient(135deg,#0a2a1a 0%,#0d1b2a 60%);border-bottom:2px solid var(--amber);padding:16px 16px 12px;text-align:center}
 .badge{display:inline-block;background:var(--amber);color:var(--navy);font-size:10px;letter-spacing:2px;padding:3px 10px;border-radius:2px;margin-bottom:6px;font-weight:900}
@@ -90,6 +98,17 @@ input::placeholder{color:#3d5a72}
 .wizard-step.done{background:#0a1a0a;color:var(--green)}
 .wizard-step.phase2{background:#1a0a2a}
 .wizard-step.phase2.active{background:var(--phase2);color:var(--white)}
+
+/* ── THIRD PLACE QUALIFIERS ── */
+.tpq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:14px}
+.tpq-team{background:var(--navy-card);border:2px solid var(--navy-border);border-radius:8px;padding:10px;text-align:center;cursor:pointer;transition:all .15s}
+.tpq-team:hover{background:#162538}
+.tpq-team.selected{background:var(--pitch);border-color:var(--amber);color:var(--amber)}
+.tpq-team-flag{font-size:28px;margin-bottom:4px}
+.tpq-team-name{font-size:12px;font-weight:600}
+.tpq-team-group{font-size:9px;color:var(--muted);margin-top:2px}
+.tpq-counter{font-size:13px;color:var(--muted);margin-bottom:10px;text-align:center}
+.tpq-counter strong{color:var(--amber);font-weight:900}
 
 /* ── GROUP DRAG ── */
 .group-block{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:10px;margin-bottom:10px;overflow:hidden}
@@ -226,58 +245,66 @@ input::placeholder{color:#3d5a72}
       <div class="tab" data-tab="rules">📋 Rules</div>
     </div>
 
-    <div id="view-global" class="view active">
-      <div class="section-title">Global Standings</div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
-        <span><span class="live-dot"></span>Updates as matches finish</span>
-        <span id="last-updated"></span>
+    <div class="desktop-grid">
+      <!-- LEFT COLUMN (Desktop: sticky leaderboards) -->
+      <div class="desktop-left">
+        <div id="view-global" class="view active">
+          <div class="section-title">Global Standings</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
+            <span><span class="live-dot"></span>Updates as matches finish</span>
+            <span id="last-updated"></span>
+          </div>
+          <div id="global-list"><div class="spinner">Loading…</div></div>
+          <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px">Tap a row to see score breakdown</div>
+        </div>
+
+        <div id="view-leagues" class="view">
+          <div class="sub-nav">
+            <button class="sub-btn active"   id="btn-my"     onclick="setLeagueView('my')">My Leagues</button>
+            <button class="sub-btn inactive" id="btn-create" onclick="setLeagueView('create')">Create</button>
+            <button class="sub-btn inactive" id="btn-join"   onclick="setLeagueView('join')">Join</button>
+          </div>
+          <div id="league-panel"></div>
+        </div>
       </div>
-      <div id="global-list"><div class="spinner">Loading…</div></div>
-      <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px">Tap a row to see score breakdown</div>
-    </div>
 
-    <div id="view-live" class="view">
-      <div class="section-title">Tournament</div>
-      <div class="live-sub-nav">
-        <div class="live-tab active" onclick="setLiveTab('groups')">Groups</div>
-        <div class="live-tab" onclick="setLiveTab('fixtures')">Fixtures</div>
-        <div class="live-tab" onclick="setLiveTab('bracket')">Bracket</div>
-        <div class="live-tab" onclick="setLiveTab('scorers')">Top Scorers</div>
-      </div>
-      <div id="live-content"><div class="spinner">Loading…</div></div>
-    </div>
+      <!-- RIGHT COLUMN (Desktop: main content area) -->
+      <div class="desktop-right">
+        <div id="view-live" class="view">
+          <div class="section-title">Tournament</div>
+          <div class="live-sub-nav">
+            <div class="live-tab active" onclick="setLiveTab('groups')">Groups</div>
+            <div class="live-tab" onclick="setLiveTab('fixtures')">Fixtures</div>
+            <div class="live-tab" onclick="setLiveTab('bracket')">Bracket</div>
+            <div class="live-tab" onclick="setLiveTab('scorers')">Top Scorers</div>
+          </div>
+          <div id="live-content"><div class="spinner">Loading…</div></div>
+        </div>
 
-    <div id="view-leagues" class="view">
-      <div class="sub-nav">
-        <button class="sub-btn active"   id="btn-my"     onclick="setLeagueView('my')">My Leagues</button>
-        <button class="sub-btn inactive" id="btn-create" onclick="setLeagueView('create')">Create</button>
-        <button class="sub-btn inactive" id="btn-join"   onclick="setLeagueView('join')">Join</button>
-      </div>
-      <div id="league-panel"></div>
-    </div>
+        <div id="view-picks" class="view">
+          <div id="picks-content"><div class="spinner">Loading…</div></div>
+        </div>
 
-    <div id="view-picks" class="view">
-      <div id="picks-content"><div class="spinner">Loading…</div></div>
-    </div>
+        <div id="view-admin" class="view">
+          <div id="admin-lock" class="card">
+            <div class="card-title">Admin Panel</div>
+            <input id="admin-pass" type="password" placeholder="Admin password">
+            <button class="btn btn-secondary" onclick="unlockAdmin()">Unlock</button>
+          </div>
+          <div id="admin-panel" style="display:none"></div>
+        </div>
 
-    <div id="view-admin" class="view">
-      <div id="admin-lock" class="card">
-        <div class="card-title">Admin Panel</div>
-        <input id="admin-pass" type="password" placeholder="Admin password">
-        <button class="btn btn-secondary" onclick="unlockAdmin()">Unlock</button>
-      </div>
-      <div id="admin-panel" style="display:none"></div>
-    </div>
-
-    <div id="view-rules" class="view">
-      <div class="section-title">Scoring Rules</div>
-      <div class="card">
-        <div class="card-title">Phase 1 — Pre-Tournament <span class="phase-label p1">Phase 1</span></div>
+        <div id="view-rules" class="view">
+          <div class="section-title">Scoring Rules</div>
+          <div class="card">
+            <div class="card-title">Phase 1 — Pre-Tournament <span class="phase-label p1">Phase 1</span></div>
         <table class="rules-table">
           <thead><tr><th>Pick</th><th>Points</th></tr></thead>
           <tbody>
-            <tr><td>Group 1st place correct</td><td>1</td></tr>
-            <tr><td>Group 2nd place correct</td><td>1</td></tr>
+            <tr><td>Group 1st place correct (×12)</td><td>1 each</td></tr>
+            <tr><td>Group 2nd place correct (×12)</td><td>1 each</td></tr>
+            <tr><td>Group 3rd place correct (×12)</td><td>1 each</td></tr>
+            <tr><td>Third-place qualifier correct (×8)</td><td>2 each</td></tr>
             <tr><td>Round of 32 winner correct</td><td>2</td></tr>
             <tr><td>Round of 16 winner correct</td><td>3</td></tr>
             <tr><td>Quarter-final winner correct</td><td>5</td></tr>
@@ -286,7 +313,10 @@ input::placeholder{color:#3d5a72}
             <tr><td>🥾 Golden Boot</td><td>10</td></tr>
           </tbody>
         </table>
-        <div style="font-size:11px;color:var(--muted);line-height:1.7">Your knockout bracket is built from your group predictions. If your group picks are wrong, your knockout picks may be affected — but you still score for any correct predictions.</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.7">
+          In 2026, the top 2 from each group advance PLUS the 8 best third-placed teams (out of 12).<br>
+          Your bracket is auto-seeded from your group and third-place qualifier picks.
+        </div>
       </div>
       <div class="card" style="border-color:var(--phase2)">
         <div class="card-title">Phase 2 — Second Chance <span class="phase-label p2">Phase 2</span></div>
@@ -307,6 +337,8 @@ input::placeholder{color:#3d5a72}
           Your predicted bracket is then auto-seeded based on those picks — 1st place in Group A vs 2nd place in Group B, etc.<br>
           You then pick winners through to the Final.<br><br>
           <strong style="color:var(--white)">Rolling updates:</strong> Points are awarded as each match finishes — no waiting until the end.
+        </div>
+      </div>
         </div>
       </div>
     </div>
@@ -342,6 +374,17 @@ firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth(), db=firebase.firestore();
 const provider=new firebase.auth.GoogleAuthProvider();
 
+// ══ URL LEAGUE INVITATION ══════════════════════════════════════════════════
+function getLeagueCodeFromURL(){
+  const params=new URLSearchParams(window.location.search);
+  return params.get('league')?.toUpperCase()?.slice(0,5)||null;
+}
+function createInviteLink(code){
+  const baseURL=window.location.origin+window.location.pathname;
+  return `${baseURL}?league=${code}`;
+}
+let pendingLeagueCode=null;
+
 // ══ WORLD CUP 2026 DATA ════════════════════════════════════════════════════
 // 12 groups of 4 (FIFA 2026 expanded format: 48 teams, 12 groups)
 const WC_GROUPS = {
@@ -371,10 +414,10 @@ const ADMIN_PASS = "worldcup2026";
 
 // ══ STATE ══════════════════════════════════════════════════════════════════
 let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={};
-let myPicks={phase1:{groups:{},bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""}};
+let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""}};
 let activeLeague=null, leagueView="my", liveTab="groups";
 let adminUnlocked=false, resState={};
-let wizardStep="groups"; // groups | bracket | phase2
+let wizardStep="groups"; // groups | thirdplace | bracket | phase2
 let unsubs=[];
 
 // Default group order
@@ -393,6 +436,18 @@ auth.onAuthStateChanged(user=>{
     document.getElementById("signin-screen").style.display="none";
     document.getElementById("main-app").style.display="block";
     renderUserBar(); startListeners();
+    // Check for league invite in URL
+    const urlLeague=getLeagueCodeFromURL();
+    if(urlLeague){
+      pendingLeagueCode=urlLeague;
+      // Auto-navigate to join league after data loads
+      setTimeout(()=>{
+        if(pendingLeagueCode){
+          setView("leagues");
+          setLeagueView("join");
+        }
+      },800);
+    }
   } else {
     document.getElementById("signin-screen").style.display="flex";
     document.getElementById("main-app").style.display="none";
@@ -430,11 +485,13 @@ function startListeners(){
   db.collection("wc2026picks").doc(currentUser.uid).get().then(s=>{
     if(s.exists){
       const d=s.data();
-      myPicks.phase1=d.phase1||{groups:defaultGroups(),bracket:{},goldenBoot:""};
+      myPicks.phase1=d.phase1||{groups:defaultGroups(),thirdPlaceQualifiers:[],bracket:{},goldenBoot:""};
       myPicks.phase2=d.phase2||{bracket:{},goldenBoot:""};
       if(!myPicks.phase1.groups||!Object.keys(myPicks.phase1.groups).length)myPicks.phase1.groups=defaultGroups();
+      if(!myPicks.phase1.thirdPlaceQualifiers)myPicks.phase1.thirdPlaceQualifiers=[];
     } else {
       myPicks.phase1.groups=defaultGroups();
+      myPicks.phase1.thirdPlaceQualifiers=[];
     }
     if(document.getElementById("view-picks").classList.contains("active"))renderPicksView();
   });
@@ -448,16 +505,26 @@ function calcScore(playerData){
   const p1=(playerData.phase1)||{};
   const p2=(playerData.phase2)||{};
   const res=results;
-  let p1Group=0,p1KO=0,p2Score=0,gbScore=0;
-  const detail={p1Group:{},p1KO:{},p2:{},gb:{}};
+  let p1Group=0,p1ThirdQual=0,p1KO=0,p2Score=0,gbScore=0;
+  const detail={p1Group:{},p1ThirdQual:{},p1KO:{},p2:{},gb:{}};
 
-  // Phase 1 group picks
+  // Phase 1 group picks (1st, 2nd, 3rd)
   Object.entries(p1.groups||{}).forEach(([grp,order])=>{
     const actual=(res.groups||{})[grp]||[];
     if(actual[0]&&order[0]===actual[0]){p1Group+=1;detail.p1Group[grp+"_1st"]="hit";}
     else if(actual[0]) detail.p1Group[grp+"_1st"]="miss";
     if(actual[1]&&order[1]===actual[1]){p1Group+=1;detail.p1Group[grp+"_2nd"]="hit";}
     else if(actual[1]) detail.p1Group[grp+"_2nd"]="miss";
+    if(actual[2]&&order[2]===actual[2]){p1Group+=1;detail.p1Group[grp+"_3rd"]="hit";}
+    else if(actual[2]) detail.p1Group[grp+"_3rd"]="miss";
+  });
+
+  // Third-place qualifiers (2pts each)
+  const pickedQual=(p1.thirdPlaceQualifiers||[]);
+  const actualQual=(res.thirdPlaceQualifiers||[]);
+  pickedQual.forEach((team,i)=>{
+    if(actualQual.includes(team)){p1ThirdQual+=2;detail.p1ThirdQual["q"+i]="hit";}
+    else if(actualQual.length) detail.p1ThirdQual["q"+i]="miss";
   });
 
   // Phase 1 KO picks
@@ -492,7 +559,7 @@ function calcScore(playerData){
   const gbR=(res.goldenBoot||"").toLowerCase().trim();
   if(gb1&&gbR&&gb1===gbR){gbScore=10;detail.gb.p1="hit";}
 
-  return{total:p1Group+p1KO+p2Score+gbScore,p1Group,p1KO,p2:p2Score,gb:gbScore,detail};
+  return{total:p1Group+p1ThirdQual+p1KO+p2Score+gbScore,p1Group,p1ThirdQual,p1KO,p2:p2Score,gb:gbScore,detail};
 }
 
 // ══ GLOBAL LEADERBOARD ════════════════════════════════════════════════════
@@ -502,7 +569,7 @@ function renderLeaderboard(elId,players){
   const el=document.getElementById(elId);if(!el)return;
   const scored=Object.entries(players||{}).map(([uid,p])=>{
     const s=calcScore(p);
-    return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:s.total,p1Group:s.p1Group,p1KO:s.p1KO,p2:s.p2};
+    return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:s.total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:s.p2};
   }).sort((a,b)=>b.score-a.score);
   if(!scored.length){el.innerHTML='<div class="lb-empty">No picks yet — be the first!</div>';return;}
   const medals=["🥇","🥈","🥉"],rc=["var(--gold)","var(--silver)","var(--bronze)"],meUid=currentUser?.uid;
@@ -513,7 +580,7 @@ function renderLeaderboard(elId,players){
       <div class="rank" style="color:${rc[i]||"var(--muted)"}">${medals[i]||i+1}</div>${av}
       <div style="flex:1;overflow:hidden">
         <div class="lb-name">${esc(p.name)}${isMe?'<span class="lb-you">YOU</span>':""}</div>
-        <div class="lb-breakdown">Groups: ${p.p1Group}pt · KO: ${p.p1KO}pt${p.p2?" · 2nd: "+p.p2+"pt":""}</div>
+        <div class="lb-breakdown">Groups: ${p.p1Group}pt${p.p1ThirdQual?" · Quals: "+p.p1ThirdQual+"pt":""} · KO: ${p.p1KO}pt${p.p2?" · 2nd: "+p.p2+"pt":""}</div>
       </div>
       <div class="lb-pts">${p.score}<small> pts</small></div>
     </div>`;
@@ -541,12 +608,14 @@ function renderPicksView(){
 
   let stepsHtml=`<div class="wizard-steps">
     <div class="wizard-step${wizardStep==="groups"?" active":""}" onclick="setWizardStep('groups')">1 Groups</div>
-    <div class="wizard-step${wizardStep==="bracket"?" active":""}" onclick="setWizardStep('bracket')">2 Bracket</div>
-    <div class="wizard-step phase2${wizardStep==="phase2"?" active":""}" onclick="setWizardStep('phase2')">⚡ 2nd Chance</div>
+    <div class="wizard-step${wizardStep==="thirdplace"?" active":""}" onclick="setWizardStep('thirdplace')">2 Thirds</div>
+    <div class="wizard-step${wizardStep==="bracket"?" active":""}" onclick="setWizardStep('bracket')">3 Bracket</div>
+    <div class="wizard-step phase2${wizardStep==="phase2"?" active":""}" onclick="setWizardStep('phase2')">⚡ 2nd</div>
   </div>`;
 
   let content="";
   if(wizardStep==="groups") content=renderGroupsStep();
+  if(wizardStep==="thirdplace") content=renderThirdPlaceStep();
   if(wizardStep==="bracket") content=renderBracketStep(false);
   if(wizardStep==="phase2") content=renderPhase2Step();
 
@@ -589,7 +658,7 @@ function renderGroupsStep(){
   });
 
   html+=`<div style="height:10px"></div>
-  <button class="btn btn-primary" onclick="saveGroupsAndNext()">Next: Build My Bracket →</button>
+  <button class="btn btn-primary" onclick="saveGroupsAndNext()">Next: Pick Third-Place Qualifiers →</button>
   <div style="height:60px"></div>`;
   return html;
 }
@@ -687,19 +756,96 @@ function saveGroupsAndNext(){
       myPicks.phase1.groups[grpKey]=[...container.querySelectorAll(".drag-item")].map(i=>i.dataset.team);
     }
   });
+  wizardStep="thirdplace";
+  renderPicksView();
+}
+
+// ── THIRD PLACE STEP ──────────────────────────────────────────────────────
+function renderThirdPlaceStep(){
+  const groups=myPicks.phase1.groups;
+  // Get 3rd place teams from each group
+  const thirdPlaceTeams=[];
+  Object.entries(groups).forEach(([grp,order])=>{
+    if(order[2])thirdPlaceTeams.push({name:order[2],group:grp,flag:flagFor(order[2])});
+  });
+  
+  const selected=myPicks.phase1.thirdPlaceQualifiers||[];
+  const remaining=8-selected.length;
+  
+  let html=`<div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">
+    In 2026, the top 2 from each group advance, PLUS the 8 best third-placed teams (out of 12).<br>
+    Pick which 8 third-placed teams you think will qualify. <strong>2 points</strong> for each correct pick.
+  </div>
+  <div class="tpq-counter">Selected: <strong>${selected.length}</strong> / 8 ${remaining>0?"(pick "+remaining+" more)":"✓ Complete"}</div>
+  <div class="tpq-grid">`;
+  
+  thirdPlaceTeams.forEach(t=>{
+    const isSelected=selected.includes(t.name);
+    html+=`<div class="tpq-team${isSelected?" selected":""}" onclick="toggleThirdPlaceTeam('${escA(t.name)}')">
+      <div class="tpq-team-flag">${t.flag}</div>
+      <div class="tpq-team-name">${esc(t.name)}</div>
+      <div class="tpq-team-group">Group ${t.group} 3rd</div>
+    </div>`;
+  });
+  
+  html+=`</div>
+  <button class="btn btn-secondary" onclick="wizardStep='groups';renderPicksView()">← Back to Groups</button>
+  <button class="btn btn-primary" onclick="saveThirdPlaceAndNext()" ${selected.length!==8?"disabled":""}>
+    Next: Build My Bracket →
+  </button>
+  <div style="height:60px"></div>`;
+  return html;
+}
+
+function toggleThirdPlaceTeam(name){
+  const sel=myPicks.phase1.thirdPlaceQualifiers||[];
+  const idx=sel.indexOf(name);
+  if(idx>=0){
+    sel.splice(idx,1);
+  } else if(sel.length<8){
+    sel.push(name);
+  }
+  myPicks.phase1.thirdPlaceQualifiers=sel;
+  renderPicksView();
+}
+
+function saveThirdPlaceAndNext(){
+  if((myPicks.phase1.thirdPlaceQualifiers||[]).length!==8){
+    showToast("Please select exactly 8 teams");
+    return;
+  }
   wizardStep="bracket";
   renderPicksView();
 }
 
 // ── BRACKET STEP ──────────────────────────────────────────────────────────
-function seedBracketFromGroups(groups){
-  // Build 1A, 2A etc lookup
+function seedBracketFromGroups(groups,thirdPlaceQuals){
+  // Build 1A, 2A, 3A etc lookup
   const seed={};
   Object.entries(groups).forEach(([grp,order])=>{
     seed["1"+grp]=order[0]||"TBD";
     seed["2"+grp]=order[1]||"TBD";
+    seed["3"+grp]=order[2]||"TBD";
   });
-  return R32_SEEDING.map(([h,a])=>({
+  
+  // Add third-place qualifiers to seeding (simplified - use picked teams)
+  const quals=thirdPlaceQuals||[];
+  quals.forEach((team,i)=>{
+    seed["3Q"+(i+1)]=team;
+  });
+  
+  // R32 seeding with third-place integration (simplified version)
+  // In reality, FIFA has 495 scenarios based on which groups the 8 thirds come from
+  // For now, we'll use a simplified approach: slots 17-24 get third-place teams
+  const baseSeeding=[
+    ["1A","2B"],["1C","2D"],["1E","2F"],["1G","2H"],
+    ["1I","2J"],["1K","2L"],["1B","2A"],["1D","2C"],
+    ["1F","2E"],["1H","2G"],["1J","2I"],["1L","2K"],
+    // Third-place matchups (simplified)
+    ["3Q1","3Q2"],["3Q3","3Q4"],["3Q5","3Q6"],["3Q7","3Q8"]
+  ];
+  
+  return baseSeeding.map(([h,a])=>({
     home:seed[h]||h, away:seed[a]||a,
     homeFlag:flagFor(seed[h]||""), awayFlag:flagFor(seed[a]||""),
   }));
@@ -716,7 +862,7 @@ function flagFor(name){
 function renderBracketStep(isPhase2){
   const picks=isPhase2?myPicks.phase2:myPicks.phase1;
   const bracket=picks.bracket||{};
-  const r32matches=seedBracketFromGroups(myPicks.phase1.groups);
+  const r32matches=seedBracketFromGroups(myPicks.phase1.groups,myPicks.phase1.thirdPlaceQualifiers);
 
   // Build progressive rounds from picks
   const rounds=isPhase2
@@ -1026,14 +1172,25 @@ function renderMyLeagues(){
   <div id="league-board"></div>
   <div class="card" style="margin-top:12px">
     <div class="card-title">Invite friends</div>
-    <div style="display:flex;gap:7px;align-items:center">
-      <div style="flex:1;background:#0a1520;border:1px solid var(--navy-border);border-radius:6px;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:5px;color:var(--amber);text-align:center">${activeLeague}</div>
-      <button class="btn btn-secondary" style="width:auto;padding:9px 14px" onclick="copyCode('${activeLeague}')">Copy</button>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Share invite link or code:</div>
+    <div style="display:flex;gap:7px;margin-bottom:8px">
+      <button class="btn btn-primary" style="width:auto;flex:1" onclick="copyInviteLink('${activeLeague}')">📋 Copy Invite Link</button>
+      <button class="btn btn-secondary" style="width:auto;padding:9px 14px" onclick="copyCode('${activeLeague}')">Copy Code</button>
     </div>
+    <div style="font-size:10px;color:var(--muted);text-align:center;font-family:'JetBrains Mono',monospace">Code: ${activeLeague}</div>
   </div>`;
   if(mine.length>1){
     html+=`<div style="margin-top:12px"><div class="card-title">Switch League</div>`;
-    mine.forEach(([code,l])=>{html+=`<div class="league-row${code===activeLeague?" active-league":""}" onclick="switchLeague('${code}')"><span style="font-weight:600;font-size:13px">${esc(l.name)}</span><span class="code-badge">${code}</span></div>`;});
+    mine.forEach(([code,l])=>{
+      const isActive=code===activeLeague;
+      html+=`<div class="league-row${isActive?" active-league":""}" onclick="switchLeague('${code}')">
+        <span style="font-weight:600;font-size:13px">${esc(l.name)}</span>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span class="code-badge">${code}</span>
+          <button onclick="event.stopPropagation();copyInviteLink('${code}')" style="background:none;border:1px solid var(--navy-border);color:var(--muted);font-size:10px;padding:3px 7px;border-radius:4px;cursor:pointer">📋</button>
+        </div>
+      </div>`;
+    });
     html+=`</div>`;
   }
   el.innerHTML=html; renderLeagueBoard();
@@ -1048,6 +1205,7 @@ function copyCode(code){navigator.clipboard.writeText(code).then(()=>showToast(`
 function renderCreateLeague(){
   document.getElementById("league-panel").innerHTML=`<div class="card">
     <div class="card-title">Create a Mini League</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Create a private league and invite friends via link</div>
     <input id="cl-name" placeholder="League name (e.g. Work Gang)" maxlength="40">
     <button class="btn btn-primary" onclick="createLeague()" id="cl-btn">Create League →</button>
   </div>`;
@@ -1059,15 +1217,39 @@ async function createLeague(){
   const btn=document.getElementById("cl-btn");btn.textContent="Creating…";btn.disabled=true;
   try{
     await db.collection("wc2026").doc("leagues").set({[code]:{name,members:[currentUser.uid],createdBy:currentUser.uid,createdByName:currentUser.displayName||""}},{merge:true});
-    activeLeague=code;setLeagueView("my");showToast(`League created! Code: ${code}`);
+    activeLeague=code;
+    const inviteLink=createInviteLink(code);
+    setLeagueView("my");
+    showInviteModal(code,name,inviteLink);
   }catch{showToast("Failed");btn.textContent="Create League →";btn.disabled=false;}
 }
+function showInviteModal(code,name,link){
+  const el=document.getElementById("league-panel");
+  el.innerHTML=`<div class="card" style="border-color:var(--amber)">
+    <div class="card-title">🎉 League Created!</div>
+    <div style="font-size:14px;margin:12px 0;font-weight:600">${esc(name)}</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:14px">Share this invite link with friends:</div>
+    <div style="background:var(--navy);border:1px solid var(--navy-border);border-radius:6px;padding:10px;margin-bottom:10px;font-family:'JetBrains Mono',monospace;font-size:11px;word-break:break-all;color:var(--amber)">${esc(link)}</div>
+    <button class="btn btn-primary" onclick="copyInviteLink('${code}')">📋 Copy Invite Link</button>
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--muted)">Or share code: <span style="font-family:'JetBrains Mono';font-weight:700;color:var(--white)">${code}</span></div>
+  </div>`;
+}
+function copyInviteLink(code){
+  const link=createInviteLink(code);
+  navigator.clipboard.writeText(link).then(()=>showToast("Invite link copied!")).catch(()=>showToast(link));
+}
 function renderJoinLeague(){
+  const prefill=pendingLeagueCode||"";
   document.getElementById("league-panel").innerHTML=`<div class="card">
     <div class="card-title">Join a League</div>
-    <input id="jl-code" placeholder="XXXXX" maxlength="5" style="text-transform:uppercase;font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:5px;text-align:center">
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Enter the 5-letter league code</div>
+    <input id="jl-code" placeholder="XXXXX" maxlength="5" value="${prefill}" style="text-transform:uppercase;font-family:'JetBrains Mono',monospace;font-size:22px;letter-spacing:5px;text-align:center">
     <button class="btn btn-primary" onclick="joinLeague()" id="jl-btn">Join League →</button>
   </div>`;
+  if(pendingLeagueCode){
+    document.getElementById("jl-code").focus();
+    showToast(`Ready to join league: ${pendingLeagueCode}`);
+  }
 }
 async function joinLeague(){
   const code=(document.getElementById("jl-code").value||"").trim().toUpperCase();
@@ -1081,7 +1263,9 @@ async function joinLeague(){
   if(!updated.members.includes(uid))updated.members=[...updated.members,uid];
   try{
     await db.collection("wc2026").doc("leagues").set({[code]:updated},{merge:true});
-    activeLeague=code;setLeagueView("my");showToast(`Joined "${fresh[code].name}"!`);
+    activeLeague=code;
+    pendingLeagueCode=null; // Clear pending
+    setLeagueView("my");showToast(`Joined "${fresh[code].name}"!`);
   }catch{showToast("Failed");btn.textContent="Join League →";btn.disabled=false;}
 }
 
@@ -1103,18 +1287,28 @@ function renderAdminPanel(){
   </div>
   <div class="card">
     <div class="card-title">Group Results — Actual Standings</div>
-    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Enter each group's top 2 finishers. These are used for scoring Phase 1 group picks.</div>`;
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Enter each group's top 3 finishers. These are used for scoring Phase 1 group picks.</div>`;
   Object.keys(WC_GROUPS).forEach(grp=>{
     const actual=(resState.groups||{})[grp]||[];
     html+=`<div style="margin-bottom:10px">
-      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:1px">GROUP ${grp} — Top 2</div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:1px">GROUP ${grp} — Top 3</div>
       <div style="display:flex;gap:6px">
-        <input style="margin:0;font-size:12px" placeholder="1st place" value="${esc(actual[0]||"")}" oninput="setGroupResult('${grp}',0,this.value)" id="gr-${grp}-0">
-        <input style="margin:0;font-size:12px" placeholder="2nd place" value="${esc(actual[1]||"")}" oninput="setGroupResult('${grp}',1,this.value)" id="gr-${grp}-1">
+        <input style="margin:0;font-size:11px" placeholder="1st" value="${esc(actual[0]||"")}" oninput="setGroupResult('${grp}',0,this.value)" id="gr-${grp}-0">
+        <input style="margin:0;font-size:11px" placeholder="2nd" value="${esc(actual[1]||"")}" oninput="setGroupResult('${grp}',1,this.value)" id="gr-${grp}-1">
+        <input style="margin:0;font-size:11px" placeholder="3rd" value="${esc(actual[2]||"")}" oninput="setGroupResult('${grp}',2,this.value)" id="gr-${grp}-2">
       </div>
     </div>`;
   });
   html+=`</div>
+  <div class="card">
+    <div class="card-title">Third-Place Qualifiers</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Enter the 8 third-placed teams that advanced to R32. These are used for scoring third-place qualifier picks (2pts each).</div>
+    <div style="display:flex;flex-wrap:wrap;gap:5px">`;
+  const tpq=(resState.thirdPlaceQualifiers||[]);
+  for(let i=0;i<8;i++){
+    html+=`<input style="margin:0;font-size:11px;width:calc(50% - 3px)" placeholder="Qualifier ${i+1}" value="${esc(tpq[i]||"")}" oninput="setThirdPlaceQual(${i},this.value)">`;
+  }
+  html+=`</div></div>
   <div class="card">
     <div class="card-title">Knockout Results</div>`;
   [["r32","Round of 32",32],["r16","Round of 16",16],["qf","Quarter-Finals",8],["sf","Semi-Finals",4],["final","Final",2]].forEach(([key,label,n])=>{
@@ -1136,8 +1330,12 @@ function renderAdminPanel(){
 }
 function setGroupResult(grp,pos,val){
   if(!resState.groups)resState.groups={};
-  if(!resState.groups[grp])resState.groups[grp]=["",""];
+  if(!resState.groups[grp])resState.groups[grp]=["","",""];
   resState.groups[grp][pos]=val;
+}
+function setThirdPlaceQual(idx,val){
+  if(!resState.thirdPlaceQualifiers)resState.thirdPlaceQualifiers=[];
+  resState.thirdPlaceQualifiers[idx]=val;
 }
 function setKOResult(round,idx,val){
   if(!resState.bracket)resState.bracket={};
@@ -1163,16 +1361,20 @@ function showDetail(uid){
   const av=document.getElementById("modal-avatar");
   if(p.photoURL){av.src=p.photoURL;av.style.display="block";}else av.style.display="none";
   document.getElementById("modal-name").textContent=p.name||"Unknown";
-  let html=`<div style="display:flex;gap:10px;margin-bottom:14px">
-    <div style="flex:1;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
+  let html=`<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+    <div style="flex:1;min-width:100px;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
       <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Groups</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--green)">${s.p1Group}</div>
     </div>
-    <div style="flex:1;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
+    ${s.p1ThirdQual>0?`<div style="flex:1;min-width:100px;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Qualifiers</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--green)">${s.p1ThirdQual}</div>
+    </div>`:""}
+    <div style="flex:1;min-width:100px;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
       <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Knockouts</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--amber)">${s.p1KO}</div>
     </div>
-    ${s.p2>0?`<div style="flex:1;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
+    ${s.p2>0?`<div style="flex:1;min-width:100px;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
       <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">2nd Chance</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--phase2-light)">${s.p2}</div>
     </div>`:""}
