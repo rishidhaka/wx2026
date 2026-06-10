@@ -22,7 +22,7 @@ const db = admin.firestore();
 // ── CONFIG ────────────────────────────────────────────────────────────────
 const API_KEY     = process.env.APIFOOTBALL_KEY;
 const API_BASE    = "https://v3.football.api-sports.io";
-const WC_2026_ID  = 15; // FIFA World Cup - league ID from API-Football (use 15 for World Cup, season will be 2026)
+const WC_2026_ID  = 1; // FIFA World Cup - league ID verified from API-Football (ID: 1, Season: 2026)
 const WC_SEASON   = 2026;
 
 const PICK_CATS = [
