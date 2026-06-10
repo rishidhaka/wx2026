@@ -1,20 +1,94 @@
 # Changelog
 
-## v4.0.0 — Current (in progress)
+## v4.1.0 — Phase Timing & Email Reminders (June 10, 2026) ⚡ CURRENT
 ### Added
-- Group stage: full 1st/2nd/3rd/4th ranking with drag-to-reorder
-- Third-place qualifier picks: predict which 8 of 12 third-placed teams advance (2pts each)
-- Responsive desktop layout: two-column grid on screens ≥ 1024px
-- Updated max score: 178pts Phase 1 + 80pts Phase 2 = 258pts total
-- Updated R32 seeding logic to account for third-place team slots
+- **Phase 1 deadline enforcement**: Picks and league joins close June 17, 2026 11:59 PM (UTC-6)
+  - `PHASE1_DEADLINE` constant with timezone-aware date
+  - `isPhase1Open()` helper checks current date vs deadline
+  - `getPhase1TimeRemaining()` shows dynamic countdown (e.g., "7d 12h left")
+  - Deadline checks in `savePicks()` and `joinLeague()` functions
+- **Phase 2 auto-unlock**: System automatically unlocks Phase 2 on June 27, 2026 11:59 PM (UTC-6)
+  - `GROUP_STAGE_END` constant
+  - `isGroupStageComplete()` helper
+  - Auto-unlock logic in Firestore listener (no manual admin action needed)
+- **Deadline countdown banner**: Shows in Picks tab
+  - Before deadline: "⏰ Phase 1 closes: **7d 12h left** (June 17, 11:59 PM)"
+  - After deadline: "🔒 Phase 1 closed — Picks locked until Phase 2 opens"
+  - CSS styling: `.deadline-banner` and `.deadline-banner.closed`
+- **Email reminders documentation**: Complete setup guide for Firebase Cloud Functions + SendGrid
+  - Scheduled reminders for users without picks
+  - HTML email template with countdown
+  - Automatically stops after deadline
+  - Cost: $0/month for most leagues (SendGrid free tier)
+- **Player autocomplete**: Datalist with 30+ top players for Golden Boot selection
+  - Includes Mbappé, Haaland, Messi, Ronaldo, Kane, Lewandowski, etc.
+  - Works for both Phase 1 and Phase 2 Golden Boot inputs
 
 ### Changed
-- Group scoring: now awards 1pt for 3rd place correct (was 1st/2nd only)
-- Scoring rules tab fully rewritten to reflect new format
-- Architecture doc updated with thirdPlaceQualifiers field in data model
+- **Phase 2 scoring rebalanced**: Champion now 15pts (was 20pts)
+  - R16: 5pts (was 2pts in Phase 1)
+  - QF: 5pts (was 3pts in Phase 1)
+  - SF: 10pts (same as Phase 1)
+  - Final: 15pts for champion (was 20pts in Phase 1)
+  - Golden Boot: 5pts (same as Phase 1)
+  - **Rationale**: Prevents Phase 2 from being worth more than Phase 1
 
 ### Fixed
-- Max score was incorrectly stated as 180pts in tests and rules tab
+- **Third-place team display in bracket**: Shows actual team names instead of "3Q1", "3Q2", etc.
+  - Improved `seedBracketFromGroups()` with better filtering: `.filter(t=>t&&t.trim())`
+  - Conditional seed lookup to prevent "TBD" fallback when team name is empty
+  - Fixes bug where third-place teams weren't propagating to bracket display
+
+### Documentation
+- **PHASE_TIMING_IMPLEMENTATION.md**: Complete guide to deadline logic, auto-unlock, testing
+- **EMAIL_REMINDERS.md**: Step-by-step Cloud Function + SendGrid setup
+- **README.md**: Updated with new features, important dates timeline
+- **DEPLOYMENT_READY.md**: Updated checklist with phase timing
+
+### Deployment
+- Commits: `b9dca27`, `8df6f6a`
+- Live URL: https://world-cup-2026-e1a0b.web.app
+- GitHub auto-deploy: Active (pushes to main auto-deploy)
+
+---
+
+## v4.0.0 — Third-Place Qualifiers + Desktop Layout + URL Invites
+### Added
+- **Third-place qualifier picks**: Predict which 8 of 12 third-placed teams advance (2pts each, 16pts max)
+  - New wizard step: Groups → **Thirds** → Bracket → Phase 2
+  - `myPicks.phase1.thirdPlaceQualifiers` array (8 team names)
+  - `renderThirdPlaceStep()` with visual selection interface
+  - `toggleThirdPlaceTeam()` and `saveThirdPlaceAndNext()` functions
+  - Admin panel: Third-place qualifier input (8 teams)
+- **Desktop responsive layout**: Two-column grid on screens ≥ 1024px
+  - Left sidebar (340px, sticky): User bar, tabs, leagues
+  - Right content (1fr): Main view area
+  - CSS: `@media (min-width: 1024px)` with `.desktop-grid`
+- **URL-based league invitations**: Share leagues with one link
+  - `getLeagueCodeFromURL()` - parses `?league=XXXXX` from URL
+  - `createInviteLink(code)` - generates full invite URL
+  - Auto-join flow: URL parameter → pre-fill join screen
+  - Copy invite link buttons throughout UI (after creation, in league list, active league)
+- **R32 bracket seeding with third-place teams**: Integrates 8 third-place qualifiers into Round of 32
+  - `seedBracketFromGroups()` updated to accept `(groups, thirdPlaceQuals)`
+  - Creates 16 R32 matchups including 3Q1-3Q8 seeds
+  - Matches official 2026 World Cup format (495 possible combinations)
+
+### Changed
+- **Max scores removed**: Eliminated "= X max" from all scoring rules displays
+- **Scoring engine updated**: `calcScore()` now includes `p1ThirdQual` tracking
+  - Leaderboard breakdown: "Groups: X · Quals: X · KO: X · 2nd: X"
+  - Score detail modal includes qualifiers breakdown
+- **Wizard updated**: 4 steps instead of 3 (Groups → Thirds → Bracket → ⚡ 2nd)
+- **Architecture**: Updated with `thirdPlaceQualifiers` field in data model
+
+### Fixed
+- Max score was incorrectly stated as 180pts (now correctly shows as calculated values)
+
+### Documentation
+- **DEPLOYMENT_READY.md**: Complete deployment checklist and guide
+- **README.md**: Added URL invite documentation
+- **docs/ARCHITECTURE.md**: Updated data models with third-place fields
 
 ---
 
