@@ -323,12 +323,13 @@ input::placeholder{color:#3d5a72}
         <table class="rules-table">
           <thead><tr><th>Pick</th><th>Points</th></tr></thead>
           <tbody>
-            <tr><td>Any knockout round correct</td><td>5 flat</td></tr>
-            <tr><td>Champion correct</td><td>5</td></tr>
+            <tr><td>Round of 16 / Quarter-final winner</td><td>5</td></tr>
+            <tr><td>Semi-final winner (×2)</td><td>10 each</td></tr>
+            <tr><td>Champion correct</td><td>15</td></tr>
             <tr><td>🥾 Golden Boot (update)</td><td>5</td></tr>
           </tbody>
         </table>
-        <div style="font-size:11px;color:var(--muted);line-height:1.7">Unlocks after the group stage. You get the real R16 bracket and can predict again — 5pts per correct call. Keeps the game alive even if your Phase 1 picks were wrong.</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.7">Unlocks after the group stage. You get the real R16 bracket and can predict again. Keeps the game alive even if your Phase 1 picks were wrong.</div>
       </div>
       <div class="card">
         <div class="card-title">How the Bracket Works</div>
@@ -499,7 +500,7 @@ function startListeners(){
 
 // ══ SCORING ════════════════════════════════════════════════════════════════
 const P1_KO_PTS = {r32:2, r16:3, qf:5, sf:10, final:20};
-const P2_PTS = 5;
+const P2_PTS = {r16:5, qf:5, sf:10, final:15};
 
 function calcScore(playerData){
   const p1=(playerData.phase1)||{};
@@ -543,15 +544,16 @@ function calcScore(playerData){
     rounds.forEach(round=>{
       const picks=(p2.bracket||{})[round]||[];
       const actual=(res.bracket||{})[round]||[];
+      const pts=P2_PTS[round]||5;
       picks.forEach((team,i)=>{
-        if(actual[i]&&team===actual[i]){p2Score+=P2_PTS;detail.p2[round+"_"+i]="hit";}
+        if(actual[i]&&team===actual[i]){p2Score+=pts;detail.p2[round+"_"+i]="hit";}
         else if(actual[i]) detail.p2[round+"_"+i]="miss";
       });
     });
     // Phase 2 golden boot
     const gb2=(p2.goldenBoot||"").toLowerCase().trim();
     const gbR=(res.goldenBoot||"").toLowerCase().trim();
-    if(gb2&&gbR&&gb2===gbR){p2Score+=P2_PTS;detail.gb.p2="hit";}
+    if(gb2&&gbR&&gb2===gbR){p2Score+=5;detail.gb.p2="hit";}
   }
 
   // Golden boot phase 1
@@ -888,7 +890,7 @@ function renderBracketStep(isPhase2){
   });
 
   let html=`<div style="font-size:12px;color:var(--muted);margin-bottom:10px">
-    ${isPhase2?`<span class="phase-label p2">Phase 2</span> Real bracket — predict from R16 onwards. 5pts per correct pick.`
+    ${isPhase2?`<span class="phase-label p2">Phase 2</span> Real bracket — 5pts R16/QF, 10pts SF, 15pts Champion.`
     :`<span class="phase-label p1">Phase 1</span> Based on your group predictions — pick match winners all the way to the Final.`}
   </div>
   <div class="bracket-container"><div class="bracket-grid" id="bracket-grid"></div></div>
@@ -1014,7 +1016,7 @@ function renderPhase2Step(){
   }
   return`<div class="phase2-banner">
     <div class="phase2-title">⚡ Second Chance Unlocked</div>
-    <div class="phase2-sub">The real bracket is set. Predict from R16 to the Final — 5pts per correct pick. Game's not over!</div>
+    <div class="phase2-sub">The real bracket is set. Predict from R16 to the Final — 5pts R16/QF, 10pts SF, 15pts Champion. Game's not over!</div>
   </div>`+renderBracketStep(true);
 }
 
