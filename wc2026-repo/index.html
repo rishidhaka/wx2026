@@ -800,6 +800,7 @@ function renderThirdPlaceStep(){
 }
 
 function toggleThirdPlaceTeam(name){
+  if(!name||!name.trim())return;
   const sel=myPicks.phase1.thirdPlaceQualifiers||[];
   const idx=sel.indexOf(name);
   if(idx>=0){
@@ -808,6 +809,7 @@ function toggleThirdPlaceTeam(name){
     sel.push(name);
   }
   myPicks.phase1.thirdPlaceQualifiers=sel;
+  console.log('Third place qualifiers:',sel);
   renderPicksView();
 }
 
@@ -831,9 +833,9 @@ function seedBracketFromGroups(groups,thirdPlaceQuals){
   });
   
   // Add third-place qualifiers to seeding (simplified - use picked teams)
-  const quals=thirdPlaceQuals||[];
+  const quals=(thirdPlaceQuals||[]).filter(t=>t&&t.trim());
   quals.forEach((team,i)=>{
-    seed["3Q"+(i+1)]=team;
+    if(team&&team.trim())seed["3Q"+(i+1)]=team.trim();
   });
   
   // R32 seeding with third-place integration (simplified version)
@@ -848,7 +850,8 @@ function seedBracketFromGroups(groups,thirdPlaceQuals){
   ];
   
   return baseSeeding.map(([h,a])=>({
-    home:seed[h]||h, away:seed[a]||a,
+    home:(seed[h]&&seed[h]!=="TBD")?seed[h]:h,
+    away:(seed[a]&&seed[a]!=="TBD")?seed[a]:a,
     homeFlag:flagFor(seed[h]||""), awayFlag:flagFor(seed[a]||""),
   }));
 }
@@ -896,7 +899,7 @@ function renderBracketStep(isPhase2){
   <div class="bracket-container"><div class="bracket-grid" id="bracket-grid"></div></div>
   <div style="margin-top:12px">
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
-    <input id="gb-input-${isPhase2?"p2":"p1"}" placeholder="Player name (e.g. Kylian Mbappé)" value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px">
+    <input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Player name (e.g. Kylian Mbappé)" value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px">
   </div>
   <button class="btn btn-primary" style="margin-top:8px" onclick="savePicks(${isPhase2})">Save ${isPhase2?"Second Chance ":""}Picks ✓</button>
   ${!isPhase2?`<button class="btn btn-secondary" style="margin-top:8px" onclick="setWizardStep('groups')">← Back to Groups</button>`:""}
@@ -1393,5 +1396,37 @@ function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").
 function escA(s){return String(s||"").replace(/'/g,"\\'")}
 function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400);}
 </script>
+<datalist id="player-list">
+  <option value="Kylian Mbappé">
+  <option value="Lionel Messi">
+  <option value="Cristiano Ronaldo">
+  <option value="Erling Haaland">
+  <option value="Vinicius Junior">
+  <option value="Harry Kane">
+  <option value="Jude Bellingham">
+  <option value="Mohamed Salah">
+  <option value="Neymar Jr">
+  <option value="Kevin De Bruyne">
+  <option value="Robert Lewandowski">
+  <option value="Lautaro Martínez">
+  <option value="Bukayo Saka">
+  <option value="Phil Foden">
+  <option value="Lamine Yamal">
+  <option value="Florian Wirtz">
+  <option value="Jamal Musiala">
+  <option value="Rafael Leão">
+  <option value="Victor Osimhen">
+  <option value="Son Heung-min">
+  <option value="Antoine Griezmann">
+  <option value="Rodri">
+  <option value="Bruno Fernandes">
+  <option value="Federico Valverde">
+  <option value="Julián Álvarez">
+  <option value="Kai Havertz">
+  <option value="Cole Palmer">
+  <option value="Christopher Nkunku">
+  <option value="Marcus Rashford">
+  <option value="Alexis Mac Allister">
+</datalist>
 </body>
 </html>
