@@ -155,6 +155,11 @@ input::placeholder{color:#3d5a72}
 .phase2-locked{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;text-align:center;color:var(--muted)}
 .phase2-locked-icon{font-size:42px;margin-bottom:12px}
 
+/* ── DEADLINE BANNER ── */
+.deadline-banner{background:linear-gradient(135deg,#2a1a0a,#1a0a0a);border:1px solid var(--amber);border-radius:8px;padding:10px 14px;margin-bottom:14px;text-align:center;font-size:12px;color:var(--amber);font-weight:600}
+.deadline-banner strong{color:var(--white);font-weight:900}
+.deadline-banner.closed{background:linear-gradient(135deg,#1a0a0a,#0a0a0a);border-color:var(--muted);color:var(--muted)}
+
 /* ── LEAGUE ── */
 .sub-nav{display:flex;gap:7px;margin-bottom:14px}
 .sub-btn{flex:1;padding:8px 4px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
@@ -362,6 +367,24 @@ input::placeholder{color:#3d5a72}
 <div class="toast" id="toast"></div>
 
 <script>
+// ══ DEADLINES ══════════════════════════════════════════════════════════════
+// Phase 1 picks close when all Matchday 1 games complete (June 17, 2026 23:59:59 UTC-6 Mexico City)
+const PHASE1_DEADLINE=new Date('2026-06-17T23:59:59-06:00');
+// Phase 2 unlocks after group stage ends (June 27, 2026 23:59:59 UTC-6)
+const GROUP_STAGE_END=new Date('2026-06-27T23:59:59-06:00');
+
+function isPhase1Open(){return new Date()<PHASE1_DEADLINE;}
+function isGroupStageComplete(){return new Date()>=GROUP_STAGE_END;}
+function getPhase1TimeRemaining(){
+  const diff=PHASE1_DEADLINE-new Date();
+  if(diff<=0)return"Closed";
+  const days=Math.floor(diff/86400000);
+  const hrs=Math.floor((diff%86400000)/3600000);
+  if(days>0)return`${days}d ${hrs}h left`;
+  if(hrs>0)return`${hrs}h left`;
+  return"Closing soon";
+}
+
 // ══ FIREBASE CONFIG ════════════════════════════════════════════════════════
 const firebaseConfig = {
   apiKey:            "AIzaSyCdvfS5SvUcGav26RtMmBI8cY7KLCuy4dA",
@@ -471,6 +494,10 @@ function startListeners(){
     }),
     db.collection("wc2026").doc("results").onSnapshot(s=>{
       results=s.exists?s.data():{};
+      // Auto-unlock Phase 2 if group stage is complete
+      if(!results.phase2Unlocked&&isGroupStageComplete()){
+        db.collection("wc2026").doc("results").set({phase2Unlocked:true},{merge:true});
+      }
       renderGlobal(); renderLeagueBoard();
     }),
     db.collection("wc2026").doc("leagues").onSnapshot(s=>{
@@ -608,7 +635,16 @@ function renderPicksView(){
   const el=document.getElementById("picks-content");
   const phase2Unlocked=results.phase2Unlocked;
 
-  let stepsHtml=`<div class="wizard-steps">
+  // Show deadline warning if Phase 1 is closing soon
+  let deadlineWarning="";
+  if(!phase2Unlocked&&isPhase1Open()){
+    const timeLeft=getPhase1TimeRemaining();
+    deadlineWarning=`<div class="deadline-banner">⏰ Phase 1 closes: <strong>${esc(timeLeft)}</strong> (June 17, 11:59 PM)</div>`;
+  }else if(!phase2Unlocked&&!isPhase1Open()){
+    deadlineWarning=`<div class="deadline-banner closed">🔒 Phase 1 closed — Picks locked until Phase 2 opens after group stage</div>`;
+  }
+
+  let stepsHtml=deadlineWarning+`<div class="wizard-steps">
     <div class="wizard-step${wizardStep==="groups"?" active":""}" onclick="setWizardStep('groups')">1 Groups</div>
     <div class="wizard-step${wizardStep==="thirdplace"?" active":""}" onclick="setWizardStep('thirdplace')">2 Thirds</div>
     <div class="wizard-step${wizardStep==="bracket"?" active":""}" onclick="setWizardStep('bracket')">3 Bracket</div>
@@ -1025,6 +1061,11 @@ function renderPhase2Step(){
 
 // ── SAVE PICKS ────────────────────────────────────────────────────────────
 async function savePicks(isPhase2){
+  // Check Phase 1 deadline
+  if(!isPhase2&&!isPhase1Open()){
+    showToast("Phase 1 picks closed! Group stage started.");
+    return;
+  }
   const gbInput=document.getElementById(isPhase2?"gb-input-p2":"gb-input-p1");
   if(gbInput){
     if(isPhase2) myPicks.phase2.goldenBoot=gbInput.value.trim();
@@ -1257,6 +1298,11 @@ function renderJoinLeague(){
   }
 }
 async function joinLeague(){
+  // Check Phase 1 deadline for joining
+  if(!isPhase1Open()){
+    showToast("Cannot join — Phase 1 closed! All Matchday 1 games have started.");
+    return;
+  }
   const code=(document.getElementById("jl-code").value||"").trim().toUpperCase();
   if(code.length!==5){showToast("Enter a 5-letter code");return;}
   const snap=await db.collection("wc2026").doc("leagues").get();
