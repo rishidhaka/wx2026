@@ -1243,10 +1243,34 @@ function setLiveTab(tab){
 }
 function renderLiveTab(){
   const el=document.getElementById("live-content"),td=tournamentData;
-  if(!td||!Object.keys(td).length){
+  const hasLiveData=td&&Object.keys(td).length>0;
+  
+  // If no live data yet, show static tournament structure for groups
+  if(!hasLiveData&&liveTab==="groups"){
+    const staticGroups=Object.entries(WC_GROUPS).map(([name,teams])=>({
+      name,
+      standings:teams.map((t,idx)=>({
+        team:t.name,
+        flag:t.flag,
+        played:0,
+        won:0,
+        drawn:0,
+        lost:0,
+        gd:0,
+        points:0
+      }))
+    }));
+    renderLiveGroups(el,staticGroups);
+    return;
+  }
+  
+  // For other tabs without live data, show awaiting message
+  if(!hasLiveData){
     el.innerHTML=`<div class="card"><div class="card-title">⏳ Awaiting live data</div><div style="font-size:13px;color:var(--muted);line-height:1.7">Live tournament data appears here once the Cloud Function is deployed. Until then, use the Admin tab for manual updates.</div></div>`;
     return;
   }
+  
+  // Render live data
   if(liveTab==="groups")   renderLiveGroups(el,td.groups||[]);
   if(liveTab==="fixtures") renderLiveFixtures(el,td.fixtures||[]);
   if(liveTab==="bracket")  renderLiveBracket(el,td.bracket||{});
