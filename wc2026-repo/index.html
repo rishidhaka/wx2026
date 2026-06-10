@@ -1539,6 +1539,8 @@ function showDetail(uid){
   document.getElementById("modal").classList.add("open");
 }
 function closeModal(){document.getElementById("modal").classList.remove("open");}
+function showHowToPlay(){document.getElementById("how-to-play-modal").classList.add("open");}
+function closeHowToPlay(){document.getElementById("how-to-play-modal").classList.remove("open");}
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 function escA(s){return String(s||"").replace(/'/g,"\\'")}
 function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400);}
