@@ -671,6 +671,8 @@ let wizardStep="groups"; // groups | thirdplace | bracket | phase2
 let bracketRoundStep={phase1:0,phase2:0};
 let tpqExpandedDetails={};
 let unsubs=[];
+let draftSaveTimer=null;
+let draftSaveInFlight=false;
 
 // Default group order
 function defaultGroups(){
@@ -1250,6 +1252,7 @@ function updateGroupOrder(grpKey){
   const order=[...container.querySelectorAll(".drag-item")].map(i=>i.dataset.team);
   myPicks.phase1.groups[grpKey]=order;
   refreshGroupPositions(grpKey);
+  scheduleDraftAutoSave("groups");
 }
 
 function refreshGroupPositions(grpKey){
@@ -1353,6 +1356,7 @@ function updateThirdPlaceRankingFromDOM(){
   myPicks.phase1.thirdPlaceRanking=ranking;
   myPicks.phase1.thirdPlaceQualifiers=ranking.slice(0,8);
   renderPicksView();
+  scheduleDraftAutoSave("third-place");
 }
 
 function toggleTpqDetails(teamName){
@@ -1563,7 +1567,7 @@ function renderBracketStep(isPhase2){
   </div>
   <div style="margin-top:12px">
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
-    <input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border=''" autocomplete="off">
+    <input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border='';${isPhase2?"myPicks.phase2.goldenBoot=this.value.trim();":"myPicks.phase1.goldenBoot=this.value.trim();"}scheduleDraftAutoSave('golden-boot')" autocomplete="off">
   </div>
   <button class="btn btn-primary" style="margin-top:8px" onclick="savePicks(${isPhase2})">Save ${isPhase2?"Second Chance ":""}Picks ✓</button>
   ${!isPhase2?`<button class="btn btn-secondary" style="margin-top:8px" onclick="setWizardStep('groups')">← Back to Groups</button>`:""}
@@ -1604,7 +1608,8 @@ function renderBracketGrid(rounds, bracket, isPhase2){
     for(let i=0;i<teams.length;i+=2){
       const h=teams[i]||"TBD", a=teams[i+1]||"TBD";
       const hf=flagFor(h), af=flagFor(a);
-      const hSel=picks[i]===h, aSel=picks[i+1]===a;
+      const pickedWinner=picks[i]||picks[i+1]||"";
+      const hSel=pickedWinner===h, aSel=pickedWinner===a;
       const matchNum=Math.floor(i/2)+1;
       matches.push(`<div class="bracket-match">
         <div class="bracket-match-num">Match ${matchNum}</div>
@@ -1638,7 +1643,9 @@ function pickBracket(round, idx, team, isPhase2){
 
   const bracket=isPhase2?myPicks.phase2.bracket:myPicks.phase1.bracket;
   if(!bracket[round])bracket[round]=[];
-  bracket[round][idx]=team;
+  const matchBase=(idx%2===0)?idx:idx-1;
+  bracket[round][matchBase]=team;
+  bracket[round][matchBase+1]=team;
 
   // Propagate: winner advances to next round
   // Find which match this is (idx/2) and update the corresponding slot in next round
@@ -1646,7 +1653,7 @@ function pickBracket(round, idx, team, isPhase2){
   const ri=rounds.indexOf(round);
   if(ri<rounds.length-1){
     const nextRound=rounds[ri+1];
-    const matchIdx=Math.floor(idx/2);
+    const matchIdx=Math.floor(matchBase/2);
     const nextSlot=matchIdx; // winner of match N goes to slot N in next round
     if(!bracket[nextRound])bracket[nextRound]=[];
     bracket[nextRound][matchIdx]=team;
@@ -1659,6 +1666,7 @@ function pickBracket(round, idx, team, isPhase2){
   const stateKey=isPhase2?"phase2":"phase1";
   const roundIdx=Math.max(0,Math.min(roundsData.length-1,bracketRoundStep[stateKey]||0));
   renderBracketGrid([roundsData[roundIdx]],bracket,isPhase2);
+  scheduleDraftAutoSave("knockout-pick");
 }
 
 function clearDownstream(bracket,rounds,fromRound,fromSlot,isPhase2){
@@ -1878,6 +1886,33 @@ function isPhase2PredictionComplete(phase2){
   const p=phase2||{};
   return hasCompleteBracketPath(p.bracket,true)
     && isFilledTeamSlot(p.goldenBoot||"");
+}
+
+function scheduleDraftAutoSave(reason){
+  if(!currentUser||!currentUser.uid)return;
+  if(draftSaveTimer)clearTimeout(draftSaveTimer);
+  draftSaveTimer=setTimeout(()=>saveDraftPicks(reason),700);
+}
+
+async function saveDraftPicks(reason){
+  if(!currentUser||!currentUser.uid||draftSaveInFlight)return;
+  draftSaveInFlight=true;
+  try{
+    await db.collection("wc2026picks").doc(currentUser.uid).set({
+      phase1:myPicks.phase1,
+      phase2:myPicks.phase2,
+      phase1SubmittedAt:myPicks.phase1SubmittedAt||null,
+      name:currentUser.displayName||"Anonymous",
+      photoURL:currentUser.photoURL||"",
+      email:currentUser.email||"",
+      draftUpdatedAt:new Date().toISOString(),
+      draftReason:reason||"edit",
+    },{merge:true});
+  }catch(e){
+    console.warn("Draft autosave failed",e?.message||e);
+  }finally{
+    draftSaveInFlight=false;
+  }
 }
 
 // ══ LIVE TAB ═══════════════════════════════════════════════════════════════
