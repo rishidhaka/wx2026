@@ -1026,6 +1026,17 @@ function calcScore(playerData){
 // ══ GLOBAL LEADERBOARD ════════════════════════════════════════════════════
 function renderGlobal(){renderLeaderboard("global-list",allPlayers);}
 
+function getPredictedPodiumText(player){
+  const pickSource=(player?.phase1&&player.phase1.bracket)?player.phase1:player?.phase2;
+  const b=pickSource?.bracket||{};
+  const final=b.final||[];
+  const champ=(b.winner&&b.winner[0])||final[0]||"";
+  const second=(final.length>=2&&champ)?(final[0]===champ?final[1]:final[0]):"";
+  const third=(b.third&&b.third[0])||"";
+  if(!champ||!second||!third)return "";
+  return `${champ} / ${second} / ${third}`;
+}
+
 function renderLeaderboard(elId,players){
   const el=document.getElementById(elId);if(!el)return;
   const scored=Object.entries(players||{})
@@ -1034,7 +1045,8 @@ function renderLeaderboard(elId,players){
       const hasPicksPhase1=p.phase1?.groups&&Object.keys(p.phase1.groups).length>0;
       const hasPicksPhase2=p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0;
       const hasPicks=hasPicksPhase1||hasPicksPhase2;
-      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:s.total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:s.p2,hasPicks};
+      const podium=getPredictedPodiumText(p);
+      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:s.total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:s.p2,hasPicks,podium};
     })
     .filter(p=>p.hasPicks) // Only show players who have submitted picks
     .sort((a,b)=>b.score-a.score);
@@ -1048,6 +1060,7 @@ function renderLeaderboard(elId,players){
       <div style="flex:1;overflow:hidden">
         <div class="lb-name">${esc(p.name)}${isMe?'<span class="lb-you">YOU</span>':""}</div>
         <div class="lb-breakdown">Groups: ${p.p1Group}pt${p.p1ThirdQual?" · Quals: "+p.p1ThirdQual+"pt":""} · KO: ${p.p1KO}pt${p.p2?" · 2nd: "+p.p2+"pt":""}</div>
+        ${p.podium?`<div class="lb-breakdown">Podium: ${esc(p.podium)}</div>`:""}
       </div>
       <div class="lb-pts">${p.score}<small> pts</small></div>
     </div>`;
@@ -1868,8 +1881,10 @@ async function savePicks(isPhase2){
       }
     },{merge:true});
     showToast("Picks saved! ✓");
+    renderPicksView();
   }catch(e){
     showToast("Save failed — check connection");
+  }finally{
     if(btn){btn.textContent=isPhase2?"Save Second Chance Picks ✓":"Save Picks ✓";btn.disabled=false;}
   }
 }
@@ -1917,8 +1932,8 @@ function hasCompleteGroups(groups){
 
 function hasCompleteBracketPath(bracket,isPhase2){
   const required=isPhase2
-    ?[{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2},{key:"winner",len:1}]
-    :[{key:"r16",len:16},{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2},{key:"winner",len:1}];
+    ?[{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2}]
+    :[{key:"r16",len:16},{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2}];
   return required.every(({key,len})=>{
     const arr=(bracket||{})[key]||[];
     return arr.length>=len&&arr.slice(0,len).every(isFilledTeamSlot);
@@ -2361,8 +2376,12 @@ function showDetail(uid){
 
   const p1=p.phase1||{};
   const p2=p.phase2||{};
-  const p1Winner=(p1.bracket?.winner||[])[0]||"—";
-  const p2Winner=(p2.bracket?.winner||[])[0]||"—";
+  const p1Final=(p1.bracket?.final||[]);
+  const p2Final=(p2.bracket?.final||[]);
+  const p1Winner=(p1.bracket?.winner||[])[0]||(p1Final[0]||"—");
+  const p2Winner=(p2.bracket?.winner||[])[0]||(p2Final[0]||"—");
+  const p1Third=(p1.bracket?.third||[])[0]||"—";
+  const p2Third=(p2.bracket?.third||[])[0]||"—";
   const p1Rounds=["r16","qf","sf","final"];
   const p2Rounds=["qf","sf","final"];
   const p1RoundText=p1Rounds
@@ -2378,9 +2397,11 @@ function showDetail(uid){
     <div style="font-size:12px;font-weight:800;letter-spacing:0.6px;color:var(--white);margin-bottom:8px">Submitted Picks</div>
     <div style="font-size:12px;color:var(--muted);line-height:1.7">
       <div><strong style="color:var(--white)">Phase 1 Champion:</strong> ${esc(p1Winner)}</div>
+      <div><strong style="color:var(--white)">Phase 1 Third Place:</strong> ${esc(p1Third)}</div>
       <div><strong style="color:var(--white)">Phase 1 Top Scorer:</strong> ${esc(p1.goldenBoot||"—")}</div>
       ${p1RoundText?`<div style="margin-top:6px"><strong style="color:var(--white)">Phase 1 KO Picks:</strong><br>${esc(p1RoundText).replace(/&lt;br&gt;/g,"<br>")}</div>`:""}
       <div style="margin-top:8px"><strong style="color:var(--white)">Phase 2 Champion:</strong> ${esc(p2Winner)}</div>
+      <div><strong style="color:var(--white)">Phase 2 Third Place:</strong> ${esc(p2Third)}</div>
       <div><strong style="color:var(--white)">Phase 2 Top Scorer:</strong> ${esc(p2.goldenBoot||"—")}</div>
       ${p2RoundText?`<div style="margin-top:6px"><strong style="color:var(--white)">Phase 2 KO Picks:</strong><br>${esc(p2RoundText).replace(/&lt;br&gt;/g,"<br>")}</div>`:""}
     </div>
