@@ -21,6 +21,7 @@
   --phase2:#8b5cf6;--phase2-light:#a78bfa;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden}
 body{display:flex;justify-content:center;background:linear-gradient(135deg,#0a1628 0%,#0f1e35 50%,#0a1628 100%);background-attachment:fixed;color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;overscroll-behavior:none}
 #app{width:100%}
 
@@ -84,6 +85,7 @@ h1 span{color:var(--wc-gold)}
 .section-title{font-weight:900;font-size:clamp(14px,4vw,16px);letter-spacing:1.5px;color:var(--amber);margin-bottom:14px;text-transform:uppercase}
 .view-meta{min-height:32px;margin-bottom:14px}
 .view-content{position:relative;display:flex;flex-direction:column;align-items:center}
+.view-content>*{min-width:0}
 
 /* ── CARDS ── */
 .card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.2);transition:all .3s ease}
@@ -159,7 +161,7 @@ input::placeholder{color:#475569}
 /* ── BRACKET ── */
 .bracket-container{width:100%;max-width:100%;align-self:stretch;overflow-x:auto;overflow-y:hidden;padding-bottom:8px;-webkit-overflow-scrolling:touch;touch-action:pan-x;cursor:grab}
 .bracket-container:active{cursor:grabbing}
-.bracket-scroll-controls{display:flex;justify-content:flex-end;gap:8px;margin:6px 0 8px}
+.bracket-scroll-controls{display:flex;justify-content:center;gap:8px;margin:6px 0 8px}
 .bracket-scroll-btn{width:auto;padding:6px 10px;min-height:32px;font-size:12px;line-height:1}
 .bracket-grid{display:flex;gap:10px;min-width:max-content;padding:4px 0}
 .bracket-round-col{display:flex;flex-direction:column;gap:8px;min-width:140px}
@@ -1343,11 +1345,13 @@ function renderBracketStep(isPhase2){
     ${isPhase2?`<span class="phase-label p2">Phase 2</span> Real bracket — 5pts R16/QF, 10pts SF, 15pts Champion.`
     :`<span class="phase-label p1">Phase 1</span> Based on your group predictions — pick match winners all the way to the Final.`}
   </div>
+  <div style="width:100%;max-width:100%;overflow:hidden">
   <div class="bracket-scroll-controls">
     <button class="btn btn-secondary bracket-scroll-btn" onclick="scrollBracketBy(-240)">◀</button>
     <button class="btn btn-secondary bracket-scroll-btn" onclick="scrollBracketBy(240)">▶</button>
   </div>
   <div class="bracket-container" id="picks-bracket-container"><div class="bracket-grid" id="bracket-grid"></div></div>
+  </div>
   <div style="margin-top:12px">
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
     <input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border=''" autocomplete="off">
