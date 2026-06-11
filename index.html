@@ -183,7 +183,9 @@ input::placeholder{color:#475569}
 .bracket-grid{display:flex;gap:10px;min-width:max-content;padding:4px 0}
 .bracket-round-col{display:flex;flex-direction:column;gap:8px;min-width:140px}
 .bracket-round-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:4px;padding:0 4px}
-.bracket-match{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:8px;overflow:hidden}
+.bracket-match{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:8px;overflow:hidden;margin-bottom:4px}
+.bracket-match-num{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px 8px 2px;border-bottom:1px solid var(--navy-border)}
+.bracket-vs{text-align:center;font-size:10px;font-weight:900;color:var(--muted);padding:2px 0;background:rgba(255,255,255,0.03);letter-spacing:2px}
 .bracket-team-btn{width:100%;display:flex;align-items:center;gap:7px;padding:8px 10px;cursor:pointer;background:none;border:none;color:var(--white);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;text-align:left;transition:background .15s;border-bottom:1px solid var(--navy-border);touch-action:manipulation}
 .bracket-team-btn:last-child{border-bottom:none}
 .bracket-team-btn:hover{background:#162538}
@@ -584,7 +586,7 @@ function getPhase1TimeRemaining(){
 // ══ FIREBASE CONFIG ════════════════════════════════════════════════════════
 const firebaseConfig = {
   apiKey:            "AIzaSyCdvfS5SvUcGav26RtMmBI8cY7KLCuy4dA",
-  authDomain:        "world-cup-2026-e1a0b.web.app",
+  authDomain:        "world-cup-2026-e1a0b.firebaseapp.com",
   projectId:         "world-cup-2026-e1a0b",
   storageBucket:     "world-cup-2026-e1a0b.firebasestorage.app",
   messagingSenderId: "888615445320",
@@ -1057,7 +1059,7 @@ function renderPicksView(){
   let stepsHtml=`<div class="wizard-steps">
     <div class="wizard-step${wizardStep==="groups"?" active":""}" onclick="setWizardStep('groups')">Groups</div>
     <div class="wizard-step${wizardStep==="thirdplace"?" active":""}" onclick="setWizardStep('thirdplace')">Thirds</div>
-    <div class="wizard-step${wizardStep==="bracket"?" active":""}" onclick="setWizardStep('bracket')">Bracket</div>
+    <div class="wizard-step${wizardStep==="bracket"?" active":""}" onclick="setWizardStep('bracket')">Knockouts</div>
     <div class="wizard-step phase2${wizardStep==="phase2"?" active":""}" onclick="setWizardStep('phase2')">Phase 2</div>
   </div>`;
 
@@ -1622,10 +1624,13 @@ function renderBracketGrid(rounds, bracket, isPhase2){
       const h=teams[i]||"TBD", a=teams[i+1]||"TBD";
       const hf=flagFor(h), af=flagFor(a);
       const hSel=picks[i]===h, aSel=picks[i+1]===a;
+      const matchNum=Math.floor(i/2)+1;
       matches.push(`<div class="bracket-match">
+        <div class="bracket-match-num">Match ${matchNum}</div>
         <button class="bracket-team-btn${hSel?" selected":""}" onclick="pickBracket('${round.key}',${i},'${escA(h)}',${isPhase2})">
           <span class="bf">${hf}</span><span class="bn">${esc(h)}</span>
         </button>
+        <div class="bracket-vs">vs</div>
         <button class="bracket-team-btn${aSel?" selected":""}" onclick="pickBracket('${round.key}',${i+1},'${escA(a)}',${isPhase2})">
           <span class="bf">${af}</span><span class="bn">${esc(a)}</span>
         </button>
