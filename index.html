@@ -1962,18 +1962,21 @@ function hasCompleteGroups(groups){
 }
 
 function hasCompleteBracketPath(bracket,isPhase2){
-  // Each round stores picks at team positions (one per match pair).
-  // Count completed match pairs (at least one of the two team slots filled).
+  // pickBracket stores match winners in dense arrays: bracket[round][matchIdx]=winner
+  // where matchIdx=Math.floor(teamIdx/2). So each position is a match winner.
+  // Required match counts: r32=16, r16=8, qf=4, sf=2, final=1
   const required=isPhase2
-    ?[{key:"r16",len:16},{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2}]
-    :[{key:"r32",len:32},{key:"r16",len:16},{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2}];
-  return required.every(({key,len})=>{
+    ?[{key:"r16",matches:8},{key:"qf",matches:4},{key:"sf",matches:2},{key:"final",matches:1}]
+    :[{key:"r32",matches:16},{key:"r16",matches:8},{key:"qf",matches:4},{key:"sf",matches:2},{key:"final",matches:1}];
+  return required.every(({key,matches})=>{
     const arr=(bracket||{})[key]||[];
-    let completed=0;
-    for(let i=0;i<len;i+=2){
-      if(isFilledTeamSlot(arr[i])||isFilledTeamSlot(arr[i+1]))completed++;
+    if(arr.length<matches)return false;
+    // Check that we have 'matches' number of filled slots
+    let filled=0;
+    for(let i=0;i<matches;i++){
+      if(isFilledTeamSlot(arr[i]))filled++;
     }
-    return completed>=len/2;
+    return filled>=matches;
   });
 }
 

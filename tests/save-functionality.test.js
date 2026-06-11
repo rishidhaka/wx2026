@@ -97,18 +97,21 @@ function hasCompleteGroups(groups) {
 }
 
 function hasCompleteBracketPath(bracket, isPhase2) {
-  // Each round stores picks at team positions (one per match pair).
-  // Count completed match pairs (at least one of the two team slots filled).
+  // pickBracket stores match winners in dense arrays: bracket[round][matchIdx]=winner
+  // where matchIdx=Math.floor(teamIdx/2). So each position is a match winner.
+  // Required match counts: r32=16, r16=8, qf=4, sf=2, final=1
   const required = isPhase2
-    ? [{ key: 'r16', len: 16 }, { key: 'qf', len: 8 }, { key: 'sf', len: 4 }, { key: 'final', len: 2 }]
-    : [{ key: 'r32', len: 32 }, { key: 'r16', len: 16 }, { key: 'qf', len: 8 }, { key: 'sf', len: 4 }, { key: 'final', len: 2 }];
-  return required.every(({ key, len }) => {
+    ? [{ key: 'r16', matches: 8 }, { key: 'qf', matches: 4 }, { key: 'sf', matches: 2 }, { key: 'final', matches: 1 }]
+    : [{ key: 'r32', matches: 16 }, { key: 'r16', matches: 8 }, { key: 'qf', matches: 4 }, { key: 'sf', matches: 2 }, { key: 'final', matches: 1 }];
+  return required.every(({ key, matches }) => {
     const arr = (bracket || {})[key] || [];
-    let completed = 0;
-    for (let i = 0; i < len; i += 2) {
-      if (isFilledTeamSlot(arr[i]) || isFilledTeamSlot(arr[i + 1])) completed++;
+    if (arr.length < matches) return false;
+    // Check that we have 'matches' number of filled slots
+    let filled = 0;
+    for (let i = 0; i < matches; i++) {
+      if (isFilledTeamSlot(arr[i])) filled++;
     }
-    return completed >= len / 2;
+    return filled >= matches;
   });
 }
 
@@ -137,16 +140,16 @@ function makeCompleteGroups() {
 }
 
 function makeCompletePhase1Bracket() {
-  // Real pick format: pickBracket(roundKey, teamIdx, team) stores winner at teamIdx.
-  // So for each match, winner is at the winner's team position (even=home, odd=away).
-  // Sparse arrays: winner at even index, empty string at odd index.
+  // Real pick format: pickBracket stores match winners at matchIdx = Math.floor(teamIdx/2)
+  // Dense arrays: each element is a match winner
+  // r32: 16 matches → 16 winners, r16: 8 matches → 8 winners, etc.
   return {
-    r32:   ["France","","Spain","","Brazil","","Germany","","Argentina","","Portugal","","England","","Netherlands","","Italy","","Belgium","","Croatia","","Switzerland","","Denmark","","Mexico","","Uruguay","","Poland",""],
-    r16:   ["France","","Spain","","Brazil","","Germany","","Argentina","","Portugal","","England","","Netherlands",""],
-    qf:    ["France","","Brazil","","Argentina","","England",""],
-    sf:    ["France","","Argentina",""],
-    third: ['Brazil', ''],
-    final: ["France",""],
+    r32:   ['France','Spain','Brazil','Germany','Argentina','Portugal','England','Netherlands','Italy','Belgium','Croatia','Switzerland','Denmark','Mexico','Uruguay','Poland'],
+    r16:   ['France','Spain','Brazil','Germany','Argentina','Portugal','England','Netherlands'],
+    qf:    ['France','Brazil','Argentina','England'],
+    sf:    ['France','Argentina'],
+    third: ['Brazil'],
+    final: ['France'],
   };
 }
 
@@ -456,11 +459,11 @@ describe('isPhase2PredictionComplete', () => {
   function makeCompletePhase2() {
     return {
       bracket: {
-        r16:   ['France','','Spain','','Brazil','','Germany','','Argentina','','Portugal','','England','','Netherlands',''],
-        qf:    ['France','','Brazil','','Argentina','','England',''],
-        sf:    ['France','','Argentina',''],
-        third: ['Brazil',''],
-        final: ['France',''],
+        r16:   ['France','Spain','Brazil','Germany','Argentina','Portugal','England','Netherlands'],
+        qf:    ['France','Brazil','Argentina','England'],
+        sf:    ['France','Argentina'],
+        third: ['Brazil'],
+        final: ['France'],
       },
       goldenBoot: 'Kylian Mbappé',
     };
@@ -573,22 +576,22 @@ describe('hasCompleteBracketPath', () => {
     expect(hasCompleteBracketPath({}, true)).toBe(false);
   });
 
-  test('phase1 requires r32 and r16 all filled', () => {
+  test('phase1 requires all rounds filled with match winners', () => {
     const bracket = makeCompletePhase1Bracket();
     // Verify complete bracket passes
     expect(hasCompleteBracketPath(bracket, false)).toBe(true);
-    // Break r16 — only 1 of 8 match pairs filled
-    bracket.r16 = ['France', 'Spain']; // 1 pair filled, needs 8
+    // Break r16 — only 2 of 8 matches filled
+    bracket.r16 = ['France', 'Spain']; // 2 matches filled, needs 8
     expect(hasCompleteBracketPath(bracket, false)).toBe(false);
   });
 
   test('phase2 requires r16 through final', () => {
     // phase2 starts from r16, so r16 picks are required
     const bracket = {
-      r16:  ['France','','Spain','','Brazil','','Germany','','Argentina','','Portugal','','England','','Netherlands',''],
-      qf:   ['France','','Brazil','','Argentina','','England',''],
-      sf:   ['France','','Argentina',''],
-      final:['France',''],
+      r16:  ['France','Spain','Brazil','Germany','Argentina','Portugal','England','Netherlands'], // 8 matches
+      qf:   ['France','Brazil','Argentina','England'], // 4 matches
+      sf:   ['France','Argentina'], // 2 matches
+      final:['France'], // 1 match
     };
     expect(hasCompleteBracketPath(bracket, true)).toBe(true);
     // phase2 without r16 should fail
@@ -596,13 +599,13 @@ describe('hasCompleteBracketPath', () => {
     expect(hasCompleteBracketPath(noR16, true)).toBe(false);
   });
 
-  test('rejects TBD slots — final with only TBD values', () => {
+  test('rejects TBD as final match winner', () => {
     const bracket = makeCompletePhase1Bracket();
-    bracket.final = ['TBD', 'TBD']; // TBD is not a valid filled slot
+    bracket.final = ['TBD']; // TBD is not a valid filled slot
     expect(hasCompleteBracketPath(bracket, false)).toBe(false);
   });
 
-  test('rejects empty string slots — all final positions empty', () => {
+  test('rejects empty final match', () => {
     const bracket = makeCompletePhase1Bracket();
     bracket.final = []; // no winner at all
     expect(hasCompleteBracketPath(bracket, false)).toBe(false);
