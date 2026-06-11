@@ -1088,6 +1088,22 @@ function renderPicksView(){
   const stepsEl=document.getElementById("picks-steps");
   const phase2Unlocked=results.phase2Unlocked;
 
+  // If Phase 1 picks already submitted, show locked message
+  if(myPicks.phase1SubmittedAt&&!phase2Unlocked){
+    timerEl.innerHTML=`<div class="deadline-banner closed">🔒 Phase 1 picks submitted and locked</div>`;
+    stepsEl.innerHTML="";
+    el.innerHTML=`<div style="padding:20px;text-align:center;color:var(--muted)">
+      <div style="font-size:48px;margin-bottom:12px">✅</div>
+      <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px">Your Phase 1 picks are submitted!</div>
+      <div style="font-size:13px;line-height:1.6">
+        Your predictions are locked to preserve competitive integrity.<br>
+        Check the <strong>Leaderboard</strong> to see how you're doing.<br><br>
+        <strong>Phase 2</strong> unlocks after the group stage — you'll get a fresh chance to predict the knockout rounds with the real bracket!
+      </div>
+    </div>`;
+    return;
+  }
+
   // Show deadline warning if Phase 1 is closing soon
   let deadlineWarning="";
   if(!phase2Unlocked&&isPhase1Open()){
