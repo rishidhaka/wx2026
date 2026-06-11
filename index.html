@@ -694,15 +694,10 @@ function defaultGroups(){
 }
 
 function normalizeRoundWinners(arr,totalTeams){
+  // Dense array format: bracket.r32=[winner1,winner2,...,winner16] (not 32 slots)
+  // totalTeams param is ignored (legacy) - just clean and return the array
   const source=Array.isArray(arr)?arr:[];
-  const winners=[];
-  for(let i=0;i<totalTeams;i+=2){
-    const a=source[i];
-    const b=source[i+1];
-    // Legacy formats may have winner in either slot or duplicated in both.
-    winners.push((a&&a.trim())||(b&&b.trim())||"");
-  }
-  return winners;
+  return source.map(team=>(team&&team.trim&&team.trim())||"").filter(t=>t!=="");
 }
 
 function normalizeBracketData(bracket,isPhase2){

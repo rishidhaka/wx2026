@@ -629,3 +629,211 @@ describe('Edge Cases', () => {
     expect(score.goldenBoot).toBe(10);
   });
 });
+
+// ══════════════════════════════════════════════════════════════════════════
+// BRACKET DATA NORMALIZATION - DENSE ARRAY FORMAT
+// ══════════════════════════════════════════════════════════════════════════
+
+function normalizeRoundWinners(arr, totalTeams) {
+  // Dense array format: bracket.r32=[winner1,winner2,...,winner16] (not 32 slots)
+  // totalTeams param is ignored (legacy) - just clean and return the array
+  const source = Array.isArray(arr) ? arr : [];
+  return source.map(team => (team && team.trim && team.trim()) || "").filter(t => t !== "");
+}
+
+function normalizeBracketData(bracket, isPhase2) {
+  if (!bracket || typeof bracket !== "object") return {};
+  const normalized = { ...bracket };
+  if (isPhase2) {
+    normalized.r16 = normalizeRoundWinners(bracket.r16, 16);
+    normalized.qf = normalizeRoundWinners(bracket.qf, 8);
+    normalized.sf = normalizeRoundWinners(bracket.sf, 4);
+    normalized.final = normalizeRoundWinners(bracket.final, 2);
+  } else {
+    normalized.r32 = normalizeRoundWinners(bracket.r32, 32);
+    normalized.r16 = normalizeRoundWinners(bracket.r16, 16);
+    normalized.qf = normalizeRoundWinners(bracket.qf, 8);
+    normalized.sf = normalizeRoundWinners(bracket.sf, 4);
+    normalized.final = normalizeRoundWinners(bracket.final, 2);
+  }
+  // Champion can be either in final winner slot or explicit winner round.
+  const champion =
+    (normalized.final && normalized.final[0]) ||
+    (Array.isArray(bracket.winner) ? bracket.winner[0] : "") ||
+    "";
+  normalized.winner = [champion];
+  return normalized;
+}
+
+describe('Bracket Data Normalization - Dense Array Format', () => {
+  test('normalizeRoundWinners should preserve dense array format (not corrupt to sparse)', () => {
+    // This is the critical bug fix: DO NOT pair up elements or treat as sparse
+    const denseArray = ['USA', 'Brazil', 'France', 'Germany'];
+    const result = normalizeRoundWinners(denseArray, 8); // totalTeams param ignored
+    expect(result).toEqual(['USA', 'Brazil', 'France', 'Germany']);
+    expect(result.length).toBe(4); // NOT 8 with holes
+  });
+
+  test('normalizeRoundWinners should trim whitespace', () => {
+    const denseArray = [' USA ', '  Brazil  ', 'France'];
+    const result = normalizeRoundWinners(denseArray, 8);
+    expect(result).toEqual(['USA', 'Brazil', 'France']);
+  });
+
+  test('normalizeRoundWinners should remove empty strings', () => {
+    const denseArray = ['USA', '', 'Brazil', '  ', 'France'];
+    const result = normalizeRoundWinners(denseArray, 8);
+    expect(result).toEqual(['USA', 'Brazil', 'France']);
+  });
+
+  test('normalizeRoundWinners should handle undefined and null', () => {
+    const denseArray = ['USA', undefined, 'Brazil', null, 'France'];
+    const result = normalizeRoundWinners(denseArray, 8);
+    expect(result).toEqual(['USA', 'Brazil', 'France']);
+  });
+
+  test('normalizeRoundWinners should handle non-array input', () => {
+    expect(normalizeRoundWinners(null, 8)).toEqual([]);
+    expect(normalizeRoundWinners(undefined, 8)).toEqual([]);
+    expect(normalizeRoundWinners('string', 8)).toEqual([]);
+  });
+
+  test('normalizeBracketData Phase 1 should preserve all dense round formats', () => {
+    const bracket = {
+      r32: ['USA', 'Mexico', 'Argentina', 'France', 'Spain', 'Germany', 'Italy', 'Netherlands', 
+            'Belgium', 'Portugal', 'Poland', 'Switzerland', 'England', 'Denmark', 'Brazil', 'Uruguay'],
+      r16: ['USA', 'Argentina', 'France', 'Spain', 'Germany', 'Netherlands', 'Belgium', 'England'],
+      qf: ['USA', 'France', 'Germany', 'Belgium'],
+      sf: ['USA', 'France'],
+      final: ['USA']
+    };
+
+    const result = normalizeBracketData(bracket, false);
+    
+    expect(result.r32).toEqual(bracket.r32);
+    expect(result.r32.length).toBe(16); // Dense: 16 matches
+    expect(result.r16).toEqual(bracket.r16);
+    expect(result.r16.length).toBe(8); // Dense: 8 matches
+    expect(result.qf).toEqual(bracket.qf);
+    expect(result.qf.length).toBe(4); // Dense: 4 matches
+    expect(result.sf).toEqual(bracket.sf);
+    expect(result.sf.length).toBe(2); // Dense: 2 matches
+    expect(result.final).toEqual(bracket.final);
+    expect(result.final.length).toBe(1); // Dense: 1 champion
+  });
+
+  test('normalizeBracketData Phase 1 should set winner from final', () => {
+    const bracket = {
+      r32: ['USA', 'Mexico', 'Argentina', 'France', 'Spain', 'Germany', 'Italy', 'Netherlands',
+            'Belgium', 'Portugal', 'Poland', 'Switzerland', 'England', 'Denmark', 'Brazil', 'Uruguay'],
+      r16: ['USA', 'Argentina', 'France', 'Spain', 'Germany', 'Netherlands', 'Belgium', 'England'],
+      qf: ['USA', 'France', 'Germany', 'Belgium'],
+      sf: ['USA', 'France'],
+      final: ['USA']
+    };
+
+    const result = normalizeBracketData(bracket, false);
+    
+    expect(result.winner).toEqual(['USA']);
+  });
+
+  test('normalizeBracketData Phase 2 should only normalize R16 onwards (no R32)', () => {
+    const bracket = {
+      r16: ['USA', 'Brazil', 'Argentina', 'France', 'Spain', 'Germany', 'Italy', 'Netherlands'],
+      qf: ['USA', 'Argentina', 'France', 'Germany'],
+      sf: ['USA', 'France'],
+      final: ['USA']
+    };
+
+    const result = normalizeBracketData(bracket, true);
+    
+    expect(result.r16).toEqual(bracket.r16);
+    expect(result.r16.length).toBe(8);
+    expect(result.qf).toEqual(bracket.qf);
+    expect(result.qf.length).toBe(4);
+    expect(result.sf).toEqual(bracket.sf);
+    expect(result.sf.length).toBe(2);
+    expect(result.final).toEqual(bracket.final);
+    expect(result.final.length).toBe(1);
+    expect(result.r32).toBeUndefined(); // Phase 2 doesn't have R32
+    expect(result.winner).toEqual(['USA']);
+  });
+
+  test('normalizeBracketData should handle empty arrays', () => {
+    const bracket = {
+      r32: [],
+      r16: [],
+      qf: [],
+      sf: [],
+      final: []
+    };
+
+    const result = normalizeBracketData(bracket, false);
+    
+    expect(result.r32).toEqual([]);
+    expect(result.r16).toEqual([]);
+    expect(result.qf).toEqual([]);
+    expect(result.sf).toEqual([]);
+    expect(result.final).toEqual([]);
+    expect(result.winner).toEqual(['']);
+  });
+
+  test('normalizeBracketData should handle null/undefined bracket', () => {
+    expect(normalizeBracketData(null, false)).toEqual({});
+    expect(normalizeBracketData(undefined, false)).toEqual({});
+  });
+
+  test('normalizeBracketData should use winner field if final is empty', () => {
+    const bracket = {
+      r32: ['USA', 'Mexico', 'Argentina', 'France', 'Spain', 'Germany', 'Italy', 'Netherlands',
+            'Belgium', 'Portugal', 'Poland', 'Switzerland', 'England', 'Denmark', 'Brazil', 'Uruguay'],
+      r16: ['USA', 'Argentina', 'France', 'Spain', 'Germany', 'Netherlands', 'Belgium', 'England'],
+      qf: ['USA', 'France', 'Germany', 'Belgium'],
+      sf: ['USA', 'France'],
+      final: [],
+      winner: ['France']
+    };
+
+    const result = normalizeBracketData(bracket, false);
+    
+    expect(result.winner).toEqual(['France']);
+  });
+
+  test('normalizeBracketData should handle mixed valid/invalid entries', () => {
+    const bracket = {
+      r32: ['USA', '', 'Argentina', null, 'France', '  ', 'Germany'],
+      r16: ['USA', undefined, 'Brazil', 'France'],
+      qf: ['USA', 'France'],
+      sf: ['USA'],
+      final: ['USA']
+    };
+
+    const result = normalizeBracketData(bracket, false);
+    
+    expect(result.r32).toEqual(['USA', 'Argentina', 'France', 'Germany']);
+    expect(result.r16).toEqual(['USA', 'Brazil', 'France']);
+    expect(result.qf).toEqual(['USA', 'France']);
+    expect(result.sf).toEqual(['USA']);
+    expect(result.final).toEqual(['USA']);
+    expect(result.winner).toEqual(['USA']);
+  });
+
+  test('normalizeBracketData should NOT corrupt data with sparse array pairing', () => {
+    // This is the regression test for the bug where normalizeRoundWinners
+    // would pair elements and create holes: [A, B] -> [A, undefined, B, undefined]
+    const bracket = {
+      r32: ['USA', 'Mexico', 'Argentina', 'France'],
+      r16: [],
+      qf: [],
+      sf: [],
+      final: []
+    };
+
+    const result = normalizeBracketData(bracket, false);
+    
+    // Should keep original 4 items, NOT expand to 32 with holes
+    expect(result.r32).toEqual(['USA', 'Mexico', 'Argentina', 'France']);
+    expect(result.r32).not.toHaveLength(32);
+    expect(result.r32).not.toContain(undefined);
+  });
+});
