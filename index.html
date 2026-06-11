@@ -272,10 +272,10 @@ input::placeholder{color:#475569}
   <div id="main-app" style="display:none">
     <div class="user-bar" id="user-bar"></div>
     <div class="tabs">
-      <div class="tab active" data-tab="global">🌍 Board</div>
-      <div class="tab" data-tab="live">⚽ Live</div>
+      <div class="tab active" data-tab="live">⚽ Tournament</div>
+      <div class="tab" data-tab="global">🏆 Leaderboard</div>
       <div class="tab" data-tab="leagues">🏆 Leagues</div>
-      <div class="tab" data-tab="picks">✏️ Picks</div>
+      <div class="tab" data-tab="picks">✏️ My Predictions</div>
       <div class="tab" data-tab="admin">🔧 Admin</div>
       <div class="tab" data-tab="rules">📋 Rules</div>
     </div>
@@ -283,7 +283,7 @@ input::placeholder{color:#475569}
     <div class="desktop-grid">
       <!-- LEFT COLUMN (Desktop: sticky leaderboards) -->
       <div class="desktop-left">
-        <div id="view-global" class="view active">
+        <div id="view-global" class="view">
           <div class="section-title">Global Standings</div>
           <div style="font-size:11px;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
             <span><span class="live-dot"></span>Updates as matches finish</span>
@@ -305,13 +305,13 @@ input::placeholder{color:#475569}
 
       <!-- RIGHT COLUMN (Desktop: main content area) -->
       <div class="desktop-right">
-        <div id="view-live" class="view">
+        <div id="view-live" class="view active">
           <div class="section-title">Tournament</div>
           <div class="live-sub-nav">
             <div class="live-tab active" onclick="setLiveTab('groups')">Groups</div>
+            <div class="live-tab" onclick="setLiveTab('scorers')">Top Scorers</div>
             <div class="live-tab" onclick="setLiveTab('fixtures')">Fixtures</div>
             <div class="live-tab" onclick="setLiveTab('bracket')">Bracket</div>
-            <div class="live-tab" onclick="setLiveTab('scorers')">Top Scorers</div>
           </div>
           <div id="live-content"><div class="spinner">Loading…</div></div>
         </div>
@@ -331,6 +331,14 @@ input::placeholder{color:#475569}
 
         <div id="view-rules" class="view">
           <div class="section-title">Scoring Rules</div>
+          <div class="card" style="background:rgba(251,176,52,0.05);border-color:rgba(251,176,52,0.3)">
+            <div class="card-title" style="color:var(--amber)">⏰ Important Deadlines</div>
+            <div style="font-size:13px;color:var(--white);line-height:1.8">
+              <strong>Phase 1:</strong> Closes <strong>June 13, 2026 at 11:59 PM</strong> (when Group A finishes)<br>
+              <span style="font-size:12px;color:var(--muted)">⚠️ Picks lock permanently once submitted - you cannot edit them after saving to prevent unfair advantage from watching early matches.</span><br><br>
+              <strong>Phase 2:</strong> Opens <strong>June 27, 2026</strong> (after group stage ends)
+            </div>
+          </div>
           <div class="card">
             <div class="card-title">Phase 1 — Pre-Tournament <span class="phase-label p1">Phase 1</span></div>
         <table class="rules-table">
@@ -403,8 +411,18 @@ input::placeholder{color:#475569}
       <button class="how-to-play-close" onclick="closeHowToPlay()">✕</button>
     </div>
     <div class="how-to-play-content">
+      <div style="background:rgba(251,176,52,0.1);border:1px solid rgba(251,176,52,0.3);border-radius:8px;padding:12px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:6px">⏰ Critical Deadlines</div>
+        <div style="font-size:12px;color:var(--white);line-height:1.7">
+          <strong>Phase 1:</strong> Closes <strong>June 13, 2026 at 11:59 PM</strong><br>
+          <span style="color:var(--muted)">⚠️ Once submitted, picks are permanently locked - no editing allowed!</span><br><br>
+          <strong>Phase 2:</strong> Opens <strong>June 27, 2026</strong> after group stage
+        </div>
+      </div>
+      
       <h3>📅 Phase 1: Pre-Tournament Predictions</h3>
-      <p><strong>Deadline:</strong> June 17, 2026 at 11:59 PM (before Matchday 1 completes)</p>
+      <p><strong>Deadline:</strong> June 13, 2026 at 11:59 PM (when Group A finishes all matches)</p>
+      <p style="font-size:12px;color:var(--amber);margin-top:-8px">⚠️ <strong>ONE-TIME SUBMISSION:</strong> Once you save your picks, they lock permanently. You cannot edit them after submission to preserve competitive integrity.</p>
       <ul>
         <li><strong>Group Standings:</strong> Drag teams to predict the top 4 in each of 12 groups (1st=2pts, 2nd=2pts, 3rd=1pt)</li>
         <li><strong>Third-Place Qualifiers:</strong> Pick which 8 of 12 third-placed teams advance to Round of 32 (2pts each = 16pts max)</li>
@@ -439,9 +457,10 @@ input::placeholder{color:#475569}
       <h3>📱 Tips</h3>
       <ul>
         <li>Works on phone and desktop - picks are saved to your Google account</li>
-        <li>Make your picks early - Phase 1 closes before matchday 1 ends!</li>
+        <li><strong>⚠️ Make your picks early - Phase 1 closes June 13 and locks forever once submitted!</strong></li>
         <li>Come back after June 27 for Phase 2 - it's your second chance!</li>
         <li>Check the Live tab for tournament results and standings</li>
+        <li>Join mini leagues to compete with friends - same picks, multiple competitions!</li>
       </ul>
     </div>
     <div class="how-to-play-footer">
@@ -454,8 +473,9 @@ input::placeholder{color:#475569}
 
 <script>
 // ══ DEADLINES ══════════════════════════════════════════════════════════════
-// Phase 1 picks close when all Matchday 1 games complete (June 17, 2026 23:59:59 UTC-6 Mexico City)
-const PHASE1_DEADLINE=new Date('2026-06-17T23:59:59-06:00');
+// Phase 1 picks close when Group A completes all matches (June 13, 2026 23:59:59 UTC-6)
+// This prevents editing picks after seeing any group stage results
+const PHASE1_DEADLINE=new Date('2026-06-13T23:59:59-06:00');
 // Phase 2 unlocks after group stage ends (June 27, 2026 23:59:59 UTC-6)
 const GROUP_STAGE_END=new Date('2026-06-27T23:59:59-06:00');
 
@@ -527,7 +547,7 @@ const R32_SEEDING = [
 
 // ══ STATE ══════════════════════════════════════════════════════════════════
 let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={};
-let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""}};
+let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""},phase1SubmittedAt:null};
 let activeLeague=null, leagueView="my", liveTab="groups";
 let adminUnlocked=false, resState={};
 let wizardStep="groups"; // groups | thirdplace | bracket | phase2
@@ -615,12 +635,14 @@ function startListeners(){
       const d=s.data();
       myPicks.phase1=d.phase1||{groups:defaultGroups(),thirdPlaceQualifiers:[],bracket:{},goldenBoot:""};
       myPicks.phase2=d.phase2||{bracket:{},goldenBoot:""};
+      myPicks.phase1SubmittedAt=d.phase1SubmittedAt||null; // Track when Phase 1 was first submitted
       if(!myPicks.phase1.groups||!Object.keys(myPicks.phase1.groups).length)myPicks.phase1.groups=defaultGroups();
       if(!myPicks.phase1.thirdPlaceQualifiers)myPicks.phase1.thirdPlaceQualifiers=[];
     } else {
       // First-time user - show How to Play modal
       myPicks.phase1.groups=defaultGroups();
       myPicks.phase1.thirdPlaceQualifiers=[];
+      myPicks.phase1SubmittedAt=null;
       setTimeout(()=>showHowToPlay(),1000);
     }
     if(document.getElementById("view-picks").classList.contains("active"))renderPicksView();
@@ -703,6 +725,9 @@ async function updateResultsFromLiveData(data) {
     results = updatedResults;
     
     // Re-render leaderboards if viewing them
+    if (document.getElementById("view-live")?.classList.contains("active")) {
+      renderLiveTab();
+    }
     if (document.getElementById("view-global")?.classList.contains("active")) {
       renderGlobal();
     }
@@ -847,12 +872,27 @@ document.querySelectorAll(".tab").forEach(tab=>{
 function renderPicksView(){
   const el=document.getElementById("picks-content");
   const phase2Unlocked=results.phase2Unlocked;
+  
+  // Check if Phase 1 picks are locked (already submitted)
+  const phase1Locked=myPicks.phase1SubmittedAt&&isPhase1Open();
+  if(phase1Locked&&!phase2Unlocked){
+    el.innerHTML=`<div class="card">
+      <div class="card-title">🔒 Phase 1 Picks Locked</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px">
+        Your Phase 1 predictions were submitted on <strong>${new Date(myPicks.phase1SubmittedAt).toLocaleDateString()}</strong> and are now locked to preserve competitive integrity.
+      </div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;padding:12px;background:rgba(251,176,52,0.1);border-radius:8px;border:1px solid rgba(251,176,52,0.3)">
+        ⚠️ <strong>Why locked?</strong> Once submitted, picks cannot be edited to prevent gaining unfair advantage by watching early matches. Phase 2 (Second Chance) unlocks after the group stage ends.
+      </div>
+    </div>`;
+    return;
+  }
 
   // Show deadline warning if Phase 1 is closing soon
   let deadlineWarning="";
   if(!phase2Unlocked&&isPhase1Open()){
     const timeLeft=getPhase1TimeRemaining();
-    deadlineWarning=`<div class="deadline-banner">⏰ Phase 1 closes: <strong>${esc(timeLeft)}</strong> (June 17, 11:59 PM)</div>`;
+    deadlineWarning=`<div class="deadline-banner">⏰ Phase 1 closes: <strong>${esc(timeLeft)}</strong> (June 13, 11:59 PM)</div>`;
   }else if(!phase2Unlocked&&!isPhase1Open()){
     deadlineWarning=`<div class="deadline-banner closed">🔒 Phase 1 closed — Picks locked until Phase 2 opens after group stage</div>`;
   }
@@ -1293,9 +1333,15 @@ function validatePlayerName(playerName){
 
 // ── SAVE PICKS ────────────────────────────────────────────────────────────
 async function savePicks(isPhase2){
-  // Check Phase 1 deadline
+  // Check Phase 1 deadline - locks when Group A finishes to prevent picks editing after seeing results
   if(!isPhase2&&!isPhase1Open()){
-    showToast("Phase 1 picks closed! Group stage started.");
+    showToast("Phase 1 picks closed! Group A matches complete.");
+    return;
+  }
+  
+  // Prevent editing Phase 1 picks if already submitted (only allow first-time submission)
+  if(!isPhase2&&myPicks.phase1SubmittedAt){
+    showToast("⚠️ Phase 1 picks already submitted and locked!");
     return;
   }
   const gbInput=document.getElementById(isPhase2?"gb-input-p2":"gb-input-p1");
@@ -1320,12 +1366,22 @@ async function savePicks(isPhase2){
   const btn=document.querySelector(".btn-primary");
   if(btn){btn.textContent="Saving…";btn.disabled=true;}
   try{
-    await db.collection("wc2026picks").doc(currentUser.uid).set({
-      phase1:myPicks.phase1, phase2:myPicks.phase2,
+    // Set submission timestamp for Phase 1 (first time only)
+    const saveData={
+      phase1:myPicks.phase1,
+      phase2:myPicks.phase2,
       name:currentUser.displayName||"Anonymous",
       photoURL:currentUser.photoURL||"",
       email:currentUser.email||"",
-    });
+    };
+    if(!isPhase2&&!myPicks.phase1SubmittedAt){
+      saveData.phase1SubmittedAt=new Date().toISOString();
+      myPicks.phase1SubmittedAt=saveData.phase1SubmittedAt; // Update local copy
+    }else if(myPicks.phase1SubmittedAt){
+      saveData.phase1SubmittedAt=myPicks.phase1SubmittedAt; // Preserve existing timestamp
+    }
+    
+    await db.collection("wc2026picks").doc(currentUser.uid).set(saveData);
     // Also update the players doc for leaderboard
     await db.collection("wc2026").doc("players").set({
       [currentUser.uid]:{
@@ -1337,7 +1393,7 @@ async function savePicks(isPhase2){
       }
     },{merge:true});
     showToast("Picks saved! ✓");
-    setTimeout(()=>document.querySelector('[data-tab="global"]').click(),700);
+    setTimeout(()=>document.querySelector('[data-tab="live"]').click(),700);
   }catch(e){
     showToast("Save failed — check connection");
     if(btn){btn.textContent=isPhase2?"Save Second Chance Picks ✓":"Save Picks ✓";btn.disabled=false;}
@@ -1570,7 +1626,7 @@ function renderJoinLeague(){
 async function joinLeague(){
   // Check Phase 1 deadline for joining
   if(!isPhase1Open()){
-    showToast("Cannot join — Phase 1 closed! All Matchday 1 games have started.");
+    showToast("Cannot join — Phase 1 closed! Group A matches complete.");
     return;
   }
   const code=(document.getElementById("jl-code").value||"").trim().toUpperCase();
