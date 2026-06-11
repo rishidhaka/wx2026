@@ -649,6 +649,11 @@ async function loadTournamentData() {
       lastUpdated: data.lastUpdated
     };
     
+    // Auto-update Firestore results from live standings
+    if (data.groups && data.groups.length > 0) {
+      await updateResultsFromLiveData(data);
+    }
+    
     // Re-render LIVE tab if active
     if (document.getElementById("view-live")?.classList.contains("active")) {
       renderLiveTab();
@@ -661,6 +666,55 @@ async function loadTournamentData() {
     tournamentData = {};
     // Retry in 30 seconds on error
     setTimeout(loadTournamentData, 30 * 1000);
+  }
+}
+
+// ══ AUTO-UPDATE RESULTS FROM LIVE DATA ════════════════════════════════════
+async function updateResultsFromLiveData(data) {
+  try {
+    // Derive group standings: top 3 from each group
+    const derivedGroups = {};
+    data.groups.forEach(g => {
+      const groupLetter = g.group;
+      const sortedStandings = [...g.standings].sort((a, b) => b.pts - a.pts);
+      derivedGroups[groupLetter] = sortedStandings.slice(0, 3).map(t => t.team);
+    });
+    
+    // Get current results
+    const snapshot = await db.collection("wc2026").doc("results").get();
+    const currentResults = snapshot.exists ? snapshot.data() : {};
+    
+    // Derive top scorer if we have data
+    let derivedTopScorer = currentResults.goldenBoot || "";
+    if (data.topScorers && data.topScorers.length > 0) {
+      derivedTopScorer = data.topScorers[0].name;
+    }
+    
+    // Merge with existing results (preserve manual overrides and knockout data)
+    const updatedResults = {
+      ...currentResults,
+      groups: {
+        ...currentResults.groups,
+        ...derivedGroups
+      },
+      goldenBoot: derivedTopScorer,
+      lastAutoUpdate: new Date().toISOString()
+    };
+    
+    // Update Firestore
+    await db.collection("wc2026").doc("results").set(updatedResults, { merge: true });
+    
+    // Update local results object to trigger score recalculation
+    results = updatedResults;
+    
+    // Re-render leaderboards if viewing them
+    if (document.getElementById("view-global")?.classList.contains("active")) {
+      renderGlobal();
+    }
+    
+    console.log('✅ Results auto-updated from live data');
+  } catch (err) {
+    console.error('Failed to auto-update results:', err);
   }
 }
 
