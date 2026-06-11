@@ -136,6 +136,23 @@ input::placeholder{color:#475569}
 .tpq-team-group{font-size:9px;color:var(--muted);margin-top:2px}
 .tpq-counter{font-size:13px;color:var(--muted);margin-bottom:10px;text-align:center}
 .tpq-counter strong{color:var(--amber);font-weight:900}
+.tpq-rank-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.tpq-rank-item{display:flex;align-items:flex-start;gap:10px;background:var(--navy-card);border:1px solid var(--navy-border);border-radius:10px;padding:10px;cursor:grab;transition:background .15s}
+.tpq-rank-item:active{cursor:grabbing}
+.tpq-rank-item.dragging{opacity:.4;background:#0a1520}
+.tpq-rank-item.drag-over{background:#1a3a2a;border-top:2px solid var(--amber)}
+.tpq-rank-badge{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;background:#2a2a2a;color:var(--muted)}
+.tpq-rank-badge.qual{background:var(--pitch);color:var(--amber);border:1px solid var(--amber)}
+.tpq-rank-main{flex:1;min-width:0}
+.tpq-rank-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.tpq-rank-flag{font-size:20px;line-height:1;flex-shrink:0}
+.tpq-rank-name{font-size:13px;font-weight:700;color:var(--white);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tpq-rank-meta{font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.tpq-details-toggle{margin-left:auto;background:none;border:1px solid var(--navy-border);color:var(--muted);font-size:10px;font-weight:700;border-radius:12px;padding:3px 8px;cursor:pointer}
+.tpq-details-toggle.open{color:var(--amber);border-color:var(--amber)}
+.tpq-group-line{font-size:11px;color:var(--muted);line-height:1.45;word-break:break-word;display:none;margin-top:4px}
+.tpq-group-line.open{display:block}
+.tpq-group-line .hl{color:var(--amber);font-weight:800}
 
 /* ── GROUP DRAG ── */
 .group-block{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:10px;margin-bottom:10px;overflow:hidden}
@@ -178,6 +195,11 @@ input::placeholder{color:#475569}
 .bracket-winner-display{background:linear-gradient(135deg,#1a3a0a,#0f2a1a);border:2px solid var(--gold);border-radius:10px;padding:14px;text-align:center;margin-top:8px}
 .bracket-winner-flag{font-size:36px;margin-bottom:6px}
 .bracket-winner-name{font-weight:900;font-size:16px;color:var(--gold);letter-spacing:1px}
+.bracket-round-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0 10px}
+.bracket-round-indicator{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--white)}
+.bracket-single-container{width:100%}
+.bracket-single-container .bracket-grid{display:block;min-width:0;padding:0}
+.bracket-single-container .bracket-round-col{min-width:0;width:100%}
 
 /* ── PHASE 2 ── */
 .phase2-banner{background:linear-gradient(135deg,#1a0a2a,#0d1b2a);border:1px solid var(--phase2);border-radius:10px;padding:14px;margin-bottom:14px;text-align:center}
@@ -605,12 +627,25 @@ const WC_GROUPS = {
   L: [{name:"England",                 flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿"},{name:"Croatia",          flag:"🇭🇷"},{name:"Ghana",            flag:"🇬🇭"},{name:"Panama",          flag:"🇵🇦"}],
 };
 
-// R32 seeding: 1A vs 2B, 1B vs 2A, 1C vs 2D, 1D vs 2C, etc.
+// Official FIFA 2026 Round-of-32 slot definitions.
+// Third-place slots (e.g. 3ABCDF) are resolved from the eight qualified third-placed groups.
 const R32_SEEDING = [
-  ["1A","2B"],["1C","2D"],["1E","2F"],["1G","2H"],
-  ["1I","2J"],["1K","2L"],["1B","2A"],["1D","2C"],
-  ["1F","2E"],["1H","2G"],["1J","2I"],["1L","2K"],
-  ["2K","1L"],["2I","1J"],["2G","1H"],["2E","1F"],
+  ["2A","2B"],
+  ["1E","3ABCDF"],
+  ["1F","2C"],
+  ["1C","2F"],
+  ["1I","3CDFGH"],
+  ["2E","2I"],
+  ["1A","3CEFHI"],
+  ["1L","3EHIJK"],
+  ["1D","3BEFIJ"],
+  ["1G","3AEHIJ"],
+  ["2K","2L"],
+  ["1H","2J"],
+  ["1B","3EFGIJ"],
+  ["1J","2H"],
+  ["1K","3DEIJL"],
+  ["2D","2G"],
 ];
 
 // ══ STATE ══════════════════════════════════════════════════════════════════
@@ -619,6 +654,8 @@ let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""}
 let activeLeague=null, leagueView="my", liveTab="groups";
 let adminUnlocked=false, resState={};
 let wizardStep="groups"; // groups | thirdplace | bracket | phase2
+let bracketRoundStep={phase1:0,phase2:0};
+let tpqExpandedDetails={};
 let unsubs=[];
 
 // Default group order
@@ -706,10 +743,14 @@ function startListeners(){
       myPicks.phase1SubmittedAt=d.phase1SubmittedAt||null; // Track when Phase 1 was first submitted
       if(!myPicks.phase1.groups||!Object.keys(myPicks.phase1.groups).length)myPicks.phase1.groups=defaultGroups();
       if(!myPicks.phase1.thirdPlaceQualifiers)myPicks.phase1.thirdPlaceQualifiers=[];
+      if(!myPicks.phase1.thirdPlaceRanking)myPicks.phase1.thirdPlaceRanking=[];
+      syncThirdPlaceRanking();
     } else {
       // First-time user - show How to Play modal
       myPicks.phase1.groups=defaultGroups();
       myPicks.phase1.thirdPlaceQualifiers=[];
+      myPicks.phase1.thirdPlaceRanking=[];
+      syncThirdPlaceRanking();
       myPicks.phase1SubmittedAt=null;
       setTimeout(()=>showHowToPlay(),1000);
     }
@@ -995,9 +1036,15 @@ function renderPicksView(){
 
   el.innerHTML=content;
   if(wizardStep==="groups") initDragDrop();
+  if(wizardStep==="thirdplace") initThirdPlaceDrag();
 }
 
-function setWizardStep(step){wizardStep=step;renderPicksView();}
+function setWizardStep(step){
+  wizardStep=step;
+  if(step==="bracket")bracketRoundStep.phase1=0;
+  if(step==="phase2")bracketRoundStep.phase2=0;
+  renderPicksView();
+}
 
 // ── GROUPS STEP ───────────────────────────────────────────────────────────
 function renderGroupsStep(){
@@ -1212,53 +1259,85 @@ function saveGroupsAndNext(){
 }
 
 // ── THIRD PLACE STEP ──────────────────────────────────────────────────────
-function renderThirdPlaceStep(){
-  const groups=myPicks.phase1.groups;
-  // Get 3rd place teams from each group
-  const thirdPlaceTeams=[];
+function getCurrentThirdPlaceTeams(){
+  const groups=myPicks.phase1.groups||{};
+  const teams=[];
   Object.entries(groups).forEach(([grp,order])=>{
-    if(order[2])thirdPlaceTeams.push({name:order[2],group:grp,flag:flagFor(order[2])});
+    if(order&&order[2])teams.push({name:order[2],group:grp,flag:flagFor(order[2]),order});
   });
-  
-  const selected=myPicks.phase1.thirdPlaceQualifiers||[];
-  const remaining=8-selected.length;
-  
+  teams.sort((a,b)=>a.group.localeCompare(b.group));
+  return teams;
+}
+
+function syncThirdPlaceRanking(){
+  const current=getCurrentThirdPlaceTeams();
+  const currentNames=current.map(t=>t.name);
+  const existing=(myPicks.phase1.thirdPlaceRanking||[]).filter(name=>currentNames.includes(name));
+  const missing=currentNames.filter(name=>!existing.includes(name));
+  myPicks.phase1.thirdPlaceRanking=[...existing,...missing];
+  myPicks.phase1.thirdPlaceQualifiers=myPicks.phase1.thirdPlaceRanking.slice(0,8);
+}
+
+function renderThirdPlaceStep(){
+  syncThirdPlaceRanking();
+  const thirdPlaceTeams=getCurrentThirdPlaceTeams();
+  const ranking=myPicks.phase1.thirdPlaceRanking||[];
+
+  const rankedTeams=ranking.map((name,i)=>{
+    const entry=thirdPlaceTeams.find(t=>t.name===name);
+    if(!entry)return null;
+    const row=entry.order||[];
+    return {rank:i+1,isQual:i<8,...entry,row};
+  }).filter(Boolean);
+
   let html=`<div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">
     In 2026, the top 2 from each group advance, PLUS the 8 best third-placed teams (out of 12).<br>
-    Pick which 8 third-placed teams you think will qualify. <strong>2 points</strong> for each correct pick.
+    Rank all 12 third-placed teams by likely performance. Top <strong>8</strong> automatically qualify.<br>
+    Each row shows the full group context so you can estimate likely goal-difference scenarios.
   </div>
-  <div class="tpq-counter">Selected: <strong>${selected.length}</strong> / 8 ${remaining>0?"(pick "+remaining+" more)":"✓ Complete"}</div>
-  <div class="tpq-grid">`;
-  
-  thirdPlaceTeams.forEach(t=>{
-    const isSelected=selected.includes(t.name);
-    html+=`<div class="tpq-team${isSelected?" selected":""}" onclick="toggleThirdPlaceTeam('${escA(t.name)}')">
-      <div class="tpq-team-flag">${t.flag}</div>
-      <div class="tpq-team-name">${esc(t.name)}</div>
-      <div class="tpq-team-group">Group ${t.group} 3rd</div>
+  <div class="tpq-counter">Qualified (Top 8): <strong>${(myPicks.phase1.thirdPlaceQualifiers||[]).length}</strong> / 8 ✓</div>
+  <div class="tpq-rank-list" id="tpq-rank-list">`;
+
+  rankedTeams.forEach(t=>{
+    const [t1,t2,t3,t4]=t.row||[];
+    const open=!!tpqExpandedDetails[t.name];
+    html+=`<div class="tpq-rank-item" draggable="true" data-team="${escA(t.name)}">
+      <div class="drag-handle">⋮⋮</div>
+      <div class="tpq-rank-badge${t.isQual?" qual":""}">${t.rank}</div>
+      <div class="tpq-rank-main">
+        <div class="tpq-rank-head">
+          <div class="tpq-rank-flag">${t.flag}</div>
+          <div class="tpq-rank-name">${esc(t.name)}</div>
+          <div class="tpq-rank-meta">Group ${t.group} • 3rd</div>
+          <button class="tpq-details-toggle${open?" open":""}" type="button" onclick="toggleTpqDetails('${escA(t.name)}');event.stopPropagation();">${open?"Hide details":"Show details"}</button>
+        </div>
+        <div class="tpq-group-line${open?" open":""}">
+          ${esc(t.group)} group order: ${t1?`${flagFor(t1)} ${esc(t1)}`:""} • ${t2?`${flagFor(t2)} ${esc(t2)}`:""} • <span class="hl">${t3?`${flagFor(t3)} ${esc(t3)}`:""}</span> • ${t4?`${flagFor(t4)} ${esc(t4)}`:""}
+        </div>
+      </div>
     </div>`;
   });
-  
+
   html+=`</div>
   <button class="btn btn-secondary" onclick="wizardStep='groups';renderPicksView()">← Back to Groups</button>
-  <button class="btn btn-primary" onclick="saveThirdPlaceAndNext()" ${selected.length!==8?"disabled":""}>
+  <button class="btn btn-primary" onclick="saveThirdPlaceAndNext()" ${(myPicks.phase1.thirdPlaceQualifiers||[]).length!==8?"disabled":""}>
     Next: Build My Bracket →
   </button>
   <div style="height:60px"></div>`;
   return html;
 }
 
-function toggleThirdPlaceTeam(name){
-  if(!name||!name.trim())return;
-  const sel=myPicks.phase1.thirdPlaceQualifiers||[];
-  const idx=sel.indexOf(name);
-  if(idx>=0){
-    sel.splice(idx,1);
-  } else if(sel.length<8){
-    sel.push(name);
-  }
-  myPicks.phase1.thirdPlaceQualifiers=sel;
-  console.log('Third place qualifiers:',sel);
+function updateThirdPlaceRankingFromDOM(){
+  const list=document.getElementById("tpq-rank-list");
+  if(!list)return;
+  const ranking=[...list.querySelectorAll(".tpq-rank-item")].map(i=>i.dataset.team);
+  myPicks.phase1.thirdPlaceRanking=ranking;
+  myPicks.phase1.thirdPlaceQualifiers=ranking.slice(0,8);
+  renderPicksView();
+}
+
+function toggleTpqDetails(teamName){
+  tpqExpandedDetails[teamName]=!tpqExpandedDetails[teamName];
   renderPicksView();
 }
 
@@ -1271,38 +1350,144 @@ function saveThirdPlaceAndNext(){
   renderPicksView();
 }
 
+function initThirdPlaceDrag(){
+  const list=document.getElementById("tpq-rank-list");
+  if(!list)return;
+
+  let dragging=null;
+  list.querySelectorAll(".tpq-rank-item").forEach(item=>{
+    item.addEventListener("dragstart",()=>{dragging=item;item.classList.add("dragging");});
+    item.addEventListener("dragend",()=>{item.classList.remove("dragging");dragging=null;updateThirdPlaceRankingFromDOM();});
+    item.addEventListener("dragover",e=>{
+      e.preventDefault();
+      if(!dragging||dragging===item)return;
+      const r=item.getBoundingClientRect();
+      if(e.clientY<r.top+r.height/2)list.insertBefore(dragging,item);
+      else list.insertBefore(dragging,item.nextSibling);
+    });
+  });
+
+  // touch fallback for mobile
+  let touchActive=false,touchStartY=0,pressTimer=null;
+  list.querySelectorAll(".tpq-rank-item").forEach(item=>{
+    item.addEventListener("touchstart",e=>{
+      touchStartY=e.touches[0].clientY;
+      touchActive=false;
+      if(pressTimer){clearTimeout(pressTimer);}
+      pressTimer=setTimeout(()=>{touchActive=true;item.classList.add("dragging");},180);
+    },{passive:true});
+
+    item.addEventListener("touchmove",e=>{
+      const y=e.touches[0].clientY;
+      const dy=Math.abs(y-touchStartY);
+      if(!touchActive){
+        if(dy>8&&pressTimer){clearTimeout(pressTimer);pressTimer=null;}
+        return;
+      }
+      e.preventDefault();
+      const siblings=[...list.querySelectorAll(".tpq-rank-item")].filter(s=>s!==item);
+      siblings.forEach(s=>{
+        const r=s.getBoundingClientRect();
+        if(y>r.top&&y<r.bottom){
+          if(y<r.top+r.height/2)list.insertBefore(item,s);
+          else list.insertBefore(item,s.nextSibling);
+        }
+      });
+    },{passive:false});
+
+    item.addEventListener("touchend",()=>{
+      if(pressTimer){clearTimeout(pressTimer);pressTimer=null;}
+      if(touchActive){
+        touchActive=false;
+        item.classList.remove("dragging");
+        updateThirdPlaceRankingFromDOM();
+      }
+    });
+  });
+}
+
 // ── BRACKET STEP ──────────────────────────────────────────────────────────
 function seedBracketFromGroups(groups,thirdPlaceQuals){
   // Build 1A, 2A, 3A etc lookup
   const seed={};
+  const thirdByGroup={};
   Object.entries(groups).forEach(([grp,order])=>{
     seed["1"+grp]=order[0]||"TBD";
     seed["2"+grp]=order[1]||"TBD";
     seed["3"+grp]=order[2]||"TBD";
+    thirdByGroup[grp]=order[2]||"TBD";
   });
-  
-  // Add third-place qualifiers to seeding (simplified - use picked teams)
-  const quals=(thirdPlaceQuals||[]).filter(t=>t&&t.trim());
-  quals.forEach((team,i)=>{
-    if(team&&team.trim())seed["3Q"+(i+1)]=team.trim();
-  });
-  
-  // R32 seeding with third-place integration (simplified version)
-  // In reality, FIFA has 495 scenarios based on which groups the 8 thirds come from
-  // For now, we'll use a simplified approach: slots 17-24 get third-place teams
-  const baseSeeding=[
-    ["1A","2B"],["1C","2D"],["1E","2F"],["1G","2H"],
-    ["1I","2J"],["1K","2L"],["1B","2A"],["1D","2C"],
-    ["1F","2E"],["1H","2G"],["1J","2I"],["1L","2K"],
-    // Third-place matchups (simplified)
-    ["3Q1","3Q2"],["3Q3","3Q4"],["3Q5","3Q6"],["3Q7","3Q8"]
-  ];
-  
-  return baseSeeding.map(([h,a])=>({
-    home:(seed[h]&&seed[h]!=="TBD")?seed[h]:h,
-    away:(seed[a]&&seed[a]!=="TBD")?seed[a]:a,
-    homeFlag:flagFor(seed[h]||""), awayFlag:flagFor(seed[a]||""),
+
+  const qualifiers=(thirdPlaceQuals||[]).filter(t=>t&&t.trim());
+  const qualifiedGroups=Object.entries(thirdByGroup)
+    .filter(([,team])=>qualifiers.includes(team))
+    .map(([grp])=>grp);
+  const thirdSlotGroups=resolveThirdPlaceSlotGroups(qualifiedGroups);
+
+  const resolveToken=token=>{
+    if(!token.startsWith("3")||token.length<=2)return seed[token]||token;
+    const grp=thirdSlotGroups[token];
+    if(grp&&thirdByGroup[grp]&&thirdByGroup[grp]!=="TBD")return thirdByGroup[grp];
+    return token;
+  };
+
+  return R32_SEEDING.map(([h,a])=>({
+    home:resolveToken(h),
+    away:resolveToken(a),
+    homeFlag:flagFor(resolveToken(h)||""),
+    awayFlag:flagFor(resolveToken(a)||""),
   }));
+}
+
+function resolveThirdPlaceSlotGroups(qualifiedGroups){
+  const slots=[...new Set(R32_SEEDING.flat().filter(t=>t.startsWith("3")&&t.length>2))];
+  const qualifiedSet=new Set(qualifiedGroups||[]);
+  const options={};
+
+  slots.forEach(slot=>{
+    const allowed=slot.slice(1).split("").filter(g=>qualifiedSet.has(g));
+    options[slot]=allowed;
+  });
+
+  const orderedSlots=[...slots].sort((a,b)=>options[a].length-options[b].length||a.localeCompare(b));
+  const used=new Set();
+  const assignment={};
+
+  // FIFA constraint preferences observed in the official allocation grid:
+  // - Group B third place generally maps to Winner D slot (3BEFIJ).
+  // - Group L third place is strongly tied to Winner K slot (3DEIJL).
+  // - Group K third place is strongly tied to Winner L slot (3EHIJK).
+  const forcedPreferences=[
+    ["B","3BEFIJ"],
+    ["L","3DEIJL"],
+    ["K","3EHIJK"],
+  ];
+
+  forcedPreferences.forEach(([group,slot])=>{
+    if(qualifiedSet.has(group)&&options[slot]?.includes(group)&&!assignment[slot]&&!used.has(group)){
+      assignment[slot]=group;
+      used.add(group);
+    }
+  });
+
+  const remainingSlots=orderedSlots.filter(slot=>!assignment[slot]);
+
+  function backtrack(i){
+    if(i===remainingSlots.length)return true;
+    const slot=remainingSlots[i];
+    for(const grp of options[slot]){
+      if(used.has(grp))continue;
+      used.add(grp);
+      assignment[slot]=grp;
+      if(backtrack(i+1))return true;
+      used.delete(grp);
+      delete assignment[slot];
+    }
+    return false;
+  }
+
+  backtrack(0);
+  return assignment;
 }
 
 function flagFor(name){
@@ -1341,16 +1526,21 @@ function renderBracketStep(isPhase2){
     rounds[ri].teams=prevPicks;
   });
 
+  const stateKey=isPhase2?"phase2":"phase1";
+  const maxIndex=Math.max(0,rounds.length-1);
+  bracketRoundStep[stateKey]=Math.max(0,Math.min(bracketRoundStep[stateKey]||0,maxIndex));
+  const activeRound=rounds[bracketRoundStep[stateKey]];
+
   let html=`<div style="font-size:12px;color:var(--muted);margin-bottom:10px">
     ${isPhase2?`<span class="phase-label p2">Phase 2</span> Real bracket — 5pts R16/QF, 10pts SF, 15pts Champion.`
     :`<span class="phase-label p1">Phase 1</span> Based on your group predictions — pick match winners all the way to the Final.`}
   </div>
-  <div style="width:100%;max-width:100%;overflow:hidden">
-  <div class="bracket-scroll-controls">
-    <button class="btn btn-secondary bracket-scroll-btn" onclick="scrollBracketBy(-240)">◀</button>
-    <button class="btn btn-secondary bracket-scroll-btn" onclick="scrollBracketBy(240)">▶</button>
+  <div class="bracket-round-nav">
+    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},-1)" ${bracketRoundStep[stateKey]===0?"disabled":""}>← Prev</button>
+    <div class="bracket-round-indicator">${activeRound.label} (${bracketRoundStep[stateKey]+1}/${rounds.length})</div>
+    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},1)" ${bracketRoundStep[stateKey]===maxIndex?"disabled":""}>Next →</button>
   </div>
-  <div class="bracket-container" id="picks-bracket-container"><div class="bracket-grid" id="bracket-grid"></div></div>
+  <div class="bracket-single-container"><div class="bracket-grid" id="bracket-grid"></div></div>
   </div>
   <div style="margin-top:12px">
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
@@ -1360,8 +1550,16 @@ function renderBracketStep(isPhase2){
   ${!isPhase2?`<button class="btn btn-secondary" style="margin-top:8px" onclick="setWizardStep('groups')">← Back to Groups</button>`:""}
   <div style="height:60px"></div>`;
 
-  setTimeout(()=>renderBracketGrid(rounds, bracket, isPhase2), 0);
+  setTimeout(()=>renderBracketGrid([activeRound], bracket, isPhase2), 0);
   return html;
+}
+
+function changeBracketRound(isPhase2,delta){
+  const rounds=buildRoundsData(isPhase2);
+  const stateKey=isPhase2?"phase2":"phase1";
+  const next=(bracketRoundStep[stateKey]||0)+delta;
+  bracketRoundStep[stateKey]=Math.max(0,Math.min(rounds.length-1,next));
+  renderPicksView();
 }
 
 function renderBracketGrid(rounds, bracket, isPhase2){
@@ -1408,8 +1606,6 @@ function renderBracketGrid(rounds, bracket, isPhase2){
     </div>`;
   }).join("");
 
-  // iOS/Safari fallback: force horizontal touch-swipe scrolling in bracket area.
-  initBracketSwipeScroll(grid.closest(".bracket-container"));
 }
 
 function pickBracket(round, idx, team, isPhase2){
@@ -1438,7 +1634,9 @@ function pickBracket(round, idx, team, isPhase2){
 
   // Re-render bracket grid
   const roundsData=buildRoundsData(isPhase2);
-  renderBracketGrid(roundsData,bracket,isPhase2);
+  const stateKey=isPhase2?"phase2":"phase1";
+  const idx=Math.max(0,Math.min(roundsData.length-1,bracketRoundStep[stateKey]||0));
+  renderBracketGrid([roundsData[idx]],bracket,isPhase2);
 }
 
 function clearDownstream(bracket,rounds,fromRound,fromSlot,isPhase2){
@@ -1453,7 +1651,7 @@ function clearDownstream(bracket,rounds,fromRound,fromSlot,isPhase2){
 
 function buildRoundsData(isPhase2){
   const bracket=isPhase2?myPicks.phase2.bracket:myPicks.phase1.bracket;
-  const r32matches=seedBracketFromGroups(myPicks.phase1.groups);
+  const r32matches=seedBracketFromGroups(myPicks.phase1.groups,myPicks.phase1.thirdPlaceQualifiers);
   const rounds=isPhase2
     ?[{key:"r16",label:"Round of 16",  teams:results.bracket?.r16||[]},
       {key:"qf", label:"Quarter-Finals",teams:bracket.r16||[]},

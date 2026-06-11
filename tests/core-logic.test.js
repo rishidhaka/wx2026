@@ -25,10 +25,22 @@ const WC_GROUPS = {
 };
 
 const R32_SEEDING = [
-  ["1A","2B"],["1C","2D"],["1E","2F"],["1G","2H"],
-  ["1I","2J"],["1K","2L"],["1B","2A"],["1D","2C"],
-  ["1F","2E"],["1H","2G"],["1J","2I"],["1L","2K"],
-  ["2K","1L"],["2I","1J"],["2G","1H"],["2E","1F"]
+  ["2A","2B"],
+  ["1E","3ABCDF"],
+  ["1F","2C"],
+  ["1C","2F"],
+  ["1I","3CDFGH"],
+  ["2E","2I"],
+  ["1A","3CEFHI"],
+  ["1L","3EHIJK"],
+  ["1D","3BEFIJ"],
+  ["1G","3AEHIJ"],
+  ["2K","2L"],
+  ["1H","2J"],
+  ["1B","3EFGIJ"],
+  ["1J","2H"],
+  ["1K","3DEIJL"],
+  ["2D","2G"]
 ];
 
 const P1_KO_PTS = { r32:2, r16:3, qf:5, sf:10, final:20 };
@@ -61,21 +73,30 @@ function flagFor(name) {
 
 function seedBracketFromGroups(groups, thirdPlaceQualifiers = []) {
   const seed = {};
-  
-  // Seed group winners and runners-up
+  const thirdByGroup = {};
+
   Object.entries(groups).forEach(([grp, order]) => {
     seed["1"+grp] = order[0] || "";
     seed["2"+grp] = order[1] || "";
+    thirdByGroup[grp] = order[2] || "";
   });
-  
-  // Seed third-place qualifiers (3Q1-3Q8)
-  thirdPlaceQualifiers.filter(t => t && t.trim()).forEach((team, idx) => {
-    seed["3Q"+(idx+1)] = team;
-  });
-  
+
+  const qualifiers = thirdPlaceQualifiers.filter(t => t && t.trim());
+  const qualifiedGroups = Object.entries(thirdByGroup)
+    .filter(([, team]) => qualifiers.includes(team))
+    .map(([grp]) => grp);
+  const thirdSlotGroups = resolveThirdPlaceSlotGroups(qualifiedGroups);
+
+  const resolveToken = token => {
+    if (!token.startsWith("3") || token.length <= 2) return seed[token] || token;
+    const grp = thirdSlotGroups[token];
+    if (grp && thirdByGroup[grp]) return thirdByGroup[grp];
+    return token;
+  };
+
   return R32_SEEDING.map(([h, a]) => {
-    const homeTeam = seed[h] || h;
-    const awayTeam = seed[a] || a;
+    const homeTeam = resolveToken(h);
+    const awayTeam = resolveToken(a);
     return {
       home: homeTeam,
       away: awayTeam,
@@ -83,6 +104,46 @@ function seedBracketFromGroups(groups, thirdPlaceQualifiers = []) {
       awayFlag: flagFor(awayTeam)
     };
   });
+}
+
+function resolveThirdPlaceSlotGroups(qualifiedGroups) {
+  const slots = [...new Set(R32_SEEDING.flat().filter(t => t.startsWith("3") && t.length > 2))];
+  const qualifiedSet = new Set(qualifiedGroups || []);
+  const options = {};
+
+  slots.forEach(slot => {
+    options[slot] = slot.slice(1).split("").filter(g => qualifiedSet.has(g));
+  });
+
+  const orderedSlots = [...slots].sort((a, b) => options[a].length - options[b].length || a.localeCompare(b));
+  const used = new Set();
+  const assignment = {};
+
+  [["B", "3BEFIJ"], ["L", "3DEIJL"], ["K", "3EHIJK"]].forEach(([group, slot]) => {
+    if (qualifiedSet.has(group) && options[slot]?.includes(group) && !assignment[slot] && !used.has(group)) {
+      assignment[slot] = group;
+      used.add(group);
+    }
+  });
+
+  const remainingSlots = orderedSlots.filter(slot => !assignment[slot]);
+
+  function backtrack(i) {
+    if (i === remainingSlots.length) return true;
+    const slot = remainingSlots[i];
+    for (const grp of options[slot]) {
+      if (used.has(grp)) continue;
+      used.add(grp);
+      assignment[slot] = grp;
+      if (backtrack(i + 1)) return true;
+      used.delete(grp);
+      delete assignment[slot];
+    }
+    return false;
+  }
+
+  backtrack(0);
+  return assignment;
 }
 
 function calcScore(playerData, results) {
@@ -261,29 +322,38 @@ describe('Bracket Seeding from Groups', () => {
 
     const bracket = seedBracketFromGroups(mockGroups);
     expect(bracket).toHaveLength(16);
-    expect(bracket[0]).toEqual({
-      home: 'USA',
-      away: 'Ecuador',
-      homeFlag: '🇺🇸',
-      awayFlag: '🇪🇨'
-    });
+    expect(bracket[0].home).toBe('England');
+    expect(bracket[0].away).toBe('Ecuador');
+    expect(bracket[0].homeFlag).toBe(flagFor('England'));
+    expect(bracket[0].awayFlag).toBe('🇪🇨');
   });
 
-  test('should handle third-place qualifiers (3Q1-3Q8)', () => {
+  test('should assign official third-place slots with constraints', () => {
     const mockGroups = {
-      A: ['USA', 'England'], B: ['Mexico', 'Ecuador'], C: ['Argentina', 'Canada'],
-      D: ['France', 'Australia'], E: ['Spain', 'Colombia'], F: ['Germany', 'Japan'],
-      G: ['Brazil', 'Uruguay'], H: ['Portugal', 'Croatia'], I: ['Netherlands', 'Serbia'],
-      J: ['Belgium', 'Turkey'], K: ['Poland', 'Switzerland'], L: ['Italy', 'Denmark']
+      A: ['USA', 'England', 'Panama', 'Bolivia'],
+      B: ['Mexico', 'Ecuador', 'Jamaica', 'Venezuela'],
+      C: ['Argentina', 'Canada', 'Chile', 'Peru'],
+      D: ['France', 'Australia', 'Guatemala', 'Saudi Arabia'],
+      E: ['Spain', 'Colombia', 'Costa Rica', 'Morocco'],
+      F: ['Germany', 'Japan', 'Honduras', 'South Africa'],
+      G: ['Brazil', 'Uruguay', 'Paraguay', 'New Zealand'],
+      H: ['Portugal', 'Croatia', 'Algeria', 'South Korea'],
+      I: ['Netherlands', 'Serbia', 'Nigeria', 'Cuba'],
+      J: ['Belgium', 'Turkey', 'Senegal', 'Egypt'],
+      K: ['Poland', 'Switzerland', 'Qatar', 'Cameroon'],
+      L: ['Italy', 'Denmark', 'Iran', 'Tunisia']
     };
-    const thirds = ['Panama', 'Jamaica', 'Chile', 'Guatemala', 'Costa Rica', 'Honduras', 'Paraguay', 'Algeria'];
+    const thirds = ['Jamaica', 'Chile', 'Guatemala', 'Costa Rica', 'Honduras', 'Paraguay', 'Qatar', 'Iran'];
     
     const bracket = seedBracketFromGroups(mockGroups, thirds);
-    
-    // Check that 3Q positions are filled
-    const match13 = bracket[12]; // Match with 2K vs 1L
-    const match14 = bracket[13]; // Match with 2I vs 1J
+
     expect(bracket).toHaveLength(16);
+    // B third place should map to Winner D slot (match index 8 away)
+    expect(bracket[8].away).toBe('Jamaica');
+    // L third place should map to Winner K slot (match index 14 away)
+    expect(bracket[14].away).toBe('Iran');
+    // K third place should map to Winner L slot (match index 7 away)
+    expect(bracket[7].away).toBe('Qatar');
   });
 
   test('should handle empty third-place qualifiers gracefully', () => {
