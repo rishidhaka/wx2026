@@ -60,7 +60,7 @@ async function fetchGroups() {
         gf: t.all.goals.for,
         ga: t.all.goals.against,
         gd: t.goalsDiff,
-        pts: t.points
+        points: t.points
       }))
     }));
   } catch (err) {
