@@ -79,7 +79,10 @@ h1 span{color:var(--wc-gold)}
 /* ── VIEWS ── */
 .view{display:none;padding:16px}
 .view.active{display:block}
+.view-header{margin-bottom:14px}
 .section-title{font-weight:900;font-size:clamp(14px,4vw,16px);letter-spacing:1.5px;color:var(--amber);margin-bottom:14px;text-transform:uppercase}
+.view-meta{min-height:32px;margin-bottom:14px}
+.view-content{position:relative}
 
 /* ── CARDS ── */
 .card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.2);transition:all .3s ease}
@@ -182,7 +185,7 @@ input::placeholder{color:#475569}
 .deadline-banner.closed{background:linear-gradient(135deg,#1a0a0a,#0a0a0a);border-color:var(--muted);color:var(--muted)}
 
 /* ── LEAGUE ── */
-.sub-nav{display:flex;gap:7px;margin-bottom:14px}
+.sub-nav{display:flex;gap:7px;margin-bottom:0}
 .sub-btn{flex:1;padding:8px 4px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
 .sub-btn.active{background:var(--pitch);border:1px solid var(--amber);color:var(--amber)}
 .sub-btn.inactive{background:var(--navy-card);border:1px solid var(--navy-border);color:var(--muted)}
@@ -191,7 +194,7 @@ input::placeholder{color:#475569}
 .code-badge{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:1px;background:#0a1520;border:1px solid var(--navy-border);border-radius:4px;padding:3px 7px;flex-shrink:0}
 
 /* ── LIVE ── */
-.live-sub-nav{display:flex;gap:5px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+.live-sub-nav{display:flex;gap:5px;margin-bottom:0;overflow-x:auto;scrollbar-width:none}
 .live-sub-nav::-webkit-scrollbar{display:none}
 .live-tab{flex-shrink:0;padding:6px 11px;border-radius:20px;font-size:clamp(10px,2.5vw,11px);font-weight:600;cursor:pointer;border:1px solid var(--navy-border);color:var(--muted);background:var(--navy-card);white-space:nowrap}
 .live-tab.active{background:var(--pitch);border-color:var(--amber);color:var(--amber)}
@@ -295,36 +298,55 @@ input::placeholder{color:#475569}
       <!-- LEFT COLUMN (Desktop: sticky leaderboards) -->
       <div class="desktop-left">
         <div id="view-global" class="view">
-          <div class="section-title">Global Standings</div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between">
-            <span><span class="live-dot"></span>Updates as matches finish</span>
-            <span id="last-updated"></span>
+          <div class="view-header">
+            <div class="section-title">Global Standings</div>
           </div>
-          <div id="global-list"><div class="spinner">Loading…</div></div>
-          <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px">Tap a row to see score breakdown</div>
+          <div class="view-meta">
+            <div style="font-size:11px;color:var(--muted);display:flex;align-items:center;justify-content:space-between">
+              <span><span class="live-dot"></span>Updates as matches finish</span>
+              <span id="last-updated"></span>
+            </div>
+          </div>
+          <div class="view-content">
+            <div id="global-list"><div class="spinner">Loading…</div></div>
+            <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px">Tap a row to see score breakdown</div>
+          </div>
         </div>
 
         <div id="view-leagues" class="view">
-          <div class="sub-nav">
-            <button class="sub-btn active"   id="btn-my"     onclick="setLeagueView('my')">My Leagues</button>
-            <button class="sub-btn inactive" id="btn-create" onclick="setLeagueView('create')">Create</button>
-            <button class="sub-btn inactive" id="btn-join"   onclick="setLeagueView('join')">Join</button>
+          <div class="view-header">
+            <div class="section-title" style="margin-bottom:0">Leagues</div>
           </div>
-          <div id="league-panel"></div>
+          <div class="view-meta">
+            <div class="sub-nav">
+              <button class="sub-btn active"   id="btn-my"     onclick="setLeagueView('my')">My Leagues</button>
+              <button class="sub-btn inactive" id="btn-create" onclick="setLeagueView('create')">Create</button>
+              <button class="sub-btn inactive" id="btn-join"   onclick="setLeagueView('join')">Join</button>
+            </div>
+          </div>
+          <div class="view-content">
+            <div id="league-panel"></div>
+          </div>
         </div>
       </div>
 
       <!-- RIGHT COLUMN (Desktop: main content area) -->
       <div class="desktop-right">
         <div id="view-live" class="view active">
-          <div class="section-title">World Cup</div>
-          <div class="live-sub-nav">
-            <div class="live-tab active" onclick="setLiveTab('groups')">Groups</div>
-            <div class="live-tab" onclick="setLiveTab('knockouts')">Knockouts</div>
-            <div class="live-tab" onclick="setLiveTab('scorers')">Top Scorers</div>
-            <div class="live-tab" onclick="setLiveTab('fixtures')">Results</div>
+          <div class="view-header">
+            <div class="section-title">World Cup</div>
           </div>
-          <div id="live-content"><div class="spinner">Loading…</div></div>
+          <div class="view-meta">
+            <div class="live-sub-nav">
+              <div class="live-tab active" onclick="setLiveTab('groups')">Groups</div>
+              <div class="live-tab" onclick="setLiveTab('knockouts')">Knockouts</div>
+              <div class="live-tab" onclick="setLiveTab('scorers')">Top Scorers</div>
+              <div class="live-tab" onclick="setLiveTab('fixtures')">Results</div>
+            </div>
+          </div>
+          <div class="view-content">
+            <div id="live-content"><div class="spinner">Loading…</div></div>
+          </div>
         </div>
 
         <div id="view-picks" class="view">
@@ -332,16 +354,26 @@ input::placeholder{color:#475569}
         </div>
 
         <div id="view-admin" class="view">
-          <div id="admin-lock" class="card">
-            <div class="card-title">Admin Panel</div>
+          <div class="view-header">
+            <div class="section-title">Admin Panel</div>
+          </div>
+          <div class="view-meta"></div>
+          <div class="view-content">
+          <div id="admin-lock" class="card" style="margin-top:0">
+            <div class="card-title">Password Required</div>
             <input id="admin-pass" type="password" placeholder="Admin password">
             <button class="btn btn-secondary" onclick="unlockAdmin()">Unlock</button>
           </div>
           <div id="admin-panel" style="display:none"></div>
+          </div>
         </div>
 
         <div id="view-rules" class="view">
-          <div class="section-title">Scoring Rules</div>
+          <div class="view-header">
+            <div class="section-title">Scoring Rules</div>
+          </div>
+          <div class="view-meta"></div>
+          <div class="view-content">
           <div class="card" style="background:rgba(251,176,52,0.05);border-color:rgba(251,176,52,0.3)">
             <div class="card-title" style="color:var(--amber)">⏰ Important Deadlines</div>
             <div style="font-size:13px;color:var(--white);line-height:1.8">
@@ -394,6 +426,7 @@ input::placeholder{color:#475569}
           <strong style="color:var(--white)">Rolling updates:</strong> Points are awarded as each match finishes — no waiting until the end.
         </div>
       </div>
+          </div>
         </div>
       </div>
     </div>
