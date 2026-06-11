@@ -1637,8 +1637,8 @@ function renderBracketGrid(rounds, bracket, isPhase2){
       const h=teams[i]||"TBD", a=teams[i+1]||"TBD";
       const hf=flagFor(h), af=flagFor(a);
       const matchIdx=Math.floor(i/2);
-      const pickedWinner=picks[matchIdx]||"";
-      const hSel=pickedWinner===h, aSel=pickedWinner===a;
+      const pickedWinner=(picks&&picks.length>matchIdx&&picks[matchIdx])?picks[matchIdx]:"";
+      const hSel=pickedWinner&&pickedWinner===h, aSel=pickedWinner&&pickedWinner===a;
       const matchNum=Math.floor(i/2)+1;
       matches.push(`<div class="bracket-match">
         <div class="bracket-match-num">Match ${matchNum}</div>
@@ -1798,6 +1798,23 @@ function validatePlayerName(playerName){
   return isValid;
 }
 
+// Remove undefined values recursively (Firestore doesn't allow undefined fields)
+function cleanData(obj){
+  if(obj===null||obj===undefined)return undefined;
+  if(Array.isArray(obj))return obj.map(cleanData).filter(x=>x!==undefined);
+  if(typeof obj==="object"){
+    const cleaned={};
+    for(const key in obj){
+      if(Object.prototype.hasOwnProperty.call(obj,key)){
+        const val=cleanData(obj[key]);
+        if(val!==undefined)cleaned[key]=val;
+      }
+    }
+    return Object.keys(cleaned).length>0?cleaned:undefined;
+  }
+  return obj;
+}
+
 // ── SAVE PICKS ────────────────────────────────────────────────────────────
 async function savePicks(isPhase2,ev){
   if(!currentUser||!currentUser.uid){
@@ -1862,17 +1879,17 @@ async function savePicks(isPhase2,ev){
   try{
     // Set submission timestamp for Phase 1 (first time only)
     const saveData={
-      phase1:myPicks.phase1,
-      phase2:myPicks.phase2,
+      phase1:cleanData(myPicks.phase1)||{},
+      phase2:cleanData(myPicks.phase2)||{},
       name:currentUser.displayName||"Anonymous",
       photoURL:currentUser.photoURL||"",
       email:currentUser.email||"",
     };
     if(!isPhase2&&!myPicks.phase1SubmittedAt){
       saveData.phase1SubmittedAt=new Date().toISOString();
-      myPicks.phase1SubmittedAt=saveData.phase1SubmittedAt; // Update local copy
+      myPicks.phase1SubmittedAt=saveData.phase1SubmittedAt;
     }else if(myPicks.phase1SubmittedAt){
-      saveData.phase1SubmittedAt=myPicks.phase1SubmittedAt; // Preserve existing timestamp
+      saveData.phase1SubmittedAt=myPicks.phase1SubmittedAt;
     }
     
     await db.collection("wc2026picks").doc(currentUser.uid).set(saveData);
@@ -1882,12 +1899,15 @@ async function savePicks(isPhase2,ev){
         name:currentUser.displayName||"Anonymous",
         photoURL:currentUser.photoURL||"",
         email:currentUser.email||"",
-        phase1:myPicks.phase1,
-        phase2:myPicks.phase2,
+        phase1:cleanData(myPicks.phase1)||{},
+        phase2:cleanData(myPicks.phase2)||{},
       }
     },{merge:true});
     showToast("Picks saved! ✓");
-    renderPicksView();
+    setTimeout(()=>{
+      renderPicksView();
+      renderGlobal();
+    },100);
   }catch(e){
     console.error("Save picks failed",e);
     showToast("Save failed — check connection");
@@ -1973,8 +1993,8 @@ async function saveDraftPicks(reason){
   draftSaveInFlight=true;
   try{
     await db.collection("wc2026picks").doc(currentUser.uid).set({
-      phase1:myPicks.phase1,
-      phase2:myPicks.phase2,
+      phase1:cleanData(myPicks.phase1)||{},
+      phase2:cleanData(myPicks.phase2)||{},
       phase1SubmittedAt:myPicks.phase1SubmittedAt||null,
       name:currentUser.displayName||"Anonymous",
       photoURL:currentUser.photoURL||"",
