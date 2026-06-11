@@ -603,12 +603,12 @@ function startListeners(){
     db.collection("wc2026").doc("leagues").onSnapshot(s=>{
       leagues=s.exists?s.data():{};
       if(leagueView==="my")renderMyLeagues();
-    }),
-    db.collection("wc2026").doc("tournament").onSnapshot(s=>{
-      tournamentData=s.exists?s.data():{};
-      if(document.getElementById("view-live").classList.contains("active"))renderLiveTab();
     })
   );
+  
+  // Load tournament data from static JSON (updated by GitHub Actions)
+  loadTournamentData();
+  
   // Load my picks
   db.collection("wc2026picks").doc(currentUser.uid).get().then(s=>{
     if(s.exists){
@@ -625,6 +625,62 @@ function startListeners(){
     }
     if(document.getElementById("view-picks").classList.contains("active"))renderPicksView();
   });
+}
+
+// ── LOAD TOURNAMENT DATA FROM STATIC JSON ─────────────────────────────────
+async function loadTournamentData() {
+  try {
+    const response = await fetch('data/wc2026.json');
+    const data = await response.json();
+    
+    // Transform API data to match expected format
+    tournamentData = {
+      groups: data.groups.map(g => ({
+        name: g.group,
+        standings: g.standings
+      })),
+      fixtures: data.fixtures,
+      scorers: data.topScorers.map(s => ({
+        name: s.name,
+        team: s.team,
+        goals: s.goals,
+        flag: getFlagEmojiForTeam(s.team)
+      })),
+      lastUpdated: data.lastUpdated
+    };
+    
+    // Re-render LIVE tab if active
+    if (document.getElementById("view-live")?.classList.contains("active")) {
+      renderLiveTab();
+    }
+    
+    // Refresh every 5 minutes to pick up GitHub Actions updates
+    setTimeout(loadTournamentData, 5 * 60 * 1000);
+  } catch (err) {
+    console.error('Failed to load tournament data:', err);
+    tournamentData = {};
+    // Retry in 30 seconds on error
+    setTimeout(loadTournamentData, 30 * 1000);
+  }
+}
+
+function getFlagEmojiForTeam(teamName) {
+  const flagMap = {
+    'Mexico': '🇲🇽', 'South Africa': '🇿🇦', 'Korea Republic': '🇰🇷', 'Czechia': '🇨🇿',
+    'Canada': '🇨🇦', 'Bosnia and Herzegovina': '🇧🇦', 'Qatar': '🇶🇦', 'Switzerland': '🇨🇭',
+    'USA': '🇺🇸', 'Colombia': '🇨🇴', 'Northern Ireland': '🏴', 'China PR': '🇨🇳',
+    'Argentina': '🇦🇷', 'Morocco': '🇲🇦', 'Nigeria': '🇳🇬', 'Tunisia': '🇹🇳',
+    'Brazil': '🇧🇷', 'Japan': '🇯🇵', 'Australia': '🇦🇺', 'Saudi Arabia': '🇸🇦',
+    'France': '🇫🇷', 'Egypt': '🇪🇬', 'IR Iran': '🇮🇷', 'Peru': '🇵🇪',
+    'Spain': '🇪🇸', 'Ukraine': '🇺🇦', 'Senegal': '🇸🇳', 'Ecuador': '🇪🇨',
+    'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Portugal': '🇵🇹', 'Cameroon': '🇨🇲', 'Chile': '🇨🇱',
+    'Germany': '🇩🇪', 'Belgium': '🇧🇪', 'Costa Rica': '🇨🇷', 'Zambia': '🇿🇲',
+    'Italy': '🇮🇹', 'Uruguay': '🇺🇾', 'Panama': '🇵🇦', 'Bolivia': '🇧🇴',
+    'Netherlands': '🇳🇱', 'Croatia': '🇭🇷', 'Serbia': '🇷🇸', 'Paraguay': '🇵🇾',
+    'Poland': '🇵🇱', 'Denmark': '🇩🇰', 'Ghana': '🇬🇭', 'Venezuela': '🇻🇪',
+    'Türkiye': '🇹🇷', 'Sweden': '🇸🇪', 'Algeria': '🇩🇿', 'New Zealand': '🇳🇿'
+  };
+  return flagMap[teamName] || '🏴';
 }
 
 // ══ SCORING ════════════════════════════════════════════════════════════════
