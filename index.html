@@ -1536,30 +1536,7 @@ function flagFor(name){
 function renderBracketStep(isPhase2){
   const picks=isPhase2?myPicks.phase2:myPicks.phase1;
   const bracket=picks.bracket||{};
-  const r32matches=seedBracketFromGroups(myPicks.phase1.groups,myPicks.phase1.thirdPlaceQualifiers);
-
-  // Build progressive rounds from picks
-  const rounds=isPhase2
-    ?[{key:"r16",label:"Round of 16",teams:results.bracket?.r16||[]},
-      {key:"qf", label:"Quarter-Finals",teams:[]},
-      {key:"sf", label:"Semi-Finals",   teams:[]},
-      {key:"final",label:"Final",       teams:[]},
-      {key:"winner",label:"Champion",   teams:[]}]
-    :[{key:"r32",label:"Round of 32",teams:r32matches.flatMap(m=>[m.home,m.away])},
-      {key:"r16",label:"Round of 16", teams:[]},
-      {key:"qf", label:"Quarter-Finals",teams:[]},
-      {key:"sf", label:"Semi-Finals",  teams:[]},
-      {key:"final",label:"Final",      teams:[]},
-      {key:"winner",label:"Champion",  teams:[]}];
-
-  // Propagate winners from picks through rounds
-  const keys=rounds.map(r=>r.key);
-  keys.forEach((key,ri)=>{
-    if(ri===0)return;
-    const prevKey=keys[ri-1];
-    const prevPicks=bracket[prevKey]||[];
-    rounds[ri].teams=prevPicks;
-  });
+  const rounds=buildRoundsData(isPhase2);
 
   const stateKey=isPhase2?"phase2":"phase1";
   const maxIndex=Math.max(0,rounds.length-1);
@@ -1588,10 +1565,31 @@ function renderBracketStep(isPhase2){
   </div>
   <button class="btn btn-primary" style="margin-top:8px" onclick="savePicks(${isPhase2})">Save ${isPhase2?"Second Chance ":""}Picks ✓</button>
   ${!isPhase2?`<button class="btn btn-secondary" style="margin-top:8px" onclick="setWizardStep('groups')">← Back to Groups</button>`:""}
+  ${renderPredictedPodiumBanner(isPhase2)}
   <div style="height:60px"></div>`;
 
   setTimeout(()=>renderBracketGrid([activeRound], bracket, isPhase2), 0);
   return html;
+}
+
+function renderPredictedPodiumBanner(isPhase2){
+  const rounds=buildRoundsData(isPhase2);
+  const bracket=isPhase2?myPicks.phase2.bracket:myPicks.phase1.bracket;
+  const finalRound=rounds.find(r=>r.key==="final")||{teams:[]};
+  const finalTeams=finalRound.teams||[];
+  const champion=(Array.isArray(bracket.final)&&bracket.final[0])||(Array.isArray(bracket.winner)&&bracket.winner[0])||"";
+  const runnerUp=(champion&&finalTeams.length>=2)?(finalTeams[0]===champion?finalTeams[1]:finalTeams[0]):"";
+  const third=(Array.isArray(bracket.third)&&bracket.third[0])||"";
+  if(!champion||!runnerUp||!third)return "";
+
+  return `<div style="margin-top:10px;padding:12px;border:1px solid var(--navy-border);border-radius:10px;background:var(--navy-card)">
+    <div style="font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Your Predicted Podium</div>
+    <div style="display:grid;gap:6px;font-size:13px">
+      <div>🥇 <strong>${flagFor(champion)} ${esc(champion)}</strong></div>
+      <div>🥈 <strong>${flagFor(runnerUp)} ${esc(runnerUp)}</strong></div>
+      <div>🥉 <strong>${flagFor(third)} ${esc(third)}</strong></div>
+    </div>
+  </div>`;
 }
 
 function changeBracketRound(isPhase2,delta){
@@ -1664,6 +1662,15 @@ function pickBracket(round, idx, team, isPhase2){
   const matchIdx=Math.floor(idx/2);
   bracket[round][matchIdx]=team;
 
+  if(round==="third"){
+    const roundsData=buildRoundsData(isPhase2);
+    const stateKey=isPhase2?"phase2":"phase1";
+    const roundIdx=Math.max(0,Math.min(roundsData.length-1,bracketRoundStep[stateKey]||0));
+    renderBracketGrid([roundsData[roundIdx]],bracket,isPhase2);
+    scheduleDraftAutoSave("knockout-pick");
+    return;
+  }
+
   // Propagate: winner advances to next round
   // Find which match this is (idx/2) and update the corresponding slot in next round
   const rounds=isPhase2?["r16","qf","sf","final","winner"]:["r32","r16","qf","sf","final","winner"];
@@ -1698,19 +1705,50 @@ function clearDownstream(bracket,rounds,fromRound,fromSlot,isPhase2){
 function buildRoundsData(isPhase2){
   const bracket=isPhase2?myPicks.phase2.bracket:myPicks.phase1.bracket;
   const r32matches=seedBracketFromGroups(myPicks.phase1.groups,myPicks.phase1.thirdPlaceQualifiers);
-  const rounds=isPhase2
-    ?[{key:"r16",label:"Round of 16",  teams:results.bracket?.r16||[]},
-      {key:"qf", label:"Quarter-Finals",teams:bracket.r16||[]},
-      {key:"sf", label:"Semi-Finals",   teams:bracket.qf||[]},
-      {key:"final",label:"Final",       teams:bracket.sf||[]},
-      {key:"winner",label:"Champion",   teams:bracket.final||[]}]
-    :[{key:"r32",label:"Round of 32",  teams:r32matches.flatMap(m=>[m.home,m.away])},
-      {key:"r16",label:"Round of 16",  teams:bracket.r32||[]},
-      {key:"qf", label:"Quarter-Finals",teams:bracket.r16||[]},
-      {key:"sf", label:"Semi-Finals",   teams:bracket.qf||[]},
-      {key:"final",label:"Final",       teams:bracket.sf||[]},
-      {key:"winner",label:"Champion",   teams:bracket.final||[]}];
-  return rounds;
+
+  const normalizeWinners=(arr,expectedMatches)=>{
+    const source=Array.isArray(arr)?arr:[];
+    if(source.length>expectedMatches){
+      const out=[];
+      for(let i=0;i<expectedMatches;i++){
+        const a=source[i*2];
+        const b=source[i*2+1];
+        out.push((a&&a.trim())||(b&&b.trim())||"");
+      }
+      return out;
+    }
+    const out=source.slice(0,expectedMatches);
+    while(out.length<expectedMatches)out.push("");
+    return out;
+  };
+
+  const r32Winners=normalizeWinners(bracket.r32,16);
+  const r16Teams=normalizeWinners(isPhase2?(results.bracket?.r16||[]):r32Winners,16);
+  const r16Winners=normalizeWinners(bracket.r16,8);
+  const qfTeams=r16Winners;
+  const qfWinners=normalizeWinners(bracket.qf,4);
+  const sfTeams=qfWinners;
+  const sfWinners=normalizeWinners(bracket.sf,2);
+  const finalTeams=sfWinners;
+  const finalWinner=normalizeWinners(bracket.final,1);
+
+  const thirdTeams=(function(){
+    const t1=sfTeams[0]||"", t2=sfTeams[1]||"", t3=sfTeams[2]||"", t4=sfTeams[3]||"";
+    const w1=sfWinners[0]||"", w2=sfWinners[1]||"";
+    const l1=(w1&&w1===t1)?t2:((w1&&w1===t2)?t1:"");
+    const l2=(w2&&w2===t3)?t4:((w2&&w2===t4)?t3:"");
+    return [l1,l2];
+  })();
+
+  return [
+    ...(isPhase2?[]:[{key:"r32",label:"Round of 32",teams:r32matches.flatMap(m=>[m.home,m.away])}]),
+    {key:"r16",label:"Round of 16",teams:r16Teams},
+    {key:"qf",label:"Quarter-Finals",teams:qfTeams},
+    {key:"sf",label:"Semi-Finals",teams:sfTeams},
+    {key:"final",label:"Final",teams:finalTeams},
+    {key:"third",label:"3rd Place Playoff",teams:thirdTeams},
+    {key:"winner",label:"Champion",teams:finalWinner},
+  ];
 }
 
 // ── PHASE 2 STEP ──────────────────────────────────────────────────────────
