@@ -773,6 +773,12 @@ function startListeners(){
       if(!myPicks.phase1.thirdPlaceQualifiers)myPicks.phase1.thirdPlaceQualifiers=[];
       if(!myPicks.phase1.thirdPlaceRanking)myPicks.phase1.thirdPlaceRanking=[];
       syncThirdPlaceRanking();
+
+      // Self-heal: if older/bad save locked Phase 1 without complete picks, unlock it.
+      if(myPicks.phase1SubmittedAt&&!isPhase1PredictionComplete(myPicks.phase1)){
+        myPicks.phase1SubmittedAt=null;
+        db.collection("wc2026picks").doc(currentUser.uid).set({phase1SubmittedAt:null},{merge:true});
+      }
     } else {
       // First-time user - show How to Play modal
       myPicks.phase1.groups=defaultGroups();
@@ -1019,23 +1025,6 @@ function renderPicksView(){
   const timerEl=document.getElementById("picks-timer");
   const stepsEl=document.getElementById("picks-steps");
   const phase2Unlocked=results.phase2Unlocked;
-  
-  // Check if Phase 1 picks are locked (already submitted)
-  const phase1Locked=myPicks.phase1SubmittedAt&&isPhase1Open();
-  if(phase1Locked&&!phase2Unlocked){
-    timerEl.innerHTML="";
-    stepsEl.innerHTML="";
-    el.innerHTML=`<div class="card">
-      <div class="card-title">🔒 Phase 1 Picks Locked</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px">
-        Your Phase 1 predictions were submitted on <strong>${new Date(myPicks.phase1SubmittedAt).toLocaleDateString()}</strong> and are now locked to preserve competitive integrity.
-      </div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;padding:12px;background:rgba(251,176,52,0.1);border-radius:8px;border:1px solid rgba(251,176,52,0.3)">
-        ⚠️ <strong>Why locked?</strong> Once submitted, picks cannot be edited to prevent gaining unfair advantage by watching early matches. Phase 2 (Second Chance) unlocks after the group stage ends.
-      </div>
-    </div>`;
-    return;
-  }
 
   // Show deadline warning if Phase 1 is closing soon
   let deadlineWarning="";
@@ -1753,9 +1742,17 @@ async function savePicks(isPhase2){
   let goldenBootPick="";
   if(gbInput){
     goldenBootPick=gbInput.value.trim();
-    
+    const resolvedGoldenBoot=resolvePlayerName(goldenBootPick);
+
+    if(!resolvedGoldenBoot){
+      showToast("⚠️ Top scorer is required. Please select a player from the official squad list.");
+      gbInput.style.border="2px solid #e74c3c";
+      gbInput.focus();
+      return;
+    }
+
     // STRICT VALIDATION: Golden Boot must be from official squad list
-    if(goldenBootPick&&!validatePlayerName(goldenBootPick)){
+    if(!validatePlayerName(resolvedGoldenBoot)){
       showToast("⚠️ Golden Boot player must be from official 2026 World Cup squads. Please select from dropdown.");
       gbInput.style.border="2px solid #e74c3c";
       gbInput.focus();
@@ -1765,9 +1762,22 @@ async function savePicks(isPhase2){
     // Valid selection - remove error styling
     gbInput.style.border="";
     
+    goldenBootPick=resolvedGoldenBoot;
+    gbInput.value=resolvedGoldenBoot;
+
     if(isPhase2) myPicks.phase2.goldenBoot=goldenBootPick;
     else myPicks.phase1.goldenBoot=goldenBootPick;
   }
+
+  if(!isPhase2&&!isPhase1PredictionComplete(myPicks.phase1)){
+    showToast("⚠️ Complete all Phase 1 picks first: Groups, Top-8 thirds, full knockout path, and top scorer.");
+    return;
+  }
+  if(isPhase2&&!isPhase2PredictionComplete(myPicks.phase2)){
+    showToast("⚠️ Complete all Phase 2 picks first: full knockout path and top scorer.");
+    return;
+  }
+
   const btn=document.querySelector(".btn-primary");
   if(btn){btn.textContent="Saving…";btn.disabled=true;}
   try{
@@ -1798,11 +1808,76 @@ async function savePicks(isPhase2){
       }
     },{merge:true});
     showToast("Picks saved! ✓");
-    setTimeout(()=>document.querySelector('[data-tab="live"]').click(),700);
   }catch(e){
     showToast("Save failed — check connection");
     if(btn){btn.textContent=isPhase2?"Save Second Chance Picks ✓":"Save Picks ✓";btn.disabled=false;}
   }
+}
+
+function getOfficialPlayerNames(){
+  const datalist=document.getElementById("player-list");
+  if(!datalist)return[];
+  return Array.from(datalist.options).map(opt=>(opt.value||"").trim()).filter(Boolean);
+}
+
+function normalizePlayerName(name){
+  return String(name||"")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g,"")
+    .trim();
+}
+
+function resolvePlayerName(playerName){
+  const raw=String(playerName||"").trim();
+  if(!raw)return"";
+  const validPlayers=getOfficialPlayerNames();
+  if(!validPlayers.length)return raw;
+
+  const exact=validPlayers.find(v=>v.toLowerCase()===raw.toLowerCase());
+  if(exact)return exact;
+
+  const token=normalizePlayerName(raw);
+  const fuzzy=validPlayers.filter(v=>normalizePlayerName(v).includes(token));
+  if(fuzzy.length===1)return fuzzy[0];
+  return "";
+}
+
+function isFilledTeamSlot(v){
+  return typeof v==="string"&&v.trim()!==""&&v!=="TBD";
+}
+
+function hasCompleteGroups(groups){
+  if(!groups||typeof groups!=="object")return false;
+  const keys=Object.keys(WC_GROUPS);
+  if(keys.some(k=>!(groups[k]&&Array.isArray(groups[k])&&groups[k].length===4)))return false;
+  return keys.every(k=>groups[k].every(isFilledTeamSlot));
+}
+
+function hasCompleteBracketPath(bracket,isPhase2){
+  const required=isPhase2
+    ?[{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2},{key:"winner",len:1}]
+    :[{key:"r16",len:16},{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2},{key:"winner",len:1}];
+  return required.every(({key,len})=>{
+    const arr=(bracket||{})[key]||[];
+    return arr.length>=len&&arr.slice(0,len).every(isFilledTeamSlot);
+  });
+}
+
+function isPhase1PredictionComplete(phase1){
+  const p=phase1||{};
+  const qualifiers=(p.thirdPlaceQualifiers||[]).filter(isFilledTeamSlot);
+  return hasCompleteGroups(p.groups)
+    && qualifiers.length===8
+    && hasCompleteBracketPath(p.bracket,false)
+    && isFilledTeamSlot(p.goldenBoot||"");
+}
+
+function isPhase2PredictionComplete(phase2){
+  const p=phase2||{};
+  return hasCompleteBracketPath(p.bracket,true)
+    && isFilledTeamSlot(p.goldenBoot||"");
 }
 
 // ══ LIVE TAB ═══════════════════════════════════════════════════════════════
@@ -2195,6 +2270,33 @@ function showDetail(uid){
   <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:#0a1520;border-radius:8px">
     <span style="font-size:13px;color:var(--muted)">Total Score</span>
     <span style="font-weight:900;font-size:26px;color:var(--amber)">${s.total} <span style="font-size:13px;color:var(--muted);font-weight:400">pts</span></span>
+  </div>`;
+
+  const p1=p.phase1||{};
+  const p2=p.phase2||{};
+  const p1Winner=(p1.bracket?.winner||[])[0]||"—";
+  const p2Winner=(p2.bracket?.winner||[])[0]||"—";
+  const p1Rounds=["r16","qf","sf","final"];
+  const p2Rounds=["qf","sf","final"];
+  const p1RoundText=p1Rounds
+    .map(r=>((p1.bracket?.[r]||[]).filter(isFilledTeamSlot).join(" • ")))
+    .filter(Boolean)
+    .join("<br>");
+  const p2RoundText=p2Rounds
+    .map(r=>((p2.bracket?.[r]||[]).filter(isFilledTeamSlot).join(" • ")))
+    .filter(Boolean)
+    .join("<br>");
+
+  html+=`<div style="margin-top:12px;padding:12px;background:#0a1520;border-radius:8px">
+    <div style="font-size:12px;font-weight:800;letter-spacing:0.6px;color:var(--white);margin-bottom:8px">Submitted Picks</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7">
+      <div><strong style="color:var(--white)">Phase 1 Champion:</strong> ${esc(p1Winner)}</div>
+      <div><strong style="color:var(--white)">Phase 1 Top Scorer:</strong> ${esc(p1.goldenBoot||"—")}</div>
+      ${p1RoundText?`<div style="margin-top:6px"><strong style="color:var(--white)">Phase 1 KO Picks:</strong><br>${esc(p1RoundText).replace(/&lt;br&gt;/g,"<br>")}</div>`:""}
+      <div style="margin-top:8px"><strong style="color:var(--white)">Phase 2 Champion:</strong> ${esc(p2Winner)}</div>
+      <div><strong style="color:var(--white)">Phase 2 Top Scorer:</strong> ${esc(p2.goldenBoot||"—")}</div>
+      ${p2RoundText?`<div style="margin-top:6px"><strong style="color:var(--white)">Phase 2 KO Picks:</strong><br>${esc(p2RoundText).replace(/&lt;br&gt;/g,"<br>")}</div>`:""}
+    </div>
   </div>`;
   document.getElementById("modal-body").innerHTML=html;
   document.getElementById("modal").classList.add("open");
