@@ -141,11 +141,11 @@ input::placeholder{color:#475569}
 .group-block-title{font-weight:900;font-size:13px;letter-spacing:1.5px;color:var(--amber);text-transform:uppercase}
 .group-done-badge{font-size:10px;font-weight:700;color:var(--green);background:#102010;border:1px solid #1a4020;border-radius:3px;padding:2px 7px}
 .group-teams{padding:4px 0}
-.drag-item{display:flex;align-items:center;padding:9px 14px;gap:10px;cursor:grab;transition:background .15s;user-select:none;touch-action:none}
+.drag-item{display:flex;align-items:center;padding:9px 14px;gap:10px;cursor:grab;transition:background .15s;user-select:none;touch-action:pan-y}
 .drag-item:active{cursor:grabbing}
 .drag-item.dragging{opacity:.4;background:#0a1520}
 .drag-item.drag-over{background:#1a3a2a;border-top:2px solid var(--amber)}
-.drag-handle{color:var(--muted);font-size:14px;flex-shrink:0}
+.drag-handle{color:var(--muted);font-size:14px;flex-shrink:0;cursor:grab;touch-action:none}
 .drag-pos{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
 .drag-pos.p1{background:var(--gold);color:#000}
 .drag-pos.p2{background:var(--silver);color:#000}
@@ -156,12 +156,12 @@ input::placeholder{color:#475569}
 .drag-pts{font-size:10px;color:var(--muted)}
 
 /* ── BRACKET ── */
-.bracket-container{overflow-x:auto;padding-bottom:8px}
+.bracket-container{width:100%;max-width:100%;align-self:stretch;overflow-x:auto;overflow-y:hidden;padding-bottom:8px;-webkit-overflow-scrolling:touch;touch-action:pan-x}
 .bracket-grid{display:flex;gap:10px;min-width:max-content;padding:4px 0}
 .bracket-round-col{display:flex;flex-direction:column;gap:8px;min-width:140px}
 .bracket-round-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:4px;padding:0 4px}
 .bracket-match{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:8px;overflow:hidden}
-.bracket-team-btn{width:100%;display:flex;align-items:center;gap:7px;padding:8px 10px;cursor:pointer;background:none;border:none;color:var(--white);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;text-align:left;transition:background .15s;border-bottom:1px solid var(--navy-border)}
+.bracket-team-btn{width:100%;display:flex;align-items:center;gap:7px;padding:8px 10px;cursor:pointer;background:none;border:none;color:var(--white);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;text-align:left;transition:background .15s;border-bottom:1px solid var(--navy-border);touch-action:manipulation}
 .bracket-team-btn:last-child{border-bottom:none}
 .bracket-team-btn:hover{background:#162538}
 .bracket-team-btn.selected{background:var(--pitch);color:var(--amber)}
@@ -1068,15 +1068,29 @@ function initDragDrop(){
       updateGroupOrder(dragGroup);
     });
 
-    // Touch drag
-    let touchStartY=0,touchEl=null;
+    // Touch drag: require touching the drag handle and moving enough to avoid accidental reorders while scrolling
+    let touchStartY=0,touchStartX=0,touchActive=false,touchDragging=false;
     item.addEventListener("touchstart",e=>{
-      touchStartY=e.touches[0].clientY; touchEl=item;
-      item.classList.add("dragging");
+      if(!e.target.closest(".drag-handle"))return;
+      touchActive=true;
+      touchDragging=false;
+      touchStartY=e.touches[0].clientY;
+      touchStartX=e.touches[0].clientX;
     },{passive:true});
     item.addEventListener("touchmove",e=>{
-      e.preventDefault();
+      if(!touchActive)return;
       const y=e.touches[0].clientY;
+      const x=e.touches[0].clientX;
+      const dy=Math.abs(y-touchStartY);
+      const dx=Math.abs(x-touchStartX);
+
+      if(!touchDragging){
+        if(dy<8&&dx<8)return;
+        touchDragging=true;
+        item.classList.add("dragging");
+      }
+
+      e.preventDefault();
       const container=document.getElementById("grpteams-"+item.dataset.group);
       const siblings=[...container.querySelectorAll(".drag-item")].filter(s=>s!==item);
       siblings.forEach(s=>{
@@ -1090,10 +1104,17 @@ function initDragDrop(){
       updateGroupOrder(item.dataset.group);
     },{passive:false});
     item.addEventListener("touchend",()=>{
+      if(!touchActive)return;
+      touchActive=false;
       item.classList.remove("dragging");
       document.querySelectorAll(".drag-item").forEach(i=>i.classList.remove("drag-over"));
-      // refresh position labels
       refreshGroupPositions(item.dataset.group);
+    });
+    item.addEventListener("touchcancel",()=>{
+      touchActive=false;
+      touchDragging=false;
+      item.classList.remove("dragging");
+      document.querySelectorAll(".drag-item").forEach(i=>i.classList.remove("drag-over"));
     });
   });
 }
