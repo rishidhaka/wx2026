@@ -2444,9 +2444,11 @@ function showDetail(uid){
   const p2Final=(p2.bracket?.final||[]);
   const p1Winner=(p1.bracket?.winner||[])[0]||(p1Final[0]||"—");
   const p2Winner=(p2.bracket?.winner||[])[0]||(p2Final[0]||"—");
-  // Runner-up is the team in final that is NOT the winner
-  const p1RunnerUp=p1Final.filter(t=>isFilledTeamSlot(t)&&t!==p1Winner)[0]||"—";
-  const p2RunnerUp=p2Final.filter(t=>isFilledTeamSlot(t)&&t!==p2Winner)[0]||"—";
+  // In dense format, finalists are from semifinals (the 2 SF winners that play in the final)
+  const p1Finalists=(p1.bracket?.sf||[]);
+  const p2Finalists=(p2.bracket?.sf||[]);
+  const p1RunnerUp=p1Finalists.filter(t=>isFilledTeamSlot(t)&&t!==p1Winner)[0]||"—";
+  const p2RunnerUp=p2Finalists.filter(t=>isFilledTeamSlot(t)&&t!==p2Winner)[0]||"—";
   const p1Third=(p1.bracket?.third||[])[0]||"—";
   const p2Third=(p2.bracket?.third||[])[0]||"—";
   const p1Rounds=["r16","qf","sf","final"];

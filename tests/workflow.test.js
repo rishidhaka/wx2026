@@ -103,29 +103,31 @@ describe('Save Picks Workflow Logic', () => {
 });
 
 describe('Player Podium Display Logic', () => {
-  test('calculates runner-up from final match participants', () => {
-    const p1Final = ['Portugal', 'France'];
+  test('calculates runner-up from semifinal winners (not final)', () => {
+    // In dense format: sf array has the 2 finalists (semifinal winners)
+    const p1SF = ['Portugal', 'France'];  // Semifinal winners
+    const p1Final = ['Portugal'];          // Final winner (just 1 team)
     const p1Winner = 'Portugal';
-    const p1RunnerUp = p1Final.filter(t => t && t.trim() && t !== 'TBD' && t !== p1Winner)[0] || '—';
-    const p1Third = 'Spain';
+    
+    // Runner-up is the semifinalist who didn't win the final
+    const p1RunnerUp = p1SF.filter(t => t && t.trim() && t !== 'TBD' && t !== p1Winner)[0] || '—';
 
     expect(p1Winner).toBe('Portugal');
     expect(p1RunnerUp).toBe('France');
-    expect(p1Third).toBe('Spain');
   });
 
   test('handles missing runner-up with fallback', () => {
-    const p1Final = ['Portugal'];
+    const p1SF = ['Portugal'];  // Only one semifinalist
     const p1Winner = 'Portugal';
-    const p1RunnerUp = p1Final.filter(t => t && t.trim() && t !== 'TBD' && t !== p1Winner)[0] || '—';
+    const p1RunnerUp = p1SF.filter(t => t && t.trim() && t !== 'TBD' && t !== p1Winner)[0] || '—';
 
     expect(p1RunnerUp).toBe('—');
   });
 
-  test('filters out TBD and empty values from finalists', () => {
-    const p1Final = ['Portugal', 'TBD'];
+  test('filters out TBD and empty values from semifinalists', () => {
+    const p1SF = ['Portugal', 'TBD'];
     const p1Winner = 'Portugal';
-    const p1RunnerUp = p1Final.filter(t => t && t.trim() && t !== 'TBD' && t !== p1Winner)[0] || '—';
+    const p1RunnerUp = p1SF.filter(t => t && t.trim() && t !== 'TBD' && t !== p1Winner)[0] || '—';
 
     expect(p1RunnerUp).toBe('—');
   });
