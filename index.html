@@ -1892,17 +1892,21 @@ async function savePicks(isPhase2,ev){
       saveData.phase1SubmittedAt=myPicks.phase1SubmittedAt;
     }
     
-    await db.collection("wc2026picks").doc(currentUser.uid).set(saveData);
+    // JSON round-trip strips all undefined values before sending to Firestore
+    const sanitized=JSON.parse(JSON.stringify(saveData));
+    console.log("Saving full picks:",sanitized);
+    await db.collection("wc2026picks").doc(currentUser.uid).set(sanitized);
     // Also update the players doc for leaderboard
-    await db.collection("wc2026").doc("players").set({
-      [currentUser.uid]:{
+    const playersData={
+      [currentUser.uid]:JSON.parse(JSON.stringify({
         name:currentUser.displayName||"Anonymous",
         photoURL:currentUser.photoURL||"",
         email:currentUser.email||"",
         phase1:cleanData(myPicks.phase1)||{},
         phase2:cleanData(myPicks.phase2)||{},
-      }
-    },{merge:true});
+      }))
+    };
+    await db.collection("wc2026").doc("players").set(playersData,{merge:true});
     showToast("Picks saved! ✓");
     setTimeout(()=>{
       renderPicksView();
@@ -1958,12 +1962,18 @@ function hasCompleteGroups(groups){
 }
 
 function hasCompleteBracketPath(bracket,isPhase2){
+  // Each round stores picks at team positions (one per match pair).
+  // Count completed match pairs (at least one of the two team slots filled).
   const required=isPhase2
-    ?[{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2}]
-    :[{key:"r16",len:16},{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2}];
+    ?[{key:"r16",len:16},{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2}]
+    :[{key:"r32",len:32},{key:"r16",len:16},{key:"qf",len:8},{key:"sf",len:4},{key:"final",len:2}];
   return required.every(({key,len})=>{
     const arr=(bracket||{})[key]||[];
-    return arr.length>=len&&arr.slice(0,len).every(isFilledTeamSlot);
+    let completed=0;
+    for(let i=0;i<len;i+=2){
+      if(isFilledTeamSlot(arr[i])||isFilledTeamSlot(arr[i+1]))completed++;
+    }
+    return completed>=len/2;
   });
 }
 
@@ -1992,7 +2002,7 @@ async function saveDraftPicks(reason){
   if(!currentUser||!currentUser.uid||draftSaveInFlight)return;
   draftSaveInFlight=true;
   try{
-    await db.collection("wc2026picks").doc(currentUser.uid).set({
+    const data={
       phase1:cleanData(myPicks.phase1)||{},
       phase2:cleanData(myPicks.phase2)||{},
       phase1SubmittedAt:myPicks.phase1SubmittedAt||null,
@@ -2001,7 +2011,11 @@ async function saveDraftPicks(reason){
       email:currentUser.email||"",
       draftUpdatedAt:new Date().toISOString(),
       draftReason:reason||"edit",
-    },{merge:true});
+    };
+    // Ultra-strict: JSON round-trip to strip ALL undefined values
+    const sanitized=JSON.parse(JSON.stringify(data));
+    console.log("Saving draft picks:",sanitized);
+    await db.collection("wc2026picks").doc(currentUser.uid).set(sanitized,{merge:true});
   }catch(e){
     console.warn("Draft autosave failed",e?.message||e);
   }finally{
