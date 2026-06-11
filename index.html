@@ -1343,6 +1343,12 @@ function refreshGroupPositions(grpKey){
 }
 
 function saveGroupsAndNext(){
+  // Prevent editing after picks submitted
+  if(myPicks.phase1SubmittedAt&&!results.phase2Unlocked){
+    showToast("🔒 Phase 1 picks are locked");
+    return;
+  }
+  
   // Persist current DOM order before moving
   Object.keys(WC_GROUPS).forEach(grpKey=>{
     const container=document.getElementById("grpteams-"+grpKey);
@@ -1441,6 +1447,12 @@ function toggleTpqDetails(teamName){
 }
 
 function saveThirdPlaceAndNext(){
+  // Prevent editing after picks submitted
+  if(myPicks.phase1SubmittedAt&&!results.phase2Unlocked){
+    showToast("🔒 Phase 1 picks are locked");
+    return;
+  }
+  
   if((myPicks.phase1.thirdPlaceQualifiers||[]).length!==8){
     showToast("Please select exactly 8 teams");
     return;
@@ -1681,6 +1693,16 @@ function renderBracketGrid(rounds, bracket, isPhase2){
 }
 
 function pickBracket(round, idx, team, isPhase2){
+  // Prevent editing after picks submitted
+  if(isPhase2&&myPicks.phase2SubmittedAt){
+    showToast("🔒 Phase 2 picks are locked after submission");
+    return;
+  }
+  if(!isPhase2&&myPicks.phase1SubmittedAt&&!results.phase2Unlocked){
+    showToast("🔒 Phase 1 picks are locked. Wait for Phase 2 to unlock.");
+    return;
+  }
+  
   if(bracketSwipeMoved){
     bracketSwipeMoved=false;
     return;
@@ -1893,6 +1915,12 @@ async function savePicks(isPhase2,ev){
   if(btn){btn.textContent="Saving...";btn.disabled=true;}
   showToast("Saving picks...");
   try{
+    // Ensure winner is set from final if not already set
+    const bracket=isPhase2?myPicks.phase2.bracket:myPicks.phase1.bracket;
+    if(!bracket.winner&&bracket.final&&bracket.final[0]){
+      bracket.winner=[bracket.final[0]];
+    }
+    
     // Set submission timestamp for Phase 1 (first time only)
     const saveData={
       phase1:cleanData(myPicks.phase1)||{},
