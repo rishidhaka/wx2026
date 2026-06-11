@@ -1672,17 +1672,15 @@ function pickBracket(round, idx, team, isPhase2){
   }
 
   // Propagate: winner advances to next round
-  // Find which match this is (idx/2) and update the corresponding slot in next round
+  // Find which match this is (idx/2) and clear dependent downstream picks.
+  // Teams for the next round are derived from prior-round winners in buildRoundsData,
+  // so we should not prefill winner selections for later rounds here.
   const rounds=isPhase2?["r16","qf","sf","final","winner"]:["r32","r16","qf","sf","final","winner"];
   const ri=rounds.indexOf(round);
-  if(ri<rounds.length-1){
-    const nextRound=rounds[ri+1];
-    const nextSlot=matchIdx; // winner of match N goes to slot N in next round
-    if(!bracket[nextRound])bracket[nextRound]=[];
-    bracket[nextRound][matchIdx]=team;
-    // Clear downstream picks that depended on this slot
-    clearDownstream(bracket,rounds,ri+1,matchIdx,isPhase2);
-  }
+  if(ri<rounds.length-1)clearDownstream(bracket,rounds,ri,matchIdx,isPhase2);
+
+  // Third-place playoff depends on both semi-final losers.
+  if(round==="sf"&&bracket.third&&bracket.third[0]!==undefined)bracket.third[0]=undefined;
 
   // Re-render bracket grid
   const roundsData=buildRoundsData(isPhase2);
