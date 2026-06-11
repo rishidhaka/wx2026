@@ -672,12 +672,12 @@ async function loadTournamentData() {
 // ══ AUTO-UPDATE RESULTS FROM LIVE DATA ════════════════════════════════════
 async function updateResultsFromLiveData(data) {
   try {
-    // Derive group standings: top 3 from each group
+    // Derive group standings: all 4 teams from each group
     const derivedGroups = {};
     data.groups.forEach(g => {
       const groupLetter = g.group;
       const sortedStandings = [...g.standings].sort((a, b) => b.pts - a.pts);
-      derivedGroups[groupLetter] = sortedStandings.slice(0, 3).map(t => t.team);
+      derivedGroups[groupLetter] = sortedStandings.slice(0, 4).map(t => t.team);
     });
     
     // Get current results
