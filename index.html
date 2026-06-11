@@ -584,7 +584,7 @@ function getPhase1TimeRemaining(){
 // ══ FIREBASE CONFIG ════════════════════════════════════════════════════════
 const firebaseConfig = {
   apiKey:            "AIzaSyCdvfS5SvUcGav26RtMmBI8cY7KLCuy4dA",
-  authDomain:        "world-cup-2026-e1a0b.firebaseapp.com",
+  authDomain:        "world-cup-2026-e1a0b.web.app",
   projectId:         "world-cup-2026-e1a0b",
   storageBucket:     "world-cup-2026-e1a0b.firebasestorage.app",
   messagingSenderId: "888615445320",
@@ -675,7 +675,10 @@ function shouldUseRedirectSignIn(){
 }
 function signIn(){
   if(shouldUseRedirectSignIn()){
-    auth.signInWithRedirect(provider).catch(()=>showToast("Sign-in failed"));
+    auth.signInWithRedirect(provider).catch(err=>{
+      console.error("Google sign-in redirect error",err);
+      showToast(`Sign-in failed: ${err?.code||"unknown"}`);
+    });
     return;
   }
   auth.signInWithPopup(provider).catch(err=>{
@@ -686,14 +689,21 @@ function signIn(){
       "auth/operation-not-supported-in-this-environment"
     ];
     if(fallbackCodes.includes(err?.code)){
-      auth.signInWithRedirect(provider).catch(()=>showToast("Sign-in failed"));
+      auth.signInWithRedirect(provider).catch(redirectErr=>{
+        console.error("Google sign-in redirect fallback error",redirectErr);
+        showToast(`Sign-in failed: ${redirectErr?.code||"unknown"}`);
+      });
       return;
     }
-    showToast("Sign-in failed");
+    console.error("Google sign-in popup error",err);
+    showToast(`Sign-in failed: ${err?.code||"unknown"}`);
   });
 }
 function signOut(){auth.signOut();}
-auth.getRedirectResult().catch(()=>showToast("Sign-in failed"));
+auth.getRedirectResult().catch(err=>{
+  console.error("Google redirect result error",err);
+  showToast(`Sign-in failed: ${err?.code||"unknown"}`);
+});
 auth.onAuthStateChanged(user=>{
   currentUser=user;
   if(user){
