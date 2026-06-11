@@ -574,6 +574,7 @@ input::placeholder{color:#475569}
 
 <div class="toast" id="toast"></div>
 
+<script src="data/fifa_third_place_map.js"></script>
 <script>
 // ══ DEADLINES ══════════════════════════════════════════════════════════════
 // Phase 1 picks close after first round of matches (June 17, 2026 23:59:59 UTC-6)
@@ -662,6 +663,17 @@ const R32_SEEDING = [
   ["2D","2G"],
 ];
 
+const THIRD_PLACE_SLOT_COLUMNS = [
+  "3CEFHI", // 1A vs
+  "3EFGIJ", // 1B vs
+  "3BEFIJ", // 1D vs
+  "3ABCDF", // 1E vs
+  "3AEHIJ", // 1G vs
+  "3CDFGH", // 1I vs
+  "3DEIJL", // 1K vs
+  "3EHIJK", // 1L vs
+];
+
 // ══ STATE ══════════════════════════════════════════════════════════════════
 let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={}, lastKnownGoodData=null;
 let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""},phase1SubmittedAt:null};
@@ -679,6 +691,39 @@ function defaultGroups(){
   const g={};
   Object.entries(WC_GROUPS).forEach(([k,teams])=>{g[k]=teams.map(t=>t.name);});
   return g;
+}
+
+function normalizeRoundWinners(arr,totalTeams){
+  const source=Array.isArray(arr)?arr:[];
+  const winners=[];
+  for(let i=0;i<totalTeams;i+=2){
+    const a=source[i];
+    const b=source[i+1];
+    // Legacy formats may have winner in either slot or duplicated in both.
+    winners.push((a&&a.trim())||(b&&b.trim())||"");
+  }
+  return winners;
+}
+
+function normalizeBracketData(bracket,isPhase2){
+  if(!bracket||typeof bracket!=="object")return {};
+  const normalized={...bracket};
+  if(isPhase2){
+    normalized.r16=normalizeRoundWinners(bracket.r16,16);
+    normalized.qf=normalizeRoundWinners(bracket.qf,8);
+    normalized.sf=normalizeRoundWinners(bracket.sf,4);
+    normalized.final=normalizeRoundWinners(bracket.final,2);
+  }else{
+    normalized.r32=normalizeRoundWinners(bracket.r32,32);
+    normalized.r16=normalizeRoundWinners(bracket.r16,16);
+    normalized.qf=normalizeRoundWinners(bracket.qf,8);
+    normalized.sf=normalizeRoundWinners(bracket.sf,4);
+    normalized.final=normalizeRoundWinners(bracket.final,2);
+  }
+  // Champion can be either in final winner slot or explicit winner round.
+  const champion=(normalized.final&&normalized.final[0])||(Array.isArray(bracket.winner)?bracket.winner[0]:"")||"";
+  normalized.winner=[champion];
+  return normalized;
 }
 
 // ══ AUTH ═══════════════════════════════════════════════════════════════════
@@ -770,6 +815,8 @@ function startListeners(){
       const d=s.data();
       myPicks.phase1=d.phase1||{groups:defaultGroups(),thirdPlaceQualifiers:[],bracket:{},goldenBoot:""};
       myPicks.phase2=d.phase2||{bracket:{},goldenBoot:""};
+      myPicks.phase1.bracket=normalizeBracketData(myPicks.phase1.bracket,false);
+      myPicks.phase2.bracket=normalizeBracketData(myPicks.phase2.bracket,true);
       myPicks.phase1SubmittedAt=d.phase1SubmittedAt||null; // Track when Phase 1 was first submitted
       if(!myPicks.phase1.groups||!Object.keys(myPicks.phase1.groups).length)myPicks.phase1.groups=defaultGroups();
       if(!myPicks.phase1.thirdPlaceQualifiers)myPicks.phase1.thirdPlaceQualifiers=[];
@@ -1463,53 +1510,18 @@ function seedBracketFromGroups(groups,thirdPlaceQuals){
 }
 
 function resolveThirdPlaceSlotGroups(qualifiedGroups){
-  const slots=[...new Set(R32_SEEDING.flat().filter(t=>t.startsWith("3")&&t.length>2))];
-  const qualifiedSet=new Set(qualifiedGroups||[]);
-  const options={};
+  const key=[...new Set(qualifiedGroups||[])].sort().join("");
+  const map=(window.FIFA_THIRD_PLACE_SLOT_MAP||{});
+  const exact=map[key];
+  if(exact)return {...exact};
 
-  slots.forEach(slot=>{
-    const allowed=slot.slice(1).split("").filter(g=>qualifiedSet.has(g));
-    options[slot]=allowed;
-  });
-
-  const orderedSlots=[...slots].sort((a,b)=>options[a].length-options[b].length||a.localeCompare(b));
-  const used=new Set();
+  // Defensive fallback if mapping asset fails to load.
   const assignment={};
-
-  // FIFA constraint preferences observed in the official allocation grid:
-  // - Group B third place generally maps to Winner D slot (3BEFIJ).
-  // - Group L third place is strongly tied to Winner K slot (3DEIJL).
-  // - Group K third place is strongly tied to Winner L slot (3EHIJK).
-  const forcedPreferences=[
-    ["B","3BEFIJ"],
-    ["L","3DEIJL"],
-    ["K","3EHIJK"],
-  ];
-
-  forcedPreferences.forEach(([group,slot])=>{
-    if(qualifiedSet.has(group)&&options[slot]?.includes(group)&&!assignment[slot]&&!used.has(group)){
-      assignment[slot]=group;
-      used.add(group);
-    }
+  const pool=[...new Set(qualifiedGroups||[])].sort();
+  THIRD_PLACE_SLOT_COLUMNS.forEach(slot=>{
+    const pick=pool.find(g=>slot.includes(g)&&!Object.values(assignment).includes(g));
+    if(pick)assignment[slot]=pick;
   });
-
-  const remainingSlots=orderedSlots.filter(slot=>!assignment[slot]);
-
-  function backtrack(i){
-    if(i===remainingSlots.length)return true;
-    const slot=remainingSlots[i];
-    for(const grp of options[slot]){
-      if(used.has(grp))continue;
-      used.add(grp);
-      assignment[slot]=grp;
-      if(backtrack(i+1))return true;
-      used.delete(grp);
-      delete assignment[slot];
-    }
-    return false;
-  }
-
-  backtrack(0);
   return assignment;
 }
 
@@ -1564,6 +1576,11 @@ function renderBracketStep(isPhase2){
     <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},1)" ${bracketRoundStep[stateKey]===maxIndex?"disabled":""}>Next →</button>
   </div>
   <div class="bracket-single-container"><div class="bracket-grid" id="bracket-grid"></div></div>
+  <div class="bracket-round-nav" style="margin-top:10px">
+    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},-1)" ${bracketRoundStep[stateKey]===0?"disabled":""}>← Prev</button>
+    <div class="bracket-round-indicator">${activeRound.label} (${bracketRoundStep[stateKey]+1}/${rounds.length})</div>
+    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},1)" ${bracketRoundStep[stateKey]===maxIndex?"disabled":""}>Next →</button>
+  </div>
   </div>
   <div style="margin-top:12px">
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
@@ -1608,7 +1625,8 @@ function renderBracketGrid(rounds, bracket, isPhase2){
     for(let i=0;i<teams.length;i+=2){
       const h=teams[i]||"TBD", a=teams[i+1]||"TBD";
       const hf=flagFor(h), af=flagFor(a);
-      const pickedWinner=picks[i]||picks[i+1]||"";
+      const matchIdx=Math.floor(i/2);
+      const pickedWinner=picks[matchIdx]||"";
       const hSel=pickedWinner===h, aSel=pickedWinner===a;
       const matchNum=Math.floor(i/2)+1;
       matches.push(`<div class="bracket-match">
@@ -1643,9 +1661,8 @@ function pickBracket(round, idx, team, isPhase2){
 
   const bracket=isPhase2?myPicks.phase2.bracket:myPicks.phase1.bracket;
   if(!bracket[round])bracket[round]=[];
-  const matchBase=(idx%2===0)?idx:idx-1;
-  bracket[round][matchBase]=team;
-  bracket[round][matchBase+1]=team;
+  const matchIdx=Math.floor(idx/2);
+  bracket[round][matchIdx]=team;
 
   // Propagate: winner advances to next round
   // Find which match this is (idx/2) and update the corresponding slot in next round
@@ -1653,7 +1670,6 @@ function pickBracket(round, idx, team, isPhase2){
   const ri=rounds.indexOf(round);
   if(ri<rounds.length-1){
     const nextRound=rounds[ri+1];
-    const matchIdx=Math.floor(matchBase/2);
     const nextSlot=matchIdx; // winner of match N goes to slot N in next round
     if(!bracket[nextRound])bracket[nextRound]=[];
     bracket[nextRound][matchIdx]=team;
