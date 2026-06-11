@@ -37,8 +37,9 @@ body{display:flex;justify-content:center;background:linear-gradient(135deg,#0a16
 
 @media (min-width: 1024px) {
   #app{max-width:1100px}
-  .desktop-grid{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
+  .desktop-grid{display:grid;grid-template-columns:340px 1fr 340px;gap:20px;align-items:start}
   .desktop-left{position:sticky;top:20px}
+  .desktop-spacer{grid-column:3}
   .view{padding:20px}
   .tab{font-size:11px}
 }
@@ -443,6 +444,9 @@ input::placeholder{color:#475569}
           </div>
         </div>
       </div>
+      
+      <!-- RIGHT SPACER (Desktop: balance sidebar) -->
+      <div class="desktop-spacer"></div>
     </div>
   </div>
 </div>
