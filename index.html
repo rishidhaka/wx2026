@@ -593,6 +593,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth(), db=firebase.firestore();
 const provider=new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({ prompt: "select_account" });
 
 // ══ ADMIN CONFIG ═══════════════════════════════════════════════════════════
 const ADMIN_PASS = "worldcup2026";
@@ -666,8 +667,33 @@ function defaultGroups(){
 }
 
 // ══ AUTH ═══════════════════════════════════════════════════════════════════
-function signIn(){auth.signInWithPopup(provider).catch(()=>showToast("Sign-in failed"));}
+function shouldUseRedirectSignIn(){
+  const ua=navigator.userAgent||"";
+  const isMobile=/Android|iPhone|iPad|iPod/i.test(ua);
+  const isStandalone=window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches;
+  return isMobile||isStandalone;
+}
+function signIn(){
+  if(shouldUseRedirectSignIn()){
+    auth.signInWithRedirect(provider).catch(()=>showToast("Sign-in failed"));
+    return;
+  }
+  auth.signInWithPopup(provider).catch(err=>{
+    const fallbackCodes=[
+      "auth/popup-blocked",
+      "auth/popup-closed-by-user",
+      "auth/cancelled-popup-request",
+      "auth/operation-not-supported-in-this-environment"
+    ];
+    if(fallbackCodes.includes(err?.code)){
+      auth.signInWithRedirect(provider).catch(()=>showToast("Sign-in failed"));
+      return;
+    }
+    showToast("Sign-in failed");
+  });
+}
 function signOut(){auth.signOut();}
+auth.getRedirectResult().catch(()=>showToast("Sign-in failed"));
 auth.onAuthStateChanged(user=>{
   currentUser=user;
   if(user){
