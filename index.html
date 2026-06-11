@@ -1058,7 +1058,7 @@ function renderLeaderboard(elId,players){
     return`<div class="lb-row${isMe?" me":""}" onclick="showDetail('${esc(p.uid)}')">
       <div class="rank" style="color:${rc[i]||"var(--muted)"}">${medals[i]||i+1}</div>${av}
       <div style="flex:1;overflow:hidden">
-        <div class="lb-name">${esc(p.name)}${isMe?'<span class="lb-you">YOU</span>':""}</div>
+        <div class="lb-name">${esc(p.name)}</div>
         <div class="lb-breakdown">Groups: ${p.p1Group}pt${p.p1ThirdQual?" · Quals: "+p.p1ThirdQual+"pt":""} · KO: ${p.p1KO}pt${p.p2?" · 2nd: "+p.p2+"pt":""}</div>
         ${p.podium?`<div class="lb-breakdown">Podium: ${esc(p.podium)}</div>`:""}
       </div>
@@ -2424,6 +2424,9 @@ function showDetail(uid){
   const p2Final=(p2.bracket?.final||[]);
   const p1Winner=(p1.bracket?.winner||[])[0]||(p1Final[0]||"—");
   const p2Winner=(p2.bracket?.winner||[])[0]||(p2Final[0]||"—");
+  // Runner-up is the team in final that is NOT the winner
+  const p1RunnerUp=p1Final.filter(t=>isFilledTeamSlot(t)&&t!==p1Winner)[0]||"—";
+  const p2RunnerUp=p2Final.filter(t=>isFilledTeamSlot(t)&&t!==p2Winner)[0]||"—";
   const p1Third=(p1.bracket?.third||[])[0]||"—";
   const p2Third=(p2.bracket?.third||[])[0]||"—";
   const p1Rounds=["r16","qf","sf","final"];
@@ -2440,12 +2443,10 @@ function showDetail(uid){
   html+=`<div style="margin-top:12px;padding:12px;background:#0a1520;border-radius:8px">
     <div style="font-size:12px;font-weight:800;letter-spacing:0.6px;color:var(--white);margin-bottom:8px">Submitted Picks</div>
     <div style="font-size:12px;color:var(--muted);line-height:1.7">
-      <div><strong style="color:var(--white)">Phase 1 Champion:</strong> ${esc(p1Winner)}</div>
-      <div><strong style="color:var(--white)">Phase 1 Third Place:</strong> ${esc(p1Third)}</div>
+      <div style="margin-bottom:8px"><strong style="color:var(--white)">Phase 1 Podium:</strong><br>🥇 ${esc(p1Winner)}<br>🥈 ${esc(p1RunnerUp)}<br>🥉 ${esc(p1Third)}</div>
       <div><strong style="color:var(--white)">Phase 1 Top Scorer:</strong> ${esc(p1.goldenBoot||"—")}</div>
       ${p1RoundText?`<div style="margin-top:6px"><strong style="color:var(--white)">Phase 1 KO Picks:</strong><br>${esc(p1RoundText).replace(/&lt;br&gt;/g,"<br>")}</div>`:""}
-      <div style="margin-top:8px"><strong style="color:var(--white)">Phase 2 Champion:</strong> ${esc(p2Winner)}</div>
-      <div><strong style="color:var(--white)">Phase 2 Third Place:</strong> ${esc(p2Third)}</div>
+      <div style="margin-top:8px;margin-bottom:8px"><strong style="color:var(--white)">Phase 2 Podium:</strong><br>🥇 ${esc(p2Winner)}<br>🥈 ${esc(p2RunnerUp)}<br>🥉 ${esc(p2Third)}</div>
       <div><strong style="color:var(--white)">Phase 2 Top Scorer:</strong> ${esc(p2.goldenBoot||"—")}</div>
       ${p2RoundText?`<div style="margin-top:6px"><strong style="color:var(--white)">Phase 2 KO Picks:</strong><br>${esc(p2RoundText).replace(/&lt;br&gt;/g,"<br>")}</div>`:""}
     </div>
