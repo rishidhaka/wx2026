@@ -1,6 +1,45 @@
 # Changelog
 
-## v4.1.0 — Phase Timing & Email Reminders (June 10, 2026) ⚡ CURRENT
+## v4.2.0 — UX Refinements & Competitive Integrity (June 10, 2026) ⚡ CURRENT
+### Added
+- **One-time submission lock**: Phase 1 picks permanently lock after first save
+  - New `phase1SubmittedAt` timestamp field tracks first submission
+  - Prevents editing picks after watching early matches
+  - Locked UI shows submission date and explanation
+  - Ensures competitive integrity — all players pick before seeing results
+- **Responsive design improvements**: Better text scaling across all screen sizes
+  - Fluid typography with `clamp()` for titles, tabs, and content
+  - Responsive breakpoints: mobile (100%), tablet (768px), desktop (1100px)
+  - Better padding and spacing on smaller screens
+  - All text remains readable from 320px phones to large monitors
+
+### Changed
+- **App renamed to "Bracket"**: Changed from "Prediction League" to match familiar March Madness terminology
+  - Page title: "FIFA 2026 · Bracket"
+  - Main header: "BRACKET" (single word, cleaner)
+  - Sign-in screen: "JOIN THE BRACKET"
+- **Tournament tab renamed to "World Cup"**: More descriptive and event-specific
+- **Fixtures renamed to "Results"**: Clearer intent (shows match results, not upcoming fixtures)
+- **Bracket tab renamed to "Knockouts"**: Better describes the knockout stage
+  - Moved to position 2 (after Groups) for logical flow
+  - New tab order: Groups → Knockouts → Top Scorers → Results
+- **Phase 2 messaging updated**: Changed "Come back after June 27" to "Phase 2 starts June 27"
+  - More informative, less passive
+  - Includes "details" context in documentation
+
+### Documentation
+- **README.md**: Updated with new branding, one-time submission lock, latest features
+- **CHANGELOG.md**: This entry
+- **Rules page**: Added deadlines section with June 17 warning and submission lock explanation
+- **How to Play modal**: Added critical deadlines section, updated Phase 1 and Tips sections
+
+### Deployment
+- Commit: `47e5a76`
+- Live URL: https://world-cup-2026-e1a0b.web.app
+
+---
+
+## v4.1.0 — Phase Timing & Email Reminders (June 10, 2026)
 ### Added
 - **Phase 1 deadline enforcement**: Picks and league joins close June 17, 2026 11:59 PM (UTC-6)
   - `PHASE1_DEADLINE` constant with timezone-aware date

@@ -1,6 +1,6 @@
-# FIFA 2026 World Cup Prediction League
+# FIFA 2026 World Cup Bracket
 
-A full-stack prediction league web app built with vanilla JS + Firebase. No framework required. Deployed as a single HTML file.
+A full-stack World Cup bracket competition app built with vanilla JS + Firebase. No framework required. Deployed as a single HTML file.
 
 ## 🌐 Live URL
 **https://world-cup-2026-e1a0b.web.app**
@@ -26,7 +26,8 @@ A full-stack prediction league web app built with vanilla JS + Firebase. No fram
 - Sign out anytime
 
 ### 📅 Phase 1: Group Stage Predictions (Closes June 17, 2026)
-- **Deadline**: June 17, 2026 11:59 PM (UTC-6) - before all Matchday 1 games complete
+- **Deadline**: June 17, 2026 11:59 PM (UTC-6) - after first round of group matches
+- **One-time submission**: Picks lock permanently once saved (prevents editing after watching matches)
 - **Dynamic countdown**: Shows time remaining until deadline
 - Predict all 12 group standings (drag-to-reorder interface)
 - Pick which 8 of 12 third-placed teams advance to R32 (2pts each)
@@ -146,7 +147,7 @@ wc2026-repo/
 2. Sign in with Google
 3. Make your Phase 1 picks (before June 17!)
 4. Create or join a mini league
-5. Come back after June 27 for Phase 2
+5. Phase 2 starts June 27 - predict the real knockout bracket
 
 ### For Developers
 ```bash
@@ -181,11 +182,15 @@ Send automatic reminders to users who haven't made picks:
 
 ## 🎯 Latest Updates (June 2026)
 
+✅ **One-time submission lock** - Phase 1 picks lock permanently once saved  
+✅ **App renamed to "Bracket"** - More familiar terminology  
+✅ **World Cup tab** - Renamed from Tournament for clarity  
+✅ **Knockouts tab** - Moved after Groups, renamed from Bracket  
+✅ **Responsive design** - Better text scaling across all screen sizes  
 ✅ **Phase timing controls** - Deadlines enforced automatically  
 ✅ **Auto-unlock Phase 2** - June 27, no manual action needed  
 ✅ **Countdown banners** - Shows time remaining  
 ✅ **Balanced scoring** - Champion 15pts in Phase 2  
-✅ **Third-place display fix** - Shows actual team names  
 ✅ **Player autocomplete** - Easy Golden Boot selection  
 ✅ **URL-based invites** - Share leagues with one link  
 ✅ **GitHub auto-deploy** - Push to main = instant deploy  

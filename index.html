@@ -1422,7 +1422,7 @@ function setLiveTab(tab){
 }
 function renderLiveTab(){
   const el=document.getElementById("live-content"),td=tournamentData;
-  const hasLiveData=td&&Object.keys(td).length>0;
+  const hasLiveData=td&&Object.keys(td).length>0&&(td.groups||[]).length>0;
   
   // If no live data yet, show static tournament structure for groups
   if(!hasLiveData&&liveTab==="groups"){
