@@ -1909,7 +1909,11 @@ async function savePicks(isPhase2,ev){
     await db.collection("wc2026").doc("players").set(playersData,{merge:true});
     showToast("Picks saved! ✓");
     setTimeout(()=>{
-      renderPicksView();
+      // Switch to leaderboard view
+      document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+      document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+      document.querySelector('[data-tab="global"]').classList.add("active");
+      document.getElementById("view-global").classList.add("active");
       renderGlobal();
     },100);
   }catch(e){
