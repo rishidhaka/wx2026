@@ -36,11 +36,11 @@ body{display:flex;justify-content:center;background:linear-gradient(135deg,#0a16
 }
 
 @media (min-width: 1024px) {
-  #app{max-width:1100px}
-  .desktop-grid{display:grid;grid-template-columns:340px 1fr 340px;gap:20px;align-items:start}
-  .desktop-left{position:sticky;top:20px}
-  .desktop-spacer{grid-column:3}
-  .view{padding:20px}
+  #app{max-width:768px}
+  .desktop-grid{display:block}
+  .desktop-center{max-width:768px;width:100%;padding:20px;margin:0 auto}
+  .desktop-spacer-left,.desktop-spacer-right{display:none}
+  .view{padding:0}
   .tab{font-size:11px}
 }
 
@@ -301,8 +301,11 @@ input::placeholder{color:#475569}
     </div>
 
     <div class="desktop-grid">
-      <!-- LEFT COLUMN (Desktop: sticky leaderboards) -->
-      <div class="desktop-left">
+      <!-- LEFT SPACER -->
+      <div class="desktop-spacer-left"></div>
+      
+      <!-- CENTER CONTENT -->
+      <div class="desktop-center">
         <div id="view-global" class="view">
           <div class="view-header">
             <div class="section-title">Global Standings</div>
@@ -334,10 +337,7 @@ input::placeholder{color:#475569}
             <div id="league-panel"></div>
           </div>
         </div>
-      </div>
 
-      <!-- RIGHT COLUMN (Desktop: main content area) -->
-      <div class="desktop-right">
         <div id="view-live" class="view active">
           <div class="view-header">
             <div class="section-title">World Cup</div>
@@ -445,8 +445,8 @@ input::placeholder{color:#475569}
         </div>
       </div>
       
-      <!-- RIGHT SPACER (Desktop: balance sidebar) -->
-      <div class="desktop-spacer"></div>
+      <!-- RIGHT SPACER -->
+      <div class="desktop-spacer-right"></div>
     </div>
   </div>
 </div>
