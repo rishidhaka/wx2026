@@ -159,6 +159,8 @@ input::placeholder{color:#475569}
 /* ── BRACKET ── */
 .bracket-container{width:100%;max-width:100%;align-self:stretch;overflow-x:auto;overflow-y:hidden;padding-bottom:8px;-webkit-overflow-scrolling:touch;touch-action:pan-x;cursor:grab}
 .bracket-container:active{cursor:grabbing}
+.bracket-scroll-controls{display:flex;justify-content:flex-end;gap:8px;margin:6px 0 8px}
+.bracket-scroll-btn{width:auto;padding:6px 10px;min-height:32px;font-size:12px;line-height:1}
 .bracket-grid{display:flex;gap:10px;min-width:max-content;padding:4px 0}
 .bracket-round-col{display:flex;flex-direction:column;gap:8px;min-width:140px}
 .bracket-round-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:4px;padding:0 4px}
@@ -1135,8 +1137,7 @@ function initDragDrop(){
   });
 }
 
-function initBracketSwipeScroll(){
-  const container=document.querySelector(".bracket-container");
+function initBracketSwipeScroll(container){
   if(!container||container.dataset.touchSwipeInit==="1")return;
 
   container.dataset.touchSwipeInit="1";
@@ -1148,6 +1149,7 @@ function initBracketSwipeScroll(){
     startY=t.clientY;
     startScrollLeft=container.scrollLeft;
     isSwiping=false;
+    bracketSwipeMoved=false;
   },{passive:true});
 
   container.addEventListener("touchmove",e=>{
@@ -1160,8 +1162,21 @@ function initBracketSwipeScroll(){
     if(!isSwiping)return;
 
     e.preventDefault();
+    bracketSwipeMoved=true;
     container.scrollLeft=startScrollLeft-dx;
   },{passive:false});
+
+  container.addEventListener("touchend",()=>{
+    if(!bracketSwipeMoved)return;
+    setTimeout(()=>{bracketSwipeMoved=false;},120);
+  },{passive:true});
+}
+
+let bracketSwipeMoved=false;
+function scrollBracketBy(delta){
+  const container=document.getElementById("picks-bracket-container");
+  if(!container)return;
+  container.scrollBy({left:delta,behavior:"smooth"});
 }
 
 function updateGroupOrder(grpKey){
@@ -1328,7 +1343,11 @@ function renderBracketStep(isPhase2){
     ${isPhase2?`<span class="phase-label p2">Phase 2</span> Real bracket — 5pts R16/QF, 10pts SF, 15pts Champion.`
     :`<span class="phase-label p1">Phase 1</span> Based on your group predictions — pick match winners all the way to the Final.`}
   </div>
-  <div class="bracket-container"><div class="bracket-grid" id="bracket-grid"></div></div>
+  <div class="bracket-scroll-controls">
+    <button class="btn btn-secondary bracket-scroll-btn" onclick="scrollBracketBy(-240)">◀</button>
+    <button class="btn btn-secondary bracket-scroll-btn" onclick="scrollBracketBy(240)">▶</button>
+  </div>
+  <div class="bracket-container" id="picks-bracket-container"><div class="bracket-grid" id="bracket-grid"></div></div>
   <div style="margin-top:12px">
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
     <input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border=''" autocomplete="off">
@@ -1386,10 +1405,15 @@ function renderBracketGrid(rounds, bracket, isPhase2){
   }).join("");
 
   // iOS/Safari fallback: force horizontal touch-swipe scrolling in bracket area.
-  initBracketSwipeScroll();
+  initBracketSwipeScroll(grid.closest(".bracket-container"));
 }
 
 function pickBracket(round, idx, team, isPhase2){
+  if(bracketSwipeMoved){
+    bracketSwipeMoved=false;
+    return;
+  }
+
   const bracket=isPhase2?myPicks.phase2.bracket:myPicks.phase1.bracket;
   if(!bracket[round])bracket[round]=[];
   bracket[round][idx]=team;
