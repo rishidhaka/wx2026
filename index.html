@@ -1300,7 +1300,9 @@ function getCurrentThirdPlaceTeams(){
 function syncThirdPlaceRanking(){
   const current=getCurrentThirdPlaceTeams();
   const currentNames=current.map(t=>t.name);
-  const existing=(myPicks.phase1.thirdPlaceRanking||[]).filter(name=>currentNames.includes(name));
+  // Normalize legacy backslash-escaped names (e.g. "Côte d\'Ivoire" → "Côte d'Ivoire")
+  const normalized=(myPicks.phase1.thirdPlaceRanking||[]).map(n=>n.replace(/\\'/g,"'"));
+  const existing=normalized.filter(name=>currentNames.includes(name));
   const missing=currentNames.filter(name=>!existing.includes(name));
   myPicks.phase1.thirdPlaceRanking=[...existing,...missing];
   myPicks.phase1.thirdPlaceQualifiers=myPicks.phase1.thirdPlaceRanking.slice(0,8);
@@ -1329,7 +1331,7 @@ function renderThirdPlaceStep(){
   rankedTeams.forEach(t=>{
     const [t1,t2,t3,t4]=t.row||[];
     const open=!!tpqExpandedDetails[t.name];
-    html+=`<div class="tpq-rank-item" draggable="true" data-team="${escA(t.name)}">
+    html+=`<div class="tpq-rank-item" draggable="true" data-team="${esc(t.name)}">
       <div class="drag-handle">⋮⋮</div>
       <div class="tpq-rank-badge${t.isQual?" qual":""}">${t.rank}</div>
       <div class="tpq-rank-main">
