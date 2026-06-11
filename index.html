@@ -669,42 +669,21 @@ function defaultGroups(){
 }
 
 // ══ AUTH ═══════════════════════════════════════════════════════════════════
-function shouldUseRedirectSignIn(){
-  const ua=navigator.userAgent||"";
-  const isMobile=/Android|iPhone|iPad|iPod/i.test(ua);
-  const isStandalone=window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches;
-  return isMobile||isStandalone;
-}
 function signIn(){
-  if(shouldUseRedirectSignIn()){
-    auth.signInWithRedirect(provider).catch(err=>{
-      console.error("Google sign-in redirect error",err);
-      showToast(`Sign-in failed: ${err?.code||"unknown"}`);
-    });
-    return;
-  }
+  // Always use popup — works on desktop and mobile browsers including Safari.
+  // Redirect-based flow causes the page to reload which loses auth state on
+  // many mobile browsers before onAuthStateChanged can process the result.
   auth.signInWithPopup(provider).catch(err=>{
-    const fallbackCodes=[
-      "auth/popup-blocked",
-      "auth/popup-closed-by-user",
-      "auth/cancelled-popup-request",
-      "auth/operation-not-supported-in-this-environment"
-    ];
-    if(fallbackCodes.includes(err?.code)){
-      auth.signInWithRedirect(provider).catch(redirectErr=>{
-        console.error("Google sign-in redirect fallback error",redirectErr);
-        showToast(`Sign-in failed: ${redirectErr?.code||"unknown"}`);
-      });
-      return;
-    }
-    console.error("Google sign-in popup error",err);
+    console.error("Google sign-in error",err?.code, err);
     showToast(`Sign-in failed: ${err?.code||"unknown"}`);
   });
 }
 function signOut(){auth.signOut();}
-auth.getRedirectResult().catch(err=>{
-  console.error("Google redirect result error",err);
-  showToast(`Sign-in failed: ${err?.code||"unknown"}`);
+// Handle any pending redirect result (legacy, safe no-op if no redirect pending)
+auth.getRedirectResult().then(result=>{
+  if(result&&result.user) console.log("Redirect result user:",result.user.email);
+}).catch(err=>{
+  console.error("Google redirect result error",err?.code, err);
 });
 auth.onAuthStateChanged(user=>{
   currentUser=user;
