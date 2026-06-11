@@ -77,9 +77,9 @@ h1 span{color:var(--wc-gold)}
 .tab.admin-only{display:none}
 
 /* ── VIEWS ── */
-.view{display:none;padding:14px}
+.view{display:none;padding:16px}
 .view.active{display:block}
-.section-title{font-weight:900;font-size:clamp(14px,4vw,16px);letter-spacing:1.5px;color:var(--amber);margin-bottom:12px;text-transform:uppercase}
+.section-title{font-weight:900;font-size:clamp(14px,4vw,16px);letter-spacing:1.5px;color:var(--amber);margin-bottom:14px;text-transform:uppercase}
 
 /* ── CARDS ── */
 .card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.2);transition:all .3s ease}
@@ -112,7 +112,7 @@ input::placeholder{color:#475569}
 .lb-empty{text-align:center;color:var(--muted);padding:32px 16px;font-size:14px}
 
 /* ── PICKS WIZARD ── */
-.wizard-steps{display:flex;gap:0;margin-bottom:16px;border-radius:8px;overflow:hidden;border:1px solid var(--navy-border)}
+.wizard-steps{display:flex;gap:0;margin-bottom:14px;border-radius:8px;overflow:hidden;border:1px solid var(--navy-border)}
 .wizard-step{flex:1;padding:8px 4px;text-align:center;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:var(--navy-card);cursor:pointer;transition:all .2s;border-right:1px solid var(--navy-border)}
 .wizard-step:last-child{border-right:none}
 .wizard-step.active{background:linear-gradient(135deg,var(--wc-teal) 0%,var(--wc-aqua) 100%);color:var(--white);box-shadow:0 2px 8px rgba(58,175,169,0.3)}
@@ -191,7 +191,7 @@ input::placeholder{color:#475569}
 .code-badge{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:1px;background:#0a1520;border:1px solid var(--navy-border);border-radius:4px;padding:3px 7px;flex-shrink:0}
 
 /* ── LIVE ── */
-.live-sub-nav{display:flex;gap:5px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.live-sub-nav{display:flex;gap:5px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
 .live-sub-nav::-webkit-scrollbar{display:none}
 .live-tab{flex-shrink:0;padding:6px 11px;border-radius:20px;font-size:clamp(10px,2.5vw,11px);font-weight:600;cursor:pointer;border:1px solid var(--navy-border);color:var(--muted);background:var(--navy-card);white-space:nowrap}
 .live-tab.active{background:var(--pitch);border-color:var(--amber);color:var(--amber)}
@@ -296,7 +296,7 @@ input::placeholder{color:#475569}
       <div class="desktop-left">
         <div id="view-global" class="view">
           <div class="section-title">Global Standings</div>
-          <div style="font-size:11px;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between">
             <span><span class="live-dot"></span>Updates as matches finish</span>
             <span id="last-updated"></span>
           </div>
@@ -557,7 +557,7 @@ const R32_SEEDING = [
 ];
 
 // ══ STATE ══════════════════════════════════════════════════════════════════
-let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={};
+let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={}, lastKnownGoodData=null;
 let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""},phase1SubmittedAt:null};
 let activeLeague=null, leagueView="my", liveTab="groups";
 let adminUnlocked=false, resState={};
@@ -677,6 +677,11 @@ async function loadTournamentData() {
       lastUpdated: data.lastUpdated
     };
     
+    // Save as last known good data if groups exist
+    if (tournamentData.groups && tournamentData.groups.length > 0) {
+      lastKnownGoodData = JSON.parse(JSON.stringify(tournamentData));
+    }
+    
     // Auto-update Firestore results from live standings
     if (data.groups && data.groups.length > 0) {
       await updateResultsFromLiveData(data);
@@ -691,7 +696,10 @@ async function loadTournamentData() {
     setTimeout(loadTournamentData, 5 * 60 * 1000);
   } catch (err) {
     console.error('Failed to load tournament data:', err);
-    tournamentData = {};
+    // Preserve last known good data, don't wipe it out
+    if (lastKnownGoodData) {
+      console.log('Using last known good data from:', lastKnownGoodData.lastUpdated);
+    }
     // Retry in 30 seconds on error
     setTimeout(loadTournamentData, 30 * 1000);
   }
@@ -1414,9 +1422,11 @@ async function savePicks(isPhase2){
 // ══ LIVE TAB ═══════════════════════════════════════════════════════════════
 function setLiveTab(tab){
   liveTab=tab;
+  // Map tab values to their display text for proper matching
+  const tabMap={groups:"groups",knockouts:"knockouts",scorers:"topscorers",fixtures:"results"};
   document.querySelectorAll(".live-tab").forEach(t=>{
-    const label=t.textContent.toLowerCase().replace(" ","").replace("-","");
-    t.classList.toggle("active",label===tab.toLowerCase().replace(" ","").replace("-",""));
+    const label=t.textContent.toLowerCase().replace(/\s+/g,"").replace(/-/g,"");
+    t.classList.toggle("active",label===tabMap[tab]);
   });
   renderLiveTab();
 }
@@ -1426,26 +1436,36 @@ function renderLiveTab(){
   
   // If no live data yet, show static tournament structure for groups
   if(!hasLiveData&&liveTab==="groups"){
-    const staticGroups=Object.entries(WC_GROUPS).map(([name,teams])=>({
-      name,
-      standings:teams.map((t,idx)=>({
-        team:t.name,
-        flag:t.flag,
-        played:0,
-        won:0,
-        drawn:0,
-        lost:0,
-        gd:0,
-        points:0
-      }))
-    }));
-    renderLiveGroups(el,staticGroups);
+    // Use last known good data if available, otherwise show zeros
+    if(lastKnownGoodData&&lastKnownGoodData.groups&&lastKnownGoodData.groups.length>0){
+      renderLiveGroups(el,lastKnownGoodData.groups);
+    }else{
+      const staticGroups=Object.entries(WC_GROUPS).map(([name,teams])=>({
+        name,
+        standings:teams.map((t,idx)=>({
+          team:t.name,
+          flag:t.flag,
+          played:0,
+          won:0,
+          drawn:0,
+          lost:0,
+          gd:0,
+          points:0
+        }))
+      }));
+      renderLiveGroups(el,staticGroups);
+    }
     return;
   }
   
   // For other tabs without live data, show awaiting message
   if(!hasLiveData){
-    el.innerHTML=`<div class="card"><div class="card-title">⏳ Awaiting live data</div><div style="font-size:13px;color:var(--muted);line-height:1.7">Live tournament data appears here once the Cloud Function is deployed. Until then, use the Admin tab for manual updates.</div></div>`;
+    const messages={
+      knockouts:"The knockout bracket will appear here once the group stage is complete.",
+      scorers:"Top scorers will appear here once matches begin on June 11.",
+      fixtures:"Match results will appear here once games start on June 11."
+    };
+    el.innerHTML=`<div class="card"><div class="card-title">⏳ Coming Soon</div><div style="font-size:13px;color:var(--muted);line-height:1.7">${messages[liveTab]||"Live data will appear here once available."}</div></div>`;
     return;
   }
   
