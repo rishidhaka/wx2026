@@ -640,12 +640,7 @@ async function loadTournamentData() {
         standings: g.standings
       })),
       fixtures: data.fixtures,
-      scorers: data.topScorers.map(s => ({
-        name: s.name,
-        team: s.team,
-        goals: s.goals,
-        flag: getFlagEmojiForTeam(s.team)
-      })),
+      scorers: data.topScorers,
       lastUpdated: data.lastUpdated
     };
     

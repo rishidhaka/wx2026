@@ -116,6 +116,7 @@ async function fetchScorers() {
     return res.data.response.slice(0, 20).map(p => ({
       name: p.player.name,
       team: p.statistics[0].team.name,
+      flag: getFlagEmoji(p.statistics[0].team.name),
       goals: p.statistics[0].goals.total || 0,
       assists: p.statistics[0].goals.assists || 0
     }));
