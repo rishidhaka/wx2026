@@ -803,10 +803,16 @@ function renderGlobal(){renderLeaderboard("global-list",allPlayers);}
 
 function renderLeaderboard(elId,players){
   const el=document.getElementById(elId);if(!el)return;
-  const scored=Object.entries(players||{}).map(([uid,p])=>{
-    const s=calcScore(p);
-    return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:s.total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:s.p2};
-  }).sort((a,b)=>b.score-a.score);
+  const scored=Object.entries(players||{})
+    .map(([uid,p])=>{
+      const s=calcScore(p);
+      const hasPicksPhase1=p.phase1?.groups&&Object.keys(p.phase1.groups).length>0;
+      const hasPicksPhase2=p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0;
+      const hasPicks=hasPicksPhase1||hasPicksPhase2;
+      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:s.total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:s.p2,hasPicks};
+    })
+    .filter(p=>p.hasPicks) // Only show players who have submitted picks
+    .sort((a,b)=>b.score-a.score);
   if(!scored.length){el.innerHTML='<div class="lb-empty">No picks yet — be the first!</div>';return;}
   const medals=["🥇","🥈","🥉"],rc=["var(--gold)","var(--silver)","var(--bronze)"],meUid=currentUser?.uid;
   el.innerHTML=scored.map((p,i)=>{
@@ -1672,10 +1678,29 @@ async function saveResults(){
 // ══ SCORE MODAL ════════════════════════════════════════════════════════════
 function showDetail(uid){
   const p=allPlayers[uid];if(!p)return;
-  const s=calcScore(p);
   const av=document.getElementById("modal-avatar");
   if(p.photoURL){av.src=p.photoURL;av.style.display="block";}else av.style.display="none";
   document.getElementById("modal-name").textContent=p.name||"Unknown";
+  
+  // Check if user has made picks yet
+  const hasPicksPhase1=p.phase1?.groups&&Object.keys(p.phase1.groups).length>0;
+  const hasPicksPhase2=p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0;
+  
+  if(!hasPicksPhase1&&!hasPicksPhase2){
+    // User hasn't made any picks yet
+    document.getElementById("modal-body").innerHTML=`
+      <div style="text-align:center;padding:32px 16px">
+        <div style="font-size:42px;margin-bottom:12px">🔒</div>
+        <div style="font-size:14px;color:var(--muted);line-height:1.7">
+          This player hasn't submitted their predictions yet.
+        </div>
+      </div>`;
+    document.getElementById("modal").classList.add("open");
+    return;
+  }
+  
+  // User has picks - show breakdown
+  const s=calcScore(p);
   let html=`<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
     <div style="flex:1;min-width:100px;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
       <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Groups</div>
