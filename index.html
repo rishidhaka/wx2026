@@ -1671,8 +1671,8 @@ function pickBracket(round, idx, team, isPhase2){
   // Re-render bracket grid
   const roundsData=buildRoundsData(isPhase2);
   const stateKey=isPhase2?"phase2":"phase1";
-  const idx=Math.max(0,Math.min(roundsData.length-1,bracketRoundStep[stateKey]||0));
-  renderBracketGrid([roundsData[idx]],bracket,isPhase2);
+  const roundIdx=Math.max(0,Math.min(roundsData.length-1,bracketRoundStep[stateKey]||0));
+  renderBracketGrid([roundsData[roundIdx]],bracket,isPhase2);
 }
 
 function clearDownstream(bracket,rounds,fromRound,fromSlot,isPhase2){
