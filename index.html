@@ -1343,9 +1343,9 @@ function refreshGroupPositions(grpKey){
 }
 
 function saveGroupsAndNext(){
-  // Prevent editing after picks submitted
-  if(myPicks.phase1SubmittedAt&&!results.phase2Unlocked){
-    showToast("🔒 Phase 1 picks are locked");
+  // Prevent editing if deadline passed (allow editing until deadline even if submitted)
+  if(!isPhase1Open()){
+    showToast("🔒 Phase 1 deadline passed");
     return;
   }
   
@@ -1447,9 +1447,9 @@ function toggleTpqDetails(teamName){
 }
 
 function saveThirdPlaceAndNext(){
-  // Prevent editing after picks submitted
-  if(myPicks.phase1SubmittedAt&&!results.phase2Unlocked){
-    showToast("🔒 Phase 1 picks are locked");
+  // Prevent editing if deadline passed (allow editing until deadline even if submitted)
+  if(!isPhase1Open()){
+    showToast("🔒 Phase 1 deadline passed");
     return;
   }
   
@@ -1693,13 +1693,13 @@ function renderBracketGrid(rounds, bracket, isPhase2){
 }
 
 function pickBracket(round, idx, team, isPhase2){
-  // Prevent editing after picks submitted
-  if(isPhase2&&myPicks.phase2SubmittedAt){
-    showToast("🔒 Phase 2 picks are locked after submission");
+  // Prevent editing if deadline passed (allow editing until deadline even if submitted)
+  if(isPhase2&&!isPhase2Open()){
+    showToast("🔒 Phase 2 deadline passed");
     return;
   }
-  if(!isPhase2&&myPicks.phase1SubmittedAt&&!results.phase2Unlocked){
-    showToast("🔒 Phase 1 picks are locked. Wait for Phase 2 to unlock.");
+  if(!isPhase2&&!isPhase1Open()){
+    showToast("🔒 Phase 1 deadline passed. Wait for Phase 2 to unlock.");
     return;
   }
   
