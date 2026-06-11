@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>FIFA 2026 · Prediction League</title>
+<title>FIFA 2026 · Bracket</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -22,22 +22,33 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{background:linear-gradient(135deg,#0a1628 0%,#0f1e35 50%,#0a1628 100%);background-attachment:fixed;color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;overscroll-behavior:none}
-#app{max-width:600px;margin:0 auto}
+#app{max-width:100%;margin:0 auto;width:100%}
 
-/* ── DESKTOP RESPONSIVE ── */
+/* ── RESPONSIVE BREAKPOINTS ── */
+@media (min-width: 600px) {
+  #app{max-width:600px}
+}
+
+@media (min-width: 768px) {
+  #app{max-width:768px}
+  .tab{font-size:11px;padding:14px 8px}
+  .header-sub{font-size:12px}
+}
+
 @media (min-width: 1024px) {
   #app{max-width:1100px}
   .desktop-grid{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
   .desktop-left{position:sticky;top:20px}
   .view{padding:20px}
+  .tab{font-size:11px}
 }
 
 /* ── HEADER ── */
-.header{background:linear-gradient(135deg,var(--wc-teal) 0%,var(--wc-aqua) 100%);border-bottom:3px solid var(--wc-gold);padding:20px 16px 16px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
-.badge{display:inline-block;background:var(--wc-gold);color:#0a1628;font-size:10px;letter-spacing:2px;padding:4px 12px;border-radius:20px;margin-bottom:8px;font-weight:900;box-shadow:0 2px 8px rgba(251,176,52,0.3)}
-h1{font-weight:900;font-size:clamp(24px,7vw,46px);letter-spacing:3px;line-height:1;color:var(--white);text-shadow:0 2px 10px rgba(0,0,0,0.5)}
+.header{background:linear-gradient(135deg,var(--wc-teal) 0%,var(--wc-aqua) 100%);border-bottom:3px solid var(--wc-gold);padding:16px 12px 14px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.badge{display:inline-block;background:var(--wc-gold);color:#0a1628;font-size:clamp(9px,2.5vw,11px);letter-spacing:1.5px;padding:4px 10px;border-radius:20px;margin-bottom:6px;font-weight:900;box-shadow:0 2px 8px rgba(251,176,52,0.3)}
+h1{font-weight:900;font-size:clamp(28px,8vw,48px);letter-spacing:clamp(1px,0.5vw,3px);line-height:1.1;color:var(--white);text-shadow:0 2px 10px rgba(0,0,0,0.5)}
 h1 span{color:var(--wc-gold)}
-.header-sub{font-size:11px;color:rgba(255,255,255,0.8);margin-top:6px;letter-spacing:1.5px;text-transform:uppercase}
+.header-sub{font-size:clamp(10px,2.5vw,12px);color:rgba(255,255,255,0.85);margin-top:6px;letter-spacing:1px;text-transform:uppercase;line-height:1.4}
 
 /* ── USER BAR ── */
 .user-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--navy-card);border-bottom:1px solid var(--navy-border);box-shadow:0 2px 8px rgba(0,0,0,0.2)}
@@ -60,7 +71,7 @@ h1 span{color:var(--wc-gold)}
 /* ── TABS ── */
 .tabs{display:flex;background:var(--navy-card);border-bottom:1px solid var(--navy-border);overflow-x:auto;scrollbar-width:none;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:1;min-width:56px;padding:12px 4px;text-align:center;font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .3s ease;white-space:nowrap;position:relative}
+.tab{flex:1 1 auto;min-width:max-content;padding:12px 8px;text-align:center;font-size:clamp(9px,2.5vw,10px);font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .3s ease;white-space:nowrap;position:relative}
 .tab:hover{color:var(--accent-light);background:rgba(58,175,169,0.05)}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent);background:rgba(58,175,169,0.08)}
 .tab.admin-only{display:none}
@@ -68,7 +79,7 @@ h1 span{color:var(--wc-gold)}
 /* ── VIEWS ── */
 .view{display:none;padding:14px}
 .view.active{display:block}
-.section-title{font-weight:900;font-size:16px;letter-spacing:2px;color:var(--amber);margin-bottom:12px;text-transform:uppercase}
+.section-title{font-weight:900;font-size:clamp(14px,4vw,16px);letter-spacing:1.5px;color:var(--amber);margin-bottom:12px;text-transform:uppercase}
 
 /* ── CARDS ── */
 .card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.2);transition:all .3s ease}
@@ -182,7 +193,7 @@ input::placeholder{color:#475569}
 /* ── LIVE ── */
 .live-sub-nav{display:flex;gap:5px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
 .live-sub-nav::-webkit-scrollbar{display:none}
-.live-tab{flex-shrink:0;padding:6px 11px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--navy-border);color:var(--muted);background:var(--navy-card)}
+.live-tab{flex-shrink:0;padding:6px 11px;border-radius:20px;font-size:clamp(10px,2.5vw,11px);font-weight:600;cursor:pointer;border:1px solid var(--navy-border);color:var(--muted);background:var(--navy-card);white-space:nowrap}
 .live-tab.active{background:var(--pitch);border-color:var(--amber);color:var(--amber)}
 .group-table{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:12px}
 .group-table th{color:var(--muted);font-weight:600;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 5px;border-bottom:1px solid var(--navy-border);text-align:center}
@@ -252,14 +263,14 @@ input::placeholder{color:#475569}
 <div id="app">
   <div class="header">
     <div class="badge">FIFA WORLD CUP 2026</div>
-    <h1>PREDICTION <span>LEAGUE</span></h1>
+    <h1>BRACKET</h1>
     <div class="header-sub">USA · Canada · Mexico &nbsp;·&nbsp; June–July 2026</div>
   </div>
 
   <!-- SIGN IN -->
   <div id="signin-screen" class="signin-screen">
     <div class="signin-icon">⚽</div>
-    <div class="signin-title">JOIN THE LEAGUE</div>
+    <div class="signin-title">JOIN THE BRACKET</div>
     <div class="signin-sub">Sign in with Google to make your predictions and compete with friends.</div>
     <button class="btn-google" onclick="signIn()">
       <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
@@ -272,7 +283,7 @@ input::placeholder{color:#475569}
   <div id="main-app" style="display:none">
     <div class="user-bar" id="user-bar"></div>
     <div class="tabs">
-      <div class="tab active" data-tab="live">⚽ Tournament</div>
+      <div class="tab active" data-tab="live">⚽ World Cup</div>
       <div class="tab" data-tab="global">🏆 Leaderboard</div>
       <div class="tab" data-tab="leagues">🏆 Leagues</div>
       <div class="tab" data-tab="picks">✏️ My Predictions</div>
@@ -306,12 +317,12 @@ input::placeholder{color:#475569}
       <!-- RIGHT COLUMN (Desktop: main content area) -->
       <div class="desktop-right">
         <div id="view-live" class="view active">
-          <div class="section-title">Tournament</div>
+          <div class="section-title">World Cup</div>
           <div class="live-sub-nav">
             <div class="live-tab active" onclick="setLiveTab('groups')">Groups</div>
+            <div class="live-tab" onclick="setLiveTab('knockouts')">Knockouts</div>
             <div class="live-tab" onclick="setLiveTab('scorers')">Top Scorers</div>
-            <div class="live-tab" onclick="setLiveTab('fixtures')">Fixtures</div>
-            <div class="live-tab" onclick="setLiveTab('bracket')">Bracket</div>
+            <div class="live-tab" onclick="setLiveTab('fixtures')">Results</div>
           </div>
           <div id="live-content"><div class="spinner">Loading…</div></div>
         </div>
@@ -334,7 +345,7 @@ input::placeholder{color:#475569}
           <div class="card" style="background:rgba(251,176,52,0.05);border-color:rgba(251,176,52,0.3)">
             <div class="card-title" style="color:var(--amber)">⏰ Important Deadlines</div>
             <div style="font-size:13px;color:var(--white);line-height:1.8">
-              <strong>Phase 1:</strong> Closes <strong>June 13, 2026 at 11:59 PM</strong> (when Group A finishes)<br>
+              <strong>Phase 1:</strong> Closes <strong>June 17, 2026 at 11:59 PM</strong> (after first round matches)<br>
               <span style="font-size:12px;color:var(--muted)">⚠️ Picks lock permanently once submitted - you cannot edit them after saving to prevent unfair advantage from watching early matches.</span><br><br>
               <strong>Phase 2:</strong> Opens <strong>June 27, 2026</strong> (after group stage ends)
             </div>
@@ -414,14 +425,14 @@ input::placeholder{color:#475569}
       <div style="background:rgba(251,176,52,0.1);border:1px solid rgba(251,176,52,0.3);border-radius:8px;padding:12px;margin-bottom:16px">
         <div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:6px">⏰ Critical Deadlines</div>
         <div style="font-size:12px;color:var(--white);line-height:1.7">
-          <strong>Phase 1:</strong> Closes <strong>June 13, 2026 at 11:59 PM</strong><br>
+          <strong>Phase 1:</strong> Closes <strong>June 17, 2026 at 11:59 PM</strong><br>
           <span style="color:var(--muted)">⚠️ Once submitted, picks are permanently locked - no editing allowed!</span><br><br>
           <strong>Phase 2:</strong> Opens <strong>June 27, 2026</strong> after group stage
         </div>
       </div>
       
       <h3>📅 Phase 1: Pre-Tournament Predictions</h3>
-      <p><strong>Deadline:</strong> June 13, 2026 at 11:59 PM (when Group A finishes all matches)</p>
+      <p><strong>Deadline:</strong> June 17, 2026 at 11:59 PM (after first round of group matches)</p>
       <p style="font-size:12px;color:var(--amber);margin-top:-8px">⚠️ <strong>ONE-TIME SUBMISSION:</strong> Once you save your picks, they lock permanently. You cannot edit them after submission to preserve competitive integrity.</p>
       <ul>
         <li><strong>Group Standings:</strong> Drag teams to predict the top 4 in each of 12 groups (1st=2pts, 2nd=2pts, 3rd=1pt)</li>
@@ -431,7 +442,7 @@ input::placeholder{color:#475569}
       </ul>
 
       <h3>⚡ Phase 2: Second Chance</h3>
-      <p><strong>Unlocks:</strong> June 27, 2026 (after group stage ends)</p>
+      <p><strong>Starts:</strong> June 27, 2026 (after group stage ends)</p>
       <ul>
         <li><strong>Real Bracket:</strong> Predict R16 → Final using the actual qualified teams (5pts per R16/QF, 10pts per SF, 15pts for Champion)</li>
         <li><strong>Fresh Start:</strong> Bad Phase 1 picks? Phase 2 keeps you competitive!</li>
@@ -457,8 +468,8 @@ input::placeholder{color:#475569}
       <h3>📱 Tips</h3>
       <ul>
         <li>Works on phone and desktop - picks are saved to your Google account</li>
-        <li><strong>⚠️ Make your picks early - Phase 1 closes June 13 and locks forever once submitted!</strong></li>
-        <li>Come back after June 27 for Phase 2 - it's your second chance!</li>
+        <li><strong>⚠️ Make your picks early - Phase 1 closes June 17 and locks forever once submitted!</strong></li>
+        <li>Phase 2 starts June 27 after group stage - predict the real knockout bracket!</li>
         <li>Check the Live tab for tournament results and standings</li>
         <li>Join mini leagues to compete with friends - same picks, multiple competitions!</li>
       </ul>
@@ -473,9 +484,9 @@ input::placeholder{color:#475569}
 
 <script>
 // ══ DEADLINES ══════════════════════════════════════════════════════════════
-// Phase 1 picks close when Group A completes all matches (June 13, 2026 23:59:59 UTC-6)
-// This prevents editing picks after seeing any group stage results
-const PHASE1_DEADLINE=new Date('2026-06-13T23:59:59-06:00');
+// Phase 1 picks close after first round of matches (June 17, 2026 23:59:59 UTC-6)
+// This prevents editing picks after seeing early group stage results
+const PHASE1_DEADLINE=new Date('2026-06-17T23:59:59-06:00');
 // Phase 2 unlocks after group stage ends (June 27, 2026 23:59:59 UTC-6)
 const GROUP_STAGE_END=new Date('2026-06-27T23:59:59-06:00');
 
@@ -892,7 +903,7 @@ function renderPicksView(){
   let deadlineWarning="";
   if(!phase2Unlocked&&isPhase1Open()){
     const timeLeft=getPhase1TimeRemaining();
-    deadlineWarning=`<div class="deadline-banner">⏰ Phase 1 closes: <strong>${esc(timeLeft)}</strong> (June 13, 11:59 PM)</div>`;
+    deadlineWarning=`<div class="deadline-banner">⏰ Phase 1 closes: <strong>${esc(timeLeft)}</strong> (June 17, 11:59 PM)</div>`;
   }else if(!phase2Unlocked&&!isPhase1Open()){
     deadlineWarning=`<div class="deadline-banner closed">🔒 Phase 1 closed — Picks locked until Phase 2 opens after group stage</div>`;
   }
@@ -1333,9 +1344,9 @@ function validatePlayerName(playerName){
 
 // ── SAVE PICKS ────────────────────────────────────────────────────────────
 async function savePicks(isPhase2){
-  // Check Phase 1 deadline - locks when Group A finishes to prevent picks editing after seeing results
+  // Check Phase 1 deadline - locks after first round to prevent picks editing after seeing results
   if(!isPhase2&&!isPhase1Open()){
-    showToast("Phase 1 picks closed! Group A matches complete.");
+    showToast("Phase 1 picks closed! First round matches complete.");
     return;
   }
   
@@ -1439,10 +1450,10 @@ function renderLiveTab(){
   }
   
   // Render live data
-  if(liveTab==="groups")   renderLiveGroups(el,td.groups||[]);
-  if(liveTab==="fixtures") renderLiveFixtures(el,td.fixtures||[]);
-  if(liveTab==="bracket")  renderLiveBracket(el,td.bracket||{});
-  if(liveTab==="scorers")  renderLiveScorers(el,td.scorers||[]);
+  if(liveTab==="groups")    renderLiveGroups(el,td.groups||[]);
+  if(liveTab==="knockouts") renderLiveBracket(el,td.bracket||{});
+  if(liveTab==="scorers")   renderLiveScorers(el,td.scorers||[]);
+  if(liveTab==="fixtures")  renderLiveFixtures(el,td.fixtures||[]);
 }
 function renderLiveGroups(el,groups){
   if(!groups.length){el.innerHTML='<div class="lb-empty">Group data not yet available</div>';return;}
@@ -1458,7 +1469,7 @@ function renderLiveGroups(el,groups){
     </table>`).join("");
 }
 function renderLiveFixtures(el,fixtures){
-  if(!fixtures.length){el.innerHTML='<div class="lb-empty">Fixture data not yet available</div>';return;}
+  if(!fixtures.length){el.innerHTML='<div class="lb-empty">Match results not yet available</div>';return;}
   const byDate={};
   fixtures.forEach(f=>{const d=f.date||"TBD";if(!byDate[d])byDate[d]=[];byDate[d].push(f);});
   el.innerHTML=Object.entries(byDate).map(([date,matches])=>`
@@ -1626,7 +1637,7 @@ function renderJoinLeague(){
 async function joinLeague(){
   // Check Phase 1 deadline for joining
   if(!isPhase1Open()){
-    showToast("Cannot join — Phase 1 closed! Group A matches complete.");
+    showToast("Cannot join — Phase 1 closed! First round matches complete.");
     return;
   }
   const code=(document.getElementById("jl-code").value||"").trim().toUpperCase();
