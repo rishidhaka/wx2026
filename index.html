@@ -104,7 +104,7 @@ h1 span{color:var(--wc-gold)}
 input{width:100%;background:rgba(10,21,32,0.8);border:1px solid var(--navy-border);border-radius:8px;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;padding:10px 14px;margin-bottom:10px;outline:none;transition:all .3s ease}
 input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(58,175,169,0.1)}
 input::placeholder{color:#475569}
-.btn{width:100%;padding:12px;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:0.5px;transition:all .3s ease;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.btn{width:100%;padding:12px;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:0.5px;transition:all .3s ease;box-shadow:0 2px 8px rgba(0,0,0,0.2);touch-action:manipulation}
 .btn:hover{box-shadow:0 4px 12px rgba(0,0,0,0.3)}
 .btn-primary{background:linear-gradient(135deg,var(--wc-gold) 0%,#fcc866 100%);color:#0a1628}
 .btn-primary:hover{background:linear-gradient(135deg,#fcc866 0%,var(--wc-gold) 100%)}
@@ -1576,7 +1576,7 @@ function renderBracketStep(isPhase2){
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
     <input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border='';${isPhase2?"myPicks.phase2.goldenBoot=this.value.trim();":"myPicks.phase1.goldenBoot=this.value.trim();"}scheduleDraftAutoSave('golden-boot')" autocomplete="off">
   </div>
-  <button class="btn btn-primary" style="margin-top:8px" onclick="savePicks(${isPhase2})">Save ${isPhase2?"Second Chance ":""}Picks ✓</button>
+  <button id="save-picks-btn-${isPhase2?"p2":"p1"}" type="button" class="btn btn-primary" style="margin-top:8px" onclick="savePicks(${isPhase2},event)">Save ${isPhase2?"Second Chance ":""}Picks ✓</button>
   ${!isPhase2?`<button class="btn btn-secondary" style="margin-top:8px" onclick="setWizardStep('groups')">← Back to Groups</button>`:""}
   ${renderPredictedPodiumBanner(isPhase2)}
   <div style="height:60px"></div>`;
@@ -1799,7 +1799,12 @@ function validatePlayerName(playerName){
 }
 
 // ── SAVE PICKS ────────────────────────────────────────────────────────────
-async function savePicks(isPhase2){
+async function savePicks(isPhase2,ev){
+  if(!currentUser||!currentUser.uid){
+    showToast("Please sign in to save picks.");
+    return;
+  }
+
   // Check Phase 1 deadline - locks after first round to prevent picks editing after seeing results
   if(!isPhase2&&!isPhase1Open()){
     showToast("Phase 1 picks closed! First round matches complete.");
@@ -1851,8 +1856,9 @@ async function savePicks(isPhase2){
     return;
   }
 
-  const btn=document.querySelector(".btn-primary");
-  if(btn){btn.textContent="Saving…";btn.disabled=true;}
+  const btn=(ev&&ev.currentTarget)||document.getElementById(isPhase2?"save-picks-btn-p2":"save-picks-btn-p1");
+  if(btn){btn.textContent="Saving...";btn.disabled=true;}
+  showToast("Saving picks...");
   try{
     // Set submission timestamp for Phase 1 (first time only)
     const saveData={
@@ -1883,6 +1889,7 @@ async function savePicks(isPhase2){
     showToast("Picks saved! ✓");
     renderPicksView();
   }catch(e){
+    console.error("Save picks failed",e);
     showToast("Save failed — check connection");
   }finally{
     if(btn){btn.textContent=isPhase2?"Save Second Chance Picks ✓":"Save Picks ✓";btn.disabled=false;}
