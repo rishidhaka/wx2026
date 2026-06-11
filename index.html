@@ -26,17 +26,17 @@ body{background:linear-gradient(135deg,#0a1628 0%,#0f1e35 50%,#0a1628 100%);back
 
 /* ── RESPONSIVE BREAKPOINTS ── */
 @media (min-width: 600px) {
-  #app{max-width:600px}
+  #app{max-width:600px;margin:0 auto}
 }
 
 @media (min-width: 768px) {
-  #app{max-width:768px}
+  #app{max-width:768px;margin:0 auto}
   .tab{font-size:11px;padding:14px 8px}
   .header-sub{font-size:12px}
 }
 
 @media (min-width: 1024px) {
-  #app{max-width:1100px}
+  #app{max-width:1100px;margin:0 auto}
   .desktop-grid{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
   .desktop-left{position:sticky;top:20px}
   .view{padding:20px}
@@ -79,7 +79,7 @@ h1 span{color:var(--wc-gold)}
 /* ── VIEWS ── */
 .view{display:none;padding:16px}
 .view.active{display:block}
-.view-header{margin-bottom:14px}
+.view-header{margin-bottom:0}
 .section-title{font-weight:900;font-size:clamp(14px,4vw,16px);letter-spacing:1.5px;color:var(--amber);margin-bottom:14px;text-transform:uppercase}
 .view-meta{min-height:32px;margin-bottom:14px}
 .view-content{position:relative}
@@ -115,7 +115,7 @@ input::placeholder{color:#475569}
 .lb-empty{text-align:center;color:var(--muted);padding:32px 16px;font-size:14px}
 
 /* ── PICKS WIZARD ── */
-.wizard-steps{display:flex;gap:0;margin-bottom:14px;border-radius:8px;overflow:hidden;border:1px solid var(--navy-border)}
+.wizard-steps{display:flex;gap:0;margin-bottom:0;border-radius:8px;overflow:hidden;border:1px solid var(--navy-border)}
 .wizard-step{flex:1;padding:8px 4px;text-align:center;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:var(--navy-card);cursor:pointer;transition:all .2s;border-right:1px solid var(--navy-border)}
 .wizard-step:last-child{border-right:none}
 .wizard-step.active{background:linear-gradient(135deg,var(--wc-teal) 0%,var(--wc-aqua) 100%);color:var(--white);box-shadow:0 2px 8px rgba(58,175,169,0.3)}
@@ -180,7 +180,7 @@ input::placeholder{color:#475569}
 .phase2-locked-icon{font-size:42px;margin-bottom:12px}
 
 /* ── DEADLINE BANNER ── */
-.deadline-banner{background:linear-gradient(135deg,#2a1a0a,#1a0a0a);border:1px solid var(--amber);border-radius:8px;padding:10px 14px;margin-bottom:14px;text-align:center;font-size:12px;color:var(--amber);font-weight:600}
+.deadline-banner{background:linear-gradient(135deg,#2a1a0a,#1a0a0a);border:1px solid var(--amber);border-radius:8px;padding:10px 14px;margin-bottom:6px;text-align:center;font-size:12px;color:var(--amber);font-weight:600}
 .deadline-banner strong{color:var(--white);font-weight:900}
 .deadline-banner.closed{background:linear-gradient(135deg,#1a0a0a,#0a0a0a);border-color:var(--muted);color:var(--muted)}
 
@@ -198,12 +198,17 @@ input::placeholder{color:#475569}
 .live-sub-nav::-webkit-scrollbar{display:none}
 .live-tab{flex-shrink:0;padding:6px 11px;border-radius:20px;font-size:clamp(10px,2.5vw,11px);font-weight:600;cursor:pointer;border:1px solid var(--navy-border);color:var(--muted);background:var(--navy-card);white-space:nowrap}
 .live-tab.active{background:var(--pitch);border-color:var(--amber);color:var(--amber)}
-.group-table{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:12px}
+.group-table{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:12px}
 .group-table th{color:var(--muted);font-weight:600;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 5px;border-bottom:1px solid var(--navy-border);text-align:center}
 .group-table th:first-child{text-align:left}
 .group-table td{padding:5px;border-bottom:1px solid #0d1825;text-align:center;vertical-align:middle}
 .group-table td:first-child{text-align:left;font-weight:600}
 .group-table tr.q td:first-child{border-left:3px solid var(--green)}
+.group-title{font-weight:900;font-size:12px;letter-spacing:1.5px;color:var(--amber);text-transform:uppercase;margin-top:12px;margin-bottom:8px;margin-left:0;margin-right:0}
+.group-title:first-child{margin-top:0}
+.date-header{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:10px 0 5px 0}
+.date-header:first-child{margin-top:0}
+.leaderboard-group-header{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:1px}
 .fixture{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:7px;padding:9px 11px;margin-bottom:6px}
 .fixture-teams{display:flex;align-items:center;justify-content:space-between;gap:5px}
 .fixture-team{flex:1;font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px}
@@ -315,7 +320,7 @@ input::placeholder{color:#475569}
 
         <div id="view-leagues" class="view">
           <div class="view-header">
-            <div class="section-title" style="margin-bottom:0">Leagues</div>
+            <div class="section-title">Leagues</div>
           </div>
           <div class="view-meta">
             <div class="sub-nav">
@@ -350,7 +355,16 @@ input::placeholder{color:#475569}
         </div>
 
         <div id="view-picks" class="view">
-          <div id="picks-content"><div class="spinner">Loading…</div></div>
+          <div class="view-header">
+            <div class="section-title">My Predictions</div>
+          </div>
+          <div class="view-meta">
+            <div id="picks-timer"></div>
+            <div id="picks-steps"></div>
+          </div>
+          <div class="view-content">
+            <div id="picks-content"><div class="spinner">Loading…</div></div>
+          </div>
         </div>
 
         <div id="view-admin" class="view">
@@ -923,11 +937,15 @@ document.querySelectorAll(".tab").forEach(tab=>{
 // ══ PICKS WIZARD ══════════════════════════════════════════════════════════
 function renderPicksView(){
   const el=document.getElementById("picks-content");
+  const timerEl=document.getElementById("picks-timer");
+  const stepsEl=document.getElementById("picks-steps");
   const phase2Unlocked=results.phase2Unlocked;
   
   // Check if Phase 1 picks are locked (already submitted)
   const phase1Locked=myPicks.phase1SubmittedAt&&isPhase1Open();
   if(phase1Locked&&!phase2Unlocked){
+    timerEl.innerHTML="";
+    stepsEl.innerHTML="";
     el.innerHTML=`<div class="card">
       <div class="card-title">🔒 Phase 1 Picks Locked</div>
       <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px">
@@ -949,12 +967,15 @@ function renderPicksView(){
     deadlineWarning=`<div class="deadline-banner closed">🔒 Phase 1 closed — Picks locked until Phase 2 opens after group stage</div>`;
   }
 
-  let stepsHtml=deadlineWarning+`<div class="wizard-steps">
+  let stepsHtml=`<div class="wizard-steps">
     <div class="wizard-step${wizardStep==="groups"?" active":""}" onclick="setWizardStep('groups')">1 Groups</div>
     <div class="wizard-step${wizardStep==="thirdplace"?" active":""}" onclick="setWizardStep('thirdplace')">2 Thirds</div>
     <div class="wizard-step${wizardStep==="bracket"?" active":""}" onclick="setWizardStep('bracket')">3 Bracket</div>
     <div class="wizard-step phase2${wizardStep==="phase2"?" active":""}" onclick="setWizardStep('phase2')">⚡ 2nd</div>
   </div>`;
+
+  timerEl.innerHTML=deadlineWarning;
+  stepsEl.innerHTML=stepsHtml;
 
   let content="";
   if(wizardStep==="groups") content=renderGroupsStep();
@@ -962,7 +983,7 @@ function renderPicksView(){
   if(wizardStep==="bracket") content=renderBracketStep(false);
   if(wizardStep==="phase2") content=renderPhase2Step();
 
-  el.innerHTML=stepsHtml+content;
+  el.innerHTML=content;
   if(wizardStep==="groups") initDragDrop();
 }
 
@@ -1511,7 +1532,7 @@ function renderLiveTab(){
 function renderLiveGroups(el,groups){
   if(!groups.length){el.innerHTML='<div class="lb-empty">Group data not yet available</div>';return;}
   el.innerHTML=groups.map(g=>`
-    <div style="font-weight:900;font-size:12px;letter-spacing:1.5px;color:var(--amber);margin:12px 0 5px">GROUP ${g.name}</div>
+    <div class="group-title">GROUP ${g.name}</div>
     <table class="group-table">
       <thead><tr><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
       <tbody>${(g.standings||[]).map((t,i)=>`<tr class="${i<2?"q":""}">
@@ -1526,7 +1547,7 @@ function renderLiveFixtures(el,fixtures){
   const byDate={};
   fixtures.forEach(f=>{const d=f.date||"TBD";if(!byDate[d])byDate[d]=[];byDate[d].push(f);});
   el.innerHTML=Object.entries(byDate).map(([date,matches])=>`
-    <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:10px 0 5px">${date}</div>
+    <div class="date-header">${date}</div>
     ${matches.map(f=>{
       const live=f.status==="live",fin=f.status==="fin";
       const score=(live||fin)?`${f.homeScore??"-"} – ${f.awayScore??"-"}`:"vs";
@@ -1732,7 +1753,7 @@ function renderAdminPanel(){
   Object.keys(WC_GROUPS).forEach(grp=>{
     const actual=(resState.groups||{})[grp]||[];
     html+=`<div style="margin-bottom:10px">
-      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:1px">GROUP ${grp} — Top 3</div>
+      <div class="leaderboard-group-header">GROUP ${grp} — Top 3</div>
       <div style="display:flex;gap:6px">
         <input style="margin:0;font-size:11px" placeholder="1st" value="${esc(actual[0]||"")}" oninput="setGroupResult('${grp}',0,this.value)" id="gr-${grp}-0">
         <input style="margin:0;font-size:11px" placeholder="2nd" value="${esc(actual[1]||"")}" oninput="setGroupResult('${grp}',1,this.value)" id="gr-${grp}-1">
@@ -1755,7 +1776,7 @@ function renderAdminPanel(){
   [["r32","Round of 32",32],["r16","Round of 16",16],["qf","Quarter-Finals",8],["sf","Semi-Finals",4],["final","Final",2]].forEach(([key,label,n])=>{
     const teams=(resState.bracket||{})[key]||[];
     html+=`<div style="margin-bottom:12px">
-      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:1px">${label} winners (${n/2} teams)</div>
+      <div class="leaderboard-group-header">${label} winners (${n/2} teams)</div>
       <div style="display:flex;flex-wrap:wrap;gap:5px">`;
     for(let i=0;i<n/2;i++){
       html+=`<input style="margin:0;font-size:11px;width:calc(50% - 3px)" placeholder="Winner ${i+1}" value="${esc(teams[i]||"")}" oninput="setKOResult('${key}',${i},this.value)">`;
