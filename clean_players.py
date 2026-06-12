@@ -7,6 +7,7 @@ def clean_player_list(input_file, output_file):
     """Read HTML, filter out club names, write clean output"""
     
     # Common club name patterns to exclude
+    # 
     club_keywords = {
         'FC', 'CF', 'AC', 'SC', 'AFC', 'AS', 'CD', 'RC', 'FK', 'SK', 'GD',
         'United', 'City', 'Wanderers', 'Rovers', 'Athletic', 'Sporting',

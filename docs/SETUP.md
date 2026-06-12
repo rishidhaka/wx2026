@@ -65,17 +65,17 @@ firebase init functions
 # → ESLint: No
 # → Install dependencies: Yes
 
-# Set API-Football key
-firebase functions:config:set apifootball.key="YOUR_RAPIDAPI_KEY_HERE"
+# Set football-data.org key as a Firebase secret
+firebase functions:secrets:set FOOTBALLDATA_KEY
 
 # Deploy
 firebase deploy --only functions
 ```
 
-### Get API-Football key (free)
-1. https://rapidapi.com/api-sports/api/api-football
-2. Sign up → subscribe to Basic (free, 100 req/day)
-3. Copy API key from dashboard
+### Get football-data.org key (free)
+1. https://www.football-data.org/client/register
+2. Sign up → free tier gives 10 requests/minute
+3. Copy API key from your account dashboard
 
 ### Verify
 - Firebase Console → Functions → `syncWorldCup` should appear
@@ -151,7 +151,7 @@ All within free limits for a group of 50-100 people.
 → Check Firestore rules. User's UID must match the key they're writing to.
 
 ### Live data not appearing
-→ Cloud Function not deployed, or API-Football key not set. Use Admin panel as fallback.
+→ Cloud Function not deployed, or FOOTBALLDATA_KEY secret not set. Use Admin panel as fallback.
 
 ### Phase 2 not unlocking
 → Admin must be signed in with the UID that's in Firestore rules, then enter admin password and click unlock.

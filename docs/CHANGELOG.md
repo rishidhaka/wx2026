@@ -1,6 +1,33 @@
 # Changelog
 
-## v4.2.0 — UX Refinements & Competitive Integrity (June 10, 2026) ⚡ CURRENT
+## v4.3.0 — API Migration, UI Polish & Data Fixes (June 11, 2026) ⚡ CURRENT
+
+### Changed
+- **Live data source switched from API-Football to football-data.org**
+  - API-Football free tier does not support the 2026 season
+  - football-data.org provides live 2026 data on the free tier (10 req/min)
+  - Auth: `X-Auth-Token` header; competition code `WC`, season `2026`
+  - Group standings now derived from fixture results (API returns flat table)
+  - Stage labels updated: `LAST_32`/`LAST_16` instead of `ROUND_OF_32`/`ROUND_OF_16`
+  - Env var renamed: `APIFOOTBALL_KEY` → `FOOTBALLDATA_KEY`
+  - Cloud Function secret: `firebase functions:secrets:set FOOTBALLDATA_KEY`
+  - GitHub Actions secret: `FOOTBALLDATA_KEY`
+- **Font changed from Inter to DM Sans** site-wide — more distinctive, less generic
+- **Base font size increased to 15px**; smallest hardcoded sizes bumped throughout
+
+### Added
+- **Emoji icons on World Cup subtabs**: 🏟️ Groups, 🏆 Knockouts, ⚽ Scorers, 📋 Results
+- **ET time display in Results tab**: match times converted from UTC to America/New_York
+- **Live match indicator**: green dot + "Live" label replaces missing minute counter
+- **60-second cache header** on `data/wc2026.json` via `firebase.json` — eliminates stale data without requiring cache clears
+
+### Fixed
+- Results tab was showing only flags with no country names — field name mismatch (`homeTeam`/`awayTeam` in JSON vs `home`/`away` expected by renderer); fixed in both `fetch-data.js` and `loadTournamentData`
+- Subtab active-state detection switched from fragile textContent matching to `data-tab` attribute
+
+---
+
+## v4.2.0 — UX Refinements & Competitive Integrity (June 10, 2026)
 ### Added
 - **One-time submission lock**: Phase 1 picks permanently lock after first save
   - New `phase1SubmittedAt` timestamp field tracks first submission

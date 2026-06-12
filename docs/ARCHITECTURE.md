@@ -16,9 +16,13 @@ Browser ──── Firebase Auth (Google) ────────────
     │     └── wc2026picks/{uid}   (full picks doc per user)
     │
     └── Firebase Hosting ──── index.html (the app)
+                         └─── data/wc2026.json (static, 60s cache)
 
 Cloud Function (hourly)
-    └── API-Football → Firestore wc2026/tournament + wc2026/results
+    └── football-data.org → Firestore wc2026/tournament + wc2026/results
+
+GitHub Actions (hourly)
+    └── football-data.org → data/wc2026.json → Firebase Hosting deploy
 ```
 
 ---
