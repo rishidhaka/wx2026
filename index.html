@@ -879,7 +879,12 @@ async function loadTournamentData() {
         name: g.group,
         standings: g.standings
       })),
-      fixtures: (data.fixtures||[]).map(f=>({...f, home:f.home||f.homeTeam, away:f.away||f.awayTeam})),
+      fixtures: (data.fixtures||[]).map(f=>{
+        const etDate=f.utcDate
+          ?new Date(f.utcDate).toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"America/New_York"})
+          :f.date;
+        return {...f, home:f.home||f.homeTeam, away:f.away||f.awayTeam, date:etDate};
+      }),
       scorers: data.topScorers,
       lastUpdated: data.lastUpdated
     };
