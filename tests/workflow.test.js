@@ -339,3 +339,36 @@ describe('Lock Picks After Submission', () => {
     expect(shouldLockPhase1).toBe(false);
   });
 });
+
+describe('Bracket Progression Regression', () => {
+  function normalizeRoundWinners(arr, totalTeams) {
+    const source = Array.isArray(arr) ? arr : [];
+    const expectedMatches = Math.max(0, Math.floor(totalTeams / 2));
+
+    if (source.length > expectedMatches) {
+      const winners = [];
+      for (let i = 0; i < expectedMatches; i++) {
+        const a = typeof source[i * 2] === 'string' ? source[i * 2].trim() : '';
+        const b = typeof source[i * 2 + 1] === 'string' ? source[i * 2 + 1].trim() : '';
+        winners.push(a || b || '');
+      }
+      return winners;
+    }
+
+    const winners = source.slice(0, expectedMatches).map(team => typeof team === 'string' ? team.trim() : '');
+    while (winners.length < expectedMatches) winners.push('');
+    return winners;
+  }
+
+  test('keeps winner slots aligned when deriving R16 teams from saved R32 picks', () => {
+    const sanitizedDraftR32 = ['Mexico', null, null, 'Canada', 'Brazil', null, null, 'France'];
+
+    const r16Teams = normalizeRoundWinners(sanitizedDraftR32, 32);
+
+    expect(r16Teams.slice(0, 8)).toEqual(['Mexico', '', '', 'Canada', 'Brazil', '', '', 'France']);
+    expect(r16Teams[0]).toBe('Mexico');
+    expect(r16Teams[3]).toBe('Canada');
+    expect(r16Teams[4]).toBe('Brazil');
+    expect(r16Teams[7]).toBe('France');
+  });
+});

@@ -564,7 +564,7 @@ input::placeholder{color:#475569}
       <p><strong>Deadline:</strong> June 17, 2026 at 11:59 PM (after first round of group matches)</p>
       <p style="font-size:12px;color:var(--amber);margin-top:-8px">⚠️ <strong>ONE-TIME SUBMISSION:</strong> Once you save your picks, they lock permanently. You cannot edit them after submission to preserve competitive integrity.</p>
       <ul>
-        <li><strong>Group Standings:</strong> Drag teams to predict the top 4 in each of 12 groups (1st=2pts, 2nd=2pts, 3rd=1pt)</li>
+        <li><strong>Group Standings:</strong> Drag teams to predict the full order in each of 12 groups (1pt for each exact position, including 4th)</li>
         <li><strong>Third-Place Qualifiers:</strong> Pick which 8 of 12 third-placed teams advance to Round of 32 (2pts each = 16pts max)</li>
         <li><strong>Knockout Bracket:</strong> Predict R32 → R16 → Quarters → Semis → Final (auto-seeded from your group picks)</li>
         <li><strong>Golden Boot:</strong> Pick the tournament's top scorer (5pts)</li>
@@ -731,10 +731,23 @@ function defaultGroups(){
 }
 
 function normalizeRoundWinners(arr,totalTeams){
-  // Dense array format: bracket.r32=[winner1,winner2,...,winner16] (not 32 slots)
-  // totalTeams param is ignored (legacy) - just clean and return the array
+  const expectedMatches=Math.max(0,Math.floor(totalTeams/2));
   const source=Array.isArray(arr)?arr:[];
-  return source.map(team=>(team&&team.trim&&team.trim())||"").filter(t=>t!=="");
+
+  // Legacy saves may still store each winner across 2 adjacent team slots.
+  if(source.length>expectedMatches){
+    const out=[];
+    for(let i=0;i<expectedMatches;i++){
+      const a=typeof source[i*2]==="string"?source[i*2].trim():"";
+      const b=typeof source[i*2+1]==="string"?source[i*2+1].trim():"";
+      out.push(a||b||"");
+    }
+    return out;
+  }
+
+  const out=source.slice(0,expectedMatches).map(team=>typeof team==="string"?team.trim():"");
+  while(out.length<expectedMatches)out.push("");
+  return out;
 }
 
 function normalizeBracketData(bracket,isPhase2){
@@ -1013,7 +1026,7 @@ function calcScore(playerData){
   let p1Group=0,p1ThirdQual=0,p1KO=0,p2Score=0,gbScore=0;
   const detail={p1Group:{},p1ThirdQual:{},p1KO:{},p2:{},gb:{}};
 
-  // Phase 1 group picks (1st, 2nd, 3rd) — only score groups with games played
+  // Phase 1 group picks (1st, 2nd, 3rd, 4th) — only score groups with games played
   const startedGroups=new Set(res.startedGroups||[]);
   Object.entries(p1.groups||{}).forEach(([grp,order])=>{
     if(res.startedGroups&&!startedGroups.has(grp)) return;
@@ -1024,6 +1037,8 @@ function calcScore(playerData){
     else if(actual[1]) detail.p1Group[grp+"_2nd"]="miss";
     if(actual[2]&&order[2]===actual[2]){p1Group+=1;detail.p1Group[grp+"_3rd"]="hit";}
     else if(actual[2]) detail.p1Group[grp+"_3rd"]="miss";
+    if(actual[3]&&order[3]===actual[3]){p1Group+=1;detail.p1Group[grp+"_4th"]="hit";}
+    else if(actual[3]) detail.p1Group[grp+"_4th"]="miss";
   });
 
   // Third-place qualifiers (2pts each)
@@ -1804,31 +1819,17 @@ function buildRoundsData(isPhase2){
   const bracket=isPhase2?myPicks.phase2.bracket:myPicks.phase1.bracket;
   const r32matches=seedBracketFromGroups(myPicks.phase1.groups,myPicks.phase1.thirdPlaceQualifiers);
 
-  const normalizeWinners=(arr,expectedMatches)=>{
-    const source=Array.isArray(arr)?arr:[];
-    if(source.length>expectedMatches){
-      const out=[];
-      for(let i=0;i<expectedMatches;i++){
-        const a=source[i*2];
-        const b=source[i*2+1];
-        out.push((a&&a.trim())||(b&&b.trim())||"");
-      }
-      return out;
-    }
-    const out=source.slice(0,expectedMatches);
-    while(out.length<expectedMatches)out.push("");
-    return out;
-  };
-
-  const r32Winners=normalizeWinners(bracket.r32,16);
-  const r16Teams=normalizeWinners(isPhase2?(results.bracket?.r16||[]):r32Winners,16);
-  const r16Winners=normalizeWinners(bracket.r16,8);
+  const r32Winners=normalizeRoundWinners(bracket.r32,32);
+  const r16Teams=isPhase2
+    ?normalizeRoundWinners(results.bracket?.r16||[],32)
+    :r32Winners;
+  const r16Winners=normalizeRoundWinners(bracket.r16,16);
   const qfTeams=r16Winners;
-  const qfWinners=normalizeWinners(bracket.qf,4);
+  const qfWinners=normalizeRoundWinners(bracket.qf,8);
   const sfTeams=qfWinners;
-  const sfWinners=normalizeWinners(bracket.sf,2);
+  const sfWinners=normalizeRoundWinners(bracket.sf,4);
   const finalTeams=sfWinners;
-  const finalWinner=normalizeWinners(bracket.final,1);
+  const finalWinner=normalizeRoundWinners(bracket.final,2);
 
   const thirdTeams=(function(){
     const t1=sfTeams[0]||"", t2=sfTeams[1]||"", t3=sfTeams[2]||"", t4=sfTeams[3]||"";
@@ -1886,8 +1887,12 @@ function validatePlayerName(playerName){
 
 // Remove undefined values recursively (Firestore doesn't allow undefined fields)
 function cleanData(obj){
-  if(obj===null||obj===undefined)return undefined;
-  if(Array.isArray(obj))return obj.map(cleanData).filter(x=>x!==undefined);
+  if(obj===undefined)return undefined;
+  if(obj===null)return null;
+  if(Array.isArray(obj))return obj.map(item=>{
+    const cleaned=cleanData(item);
+    return cleaned===undefined?null:cleaned;
+  });
   if(typeof obj==="object"){
     const cleaned={};
     for(const key in obj){
@@ -2583,15 +2588,16 @@ function renderAdminPanel(){
   </div>
   <div class="card">
     <div class="card-title">Group Results — Actual Standings</div>
-    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Enter each group's top 3 finishers. These are used for scoring Phase 1 group picks.</div>`;
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Enter each group's full final order. These are used for scoring Phase 1 group picks.</div>`;
   Object.keys(WC_GROUPS).forEach(grp=>{
     const actual=(resState.groups||{})[grp]||[];
     html+=`<div style="margin-bottom:10px">
-      <div class="leaderboard-group-header">GROUP ${grp} — Top 3</div>
+      <div class="leaderboard-group-header">GROUP ${grp} — Full Order</div>
       <div style="display:flex;gap:6px">
         <input style="margin:0;font-size:11px" placeholder="1st" value="${esc(actual[0]||"")}" oninput="setGroupResult('${grp}',0,this.value)" id="gr-${grp}-0">
         <input style="margin:0;font-size:11px" placeholder="2nd" value="${esc(actual[1]||"")}" oninput="setGroupResult('${grp}',1,this.value)" id="gr-${grp}-1">
         <input style="margin:0;font-size:11px" placeholder="3rd" value="${esc(actual[2]||"")}" oninput="setGroupResult('${grp}',2,this.value)" id="gr-${grp}-2">
+        <input style="margin:0;font-size:11px" placeholder="4th" value="${esc(actual[3]||"")}" oninput="setGroupResult('${grp}',3,this.value)" id="gr-${grp}-3">
       </div>
     </div>`;
   });

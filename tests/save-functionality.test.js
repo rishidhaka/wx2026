@@ -18,8 +18,12 @@ const { describe, test, expect, beforeEach } = require('@jest/globals');
 // That is the contract — tests break if implementation diverges.
 
 function cleanData(obj) {
-  if (obj === null || obj === undefined) return undefined;
-  if (Array.isArray(obj)) return obj.map(cleanData).filter(x => x !== undefined);
+  if (obj === undefined) return undefined;
+  if (obj === null) return null;
+  if (Array.isArray(obj)) return obj.map(item => {
+    const cleaned = cleanData(item);
+    return cleaned === undefined ? null : cleaned;
+  });
   if (typeof obj === 'object') {
     const cleaned = {};
     for (const key in obj) {
@@ -43,12 +47,20 @@ function hasFirestoreUndefined(obj) {
 
 function normalizeRoundWinners(arr, totalTeams) {
   const source = Array.isArray(arr) ? arr : [];
-  const winners = [];
-  for (let i = 0; i < totalTeams; i += 2) {
-    const a = source[i];
-    const b = source[i + 1];
-    winners.push((a && a.trim()) || (b && b.trim()) || '');
+  const expectedMatches = Math.max(0, Math.floor(totalTeams / 2));
+
+  if (source.length > expectedMatches) {
+    const winners = [];
+    for (let i = 0; i < expectedMatches; i++) {
+      const a = typeof source[i * 2] === 'string' ? source[i * 2].trim() : '';
+      const b = typeof source[i * 2 + 1] === 'string' ? source[i * 2 + 1].trim() : '';
+      winners.push(a || b || '');
+    }
+    return winners;
   }
+
+  const winners = source.slice(0, expectedMatches).map(team => typeof team === 'string' ? team.trim() : '');
+  while (winners.length < expectedMatches) winners.push('');
   return winners;
 }
 
@@ -168,9 +180,8 @@ describe('cleanData — strips undefined for Firestore', () => {
     expect(cleanData(undefined)).toBeUndefined();
   });
 
-  test('null input returns undefined (Firestore does NOT allow null by default)', () => {
-    // cleanData returns undefined for null, caller uses ||{} as fallback
-    expect(cleanData(null)).toBeUndefined();
+  test('null input is preserved', () => {
+    expect(cleanData(null)).toBeNull();
   });
 
   test('primitive values pass through unchanged', () => {
@@ -207,10 +218,10 @@ describe('cleanData — strips undefined for Firestore', () => {
     expect('qf' in result.phase1.bracket).toBe(false);
   });
 
-  test('arrays filter out undefined elements', () => {
+  test('arrays preserve positional slots by converting undefined to null', () => {
     const input = { teams: ['France', undefined, 'Spain', undefined] };
     const result = cleanData(input);
-    expect(result.teams).toEqual(['France', 'Spain']);
+    expect(result.teams).toEqual(['France', null, 'Spain', null]);
   });
 
   test('empty object after stripping returns undefined (caller uses ||{})', () => {
@@ -239,6 +250,20 @@ describe('cleanData — strips undefined for Firestore', () => {
     const clean = cleanData(dirty) || {};
     const roundTripped = JSON.parse(JSON.stringify(clean));
     expect(hasFirestoreUndefined(roundTripped)).toBe(false);
+    expect(roundTripped.e).toEqual([null, 'x']);
+  });
+
+  test('bracket arrays keep match positions across sanitization', () => {
+    const dirty = {
+      phase1: {
+        bracket: {
+          r32: ['Mexico', undefined, undefined, 'Canada']
+        }
+      }
+    };
+
+    const clean = cleanData(dirty);
+    expect(clean.phase1.bracket.r32).toEqual(['Mexico', null, null, 'Canada']);
   });
 });
 
@@ -534,6 +559,7 @@ describe('normalizeBracketData', () => {
     const result = normalizeBracketData(bracket, false);
     expect(result.r32).toBeDefined();
     expect(() => JSON.stringify(result)).not.toThrow();
+    expect(result.r32.slice(0, 4)).toEqual(['France', '', 'Spain', '']);
   });
 });
 
@@ -553,6 +579,11 @@ describe('normalizeRoundWinners', () => {
     expect(normalizeRoundWinners(arr, 4)).toEqual(['Spain', 'Brazil']);
   });
 
+  test('preserves positions for dense partial winner arrays', () => {
+    const arr = ['France', undefined, 'Brazil', undefined];
+    expect(normalizeRoundWinners(arr, 8)).toEqual(['France', '', 'Brazil', '']);
+  });
+
   test('handles short array without crashing', () => {
     const arr = ['France'];
     expect(() => normalizeRoundWinners(arr, 4)).not.toThrow();
@@ -569,7 +600,112 @@ describe('normalizeRoundWinners', () => {
   });
 });
 
-// ─── 7. hasCompleteBracketPath ────────────────────────────────────────────
+// ─── 7. bracket persistence regression ───────────────────────────────────
+describe('bracket persistence regression', () => {
+  test('draft save -> reload preserves sparse R32 winner positions', () => {
+    const localBracket = {
+      r32: ['Mexico', undefined, undefined, 'Canada', 'Brazil', undefined, undefined, 'France']
+    };
+
+    const sanitized = cleanData({ phase1: { bracket: localBracket } });
+    const roundTripped = JSON.parse(JSON.stringify(sanitized));
+    const restored = normalizeBracketData(roundTripped.phase1.bracket, false);
+    const r16Teams = normalizeRoundWinners(restored.r32, 32);
+
+    expect(sanitized.phase1.bracket.r32).toEqual(['Mexico', null, null, 'Canada', 'Brazil', null, null, 'France']);
+    expect(restored.r32.slice(0, 8)).toEqual(['Mexico', '', '', 'Canada', 'Brazil', '', '', 'France']);
+    expect(r16Teams.slice(0, 8)).toEqual(['Mexico', '', '', 'Canada', 'Brazil', '', '', 'France']);
+  });
+
+  test('legacy 32-slot bracket saves still collapse to the correct 16 unique R32 winners', () => {
+    const legacyBracket = {
+      r32: [
+        'Mexico', '', 'Canada', '', 'Brazil', '', 'France', '',
+        'Spain', '', 'Germany', '', 'Portugal', '', 'Argentina', '',
+        'England', '', 'Japan', '', 'Netherlands', '', 'Belgium', '',
+        'Italy', '', 'Uruguay', '', 'Colombia', '', 'Croatia', ''
+      ]
+    };
+
+    const restored = normalizeBracketData(legacyBracket, false);
+
+    expect(restored.r32).toEqual([
+      'Mexico', 'Canada', 'Brazil', 'France',
+      'Spain', 'Germany', 'Portugal', 'Argentina',
+      'England', 'Japan', 'Netherlands', 'Belgium',
+      'Italy', 'Uruguay', 'Colombia', 'Croatia'
+    ]);
+  });
+
+  test('phase2 bracket sparse winner positions survive draft save and reload', () => {
+    const localBracket = {
+      r16: ['Mexico', undefined, 'Brazil', undefined, 'Spain', undefined, 'Portugal', undefined],
+      qf: ['Mexico', undefined, 'Spain', undefined],
+      sf: ['Mexico', undefined],
+      final: ['Mexico']
+    };
+
+    const sanitized = cleanData({ phase2: { bracket: localBracket, goldenBoot: 'Kylian Mbappé' } });
+    const roundTripped = JSON.parse(JSON.stringify(sanitized));
+    const restored = normalizeBracketData(roundTripped.phase2.bracket, true);
+
+    expect(restored.r16).toEqual(['Mexico', '', 'Brazil', '', 'Spain', '', 'Portugal', '']);
+    expect(restored.qf).toEqual(['Mexico', '', 'Spain', '']);
+    expect(restored.sf).toEqual(['Mexico', '']);
+    expect(restored.final).toEqual(['Mexico']);
+  });
+
+  test('complete picks payload survives save round-trip without losing ordering or scalar fields', () => {
+    const picks = {
+      phase1: {
+        groups: makeCompleteGroups(),
+        thirdPlaceQualifiers: ['Brazil', 'Argentina', 'Spain', 'Germany', 'Portugal', 'Italy', 'Netherlands', 'Belgium'],
+        bracket: {
+          r32: ['Mexico', undefined, undefined, 'Canada', 'Brazil', undefined, undefined, 'France'],
+          r16: ['Mexico', undefined, 'Brazil', undefined],
+          qf: ['Mexico', undefined],
+          sf: ['Mexico'],
+          final: ['Mexico']
+        },
+        goldenBoot: 'Kylian Mbappé'
+      },
+      phase2: {
+        bracket: {
+          r16: ['France', undefined, 'Portugal', undefined],
+          qf: ['France', undefined],
+          sf: ['France'],
+          final: ['France']
+        },
+        goldenBoot: 'Harry Kane'
+      },
+      phase1SubmittedAt: '2026-06-12T10:00:00.000Z'
+    };
+
+    const sanitized = cleanData(picks);
+    const roundTripped = JSON.parse(JSON.stringify(sanitized));
+    const restored = {
+      phase1: {
+        ...roundTripped.phase1,
+        bracket: normalizeBracketData(roundTripped.phase1.bracket, false)
+      },
+      phase2: {
+        ...roundTripped.phase2,
+        bracket: normalizeBracketData(roundTripped.phase2.bracket, true)
+      },
+      phase1SubmittedAt: roundTripped.phase1SubmittedAt
+    };
+
+    expect(restored.phase1.groups.A).toEqual(makeCompleteGroups().A);
+    expect(restored.phase1.thirdPlaceQualifiers).toEqual(['Brazil', 'Argentina', 'Spain', 'Germany', 'Portugal', 'Italy', 'Netherlands', 'Belgium']);
+    expect(restored.phase1.goldenBoot).toBe('Kylian Mbappé');
+    expect(restored.phase2.goldenBoot).toBe('Harry Kane');
+    expect(restored.phase1SubmittedAt).toBe('2026-06-12T10:00:00.000Z');
+    expect(restored.phase1.bracket.r32.slice(0, 8)).toEqual(['Mexico', '', '', 'Canada', 'Brazil', '', '', 'France']);
+    expect(restored.phase2.bracket.r16.slice(0, 4)).toEqual(['France', '', 'Portugal', '']);
+  });
+});
+
+// ─── 8. hasCompleteBracketPath ────────────────────────────────────────────
 describe('hasCompleteBracketPath', () => {
   test('returns false for empty bracket', () => {
     expect(hasCompleteBracketPath({}, false)).toBe(false);

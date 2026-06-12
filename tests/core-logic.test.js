@@ -162,6 +162,8 @@ function calcScore(playerData, results) {
     const actual = (res.groups || {})[grp] || [];
     if (actual[0] && order[0] === actual[0]) p1Group += 1;
     if (actual[1] && order[1] === actual[1]) p1Group += 1;
+    if (actual[2] && order[2] === actual[2]) p1Group += 1;
+    if (actual[3] && order[3] === actual[3]) p1Group += 1;
   });
 
   // Phase 1 - Third-place qualifiers (2 pts each, max 16 pts)
@@ -364,7 +366,7 @@ describe('Bracket Seeding from Groups', () => {
 });
 
 describe('Scoring Engine - Phase 1', () => {
-  test('should award 1 point for correct group winner', () => {
+  test('should award 1 point for each correct group position including 4th', () => {
     const playerData = {
       phase1: {
         groups: { A: ['USA', 'England', 'Panama', 'Bolivia'] },
@@ -378,7 +380,7 @@ describe('Scoring Engine - Phase 1', () => {
     };
 
     const score = calcScore(playerData, results);
-    expect(score.p1Group).toBe(2); // Both 1st and 2nd correct
+    expect(score.p1Group).toBe(4); // All 4 positions correct
   });
 
   test('should award 2 points per correct third-place qualifier', () => {
