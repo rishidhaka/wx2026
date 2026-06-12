@@ -141,8 +141,8 @@ async function fetchAllMatches() {
         ? `Group Stage - Matchday ${m.matchday}`
         : humanRound(m.stage),
       matchday:  m.matchday,
-      date:      new Date(m.utcDate).toLocaleDateString("en-GB", { weekday:"short", day:"numeric", month:"short" }),
-      time:      new Date(m.utcDate).toLocaleTimeString("en-GB", { hour:"2-digit", minute:"2-digit", timeZone:"UTC" }) + " UTC",
+      date:      new Date(m.utcDate).toLocaleDateString("en-GB", { weekday:"short", day:"numeric", month:"short", timeZone:"America/New_York" }),
+      time:      new Date(m.utcDate).toLocaleTimeString("en-US", { hour:"numeric", minute:"2-digit", timeZone:"America/New_York", hour12:true }) + " ET",
       utcDate:   m.utcDate,
       home:      m.homeTeam.name,
       away:      m.awayTeam.name,
