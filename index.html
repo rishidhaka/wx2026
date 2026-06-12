@@ -235,6 +235,24 @@ input::placeholder{color:#475569}
 .league-row:hover,.league-row.active-league{border-color:var(--amber);background:#0f2a1a}
 .code-badge{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:1px;background:#0a1520;border:1px solid var(--navy-border);border-radius:4px;padding:3px 7px;flex-shrink:0}
 
+/* ── HOME ── */
+.home-section{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:10px;padding:14px;margin-bottom:14px;width:100%}
+.home-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.home-section-title{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent)}
+.home-see-more{font-size:12px;font-weight:600;color:var(--wc-gold);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:3px;opacity:0.85;transition:opacity .15s}
+.home-see-more:hover{opacity:1}
+.home-fixture{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--navy-border)}
+.home-fixture:last-child{border-bottom:none;padding-bottom:0}
+.home-fixture-team{flex:1;font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px}
+.home-fixture-team.away{flex-direction:row-reverse;text-align:right}
+.home-fixture-score{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;min-width:46px;text-align:center;background:#0a1520;border-radius:4px;padding:2px 5px}
+.home-fixture-score.live{color:var(--green)}
+.home-fixture-meta{font-size:10px;color:var(--muted);text-align:center;margin-top:2px}
+.home-lb-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--navy-border)}
+.home-lb-row:last-child{border-bottom:none;padding-bottom:0}
+.home-rules-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--navy-border);font-size:13px}
+.home-rules-row:last-child{border-bottom:none}
+
 /* ── LIVE ── */
 .live-sub-nav{display:flex;gap:5px;margin-bottom:0;overflow-x:auto;scrollbar-width:none}
 .live-sub-nav::-webkit-scrollbar{display:none}
@@ -334,7 +352,8 @@ input::placeholder{color:#475569}
   <div id="main-app" style="display:none">
     <div class="user-bar" id="user-bar"></div>
     <div class="tabs">
-      <div class="tab active" data-tab="live">⚽ World Cup</div>
+      <div class="tab active" data-tab="home">🏠 Home</div>
+      <div class="tab" data-tab="live">⚽ World Cup</div>
       <div class="tab" data-tab="global">🏆 Leaderboard</div>
       <div class="tab" data-tab="leagues">🏆 Leagues</div>
       <div class="tab" data-tab="picks">✏️ My Predictions</div>
@@ -348,6 +367,16 @@ input::placeholder{color:#475569}
       
       <!-- CENTER CONTENT -->
       <div class="desktop-center">
+        <div id="view-home" class="view active">
+          <div class="view-header">
+            <div class="section-title">FIFA World Cup 2026</div>
+          </div>
+          <div class="view-meta"></div>
+          <div class="view-content">
+            <div id="home-content"><div class="spinner">Loading…</div></div>
+          </div>
+        </div>
+
         <div id="view-global" class="view">
           <div class="view-header">
             <div class="section-title">Global Standings</div>
@@ -380,7 +409,7 @@ input::placeholder{color:#475569}
           </div>
         </div>
 
-        <div id="view-live" class="view active">
+        <div id="view-live" class="view">
           <div class="view-header">
             <div class="section-title">World Cup</div>
           </div>
@@ -744,7 +773,7 @@ auth.onAuthStateChanged(user=>{
   if(user){
     document.getElementById("signin-screen").style.display="none";
     document.getElementById("main-app").style.display="block";
-    renderUserBar(); startListeners();
+    renderUserBar(); startListeners(); renderHomeTab();
     
     // Show/hide admin tab based on user UID
     const adminTab=document.querySelector('[data-tab="admin"]');
@@ -786,6 +815,7 @@ function startListeners(){
     db.collection("wc2026").doc("players").onSnapshot(s=>{
       allPlayers=s.exists?s.data():{};
       renderGlobal(); renderLeagueBoard();
+      if(document.getElementById("view-home")?.classList.contains("active"))renderHomeTab();
       document.getElementById("last-updated").textContent=new Date().toLocaleTimeString();
     }),
     db.collection("wc2026").doc("results").onSnapshot(s=>{
@@ -867,6 +897,10 @@ async function loadTournamentData() {
     // Re-render LIVE tab if active
     if (document.getElementById("view-live")?.classList.contains("active")) {
       renderLiveTab();
+    }
+    // Re-render HOME tab if active
+    if (document.getElementById("view-home")?.classList.contains("active")) {
+      renderHomeTab();
     }
     
     // Refresh every 5 minutes to pick up GitHub Actions updates
@@ -1070,6 +1104,7 @@ document.querySelectorAll(".tab").forEach(tab=>{
     document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
     tab.classList.add("active");
     document.getElementById("view-"+tab.dataset.tab).classList.add("active");
+    if(tab.dataset.tab==="home")renderHomeTab();
     if(tab.dataset.tab==="leagues")renderLeaguePanel();
     if(tab.dataset.tab==="picks")renderPicksView();
     if(tab.dataset.tab==="live")renderLiveTab();
@@ -2068,6 +2103,140 @@ async function saveDraftPicks(reason){
   }finally{
     draftSaveInFlight=false;
   }
+}
+
+// ══ NAV HELPER ════════════════════════════════════════════════════════════
+function navTo(tab, liveSub){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  document.querySelector(`[data-tab="${tab}"]`).classList.add("active");
+  document.getElementById(`view-${tab}`).classList.add("active");
+  if(tab==="live"){ renderLiveTab(); if(liveSub) setLiveTab(liveSub); }
+  if(tab==="global") renderGlobal();
+  if(tab==="picks") renderPicksView();
+}
+
+// ══ HOME TAB ══════════════════════════════════════════════════════════════
+function renderHomeTab(){
+  const el=document.getElementById("home-content");
+  if(!el) return;
+
+  const td=tournamentData;
+  const hasData=td&&(td.groups||[]).length>0;
+
+  // Today's date in ET for matching fixtures
+  const todayET=new Date().toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"America/New_York"});
+
+  // Today's fixtures — fall back to next 5 upcoming if none today
+  let todayFixtures=(hasData?(td.fixtures||[]).filter(f=>f.date===todayET):[]);
+  const label=todayFixtures.length?"Today's Matches":"Upcoming Matches";
+  if(!todayFixtures.length&&hasData) todayFixtures=(td.fixtures||[]).filter(f=>f.status==="upcoming").slice(0,5);
+  todayFixtures=todayFixtures.slice(0,6);
+
+  // Top 3 leaderboard
+  const scored=Object.entries(allPlayers||{})
+    .map(([uid,p])=>{
+      const s=calcScore(p);
+      const hasPicks=p.phase1?.groups&&Object.keys(p.phase1.groups).length>0;
+      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:s.total,hasPicks};
+    })
+    .filter(p=>p.hasPicks)
+    .sort((a,b)=>b.score-a.score)
+    .slice(0,3);
+
+  // Group A standings
+  const groupA=hasData?(td.groups||[]).find(g=>g.name==="A"):null;
+
+  // Top 3 scorers
+  const scorers=hasData?(td.scorers||[]).slice(0,3):[];
+
+  const medals=["🥇","🥈","🥉"];
+  const medalColors=["var(--gold)","var(--silver)","var(--bronze)"];
+
+  el.innerHTML=`
+    <!-- TODAY'S MATCHES -->
+    <div class="home-section">
+      <div class="home-section-header">
+        <div class="home-section-title">📅 ${esc(label)}</div>
+        <button class="home-see-more" onclick="navTo('live','fixtures')">See all →</button>
+      </div>
+      ${!hasData?`<div style="font-size:13px;color:var(--muted)">Live data loading…</div>`:
+        !todayFixtures.length?`<div style="font-size:13px;color:var(--muted)">No matches scheduled</div>`:
+        todayFixtures.map(f=>{
+          const live=f.status==="live",fin=f.status==="fin";
+          const score=(live||fin)?`${f.homeScore??"-"} – ${f.awayScore??"-"}`:"vs";
+          const timeStr=f.utcDate?new Date(f.utcDate).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York",hour12:true})+" ET":f.time||"TBD";
+          return`<div class="home-fixture">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:5px">
+                <div class="home-fixture-team">${f.homeFlag||"🏳️"} ${esc(f.home||f.homeTeam||"")}</div>
+                <div class="home-fixture-score${live?" live":""}">${score}</div>
+                <div class="home-fixture-team away">${esc(f.away||f.awayTeam||"")} ${f.awayFlag||"🏳️"}</div>
+              </div>
+              <div class="home-fixture-meta">${live?'<span style="color:var(--green)">● Live</span>':fin?"Full time":timeStr}</div>
+            </div>
+          </div>`;
+        }).join("")
+      }
+    </div>
+
+    <!-- LEADERBOARD -->
+    <div class="home-section">
+      <div class="home-section-header">
+        <div class="home-section-title">🏆 Leaderboard</div>
+        <button class="home-see-more" onclick="navTo('global')">See all →</button>
+      </div>
+      ${!scored.length?`<div style="font-size:13px;color:var(--muted)">No picks submitted yet</div>`:
+        scored.map((p,i)=>{
+          const av=p.photoURL?`<img class="lb-avatar" src="${esc(p.photoURL)}" referrerpolicy="no-referrer">`:`<div class="lb-avatar-ph">👤</div>`;
+          const isMe=p.uid===currentUser?.uid;
+          return`<div class="home-lb-row">
+            <div style="font-size:16px;color:${medalColors[i]||"var(--muted)"};width:22px;text-align:center">${medals[i]||i+1}</div>
+            ${av}
+            <div class="lb-name${isMe?" ":" "}">${esc(p.name)}${isMe?' <span style="font-size:10px;color:var(--wc-gold)">(you)</span>':""}</div>
+            <div class="lb-pts">${p.score}<small> pts</small></div>
+          </div>`;
+        }).join("")
+      }
+    </div>
+
+    <!-- GROUP A STANDINGS -->
+    <div class="home-section">
+      <div class="home-section-header">
+        <div class="home-section-title">🏟️ Group A Standings</div>
+        <button class="home-see-more" onclick="navTo('live','groups')">All groups →</button>
+      </div>
+      ${!groupA?`<div style="font-size:13px;color:var(--muted)">Standings loading…</div>`:`
+        <table class="group-table">
+          <thead><tr><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
+          <tbody>${(groupA.standings||[]).map((t,i)=>`<tr class="${i<2?"q":""}">
+            <td>${t.flag||"🏳️"} ${esc(t.team)}</td>
+            <td>${t.played||0}</td><td>${t.won||0}</td><td>${t.drawn||0}</td><td>${t.lost||0}</td>
+            <td>${(t.gd||0)>=0?"+":""}${t.gd||0}</td><td><strong>${t.points||0}</strong></td>
+          </tr>`).join("")}</tbody>
+        </table>`
+      }
+    </div>
+
+    <!-- TOP SCORERS -->
+    <div class="home-section">
+      <div class="home-section-header">
+        <div class="home-section-title">⚽ Top Scorers</div>
+        <button class="home-see-more" onclick="navTo('live','scorers')">See all →</button>
+      </div>
+      ${!scorers.length?`<div style="font-size:13px;color:var(--muted)">Scorer data loading…</div>`:
+        scorers.map((s,i)=>`<div class="home-lb-row">
+          <div style="font-size:16px;color:${medalColors[i]||"var(--muted)"};width:22px;text-align:center">${medals[i]||i+1}</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:600">${s.flag||"🏳️"} ${esc(s.name)}</div>
+            <div style="font-size:11px;color:var(--muted)">${esc(s.team)}</div>
+          </div>
+          <div class="lb-pts">${s.goals}<small> goals</small></div>
+        </div>`).join("")
+      }
+    </div>
+
+  `;
 }
 
 // ══ LIVE TAB ═══════════════════════════════════════════════════════════════
