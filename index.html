@@ -270,13 +270,20 @@ input::placeholder{color:#475569}
 .date-header{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:10px 0 5px 0;width:100%}
 .date-header:first-child{margin-top:0}
 .leaderboard-group-header{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:1px}
-.fixture{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:7px;padding:9px 11px;margin-bottom:6px}
-.fixture-teams{display:flex;align-items:center;justify-content:space-between;gap:5px}
-.fixture-team{flex:1;font-size:13px;font-weight:600;display:flex;align-items:center;gap:4px}
+.fixture{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:7px;padding:11px 14px;margin-bottom:8px;width:100%}
+.fixture-teams{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.fixture-team{flex:1;min-width:0;font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px;overflow:hidden}
+.fixture-team span.fn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fixture-team .ff{font-size:22px;flex-shrink:0;line-height:1}
 .fixture-team.away{flex-direction:row-reverse;text-align:right}
 .fixture-score{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;min-width:52px;text-align:center;background:#0a1520;border-radius:4px;padding:3px 6px}
 .fixture-score.live{color:var(--green)}
 .fixture-meta{font-size:10px;color:var(--muted);text-align:center;margin-top:4px}
+.fixture-date-nav{display:flex;align-items:center;background:var(--navy-card);border:1px solid var(--navy-border);border-radius:8px;overflow:hidden;margin-bottom:12px}
+.fixture-date-btn{background:none;border:none;color:var(--white);font-size:20px;padding:10px 18px;cursor:pointer;transition:background .15s;min-height:44px;display:flex;align-items:center;justify-content:center}
+.fixture-date-btn:hover:not(:disabled){background:rgba(255,255,255,0.06)}
+.fixture-date-btn:disabled{opacity:0.25;cursor:default}
+.fixture-date-label{flex:1;text-align:center;font-size:14px;font-weight:700}
 .scorer-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #0d1825}
 
 /* ── RULES ── */
@@ -422,7 +429,7 @@ input::placeholder{color:#475569}
             </div>
           </div>
           <div class="view-content">
-            <div id="live-content"><div class="spinner">Loading…</div></div>
+            <div id="live-content" style="width:100%"><div class="spinner">Loading…</div></div>
           </div>
         </div>
 
@@ -705,7 +712,7 @@ const THIRD_PLACE_SLOT_COLUMNS = [
 ];
 
 // ══ STATE ══════════════════════════════════════════════════════════════════
-let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={}, lastKnownGoodData=null;
+let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={}, lastKnownGoodData=null, activeFixtureDate=null;
 let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""},phase1SubmittedAt:null};
 let activeLeague=null, leagueView="my", liveTab="groups";
 let adminUnlocked=false, resState={};
@@ -2241,8 +2248,8 @@ function renderHomeTab(){
 
 // ══ LIVE TAB ═══════════════════════════════════════════════════════════════
 function setLiveTab(tab){
+  if(tab!=="fixtures") activeFixtureDate=null; // reset date when leaving Results
   liveTab=tab;
-  // Map tab values to their display text for proper matching
   document.querySelectorAll(".live-tab").forEach(t=>{
     t.classList.toggle("active",t.dataset.tab===tab);
   });
@@ -2306,24 +2313,50 @@ function renderLiveGroups(el,groups){
       </tr>`).join("")}</tbody>
     </table>`).join("");
 }
+function navFixtureDate(dir){
+  const dates=[...new Set((tournamentData?.fixtures||[]).map(f=>f.date).filter(Boolean))];
+  const idx=dates.indexOf(activeFixtureDate);
+  const next=idx+dir;
+  if(next>=0&&next<dates.length){activeFixtureDate=dates[next];renderLiveTab();}
+}
 function renderLiveFixtures(el,fixtures){
   if(!fixtures.length){el.innerHTML='<div class="lb-empty">Match results not yet available</div>';return;}
-  const byDate={};
-  fixtures.forEach(f=>{const d=f.date||"TBD";if(!byDate[d])byDate[d]=[];byDate[d].push(f);});
-  el.innerHTML=Object.entries(byDate).map(([date,matches])=>`
-    <div class="date-header">${date}</div>
-    ${matches.map(f=>{
+
+  // Unique dates in chronological order
+  const dates=[...new Set(fixtures.map(f=>f.date).filter(Boolean))];
+
+  // Default: today in ET, or first date with a live/upcoming match, or last date
+  if(!activeFixtureDate||!dates.includes(activeFixtureDate)){
+    const todayET=new Date().toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"America/New_York"});
+    if(dates.includes(todayET)){
+      activeFixtureDate=todayET;
+    } else {
+      const firstActive=fixtures.find(f=>f.status==="live"||f.status==="upcoming");
+      activeFixtureDate=firstActive?.date||dates[dates.length-1];
+    }
+  }
+
+  const idx=dates.indexOf(activeFixtureDate);
+  const dayFixtures=fixtures.filter(f=>f.date===activeFixtureDate);
+
+  el.innerHTML=`
+    <div class="fixture-date-nav">
+      <button class="fixture-date-btn" onclick="navFixtureDate(-1)" ${idx===0?"disabled":""}>&#8249;</button>
+      <span class="fixture-date-label">${activeFixtureDate}</span>
+      <button class="fixture-date-btn" onclick="navFixtureDate(1)" ${idx===dates.length-1?"disabled":""}>&#8250;</button>
+    </div>
+    ${dayFixtures.map(f=>{
       const live=f.status==="live",fin=f.status==="fin";
       const score=(live||fin)?`${f.homeScore??"-"} – ${f.awayScore??"-"}`:"vs";
       return`<div class="fixture">
         <div class="fixture-teams">
-          <div class="fixture-team">${f.homeFlag||"🏳️"} ${esc(f.home)}</div>
+          <div class="fixture-team"><span class="ff">${f.homeFlag||"🏳️"}</span><span class="fn">${esc(f.home)}</span></div>
           <div class="fixture-score${live?" live":""}">${score}</div>
-          <div class="fixture-team away">${esc(f.away)} ${f.awayFlag||"🏳️"}</div>
+          <div class="fixture-team away"><span class="fn">${esc(f.away)}</span><span class="ff">${f.awayFlag||"🏳️"}</span></div>
         </div>
-        <div class="fixture-meta">${live?'<span style="color:var(--green)">● Live</span>':fin?"Full time":(f.utcDate?new Date(f.utcDate).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York',hour12:true})+' ET':f.time||'TBD')} · ${esc(f.round||"")}</div>
+        <div class="fixture-meta">${live?'<span style="color:var(--green)">● Live</span>':fin?"Full time":(f.utcDate?new Date(f.utcDate).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York",hour12:true})+" ET":f.time||"TBD")} · ${esc(f.round||"")}</div>
       </div>`;
-    }).join("")}`).join("");
+    }).join("")}`;
 }
 function renderLiveBracket(el,bracket){
   const rounds=[{k:"r32",l:"Round of 32"},{k:"r16",l:"Round of 16"},{k:"qf",l:"QF"},{k:"sf",l:"SF"},{k:"final",l:"Final"}];
@@ -2354,13 +2387,40 @@ function renderLiveBracket(el,bracket){
     }${bracket.winner?.[0]?`<div class="bracket-round-col"><div class="bracket-round-label">Champion</div><div class="bracket-winner-display"><div class="bracket-winner-flag">${flagFor(bracket.winner[0])}</div><div class="bracket-winner-name">${esc(bracket.winner[0])}</div></div></div>`:""}
   </div></div>`;
 }
+function teamAbbr(name){
+  const map={
+    "Mexico":"MEX","France":"FRA","Brazil":"BRA","Argentina":"ARG","England":"ENG",
+    "Germany":"GER","Spain":"ESP","Portugal":"POR","Netherlands":"NED","Belgium":"BEL",
+    "Croatia":"CRO","Serbia":"SRB","Poland":"POL","Denmark":"DEN","Switzerland":"SUI",
+    "Uruguay":"URU","Colombia":"COL","Ecuador":"ECU","Peru":"PER","Chile":"CHI",
+    "Paraguay":"PAR","Bolivia":"BOL","Venezuela":"VEN","United States":"USA","USA":"USA",
+    "Canada":"CAN","Panama":"PAN","Costa Rica":"CRC","Honduras":"HON","Jamaica":"JAM",
+    "Cuba":"CUB","Guatemala":"GUA","Morocco":"MAR","Nigeria":"NGA","Tunisia":"TUN",
+    "Algeria":"ALG","Egypt":"EGY","Cameroon":"CMR","Senegal":"SEN","South Africa":"RSA",
+    "Saudi Arabia":"KSA","Iran":"IRN","Qatar":"QAT","Japan":"JPN","Australia":"AUS",
+    "New Zealand":"NZL","Turkey":"TUR","Türkiye":"TUR","Italy":"ITA","South Korea":"KOR",
+    "Korea Republic":"KOR","Sweden":"SWE","Norway":"NOR","Austria":"AUT","Iraq":"IRQ",
+    "Jordan":"JOR","Uzbekistan":"UZB","Ivory Coast":"CIV","Cape Verde Islands":"CPV",
+    "Congo DR":"COD","Scotland":"SCO","Haiti":"HAI","Czechia":"CZE","Bosnia-Herzegovina":"BIH",
+    "Curaçao":"CUW","New Caledonia":"NCL","Ghana":"GHA",
+  };
+  return map[name]||(name||"").slice(0,3).toUpperCase();
+}
 function renderLiveScorers(el,scorers){
   if(!scorers.length){el.innerHTML='<div class="lb-empty">Top scorer data not yet available</div>';return;}
-  el.innerHTML=`<div class="card" style="padding:8px 14px">${scorers.slice(0,20).map((s,i)=>`
-    <div class="scorer-row">
-      <div style="width:22px;text-align:center;font-weight:900;font-size:15px;color:${i<3?"var(--gold)":"var(--muted)"}">${i<3?["🥇","🥈","🥉"][i]:i+1}</div>
-      <div style="flex:1"><div style="font-weight:600;font-size:13px">${esc(s.name)}</div><div style="font-size:11px;color:var(--muted)">${esc(s.team)} ${s.flag||""}</div></div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--amber)">${s.goals}⚽</div>
+  el.innerHTML=`<div class="card" style="padding:8px 14px">
+    <div style="display:grid;grid-template-columns:28px 1fr 80px 44px;align-items:center;padding:4px 0 8px;border-bottom:1px solid var(--border)">
+      <div></div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Player</div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;text-align:center">Team</div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;text-align:right">Goals</div>
+    </div>
+    ${scorers.slice(0,20).map((s,i)=>`
+    <div style="display:grid;grid-template-columns:28px 1fr 80px 44px;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)">
+      <div style="font-weight:900;font-size:15px;color:${i<3?"var(--gold)":"var(--muted)"};text-align:center">${i<3?["🥇","🥈","🥉"][i]:i+1}</div>
+      <div style="font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px">${esc(s.name)}</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:4px;font-size:13px;font-weight:700;white-space:nowrap"><span style="font-size:18px">${s.flag||""}</span>${esc(teamAbbr(s.team))}</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--amber);text-align:right">${s.goals}</div>
     </div>`).join("")}
   </div>`;
 }
