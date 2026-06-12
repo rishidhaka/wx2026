@@ -3,68 +3,90 @@ const fs = require('fs');
 const path = require('path');
 
 // ── CONFIG ────────────────────────────────────────────────────────────────
-const API_KEY = process.env.APIFOOTBALL_KEY;
-const API_BASE = "https://v3.football.api-sports.io";
-const WC_2026_ID = 1; // FIFA World Cup
+const API_KEY = process.env.FOOTBALLDATA_KEY;
+const API_BASE = "https://api.football-data.org/v4";
+const WC_CODE = "WC";
 const WC_SEASON = 2026;
 
-const axiosConfig = {
-  headers: {
-    'x-rapidapi-key': API_KEY,
-    'x-rapidapi-host': 'v3.football.api-sports.io'
-  }
-};
-
-// ── HELPER: Get flag emoji from country name ────────────────────────────
-function getFlagEmoji(countryName) {
-  const flagMap = {
-    'Mexico': '🇲🇽', 'South Africa': '🇿🇦', 'Korea Republic': '🇰🇷', 'Czechia': '🇨🇿',
-    'Canada': '🇨🇦', 'Bosnia and Herzegovina': '🇧🇦', 'Qatar': '🇶🇦', 'Switzerland': '🇨🇭',
-    'USA': '🇺🇸', 'Colombia': '🇨🇴', 'Northern Ireland': '🏴', 'China PR': '🇨🇳',
-    'Argentina': '🇦🇷', 'Morocco': '🇲🇦', 'Nigeria': '🇳🇬', 'Tunisia': '🇹🇳',
-    'Brazil': '🇧🇷', 'Japan': '🇯🇵', 'Australia': '🇦🇺', 'Saudi Arabia': '🇸🇦',
-    'France': '🇫🇷', 'Egypt': '🇪🇬', 'IR Iran': '🇮🇷', 'Peru': '🇵🇪',
-    'Spain': '🇪🇸', 'Ukraine': '🇺🇦', 'Senegal': '🇸🇳', 'Ecuador': '🇪🇨',
-    'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Portugal': '🇵🇹', 'Cameroon': '🇨🇲', 'Chile': '🇨🇱',
-    'Germany': '🇩🇪', 'Belgium': '🇧🇪', 'Costa Rica': '🇨🇷', 'Zambia': '🇿🇲',
-    'Italy': '🇮🇹', 'Uruguay': '🇺🇾', 'Panama': '🇵🇦', 'Bolivia': '🇧🇴',
-    'Netherlands': '🇳🇱', 'Croatia': '🇭🇷', 'Serbia': '🇷🇸', 'Paraguay': '🇵🇾',
-    'Poland': '🇵🇱', 'Denmark': '🇩🇰', 'Ghana': '🇬🇭', 'Venezuela': '🇻🇪',
-    'Türkiye': '🇹🇷', 'Sweden': '🇸🇪', 'Algeria': '🇩🇿', 'New Zealand': '🇳🇿'
-  };
-  return flagMap[countryName] || '🏴';
+if (!API_KEY) {
+  console.error('❌ FOOTBALLDATA_KEY environment variable is not set.');
+  console.error('   Run: FOOTBALLDATA_KEY=your_key node scripts/fetch-data.js');
+  process.exit(1);
 }
 
-// ── FETCH: Group standings ────────────────────────────────────────────────
+const headers = { 'X-Auth-Token': API_KEY };
+
+// ── HELPER: flag emoji from team name ────────────────────────────────────
+function flagFor(name) {
+  const map = {
+    'Mexico': '🇲🇽', 'South Africa': '🇿🇦', 'Korea Republic': '🇰🇷', 'South Korea': '🇰🇷',
+    'Canada': '🇨🇦', 'Qatar': '🇶🇦', 'Switzerland': '🇨🇭', 'United States': '🇺🇸', 'USA': '🇺🇸',
+    'Colombia': '🇨🇴', 'Argentina': '🇦🇷', 'Morocco': '🇲🇦', 'Nigeria': '🇳🇬', 'Tunisia': '🇹🇳',
+    'Brazil': '🇧🇷', 'Japan': '🇯🇵', 'Australia': '🇦🇺', 'Saudi Arabia': '🇸🇦', 'France': '🇫🇷',
+    'Egypt': '🇪🇬', 'Iran': '🇮🇷', 'Peru': '🇵🇪', 'Spain': '🇪🇸', 'Senegal': '🇸🇳',
+    'Ecuador': '🇪🇨', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Portugal': '🇵🇹', 'Cameroon': '🇨🇲', 'Chile': '🇨🇱',
+    'Germany': '🇩🇪', 'Belgium': '🇧🇪', 'Costa Rica': '🇨🇷', 'Italy': '🇮🇹', 'Uruguay': '🇺🇾',
+    'Panama': '🇵🇦', 'Bolivia': '🇧🇴', 'Netherlands': '🇳🇱', 'Croatia': '🇭🇷', 'Serbia': '🇷🇸',
+    'Paraguay': '🇵🇾', 'Poland': '🇵🇱', 'Denmark': '🇩🇰', 'Venezuela': '🇻🇪', 'Turkey': '🇹🇷',
+    'Türkiye': '🇹🇷', 'Algeria': '🇩🇿', 'New Zealand': '🇳🇿', 'Honduras': '🇭🇳',
+    'Guatemala': '🇬🇹', 'Jamaica': '🇯🇲', 'Cuba': '🇨🇺', 'New Caledonia': '🇳🇨',
+  };
+  return map[name] || '🏳️';
+}
+
+// ── FETCH: Group standings (derived from match results) ───────────────────
+// football-data.org returns a flat 48-team standings table with no group info,
+// so we compute per-group standings from group stage fixtures instead.
 async function fetchGroups() {
   try {
-    const res = await axios.get(`${API_BASE}/standings`, {
-      ...axiosConfig,
-      params: { league: WC_2026_ID, season: WC_SEASON }
+    const res = await axios.get(`${API_BASE}/competitions/${WC_CODE}/matches`, {
+      headers, params: { season: WC_SEASON, stage: 'GROUP_STAGE' }
     });
-    
-    if (!res.data?.response?.[0]?.league?.standings) {
-      console.log('No group standings available yet');
-      return [];
+    const matches = res.data.matches || [];
+
+    // Build a map: groupKey → { teamName → stats }
+    const groups = {};
+    for (const m of matches) {
+      const g = m.group; // e.g. "GROUP_A"
+      if (!g) continue;
+      if (!groups[g]) groups[g] = {};
+
+      const home = m.homeTeam.name;
+      const away = m.awayTeam.name;
+      if (!groups[g][home]) groups[g][home] = { team: home, flag: flagFor(home), played:0, won:0, drawn:0, lost:0, gf:0, ga:0, gd:0, points:0 };
+      if (!groups[g][away]) groups[g][away] = { team: away, flag: flagFor(away), played:0, won:0, drawn:0, lost:0, gf:0, ga:0, gd:0, points:0 };
+
+      const fin = ['FINISHED', 'AWARDED'].includes(m.status);
+      if (!fin) continue;
+
+      const hg = m.score.fullTime.home ?? 0;
+      const ag = m.score.fullTime.away ?? 0;
+
+      groups[g][home].played++; groups[g][away].played++;
+      groups[g][home].gf += hg; groups[g][home].ga += ag;
+      groups[g][away].gf += ag; groups[g][away].ga += hg;
+      groups[g][home].gd += hg - ag; groups[g][away].gd += ag - hg;
+
+      if (hg > ag) {
+        groups[g][home].won++; groups[g][home].points += 3; groups[g][away].lost++;
+      } else if (hg < ag) {
+        groups[g][away].won++; groups[g][away].points += 3; groups[g][home].lost++;
+      } else {
+        groups[g][home].drawn++; groups[g][home].points++;
+        groups[g][away].drawn++; groups[g][away].points++;
+      }
     }
-    
-    return res.data.response[0].league.standings.map(group => ({
-      group: group[0].group.replace('Group ', ''),
-      standings: group.map(t => ({
-        team: t.team.name,
-        flag: getFlagEmoji(t.team.name),
-        played: t.all.played,
-        won: t.all.win,
-        drawn: t.all.draw,
-        lost: t.all.lose,
-        gf: t.all.goals.for,
-        ga: t.all.goals.against,
-        gd: t.goalsDiff,
-        points: t.points
-      }))
-    }));
+
+    return Object.entries(groups)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([g, teamsMap]) => ({
+        group: g.replace('GROUP_', ''),
+        standings: Object.values(teamsMap).sort((a, b) =>
+          b.points - a.points || b.gd - a.gd || b.gf - a.gf
+        ),
+      }));
   } catch (err) {
-    console.error('Error fetching groups:', err.message);
+    console.error('Error fetching groups:', err.response?.data?.message || err.message);
     return [];
   }
 }
@@ -72,94 +94,111 @@ async function fetchGroups() {
 // ── FETCH: Fixtures ────────────────────────────────────────────────────────
 async function fetchFixtures() {
   try {
-    const res = await axios.get(`${API_BASE}/fixtures`, {
-      ...axiosConfig,
-      params: { league: WC_2026_ID, season: WC_SEASON }
+    const res = await axios.get(`${API_BASE}/competitions/${WC_CODE}/matches`, {
+      headers, params: { season: WC_SEASON }
     });
-    
-    if (!res.data?.response) {
-      console.log('No fixtures available yet');
-      return [];
-    }
-    
-    return res.data.response.map(f => ({
-      id: f.fixture.id,
-      round: f.league.round,
-      date: f.fixture.date,
-      status: f.fixture.status.short,
-      homeTeam: f.teams.home.name,
-      homeFlag: getFlagEmoji(f.teams.home.name),
-      awayTeam: f.teams.away.name,
-      awayFlag: getFlagEmoji(f.teams.away.name),
-      homeScore: f.goals.home,
-      awayScore: f.goals.away
-    }));
+    const matches = res.data.matches || [];
+    return matches.map(m => {
+      const fin  = ['FINISHED', 'AWARDED'].includes(m.status);
+      const live = ['IN_PLAY', 'PAUSED', 'HALF_TIME'].includes(m.status);
+      const score = m.score || {};
+      const ft = score.fullTime || {};
+      return {
+        id: m.id,
+        round: m.stage === 'GROUP_STAGE' ? `Group Stage - Matchday ${m.matchday}` : humanRound(m.stage),
+        stage: m.stage,
+        group: m.group || null,
+        matchday: m.matchday,
+        date: new Date(m.utcDate).toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short' }),
+        time: new Date(m.utcDate).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', timeZone:'UTC' }) + ' UTC',
+        utcDate: m.utcDate,
+        homeTeam: m.homeTeam.name,
+        homeFlag: flagFor(m.homeTeam.name),
+        awayTeam: m.awayTeam.name,
+        awayFlag: flagFor(m.awayTeam.name),
+        homeScore: (fin || live) ? ft.home : null,
+        awayScore: (fin || live) ? ft.away : null,
+        status: live ? 'live' : fin ? 'fin' : 'upcoming',
+        winner: fin ? winnerName(m) : null,
+      };
+    });
   } catch (err) {
-    console.error('Error fetching fixtures:', err.message);
+    console.error('Error fetching fixtures:', err.response?.data?.message || err.message);
     return [];
   }
+}
+
+function humanRound(stage) {
+  const map = {
+    'LAST_16': 'Round of 16', 'LAST_32': 'Round of 32',
+    'QUARTER_FINALS': 'Quarter-finals', 'SEMI_FINALS': 'Semi-finals',
+    'THIRD_PLACE': '3rd Place Playoff', 'FINAL': 'Final',
+    'GROUP_STAGE': 'Group Stage',
+  };
+  return map[stage] || stage;
+}
+
+function winnerName(m) {
+  if (!m.score?.winner) return null;
+  if (m.score.winner === 'HOME_TEAM') return m.homeTeam.name;
+  if (m.score.winner === 'AWAY_TEAM') return m.awayTeam.name;
+  return null; // DRAW
 }
 
 // ── FETCH: Top scorers ─────────────────────────────────────────────────────
 async function fetchScorers() {
   try {
-    const res = await axios.get(`${API_BASE}/players/topscorers`, {
-      ...axiosConfig,
-      params: { league: WC_2026_ID, season: WC_SEASON }
+    const res = await axios.get(`${API_BASE}/competitions/${WC_CODE}/scorers`, {
+      headers, params: { season: WC_SEASON, limit: 20 }
     });
-    
-    if (!res.data?.response) {
-      console.log('No top scorers available yet');
-      return [];
-    }
-    
-    return res.data.response.slice(0, 20).map(p => ({
-      name: p.player.name,
-      team: p.statistics[0].team.name,
-      flag: getFlagEmoji(p.statistics[0].team.name),
-      goals: p.statistics[0].goals.total || 0,
-      assists: p.statistics[0].goals.assists || 0
+    return (res.data.scorers || []).map(s => ({
+      name: s.player.name,
+      team: s.team.name,
+      flag: flagFor(s.team.name),
+      goals: s.goals || 0,
+      assists: s.assists || 0,
     }));
   } catch (err) {
-    console.error('Error fetching scorers:', err.message);
+    console.error('Error fetching scorers:', err.response?.data?.message || err.message);
     return [];
   }
 }
 
 // ── MAIN ───────────────────────────────────────────────────────────────────
 async function main() {
-  console.log('Fetching World Cup 2026 data...');
-  
+  console.log(`Fetching World Cup 2026 data from football-data.org…`);
+
   const [groups, fixtures, scorers] = await Promise.all([
     fetchGroups(),
     fetchFixtures(),
-    fetchScorers()
+    fetchScorers(),
   ]);
-  
+
   const data = {
     lastUpdated: new Date().toISOString(),
     groups,
     fixtures,
-    topScorers: scorers
+    topScorers: scorers,
   };
-  
-  // Ensure data directory exists
+
   const dataDir = path.join(__dirname, '..', 'data');
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-  }
-  
-  // Write to file
+  if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+
   const outputPath = path.join(dataDir, 'wc2026.json');
   fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
-  
+
   console.log(`✅ Data written to ${outputPath}`);
   console.log(`   Groups: ${groups.length}`);
   console.log(`   Fixtures: ${fixtures.length}`);
   console.log(`   Top Scorers: ${scorers.length}`);
+  if (fixtures.length) {
+    const played = fixtures.filter(f => f.status === 'fin').length;
+    const live   = fixtures.filter(f => f.status === 'live').length;
+    console.log(`   Played: ${played}  |  Live: ${live}  |  Upcoming: ${fixtures.length - played - live}`);
+  }
 }
 
 main().catch(err => {
-  console.error('Fatal error:', err);
+  console.error('Fatal error:', err.message);
   process.exit(1);
 });
