@@ -933,10 +933,12 @@ async function updateResultsFromLiveData(data) {
   try {
     // Derive group standings: all 4 teams from each group
     const derivedGroups = {};
+    const derivedStartedGroups = [];
     data.groups.forEach(g => {
       const groupLetter = g.group;
-      const sortedStandings = [...g.standings].sort((a, b) => b.pts - a.pts);
+      const sortedStandings = [...g.standings].sort((a, b) => b.points - a.points || b.gd - a.gd || b.gf - a.gf);
       derivedGroups[groupLetter] = sortedStandings.slice(0, 4).map(t => t.team);
+      if (sortedStandings.some(t => (t.played || 0) > 0)) derivedStartedGroups.push(groupLetter);
     });
     
     // Get current results
@@ -956,6 +958,7 @@ async function updateResultsFromLiveData(data) {
         ...currentResults.groups,
         ...derivedGroups
       },
+      startedGroups: derivedStartedGroups,
       goldenBoot: derivedTopScorer,
       lastAutoUpdate: new Date().toISOString()
     };
@@ -1010,8 +1013,10 @@ function calcScore(playerData){
   let p1Group=0,p1ThirdQual=0,p1KO=0,p2Score=0,gbScore=0;
   const detail={p1Group:{},p1ThirdQual:{},p1KO:{},p2:{},gb:{}};
 
-  // Phase 1 group picks (1st, 2nd, 3rd)
+  // Phase 1 group picks (1st, 2nd, 3rd) — only score groups with games played
+  const startedGroups=new Set(res.startedGroups||[]);
   Object.entries(p1.groups||{}).forEach(([grp,order])=>{
+    if(res.startedGroups&&!startedGroups.has(grp)) return;
     const actual=(res.groups||{})[grp]||[];
     if(actual[0]&&order[0]===actual[0]){p1Group+=1;detail.p1Group[grp+"_1st"]="hit";}
     else if(actual[0]) detail.p1Group[grp+"_1st"]="miss";
