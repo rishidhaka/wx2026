@@ -8,7 +8,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,900&family=JetBrains+Mono:wght@400;600&display=swap');
 :root{
   /* FIFA World Cup 2026 Colors */
   --wc-teal:#0E4C92;--wc-aqua:#3AAFA9;--wc-gold:#FBB034;--wc-red:#C8102E;
@@ -22,7 +22,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{overflow-x:hidden;-webkit-overflow-scrolling:touch}
-body{display:flex;justify-content:center;background:linear-gradient(135deg,#0a1628 0%,#0f1e35 50%,#0a1628 100%);background-attachment:fixed;color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;min-height:100svh;overflow-y:auto}
+body{display:flex;justify-content:center;background:linear-gradient(135deg,#0a1628 0%,#0f1e35 50%,#0a1628 100%);background-attachment:fixed;color:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;min-height:100vh;min-height:100svh;overflow-y:auto}
 #app{width:100%;min-height:100vh;min-height:100svh}
 
 /* ── RESPONSIVE BREAKPOINTS ── */
@@ -83,7 +83,7 @@ h1 span{color:var(--wc-gold)}
 /* ── TABS ── */
 .tabs{display:flex;background:var(--navy-card);border-bottom:1px solid var(--navy-border);overflow-x:auto;scrollbar-width:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);padding-bottom:env(safe-area-inset-bottom,0px)}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:1 1 auto;min-width:max-content;padding:12px 8px;text-align:center;font-size:clamp(9px,2.5vw,10px);font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .3s ease;white-space:nowrap;position:relative}
+.tab{flex:1 1 auto;min-width:max-content;padding:12px 8px;text-align:center;font-size:clamp(11px,2.5vw,12px);font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .3s ease;white-space:nowrap;position:relative}
 .tab:hover{color:var(--accent-light);background:rgba(58,175,169,0.05)}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent);background:rgba(58,175,169,0.08)}
 .tab.admin-only{display:none}
@@ -101,7 +101,7 @@ h1 span{color:var(--wc-gold)}
 .card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.2);transition:all .3s ease}
 .card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.3);border-color:rgba(58,175,169,0.3)}
 .card-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-input{width:100%;background:rgba(10,21,32,0.8);border:1px solid var(--navy-border);border-radius:8px;color:var(--white);font-family:'Inter',sans-serif;font-size:14px;padding:10px 14px;margin-bottom:10px;outline:none;transition:all .3s ease}
+input{width:100%;background:rgba(10,21,32,0.8);border:1px solid var(--navy-border);border-radius:8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 14px;margin-bottom:10px;outline:none;transition:all .3s ease}
 input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(58,175,169,0.1)}
 input::placeholder{color:#475569}
 .btn{width:100%;padding:12px;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:0.5px;transition:all .3s ease;box-shadow:0 2px 8px rgba(0,0,0,0.2);touch-action:manipulation}
@@ -120,7 +120,7 @@ input::placeholder{color:#475569}
 .rank{font-weight:900;font-size:17px;width:22px;text-align:center;flex-shrink:0}
 .lb-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;flex-shrink:0}
 .lb-avatar-ph{width:26px;height:26px;border-radius:50%;background:var(--navy-border);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
-.lb-name{flex:1;font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-name{flex:1;font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lb-you{font-size:10px;color:var(--amber);font-weight:700;margin-left:4px}
 .lb-pts{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--wc-gold);white-space:nowrap;text-shadow:0 2px 8px rgba(251,176,52,0.3)}
 .lb-pts small{font-size:10px;color:var(--muted);font-weight:400}
@@ -183,7 +183,7 @@ input::placeholder{color:#475569}
 .drag-pos.p3{background:#3a3a3a;color:var(--muted)}
 .drag-pos.p4{background:#2a2a2a;color:var(--muted)}
 .drag-flag{font-size:22px;flex-shrink:0;line-height:1}
-.drag-name{flex:1;font-size:13px;font-weight:600}
+.drag-name{flex:1;font-size:14px;font-weight:600}
 .drag-pts{font-size:10px;color:var(--muted)}
 
 /* ── BRACKET ── */
@@ -197,7 +197,7 @@ input::placeholder{color:#475569}
 .bracket-match{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:8px;overflow:hidden;margin-bottom:12px}
 .bracket-match-num{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;padding:5px 8px 3px;border-bottom:1px solid var(--navy-border)}
 .bracket-vs{text-align:center;font-size:11px;font-weight:900;color:var(--muted);padding:3px 0;background:rgba(255,255,255,0.03);letter-spacing:2px}
-.bracket-team-btn{width:100%;display:flex;align-items:center;gap:7px;padding:11px 12px;cursor:pointer;background:none;border:none;color:var(--white);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;text-align:left;transition:background .15s;border-bottom:1px solid var(--navy-border);touch-action:manipulation;min-height:44px}
+.bracket-team-btn{width:100%;display:flex;align-items:center;gap:7px;padding:11px 12px;cursor:pointer;background:none;border:none;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-align:left;transition:background .15s;border-bottom:1px solid var(--navy-border);touch-action:manipulation;min-height:44px}
 .bracket-team-btn:last-child{border-bottom:none}
 .bracket-team-btn:hover{background:#162538}
 .bracket-team-btn.selected{background:var(--pitch);color:var(--amber)}
@@ -238,9 +238,10 @@ input::placeholder{color:#475569}
 /* ── LIVE ── */
 .live-sub-nav{display:flex;gap:5px;margin-bottom:0;overflow-x:auto;scrollbar-width:none}
 .live-sub-nav::-webkit-scrollbar{display:none}
-.live-tab{flex-shrink:0;padding:6px 11px;border-radius:20px;font-size:clamp(10px,2.5vw,11px);font-weight:600;cursor:pointer;border:1px solid var(--navy-border);color:var(--muted);background:var(--navy-card);white-space:nowrap}
-.live-tab.active{background:var(--pitch);border-color:var(--amber);color:var(--amber)}
-.group-table{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:12px;table-layout:fixed}
+.live-tab{flex-shrink:0;padding:7px 13px;border-radius:20px;font-size:clamp(12px,2.5vw,13px);font-weight:600;cursor:pointer;border:1px solid var(--navy-border);color:var(--muted);background:var(--navy-card);white-space:nowrap;display:flex;align-items:center;gap:5px;transition:border-color .2s,color .2s,background .2s}
+.live-tab.active{background:rgba(251,176,52,0.1);border-color:var(--wc-gold);color:var(--wc-gold);box-shadow:0 0 0 1px rgba(251,176,52,0.15)}
+.lt-icon{font-size:13px;line-height:1}
+.group-table{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:13px;table-layout:fixed}
 .group-table th{color:var(--muted);font-weight:600;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:8px 0;border-bottom:1px solid var(--navy-border);text-align:center;vertical-align:middle}
 .group-table th:first-child{text-align:left;padding-left:8px}
 .group-table td{padding:8px 0;border-bottom:1px solid #0d1825;text-align:center;vertical-align:middle}
@@ -253,7 +254,7 @@ input::placeholder{color:#475569}
 .leaderboard-group-header{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:1px}
 .fixture{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:7px;padding:9px 11px;margin-bottom:6px}
 .fixture-teams{display:flex;align-items:center;justify-content:space-between;gap:5px}
-.fixture-team{flex:1;font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px}
+.fixture-team{flex:1;font-size:13px;font-weight:600;display:flex;align-items:center;gap:4px}
 .fixture-team.away{flex-direction:row-reverse;text-align:right}
 .fixture-score{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;min-width:52px;text-align:center;background:#0a1520;border-radius:4px;padding:3px 6px}
 .fixture-score.live{color:var(--green)}
@@ -385,10 +386,10 @@ input::placeholder{color:#475569}
           </div>
           <div class="view-meta">
             <div class="live-sub-nav">
-              <div class="live-tab active" onclick="setLiveTab('groups')">Groups</div>
-              <div class="live-tab" onclick="setLiveTab('knockouts')">Knockouts</div>
-              <div class="live-tab" onclick="setLiveTab('scorers')">Top Scorers</div>
-              <div class="live-tab" onclick="setLiveTab('fixtures')">Results</div>
+              <div class="live-tab active" data-tab="groups" onclick="setLiveTab('groups')"><span class="lt-icon">🏟️</span> Groups</div>
+              <div class="live-tab" data-tab="knockouts" onclick="setLiveTab('knockouts')"><span class="lt-icon">🏆</span> Knockouts</div>
+              <div class="live-tab" data-tab="scorers" onclick="setLiveTab('scorers')"><span class="lt-icon">⚽</span> Scorers</div>
+              <div class="live-tab" data-tab="fixtures" onclick="setLiveTab('fixtures')"><span class="lt-icon">📋</span> Results</div>
             </div>
           </div>
           <div class="view-content">
@@ -2073,10 +2074,8 @@ async function saveDraftPicks(reason){
 function setLiveTab(tab){
   liveTab=tab;
   // Map tab values to their display text for proper matching
-  const tabMap={groups:"groups",knockouts:"knockouts",scorers:"topscorers",fixtures:"results"};
   document.querySelectorAll(".live-tab").forEach(t=>{
-    const label=t.textContent.toLowerCase().replace(/\s+/g,"").replace(/-/g,"");
-    t.classList.toggle("active",label===tabMap[tab]);
+    t.classList.toggle("active",t.dataset.tab===tab);
   });
   renderLiveTab();
 }
