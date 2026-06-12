@@ -2,8 +2,9 @@ name: Update World Cup Data
 
 on:
   schedule:
-    # Run every hour during tournament (0 * * * *)
-    - cron: '0 * * * *'
+    # Run every 10 minutes — fetch-data.js skips the API call when no game
+    # is active, so this only burns quota during live windows and at midnight ET.
+    - cron: '*/10 * * * *'
   workflow_dispatch: # Allow manual trigger
 
 permissions:
