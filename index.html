@@ -849,7 +849,7 @@ async function loadTournamentData() {
         name: g.group,
         standings: g.standings
       })),
-      fixtures: data.fixtures,
+      fixtures: (data.fixtures||[]).map(f=>({...f, home:f.home||f.homeTeam, away:f.away||f.awayTeam})),
       scorers: data.topScorers,
       lastUpdated: data.lastUpdated
     };
@@ -2152,7 +2152,7 @@ function renderLiveFixtures(el,fixtures){
           <div class="fixture-score${live?" live":""}">${score}</div>
           <div class="fixture-team away">${esc(f.away)} ${f.awayFlag||"🏳️"}</div>
         </div>
-        <div class="fixture-meta">${live?"🔴 "+f.minute+"'":fin?"Full time":f.time||"TBD"} · ${esc(f.round||"")}</div>
+        <div class="fixture-meta">${live?'<span style="color:var(--green)">● Live</span>':fin?"Full time":(f.utcDate?new Date(f.utcDate).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York',hour12:true})+' ET':f.time||'TBD')} · ${esc(f.round||"")}</div>
       </div>`;
     }).join("")}`).join("");
 }
