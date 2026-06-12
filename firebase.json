@@ -6,6 +6,17 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "headers": [
+      {
+        "source": "data/wc2026.json",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=60, stale-while-revalidate=300"
+          }
+        ]
+      }
+    ],
     "rewrites": [
       {
         "source": "**",
