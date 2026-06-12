@@ -29,7 +29,7 @@ jobs:
       
       - name: Fetch latest World Cup data
         env:
-          APIFOOTBALL_KEY: ${{ secrets.APIFOOTBALL_KEY }}
+          FOOTBALLDATA_KEY: ${{ secrets.FOOTBALLDATA_KEY }}
         run: node scripts/fetch-data.js
       
       - name: Check for changes
