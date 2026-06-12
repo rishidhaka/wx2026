@@ -1,6 +1,23 @@
 # Changelog
 
-## v4.3.0 — API Migration, UI Polish & Data Fixes (June 11, 2026) ⚡ CURRENT
+## v4.4.0 — Smart Polling, Home Tab, Results Nav & Scoring Fix (June 12, 2026) ⚡ CURRENT
+
+### Added
+- **Home tab (landing page)**: shows today's fixtures, top 3 leaderboard, Group A standings, and top 3 scorers — each with a "See all →" link to the relevant tab
+- **Results date navigator**: single-day view with ‹ › arrows; defaults to today in ET
+- **Smart polling in GitHub Actions**: workflow fires every 10 min but only hits the API during active game windows (15 min before kickoff through 2h after) or at midnight ET; exits early otherwise
+
+### Changed
+- **Top Scorers tab redesigned**: 3-column fixed-width grid (rank | player | team | goals). Team column shows flag + 3-letter country code (MEX, FRA, BRA, etc.) via new `teamAbbr()` helper
+
+### Fixed
+- **Results tab date grouping**: ET date now derived from `utcDate` in the browser at load time, overriding the pre-computed string in `wc2026.json` which could be UTC-based when generated on the Actions runner (Linux/Node.js)
+- **Leaderboard scores for unplayed groups**: group pick points are no longer awarded for groups where no games have been played yet. Tracked via `startedGroups` field in `wc2026/results`, populated by both the Cloud Function and `updateResultsFromLiveData`
+- **Group standings sort in `updateResultsFromLiveData`**: was sorting by `pts` (wrong field); now correctly sorts by `points`, `gd`, `gf`
+
+---
+
+## v4.3.0 — API Migration, UI Polish & Data Fixes (June 11, 2026)
 
 ### Changed
 - **Live data source switched from API-Football to football-data.org**

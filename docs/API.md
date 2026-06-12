@@ -4,8 +4,8 @@
 
 Live tournament data flows:
 ```
-football-data.org → GitHub Actions (hourly) → data/wc2026.json → Client (polling)
-football-data.org → Cloud Function (hourly) → Firestore → Client (real-time)
+football-data.org → GitHub Actions (every 10 min, smart-gated) → data/wc2026.json → Client (polling)
+football-data.org → Cloud Function (every 60 min) → Firestore → Client (real-time)
 ```
 
 The client never calls football-data.org directly. The API key never touches the browser.
@@ -50,7 +50,15 @@ football-data.org uses these stage identifiers in match responses:
 
 File: `.github/workflows/update-data.yml`
 
-Runs every hour. Calls `scripts/fetch-data.js` which:
+Runs every 10 minutes. Before calling the API, `scripts/fetch-data.js` runs a
+smart guard (`shouldFetchNow()`) that reads the existing `data/wc2026.json` and
+skips the API call unless one of these conditions is met:
+
+- **Midnight ET window** (12:00–12:14 AM ET): always refresh to update today's fixtures
+- **Active game window**: a game kicks off within the next 15 minutes, or started
+  within the last 2 hours AND its status is not yet `fin`
+
+When the guard passes, it:
 1. Fetches all matches from football-data.org
 2. Derives per-group standings from GROUP_STAGE fixtures
 3. Fetches top scorers
@@ -145,7 +153,7 @@ Secret required: set via `firebase functions:secrets:set FOOTBALLDATA_KEY`
 
 ## Static JSON (`data/wc2026.json`)
 
-Written by `scripts/fetch-data.js` (run by GitHub Actions hourly). Served via Firebase Hosting with a 60-second cache (`max-age=60, stale-while-revalidate=300`). The frontend fetches this file on load and polls every 5 minutes.
+Written by `scripts/fetch-data.js` (run by GitHub Actions every 10 min, smart-gated). Served via Firebase Hosting with a 60-second cache (`max-age=60, stale-while-revalidate=300`). The frontend fetches this file on load and polls every 5 minutes. All date fields are computed in ET (America/New_York); the frontend also re-derives the ET date from `utcDate` at load time for correctness.
 
 Group objects in this file use a `group` key (e.g. `"group": "A"`). The frontend normalises this to `name` on load.
 

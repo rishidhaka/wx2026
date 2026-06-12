@@ -78,7 +78,7 @@ A full-stack World Cup bracket competition app built with vanilla JS + Firebase.
 | Frontend | Vanilla JS, single HTML file |
 | Auth | Firebase Authentication (Google Sign-In) |
 | Database | Cloud Firestore (real-time listeners) |
-| Backend | Firebase Cloud Functions (scheduled, hourly) |
+| Backend | Firebase Cloud Functions (scheduled, every 60 min) |
 | Live data | football-data.org (free tier) |
 | Hosting | Firebase Hosting |
 | CI/CD | GitHub Actions → Firebase auto-deploy |
