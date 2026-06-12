@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T05:27:20.271Z",
+  "lastUpdated": "2026-06-12T19:37:20.967Z",
   "groups": [
     {
       "group": "A",
@@ -688,9 +688,9 @@
       "homeFlag": "🇨🇦",
       "away": "Bosnia-Herzegovina",
       "awayFlag": "🏳️",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "upcoming",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "live",
       "winner": null
     },
     {
@@ -2545,6 +2545,13 @@
       "name": "Hyun-Gyu Oh",
       "team": "South Korea",
       "flag": "🇰🇷",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Jovo Lukić",
+      "team": "Bosnia-Herzegovina",
+      "flag": "🏳️",
       "goals": 1,
       "assists": 0
     }
