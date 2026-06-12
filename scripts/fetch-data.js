@@ -164,8 +164,68 @@ async function fetchScorers() {
   }
 }
 
+// ── SMART FETCH GUARD ─────────────────────────────────────────────────────
+// Returns true if we should actually call the API right now.
+// Called before any network requests so we don't burn quota on idle runs.
+function shouldFetchNow() {
+  // 1. Always refresh during the midnight ET window (12:00–12:14 AM ET)
+  //    so "today's fixtures" on the home page and Results tab are current.
+  const etStr = new Date().toLocaleTimeString('en-US', {
+    timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false,
+  });
+  const [etH, etM] = etStr.split(':').map(Number);
+  if (etH === 0 && etM < 15) {
+    console.log('⏰  Midnight ET window — refreshing today\'s fixtures.');
+    return true;
+  }
+
+  // 2. Read existing data to check game schedule.
+  const dataPath = path.join(__dirname, '..', 'data', 'wc2026.json');
+  if (!fs.existsSync(dataPath)) {
+    console.log('📂  No existing data — fetching for the first time.');
+    return true;
+  }
+
+  let existing;
+  try {
+    existing = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+  } catch {
+    return true; // corrupt file, re-fetch
+  }
+
+  const nowUTC = Date.now();
+  const BEFORE_MS  = 15 * 60 * 1000;    // start polling 15 min before kickoff
+  const AFTER_MS   = 2  * 60 * 60 * 1000; // cover 90 min + stoppage time (~2h max)
+
+  // Games whose window overlaps right now
+  const activeWindow = (existing.fixtures || []).filter(f => {
+    if (!f.utcDate) return false;
+    const kick = new Date(f.utcDate).getTime();
+    const diff = kick - nowUTC;               // positive = future, negative = past
+    return diff >= -AFTER_MS && diff <= BEFORE_MS;
+  });
+
+  if (activeWindow.length === 0) {
+    console.log('💤  No active game window — skipping API call.');
+    return false;
+  }
+
+  // If every game in the window has already finished, stop polling
+  if (activeWindow.every(f => f.status === 'fin')) {
+    const teams = activeWindow.map(f => `${f.home} vs ${f.away}`).join(', ');
+    console.log(`✅  All active-window games finished (${teams}) — skipping until next game.`);
+    return false;
+  }
+
+  const pending = activeWindow.filter(f => f.status !== 'fin');
+  console.log(`⚽  ${pending.length} game(s) active or starting soon — fetching.`);
+  return true;
+}
+
 // ── MAIN ───────────────────────────────────────────────────────────────────
 async function main() {
+  if (!shouldFetchNow()) process.exit(0);
+
   console.log(`Fetching World Cup 2026 data from football-data.org…`);
 
   const [groups, fixtures, scorers] = await Promise.all([
