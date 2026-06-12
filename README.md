@@ -62,7 +62,7 @@ A full-stack World Cup bracket competition app built with vanilla JS + Firebase.
 - Match fixtures with scores
 - Knockout bracket with results
 - Top scorers leaderboard
-- Updates via Cloud Function + API-Football
+- Updates via Cloud Function + football-data.org
 
 ### 🔧 Admin Panel
 - Password + UID-protected
@@ -79,7 +79,7 @@ A full-stack World Cup bracket competition app built with vanilla JS + Firebase.
 | Auth | Firebase Authentication (Google Sign-In) |
 | Database | Cloud Firestore (real-time listeners) |
 | Backend | Firebase Cloud Functions (scheduled, hourly) |
-| Live data | API-Football via RapidAPI (free tier) |
+| Live data | football-data.org (free tier) |
 | Hosting | Firebase Hosting |
 | CI/CD | GitHub Actions → Firebase auto-deploy |
 

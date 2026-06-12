@@ -4,34 +4,60 @@
 
 Live tournament data flows:
 ```
-API-Football (RapidAPI) → Cloud Function (hourly) → Firestore → Client (real-time)
+football-data.org → GitHub Actions (hourly) → data/wc2026.json → Client (polling)
+football-data.org → Cloud Function (hourly) → Firestore → Client (real-time)
 ```
 
-The client never calls API-Football directly. API key never touches the browser.
+The client never calls football-data.org directly. The API key never touches the browser.
 
 ---
 
-## API-Football
+## football-data.org
 
-- Provider: RapidAPI / api-sports.io
-- Free tier: 100 requests/day
-- Used: 24/day (hourly sync)
-- Endpoint base: `https://v3.football.api-sports.io`
+- Provider: football-data.org
+- Free tier: 10 requests/minute
+- Competition code: `WC`
+- Season: `2026`
+- Auth: `X-Auth-Token` request header
+- Endpoint base: `https://api.football-data.org/v4`
 
 ### Required endpoints
 
-| Endpoint | Used for | Calls/day |
-|---|---|---|
-| `/standings?league=X&season=2026` | Group tables | 1 |
-| `/fixtures?league=X&season=2026` | All fixtures + scores | 1 |
-| `/players/topscorers?league=X&season=2026` | Top scorers | 1 |
+| Endpoint | Used for |
+|---|---|
+| `/competitions/WC/matches?season=2026` | All 104 fixtures + live scores |
+| `/competitions/WC/scorers?season=2026&limit=20` | Top scorers |
 
-3 calls per sync × 24 syncs/day = 72 calls/day. Within free 100/day limit.
+Group standings are **derived from fixture results** — the standings endpoint returns a flat 48-team table with no group info, so per-group tables are computed from match data instead.
 
-### League ID
-FIFA World Cup 2026 league ID on API-Football: **to confirm closer to tournament**.
-Check via: `GET /leagues?name=FIFA+World+Cup&season=2026`
-Update `WC_2026_ID` constant in `functions/index.js`.
+### Stage labels
+
+football-data.org uses these stage identifiers in match responses:
+
+| API value | Display label |
+|---|---|
+| `GROUP_STAGE` | Group Stage |
+| `LAST_32` | Round of 32 |
+| `LAST_16` | Round of 16 |
+| `QUARTER_FINALS` | Quarter-finals |
+| `SEMI_FINALS` | Semi-finals |
+| `THIRD_PLACE` | 3rd Place Playoff |
+| `FINAL` | Final |
+
+---
+
+## GitHub Actions (Static Data)
+
+File: `.github/workflows/update-data.yml`
+
+Runs every hour. Calls `scripts/fetch-data.js` which:
+1. Fetches all matches from football-data.org
+2. Derives per-group standings from GROUP_STAGE fixtures
+3. Fetches top scorers
+4. Writes `data/wc2026.json` to the repo
+5. Firebase Hosting redeploys if file changed
+
+Environment variable required: `FOOTBALLDATA_KEY` (set as GitHub Actions secret)
 
 ---
 
@@ -40,21 +66,25 @@ Update `WC_2026_ID` constant in `functions/index.js`.
 File: `functions/index.js`
 
 ### `syncWorldCup` — scheduled, every 60 minutes
-1. Fetches standings, fixtures, top scorers in parallel
-2. Derives bracket from fixture results
-3. Derives results object (which teams won each round)
-4. Writes to `wc2026/tournament` (display data)
-5. Writes to `wc2026/results` (scoring data) — merge only, doesn't overwrite admin manual entries where API doesn't have data yet
-6. Recalculates all player scores → `wc2026/scores`
+1. Fetches all 104 fixtures + top scorers in parallel
+2. Derives per-group standings from fixture results
+3. Derives bracket from knockout fixture results
+4. Derives results object (which teams won each round)
+5. Writes to `wc2026/tournament` (display data, capped at 120 fixtures)
+6. Writes to `wc2026/results` (scoring data) with merge
+7. Recalculates all player scores → `wc2026/scores`
+8. Unlocks Phase 2 automatically once all 72 group stage games finish
 
 ### `syncNow` — HTTP trigger (manual)
 For immediate sync without waiting for the schedule.
-Auth: `Authorization: Bearer YOUR_API_KEY` header required.
+Auth: `Authorization: Bearer YOUR_FOOTBALLDATA_KEY` header required.
 
 ```bash
 curl -X POST https://REGION-world-cup-2026-e1a0b.cloudfunctions.net/syncNow \
-  -H "Authorization: Bearer YOUR_API_KEY"
+  -H "Authorization: Bearer YOUR_FOOTBALLDATA_KEY"
 ```
+
+Secret required: set via `firebase functions:secrets:set FOOTBALLDATA_KEY`
 
 ---
 
@@ -75,9 +105,10 @@ curl -X POST https://REGION-world-cup-2026-e1a0b.cloudfunctions.net/syncNow \
     {
       "id": 123456,
       "date": "Thu 19 Jun",
-      "time": "20:00",
-      "venue": "Dallas",
-      "round": "Group Stage",
+      "time": "20:00 UTC",
+      "utcDate": "2026-06-19T20:00:00Z",
+      "round": "Group Stage - Matchday 1",
+      "stage": "GROUP_STAGE",
       "home": "USA",
       "homeFlag": "🇺🇸",
       "away": "England",
@@ -92,10 +123,8 @@ curl -X POST https://REGION-world-cup-2026-e1a0b.cloudfunctions.net/syncNow \
     { "name": "Kylian Mbappé", "team": "France", "flag": "🇫🇷", "goals": 5, "assists": 2 }
   ],
   "bracket": {
-    "r32": ["USA", "Mexico", ...],
-    "r32_scores": ["2", "1", ...],
-    "r16": [...],
-    "winner": ["Argentina"]
+    "r32": ["USA", "Mexico"],
+    "r16": [], "qf": [], "sf": [], "final": [], "winner": []
   },
   "lastSync": 1718000000000
 }
@@ -104,13 +133,21 @@ curl -X POST https://REGION-world-cup-2026-e1a0b.cloudfunctions.net/syncNow \
 ### `wc2026/results` (scoring-relevant subset)
 ```json
 {
-  "groups": { "A": ["USA", "England", "Panama", "Bolivia"], ... },
-  "thirdPlaceQualifiers": ["Poland", "Morocco", "Japan", ...],
-  "bracket": { "r32": [...winners...], "r16": [...], ... },
-  "goldenBoot": "Kylian Mbappé",
+  "groups": { "A": ["USA", "England", "Panama", "Bolivia"] },
+  "thirdPlaceQualifiers": [],
+  "bracket": { "r32": [], "r16": [], "qf": [], "sf": [], "final": [], "winner": [] },
+  "goldenBoot": "",
   "phase2Unlocked": false
 }
 ```
+
+---
+
+## Static JSON (`data/wc2026.json`)
+
+Written by `scripts/fetch-data.js` (run by GitHub Actions hourly). Served via Firebase Hosting with a 60-second cache (`max-age=60, stale-while-revalidate=300`). The frontend fetches this file on load and polls every 5 minutes.
+
+Group objects in this file use a `group` key (e.g. `"group": "A"`). The frontend normalises this to `name` on load.
 
 ---
 
@@ -126,30 +163,8 @@ curl -X POST https://REGION-world-cup-2026-e1a0b.cloudfunctions.net/syncNow \
 ## Monitoring
 
 ```bash
-# View Cloud Function logs
 firebase functions:log
-
-# View last 50 lines
 firebase functions:log --lines=50
-
-# Filter by function name
-firebase functions:log --only syncWorldCup
 ```
 
 Firebase Console → Functions → Logs tab also works.
-
----
-
-## Alternative Data Sources
-
-If API-Football free tier runs out or is unavailable:
-
-| Alternative | Free tier | Notes |
-|---|---|---|
-| football-data.org | 10 req/min | Good coverage, different schema |
-| TheSportsDB | Free tier | Less reliable for live scores |
-| ESPN API (unofficial) | None official | Scraping risk |
-| Manual admin entry | N/A | Always available as fallback |
-
-The Cloud Function can be adapted to any JSON API by updating the fetch functions.
-The Firestore data schema does not change — only the transformation logic.
