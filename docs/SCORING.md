@@ -16,6 +16,8 @@ Submitted before the tournament starts. Picks lock when the first group game kic
 | 2nd place correct | 1pt | 12pts |
 | 3rd place correct | 1pt | 12pts |
 
+> Points for a group are only awarded once at least one game in that group has been played. Groups with no games yet do not contribute to the leaderboard score.
+
 **Subtotal: 36pts max**
 
 ### Third-Place Qualifiers (new in 2026)

@@ -18,11 +18,13 @@ Browser ──── Firebase Auth (Google) ────────────
     └── Firebase Hosting ──── index.html (the app)
                          └─── data/wc2026.json (static, 60s cache)
 
-Cloud Function (hourly)
+Cloud Function (every 60 min)
     └── football-data.org → Firestore wc2026/tournament + wc2026/results
 
-GitHub Actions (hourly)
-    └── football-data.org → data/wc2026.json → Firebase Hosting deploy
+GitHub Actions (every 10 min, smart-gated)
+    └── fetch-data.js checks existing data before calling the API:
+        active game window or midnight ET → fetch + deploy
+        no active games → exit early, no API call
 ```
 
 ---
@@ -85,6 +87,7 @@ Written by admin panel or Cloud Function.
     "final": [...2 actual finalists...],
     "winner": ["Argentina"]
   },
+  "startedGroups": ["A", "B", "C"],
   "goldenBoot": "Lionel Messi",
   "phase2Unlocked": false
 }
