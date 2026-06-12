@@ -199,10 +199,13 @@ function deriveResults(fixtures, groups) {
     phase2Unlocked:       false,
   };
 
-  // Group order from standings
+  // Group order from standings — only score groups where games have been played
   for (const g of groups) {
     results.groups[g.name] = g.standings.map(t => t.team);
   }
+  results.startedGroups = groups
+    .filter(g => g.standings.some(t => t.played > 0))
+    .map(g => g.name);
 
   // Knockout results
   const stageMap = {
@@ -245,10 +248,12 @@ async function recalculateScores(results, scorers) {
     const phase2 = data.phase2 || {};
     let score = 0;
 
-    // Phase 1 — group picks
+    // Phase 1 — group picks (only for groups where games have been played)
     const actualGroups = results.groups || {};
+    const startedGroups = new Set(results.startedGroups || []);
     if (phase1.groups) {
       for (const [grp, order] of Object.entries(phase1.groups)) {
+        if (!startedGroups.has(grp)) continue;
         const actual = actualGroups[grp] || [];
         if (actual[0] && order[0] === actual[0]) score += 1; // 1st correct
         if (actual[1] && order[1] === actual[1]) score += 1; // 2nd correct
