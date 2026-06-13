@@ -845,6 +845,7 @@ function startListeners(){
         db.collection("wc2026").doc("results").set({phase2Unlocked:true},{merge:true});
       }
       renderGlobal(); renderLeagueBoard();
+      if(document.getElementById("view-home")?.classList.contains("active"))renderHomeTab();
     }),
     db.collection("wc2026").doc("leagues").onSnapshot(s=>{
       leagues=s.exists?s.data():{};
