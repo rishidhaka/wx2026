@@ -1,7 +1,9 @@
 /**
  * FIFA 2026 Prediction League — Firebase Cloud Function
  * ─────────────────────────────────────────────────────
- * Runs every 60 minutes. Fetches from football-data.org, writes
+ * Triggered by GitHub Actions every 5 min via HTTP (syncNow endpoint).
+ * Smart-skips API calls outside active match windows.
+ * Fetches from football-data.org, writes
  * structured tournament data to Firestore wc2026/tournament.
  * Also auto-updates wc2026/results and recalculates all scores.
  *
@@ -305,8 +307,49 @@ async function recalculateScores(results, scorers) {
   functions.logger.info(`Scores recalculated for ${Object.keys(scores).length} players`);
 }
 
+// ── SMART SKIP: only call the API when there's something to update ────────
+async function shouldSkipSync() {
+  try {
+    const doc = await db.collection("wc2026").doc("tournament").get();
+    if (!doc.exists) return false; // no data yet — must sync
+
+    const data    = doc.data();
+    const lastSync = data.lastSync || 0;
+    const nowMs    = Date.now();
+
+    // Always catch up after 60 min of no syncs (handles cold restarts, holidays, etc.)
+    if (nowMs - lastSync > 60 * 60 * 1000) {
+      functions.logger.info("Sync: catch-up (>60 min since last sync)");
+      return false;
+    }
+
+    // Check whether any fixture is in the live/imminent window
+    for (const f of (data.fixtures || [])) {
+      if (f.status === "live") {
+        functions.logger.info("Sync: live match in progress");
+        return false;
+      }
+      if (f.utcDate) {
+        const diffMin = (new Date(f.utcDate).getTime() - nowMs) / 60000;
+        // Within 2h after kickoff (match could still be running) or 30min before
+        if (diffMin >= -120 && diffMin <= 30) {
+          functions.logger.info(`Sync: match in active window (${Math.round(diffMin)} min)`);
+          return false;
+        }
+      }
+    }
+
+    functions.logger.info("Sync: skipping — no active matches, last sync was recent");
+    return true;
+  } catch (e) {
+    functions.logger.warn("shouldSkipSync error:", e.message);
+    return false; // on error, err on the side of syncing
+  }
+}
+
 // ── MAIN SYNC LOGIC ───────────────────────────────────────────────────────
 async function runSync() {
+  if (await shouldSkipSync()) return;
   functions.logger.info("Starting World Cup sync (football-data.org)…");
 
   const [allMatches, scorers] = await Promise.all([
@@ -336,19 +379,7 @@ async function runSync() {
   functions.logger.info("Sync complete ✓");
 }
 
-// ── SCHEDULED FUNCTION — every 60 minutes ────────────────────────────────
-exports.syncWorldCup = functions
-  .runWith({ timeoutSeconds: 120, memory: "256MB", secrets: ["FOOTBALLDATA_KEY"] })
-  .pubsub.schedule("every 60 minutes")
-  .onRun(async () => {
-    try {
-      await runSync();
-    } catch (e) {
-      functions.logger.error("Sync failed:", e.message);
-    }
-  });
-
-// ── HTTP ENDPOINT — manual trigger ───────────────────────────────────────
+// ── HTTP ENDPOINT — called by GitHub Actions every 5 min (no billing needed) ─
 exports.syncNow = functions
   .runWith({ timeoutSeconds: 120, memory: "256MB", secrets: ["FOOTBALLDATA_KEY"] })
   .https.onRequest(async (req, res) => {

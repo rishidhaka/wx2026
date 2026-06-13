@@ -852,8 +852,17 @@ function startListeners(){
     })
   );
   
-  // Load tournament data from static JSON (updated by GitHub Actions)
+  // Cold-start: load static JSON for instant display before Firestore arrives
   loadTournamentData();
+
+  // Live updates: Firestore wc2026/tournament is written by the Cloud Function
+  // every minute (during active match windows). onSnapshot fires on every write.
+  unsubs.push(
+    db.collection("wc2026").doc("tournament").onSnapshot(snap => {
+      if (!snap.exists) return;
+      applyTournamentData(snap.data());
+    })
+  );
   
   // Load my picks
   db.collection("wc2026picks").doc(currentUser.uid).get().then(s=>{
@@ -888,56 +897,59 @@ function startListeners(){
 }
 
 // ── LOAD TOURNAMENT DATA FROM STATIC JSON ─────────────────────────────────
+// Normalize tournament data from either wc2026.json (GitHub Actions) or
+// Firestore wc2026/tournament (Cloud Function). Field names differ:
+//   JSON: groups[].group, topScorers       CF: groups[].name, scorers
+function applyTournamentData(raw) {
+  const groups = (raw.groups || []).map(g => ({
+    // keep both keys so rendering code and updateResultsFromLiveData both work
+    group: g.group || g.name,
+    name:  g.name  || g.group,
+    standings: g.standings || []
+  }));
+
+  const scorers = raw.topScorers || raw.scorers || [];
+
+  tournamentData = {
+    groups,
+    fixtures: (raw.fixtures || []).map(f => ({
+      ...f,
+      home: f.home || f.homeTeam,
+      away: f.away || f.awayTeam,
+      // Always derive date in ET — JSON written by Actions runner uses UTC
+      date: f.utcDate
+        ? new Date(f.utcDate).toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"America/New_York"})
+        : f.date,
+    })),
+    scorers,
+    lastUpdated: raw.lastUpdated ||
+      (raw.lastSync ? new Date(raw.lastSync).toISOString() : null),
+  };
+
+  if (groups.length > 0) {
+    lastKnownGoodData = JSON.parse(JSON.stringify(tournamentData));
+    // Pass normalized data to results updater (both field names set above)
+    updateResultsFromLiveData({ groups, topScorers: scorers }).catch(console.error);
+  }
+
+  if (document.getElementById("view-live")?.classList.contains("active")) renderLiveTab();
+  if (document.getElementById("view-home")?.classList.contains("active")) renderHomeTab();
+}
+
 async function loadTournamentData() {
+  // One-time cold-start fetch from static JSON (fast, no Firestore round-trip).
+  // Firestore onSnapshot (wired in startListeners) handles all subsequent updates.
   try {
     const response = await fetch('data/wc2026.json');
+    if (!response.ok) return;
     const data = await response.json();
-    
-    // Transform API data to match expected format
-    tournamentData = {
-      groups: data.groups.map(g => ({
-        name: g.group,
-        standings: g.standings
-      })),
-      fixtures: (data.fixtures||[]).map(f=>{
-        const etDate=f.utcDate
-          ?new Date(f.utcDate).toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"America/New_York"})
-          :f.date;
-        return {...f, home:f.home||f.homeTeam, away:f.away||f.awayTeam, date:etDate};
-      }),
-      scorers: data.topScorers,
-      lastUpdated: data.lastUpdated
-    };
-    
-    // Save as last known good data if groups exist
-    if (tournamentData.groups && tournamentData.groups.length > 0) {
-      lastKnownGoodData = JSON.parse(JSON.stringify(tournamentData));
+    // Only apply if Firestore hasn't already delivered fresher data
+    if (!tournamentData.groups || tournamentData.groups.length === 0) {
+      applyTournamentData(data);
     }
-    
-    // Auto-update Firestore results from live standings
-    if (data.groups && data.groups.length > 0) {
-      await updateResultsFromLiveData(data);
-    }
-    
-    // Re-render LIVE tab if active
-    if (document.getElementById("view-live")?.classList.contains("active")) {
-      renderLiveTab();
-    }
-    // Re-render HOME tab if active
-    if (document.getElementById("view-home")?.classList.contains("active")) {
-      renderHomeTab();
-    }
-    
-    // Refresh every 5 minutes to pick up GitHub Actions updates
-    setTimeout(loadTournamentData, 5 * 60 * 1000);
   } catch (err) {
-    console.error('Failed to load tournament data:', err);
-    // Preserve last known good data, don't wipe it out
-    if (lastKnownGoodData) {
-      console.log('Using last known good data from:', lastKnownGoodData.lastUpdated);
-    }
-    // Retry in 30 seconds on error
-    setTimeout(loadTournamentData, 30 * 1000);
+    console.error('Failed to load initial tournament data:', err);
+    // Firestore onSnapshot will deliver data when it arrives — no retry needed
   }
 }
 
@@ -945,13 +957,15 @@ async function loadTournamentData() {
 async function updateResultsFromLiveData(data) {
   try {
     // Derive group standings: all 4 teams from each group
+    // Standings arrive pre-sorted from both the Cloud Function and fetch-data.js,
+    // so we just preserve the order (don't re-sort with wrong field name).
     const derivedGroups = {};
     const derivedStartedGroups = [];
     data.groups.forEach(g => {
-      const groupLetter = g.group;
-      const sortedStandings = [...g.standings].sort((a, b) => b.points - a.points || b.gd - a.gd || b.gf - a.gf);
-      derivedGroups[groupLetter] = sortedStandings.slice(0, 4).map(t => t.team);
-      if (sortedStandings.some(t => (t.played || 0) > 0)) derivedStartedGroups.push(groupLetter);
+      const groupLetter = g.group || g.name;
+      const standings = g.standings || [];
+      derivedGroups[groupLetter] = standings.slice(0, 4).map(t => t.team);
+      if (standings.some(t => (t.played || 0) > 0)) derivedStartedGroups.push(groupLetter);
     });
     
     // Get current results
@@ -2166,8 +2180,21 @@ function renderHomeTab(){
     .sort((a,b)=>b.score-a.score)
     .slice(0,3);
 
-  // Group A standings
-  const groupA=hasData?(td.groups||[]).find(g=>g.name==="A"):null;
+  // Featured group: live match > next upcoming group stage match > fallback "A"
+  let featuredGroupLetter="A";
+  if(hasData){
+    const allFx=td.fixtures||[];
+    const liveFx=allFx.find(f=>f.status==="live"&&f.group);
+    if(liveFx){
+      featuredGroupLetter=liveFx.group.replace("GROUP_","");
+    } else {
+      const nextFx=allFx
+        .filter(f=>f.status==="upcoming"&&f.group&&f.utcDate)
+        .sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate))[0];
+      if(nextFx) featuredGroupLetter=nextFx.group.replace("GROUP_","");
+    }
+  }
+  const featuredGroup=hasData?(td.groups||[]).find(g=>(g.name||g.group)===featuredGroupLetter):null;
 
   // Top 3 scorers
   const scorers=hasData?(td.scorers||[]).slice(0,3):[];
@@ -2222,16 +2249,16 @@ function renderHomeTab(){
       }
     </div>
 
-    <!-- GROUP A STANDINGS -->
+    <!-- FEATURED GROUP STANDINGS -->
     <div class="home-section">
       <div class="home-section-header">
-        <div class="home-section-title">🏟️ Group A Standings</div>
+        <div class="home-section-title">🏟️ Group ${featuredGroupLetter} Standings</div>
         <button class="home-see-more" onclick="navTo('live','groups')">All groups →</button>
       </div>
-      ${!groupA?`<div style="font-size:13px;color:var(--muted)">Standings loading…</div>`:`
+      ${!featuredGroup?`<div style="font-size:13px;color:var(--muted)">Standings loading…</div>`:`
         <table class="group-table">
           <thead><tr><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
-          <tbody>${(groupA.standings||[]).map((t,i)=>`<tr class="${i<2?"q":""}">
+          <tbody>${(featuredGroup.standings||[]).map((t,i)=>`<tr class="${i<2?"q":""}">
             <td>${t.flag||"🏳️"} ${esc(t.team)}</td>
             <td>${t.played||0}</td><td>${t.won||0}</td><td>${t.drawn||0}</td><td>${t.lost||0}</td>
             <td>${(t.gd||0)>=0?"+":""}${t.gd||0}</td><td><strong>${t.points||0}</strong></td>
