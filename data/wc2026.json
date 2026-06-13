@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T20:38:22.598Z",
+  "lastUpdated": "2026-06-13T18:56:37.290Z",
   "groups": [
     {
       "group": "A",
@@ -60,26 +60,26 @@
         {
           "team": "Canada",
           "flag": "🇨🇦",
-          "played": 0,
+          "played": 1,
           "won": 0,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "gf": 1,
+          "ga": 1,
           "gd": 0,
-          "points": 0
+          "points": 1
         },
         {
           "team": "Bosnia-Herzegovina",
           "flag": "🏳️",
-          "played": 0,
+          "played": 1,
           "won": 0,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "gf": 1,
+          "ga": 1,
           "gd": 0,
-          "points": 0
+          "points": 1
         },
         {
           "team": "Qatar",
@@ -166,26 +166,14 @@
         {
           "team": "United States",
           "flag": "🇺🇸",
-          "played": 0,
-          "won": 0,
+          "played": 1,
+          "won": 1,
           "drawn": 0,
           "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "points": 0
-        },
-        {
-          "team": "Paraguay",
-          "flag": "🇵🇾",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "points": 0
+          "gf": 4,
+          "ga": 1,
+          "gd": 3,
+          "points": 3
         },
         {
           "team": "Australia",
@@ -209,6 +197,18 @@
           "gf": 0,
           "ga": 0,
           "gd": 0,
+          "points": 0
+        },
+        {
+          "team": "Paraguay",
+          "flag": "🇵🇾",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "gf": 1,
+          "ga": 4,
+          "gd": -3,
           "points": 0
         }
       ]
@@ -688,9 +688,9 @@
       "homeFlag": "🇨🇦",
       "away": "Bosnia-Herzegovina",
       "awayFlag": "🏳️",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
+      "status": "fin",
       "winner": null
     },
     {
@@ -706,10 +706,10 @@
       "homeFlag": "🇺🇸",
       "away": "Paraguay",
       "awayFlag": "🇵🇾",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "upcoming",
-      "winner": null
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "fin",
+      "winner": "United States"
     },
     {
       "id": 537334,
@@ -2514,6 +2514,13 @@
   ],
   "topScorers": [
     {
+      "name": "Folarin Balogun",
+      "team": "United States",
+      "flag": "🇺🇸",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "Julián Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -2552,6 +2559,27 @@
       "name": "Jovo Lukić",
       "team": "Bosnia-Herzegovina",
       "flag": "🏳️",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Cyle Larin",
+      "team": "Canada",
+      "flag": "🇨🇦",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Mauricio",
+      "team": "Paraguay",
+      "flag": "🇵🇾",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Gio Reyna",
+      "team": "United States",
+      "flag": "🇺🇸",
       "goals": 1,
       "assists": 0
     }
