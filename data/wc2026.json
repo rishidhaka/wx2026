@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T04:19:19.573Z",
+  "lastUpdated": "2026-06-14T17:46:57.114Z",
   "groups": [
     {
       "group": "A",
@@ -178,25 +178,25 @@
         {
           "team": "Australia",
           "flag": "🇦🇺",
-          "played": 0,
-          "won": 0,
+          "played": 1,
+          "won": 1,
           "drawn": 0,
           "lost": 0,
-          "gf": 0,
+          "gf": 2,
           "ga": 0,
-          "gd": 0,
-          "points": 0
+          "gd": 2,
+          "points": 3
         },
         {
           "team": "Turkey",
           "flag": "🇹🇷",
-          "played": 0,
+          "played": 1,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 1,
           "gf": 0,
-          "ga": 0,
-          "gd": 0,
+          "ga": 2,
+          "gd": -2,
           "points": 0
         },
         {
@@ -778,10 +778,10 @@
       "homeFlag": "🇦🇺",
       "away": "Turkey",
       "awayFlag": "🇹🇷",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Australia"
     },
     {
       "id": 537351,
@@ -796,9 +796,9 @@
       "homeFlag": "🇩🇪",
       "away": "Curaçao",
       "awayFlag": "🏳️",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "upcoming",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
       "winner": null
     },
     {
@@ -2615,6 +2615,41 @@
       "name": "John McGinn",
       "team": "Scotland",
       "flag": "🏳️",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Nestor Irankunda",
+      "team": "Australia",
+      "flag": "🇦🇺",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Connor Metcalfe",
+      "team": "Australia",
+      "flag": "🇦🇺",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Felix Kalu Nmecha",
+      "team": "Germany",
+      "flag": "🇩🇪",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Livano Comenencia",
+      "team": "Curaçao",
+      "flag": "🏳️",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Nico Schlotterbeck",
+      "team": "Germany",
+      "flag": "🇩🇪",
       "goals": 1,
       "assists": 0
     }
