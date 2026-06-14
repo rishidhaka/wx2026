@@ -48,11 +48,3 @@ jobs:
           git commit -m "Update World Cup data [automated]"
           git push
       
-      - name: Deploy to Firebase Hosting
-        if: steps.git-check.outputs.changed == 'true'
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          channelId: live
-          projectId: world-cup-2026-e1a0b
