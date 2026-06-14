@@ -2,49 +2,48 @@ name: Update World Cup Data
 
 on:
   schedule:
-    # Run every 10 minutes — fetch-data.js skips the API call when no game
-    # is active, so this only burns quota during live windows and at midnight ET.
-    - cron: '*/10 * * * *'
-  workflow_dispatch: # Allow manual trigger
+    # Run every minute during matches — fetch-data.js smart-skips when no game is active.
+    - cron: '* * * * *'
+  workflow_dispatch:
 
 permissions:
-  contents: write  # Allow pushing commits
+  contents: write
 
 jobs:
-  update-and-deploy:
+  update:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Fetch latest World Cup data
         env:
           FOOTBALLDATA_KEY: ${{ secrets.FOOTBALLDATA_KEY }}
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_WORLD_CUP_2026_E1A0B }}
         run: node scripts/fetch-data.js
-      
-      - name: Check for changes
-        id: git-check
+
+      - name: Commit and push if data changed
         run: |
-          git diff --exit-code data/wc2026.json || echo "changed=true" >> $GITHUB_OUTPUT
-      
-      - name: Commit and push if changed
-        if: steps.git-check.outputs.changed == 'true'
-        run: |
+          git diff --exit-code data/wc2026.json && echo "No changes" && exit 0
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add data/wc2026.json
           git commit -m "Update World Cup data [automated]"
           git push
-      
