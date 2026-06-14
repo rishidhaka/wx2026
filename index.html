@@ -853,8 +853,17 @@ function startListeners(){
     })
   );
   
-  // Poll GitHub raw URL every 2 min — updated by GitHub Actions (no site redeploy needed).
+  // Poll GitHub raw URL every 2 min as baseline — updated by GitHub Actions.
   loadTournamentData();
+
+  // Real-time overlay: if GitHub Actions can write to Firestore, onSnapshot fires
+  // instantly on every write and overrides the polled data with fresher values.
+  unsubs.push(
+    db.collection("wc2026").doc("tournament").onSnapshot(snap => {
+      if (!snap.exists) return;
+      applyTournamentData(snap.data());
+    })
+  );
   
   // Load my picks
   db.collection("wc2026picks").doc(currentUser.uid).get().then(s=>{

@@ -1,7 +1,6 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
-const admin = require('firebase-admin');
 
 // ── CONFIG ────────────────────────────────────────────────────────────────
 const API_KEY = process.env.FOOTBALLDATA_KEY;
@@ -15,18 +14,19 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-// Initialize Firebase Admin (uses service account from env)
+// Initialize Firebase Admin only if credentials are provided (optional — skipped in CI without the secret)
+let db = null;
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {
   try {
+    const admin = require('firebase-admin');
     const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
     admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+    db = admin.firestore();
     console.log('✅ Firebase Admin initialized');
   } catch (err) {
     console.warn('⚠️  Firebase Admin init failed (will skip Firestore writes):', err.message);
   }
 }
-
-const db = admin.apps.length > 0 ? admin.firestore() : null;
 const headers = { 'X-Auth-Token': API_KEY };
 
 // ── HELPER: flag emoji from team name ────────────────────────────────────
