@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T21:58:01.489Z",
+  "lastUpdated": "2026-06-14T23:19:45.687Z",
   "groups": [
     {
       "group": "A",
@@ -272,26 +272,26 @@
         {
           "team": "Netherlands",
           "flag": "🇳🇱",
-          "played": 0,
+          "played": 1,
           "won": 0,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "gf": 2,
+          "ga": 2,
           "gd": 0,
-          "points": 0
+          "points": 1
         },
         {
           "team": "Japan",
           "flag": "🇯🇵",
-          "played": 0,
+          "played": 1,
           "won": 0,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "gf": 2,
+          "ga": 2,
           "gd": 0,
-          "points": 0
+          "points": 1
         },
         {
           "team": "Sweden",
@@ -816,7 +816,7 @@
       "awayFlag": "🇯🇵",
       "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
+      "status": "fin",
       "winner": null
     },
     {
