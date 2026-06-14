@@ -370,6 +370,14 @@ function shouldFetchNow() {
     return true; // corrupt file, re-fetch
   }
 
+  // If existing data already shows a game as live, always fetch regardless of time window.
+  // Matches can run past 2h (extra time, penalties) and the time window would otherwise block us.
+  const alreadyLive = (existing.fixtures || []).filter(f => f.status === 'live');
+  if (alreadyLive.length > 0) {
+    console.log(`🔴  ${alreadyLive.map(f => `${f.home} vs ${f.away}`).join(', ')} still live in existing data — fetching.`);
+    return true;
+  }
+
   const nowUTC = Date.now();
   const BEFORE_MS  = 15 * 60 * 1000;    // start polling 15 min before kickoff
   const AFTER_MS   = 2  * 60 * 60 * 1000; // cover 90 min + stoppage time (~2h max)
