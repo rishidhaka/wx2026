@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T18:17:10.866Z",
+  "lastUpdated": "2026-06-14T21:12:17.934Z",
   "groups": [
     {
       "group": "A",
@@ -219,26 +219,14 @@
         {
           "team": "Germany",
           "flag": "🇩🇪",
-          "played": 0,
-          "won": 0,
+          "played": 1,
+          "won": 1,
           "drawn": 0,
           "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "points": 0
-        },
-        {
-          "team": "Curaçao",
-          "flag": "🏳️",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "points": 0
+          "gf": 7,
+          "ga": 1,
+          "gd": 6,
+          "points": 3
         },
         {
           "team": "Ivory Coast",
@@ -262,6 +250,18 @@
           "gf": 0,
           "ga": 0,
           "gd": 0,
+          "points": 0
+        },
+        {
+          "team": "Curaçao",
+          "flag": "🏳️",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "gf": 1,
+          "ga": 7,
+          "gd": -6,
           "points": 0
         }
       ]
@@ -796,10 +796,10 @@
       "homeFlag": "🇩🇪",
       "away": "Curaçao",
       "awayFlag": "🏳️",
-      "homeScore": 4,
+      "homeScore": 7,
       "awayScore": 1,
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Germany"
     },
     {
       "id": 537357,
@@ -814,9 +814,9 @@
       "homeFlag": "🇳🇱",
       "away": "Japan",
       "awayFlag": "🇯🇵",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "upcoming",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "live",
       "winner": null
     },
     {
@@ -2521,6 +2521,13 @@
       "assists": 0
     },
     {
+      "name": "Kai Havertz",
+      "team": "Germany",
+      "flag": "🇩🇪",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "Julián Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -2643,13 +2650,6 @@
       "name": "Livano Comenencia",
       "team": "Curaçao",
       "flag": "🏳️",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Nico Schlotterbeck",
-      "team": "Germany",
-      "flag": "🇩🇪",
       "goals": 1,
       "assists": 0
     }
