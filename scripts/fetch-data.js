@@ -1,6 +1,7 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const admin = require('firebase-admin');
 
 // ── CONFIG ────────────────────────────────────────────────────────────────
 const API_KEY = process.env.FOOTBALLDATA_KEY;
@@ -14,6 +15,18 @@ if (!API_KEY) {
   process.exit(1);
 }
 
+// Initialize Firebase Admin (uses service account from env)
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  try {
+    const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+    admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+    console.log('✅ Firebase Admin initialized');
+  } catch (err) {
+    console.warn('⚠️  Firebase Admin init failed (will skip Firestore writes):', err.message);
+  }
+}
+
+const db = admin.apps.length > 0 ? admin.firestore() : null;
 const headers = { 'X-Auth-Token': API_KEY };
 
 // ── HELPER: flag emoji from team name ────────────────────────────────────
@@ -164,6 +177,170 @@ async function fetchScorers() {
   }
 }
 
+// ── DERIVE BRACKET FROM KNOCKOUT FIXTURES (for Firestore scoring) ─────────
+function deriveBracket(fixtures) {
+  const bracket = { r32:[], r16:[], qf:[], sf:[], final:[], winner:[] };
+  const stageMap = {
+    'LAST_32': 'r32', 'LAST_16': 'r16',
+    'QUARTER_FINALS': 'qf', 'SEMI_FINALS': 'sf', 'FINAL': 'final',
+  };
+
+  for (const f of fixtures) {
+    const key = stageMap[f.stage];
+    if (!key) continue;
+    if (f.home && f.away) bracket[key].push(f.home, f.away);
+    if (key === 'final' && f.winner) bracket.winner = [f.winner];
+  }
+
+  return bracket;
+}
+
+// ── DERIVE RESULTS FOR SCORING ENGINE ─────────────────────────────────────
+function deriveResults(fixtures, groups) {
+  const results = {
+    groups: {},
+    thirdPlaceQualifiers: [],
+    bracket: { r32:[], r16:[], qf:[], sf:[], final:[], winner:[] },
+    goldenBoot: '',
+    phase2Unlocked: false,
+  };
+
+  // Group order from standings
+  for (const g of groups) {
+    results.groups[g.group] = g.standings.map(t => t.team);
+  }
+  results.startedGroups = groups
+    .filter(g => g.standings.some(t => t.played > 0))
+    .map(g => g.group);
+
+  // Knockout results
+  const stageMap = {
+    'LAST_32': 'r32', 'LAST_16': 'r16',
+    'QUARTER_FINALS': 'qf', 'SEMI_FINALS': 'sf', 'FINAL': 'final',
+  };
+
+  for (const f of fixtures) {
+    const key = stageMap[f.stage];
+    if (!key || f.status !== 'fin') continue;
+    if (f.home && f.away) results.bracket[key].push(f.home, f.away);
+    if (key === 'final' && f.winner) results.bracket.winner = [f.winner];
+  }
+
+  // Unlock Phase 2 once all group games finish
+  const groupFixtures = fixtures.filter(f => f.stage === 'GROUP_STAGE');
+  const allGroupDone = groupFixtures.length > 0 && groupFixtures.every(f => f.status === 'fin');
+  results.phase2Unlocked = allGroupDone;
+
+  return results;
+}
+
+// ── RECALCULATE ALL PLAYER SCORES ──────────────────────────────────────────
+async function recalculateScores(results, scorers) {
+  if (!db) {
+    console.log('⏭️   Skipping score recalculation (no Firestore connection)');
+    return;
+  }
+
+  const playersSnap = await db.collection('wc2026picks').get();
+  if (playersSnap.empty) {
+    console.log('   No players to score yet');
+    return;
+  }
+
+  const topScorer = scorers.length > 0 ? scorers[0].name : '';
+  const scores = {};
+
+  playersSnap.forEach(doc => {
+    const uid = doc.id;
+    const data = doc.data();
+    const phase1 = data.phase1 || {};
+    const phase2 = data.phase2 || {};
+    let score = 0;
+
+    // Phase 1 — group picks (only for started groups)
+    const actualGroups = results.groups || {};
+    const startedGroups = new Set(results.startedGroups || []);
+    if (phase1.groups) {
+      for (const [grp, order] of Object.entries(phase1.groups)) {
+        if (!startedGroups.has(grp)) continue;
+        const actual = actualGroups[grp] || [];
+        if (actual[0] && order[0] === actual[0]) score += 1;
+        if (actual[1] && order[1] === actual[1]) score += 1;
+        if (actual[2] && order[2] === actual[2]) score += 1;
+      }
+    }
+
+    // Phase 1 — third place qualifiers
+    const actualTPQ = results.thirdPlaceQualifiers || [];
+    (phase1.thirdPlaceQualifiers || []).forEach(t => {
+      if (actualTPQ.includes(t)) score += 2;
+    });
+
+    // Phase 1 — bracket
+    const P1_PTS = { r32:2, r16:3, qf:5, sf:10, final:20 };
+    const actualBracket = results.bracket || {};
+    for (const [round, pts] of Object.entries(P1_PTS)) {
+      const actual = actualBracket[round] || [];
+      (phase1.bracket?.[round] || []).forEach(t => {
+        if (t && actual.includes(t)) score += pts;
+      });
+    }
+
+    // Phase 1 — golden boot
+    if (phase1.goldenBoot && topScorer &&
+        phase1.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) {
+      score += 10;
+    }
+
+    // Phase 2 — bracket
+    const P2_ROUNDS = ['r16', 'qf', 'sf', 'final'];
+    for (const round of P2_ROUNDS) {
+      const actual = actualBracket[round] || [];
+      (phase2.bracket?.[round] || []).forEach(t => {
+        if (t && actual.includes(t)) score += 5;
+      });
+    }
+
+    // Phase 2 — golden boot
+    if (phase2.goldenBoot && topScorer &&
+        phase2.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) {
+      score += 5;
+    }
+
+    scores[uid] = score;
+  });
+
+  await db.collection('wc2026').doc('scores').set(scores);
+  console.log(`   Scores recalculated for ${Object.keys(scores).length} players`);
+}
+
+// ── WRITE TO FIRESTORE ─────────────────────────────────────────────────────
+async function writeToFirestore(groups, fixtures, scorers, bracket, results) {
+  if (!db) {
+    console.log('⏭️   Skipping Firestore writes (no connection)');
+    return;
+  }
+
+  console.log('📤  Writing to Firestore…');
+
+  // Write display data
+  await db.collection('wc2026').doc('tournament').set({
+    groups: groups.map(g => ({ name: g.group, standings: g.standings })),
+    fixtures: fixtures.slice(0, 120), // cap to avoid 1MB limit
+    bracket,
+    scorers,
+    lastSync: Date.now(),
+  });
+
+  // Write results for scoring
+  await db.collection('wc2026').doc('results').set(results, { merge: true });
+
+  // Recalculate scores
+  await recalculateScores(results, scorers);
+
+  console.log('✅  Firestore updated');
+}
+
 // ── SMART FETCH GUARD ─────────────────────────────────────────────────────
 // Returns true if we should actually call the API right now.
 // Called before any network requests so we don't burn quota on idle runs.
@@ -234,6 +411,10 @@ async function main() {
     fetchScorers(),
   ]);
 
+  const bracket = deriveBracket(fixtures);
+  const results = deriveResults(fixtures, groups);
+
+  // Write to static JSON for client fallback
   const data = {
     lastUpdated: new Date().toISOString(),
     groups,
@@ -256,6 +437,9 @@ async function main() {
     const live   = fixtures.filter(f => f.status === 'live').length;
     console.log(`   Played: ${played}  |  Live: ${live}  |  Upcoming: ${fixtures.length - played - live}`);
   }
+
+  // Write to Firestore for real-time updates
+  await writeToFirestore(groups, fixtures, scorers, bracket, results);
 }
 
 main().catch(err => {
