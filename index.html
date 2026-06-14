@@ -853,17 +853,8 @@ function startListeners(){
     })
   );
   
-  // Cold-start: load static JSON for instant display before Firestore arrives
+  // Poll GitHub raw URL every 2 min — updated by GitHub Actions (no site redeploy needed).
   loadTournamentData();
-
-  // Live updates: Firestore wc2026/tournament is written by the Cloud Function
-  // every minute (during active match windows). onSnapshot fires on every write.
-  unsubs.push(
-    db.collection("wc2026").doc("tournament").onSnapshot(snap => {
-      if (!snap.exists) return;
-      applyTournamentData(snap.data());
-    })
-  );
   
   // Load my picks
   db.collection("wc2026picks").doc(currentUser.uid).get().then(s=>{
@@ -938,20 +929,19 @@ function applyTournamentData(raw) {
 }
 
 async function loadTournamentData() {
-  // One-time cold-start fetch from static JSON (fast, no Firestore round-trip).
-  // Firestore onSnapshot (wired in startListeners) handles all subsequent updates.
+  // Fetch from GitHub raw URL — updated every 10 min by GitHub Actions (no hosting redeploy needed).
+  // Timestamp query param bypasses CDN cache so each poll gets the latest committed file.
+  const RAW_URL = 'https://raw.githubusercontent.com/rishidhaka/wx2026/refs/heads/main/data/wc2026.json';
   try {
-    const response = await fetch('data/wc2026.json');
+    const response = await fetch(`${RAW_URL}?t=${Date.now()}`);
     if (!response.ok) return;
     const data = await response.json();
-    // Only apply if Firestore hasn't already delivered fresher data
-    if (!tournamentData.groups || tournamentData.groups.length === 0) {
-      applyTournamentData(data);
-    }
+    applyTournamentData(data);
   } catch (err) {
-    console.error('Failed to load initial tournament data:', err);
-    // Firestore onSnapshot will deliver data when it arrives — no retry needed
+    console.error('Failed to load tournament data:', err);
   }
+  // Poll every 2 minutes so live score updates reach the browser without a site redeploy.
+  setTimeout(() => loadTournamentData(), 2 * 60 * 1000);
 }
 
 // ══ AUTO-UPDATE RESULTS FROM LIVE DATA ════════════════════════════════════
