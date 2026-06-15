@@ -50,6 +50,9 @@ function flagFor(name) {
     'Honduras': '🇭🇳', 'Guatemala': '🇬🇹', 'Jamaica': '🇯🇲', 'Cuba': '🇨🇺',
     'New Caledonia': '🇳🇨', 'Panama': '🇵🇦', 'Bolivia': '🇧🇴', 'Chile': '🇨🇱',
     'Cameroon': '🇨🇲', 'Italy': '🇮🇹', 'Iran': '🇮🇷',
+    'Norway': '🇳🇴', 'Austria': '🇦🇹', 'Ghana': '🇬🇭', 'Iraq': '🇮🇶',
+    'Jordan': '🇯🇴', 'Uzbekistan': '🇺🇿', 'Cape Verde': '🇨🇻',
+    'Democratic Republic of the Congo': '🇨🇩', 'DR Congo': '🇨🇩',
   };
   return map[name] || '🏳️';
 }
