@@ -51,8 +51,10 @@ function flagFor(name) {
     'New Caledonia': '🇳🇨', 'Panama': '🇵🇦', 'Bolivia': '🇧🇴', 'Chile': '🇨🇱',
     'Cameroon': '🇨🇲', 'Italy': '🇮🇹', 'Iran': '🇮🇷',
     'Norway': '🇳🇴', 'Austria': '🇦🇹', 'Ghana': '🇬🇭', 'Iraq': '🇮🇶',
-    'Jordan': '🇯🇴', 'Uzbekistan': '🇺🇿', 'Cape Verde': '🇨🇻',
-    'Democratic Republic of the Congo': '🇨🇩', 'DR Congo': '🇨🇩',
+    'Jordan': '🇯🇴', 'Uzbekistan': '🇺🇿', 'Cape Verde': '🇨🇻', 'Cape Verde Islands': '🇨🇻',
+    'Democratic Republic of the Congo': '🇨🇩', 'DR Congo': '🇨🇩', 'Congo DR': '🇨🇩',
+    'Czechia': '🇨🇿',
+    'Bosnia-Herzegovina': '🇧🇦', 'Bosnia': '🇧🇦',
   };
   return map[name] || '🏳️';
 }
