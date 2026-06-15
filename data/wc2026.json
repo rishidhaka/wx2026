@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T21:31:50.254Z",
+  "lastUpdated": "2026-06-15T23:01:50.425Z",
   "groups": [
     {
       "group": "A",
@@ -58,6 +58,30 @@
       "group": "B",
       "standings": [
         {
+          "team": "Canada",
+          "flag": "🇨🇦",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 1,
+          "ga": 1,
+          "gd": 0,
+          "points": 1
+        },
+        {
+          "team": "Bosnia-Herzegovina",
+          "flag": "🇧🇦",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 1,
+          "ga": 1,
+          "gd": 0,
+          "points": 1
+        },
+        {
           "team": "Qatar",
           "flag": "🇶🇦",
           "played": 1,
@@ -78,30 +102,6 @@
           "lost": 0,
           "gf": 1,
           "ga": 1,
-          "gd": 0,
-          "points": 1
-        },
-        {
-          "team": "Canada",
-          "flag": "🇨🇦",
-          "played": 1,
-          "won": 0,
-          "drawn": 1,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "points": 1
-        },
-        {
-          "team": "Bosnia-Herzegovina",
-          "flag": "🇧🇦",
-          "played": 1,
-          "won": 0,
-          "drawn": 1,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
           "gd": 0,
           "points": 1
         }
@@ -904,9 +904,9 @@
       "homeFlag": "🇸🇦",
       "away": "Uruguay",
       "awayFlag": "🇺🇾",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "upcoming",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "live",
       "winner": null
     },
     {
