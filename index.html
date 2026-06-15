@@ -8,121 +8,139 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,900&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900&family=DM+Mono:wght@400;500;600&display=swap');
 :root{
-  /* FIFA World Cup 2026 Colors */
-  --wc-teal:#0E4C92;--wc-aqua:#3AAFA9;--wc-gold:#FBB034;--wc-red:#C8102E;
-  --navy:#0a1628;--navy-card:#0f1e35;--navy-border:#1a2d4a;
-  --accent:var(--wc-aqua);--accent-light:#5fc9c4;--accent-dark:#2a8f8a;
-  --gold:var(--wc-gold);--pitch:#0a2a1a;--pitch-border:#1a4a2a;
-  --green:#10b981;--red:#ef4444;--blue:#3b82f6;
-  --white:#f8fafc;--muted:#94a3b8;
+  --bg:#0E1117;--surface:#161B22;--elevated:#1C2128;--border:#21262D;
+  --gold:#F5A623;--gold-tint:rgba(245,166,35,0.12);--gold-border:rgba(245,166,35,0.25);
+  --text:#F0F6FC;--muted:#7D8590;
+  --live:#22C55E;--live-tint:rgba(34,197,94,0.12);
+  --red:#F85149;--red-tint:rgba(248,81,73,0.12);
+  --purple:#A78BFA;--blue:#3B82F6;
+  --phase2:#A78BFA;--phase2-light:#C4B5FD;
+  /* Backwards-compat aliases used throughout the JS/CSS */
+  --navy:var(--bg);--navy-card:var(--surface);--navy-border:var(--border);
+  --white:var(--text);--green:var(--live);--amber:var(--gold);
+  --wc-gold:var(--gold);--pitch:#0a2a1a;--pitch-border:#1a4a2a;
+  --accent:var(--gold);--accent-light:var(--gold);--accent-dark:#d48a00;
   --silver:#c0c0c0;--bronze:#cd7f32;
-  --phase2:#8b5cf6;--phase2-light:#a78bfa;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{overflow-x:hidden;-webkit-overflow-scrolling:touch}
-body{display:flex;justify-content:center;background:linear-gradient(135deg,#0a1628 0%,#0f1e35 50%,#0a1628 100%);background-attachment:fixed;color:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;min-height:100vh;min-height:100svh;overflow-y:auto}
+body{display:flex;justify-content:center;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;min-height:100vh;min-height:100svh;overflow-y:auto}
 #app{width:100%;min-height:100vh;min-height:100svh}
 
 /* ── RESPONSIVE BREAKPOINTS ── */
-@media (min-width: 600px) {
-  #app{max-width:700px}
+/* Mobile: full width. Wider screens: centred at 60% of the viewport. */
+#app{max-width:100%}
+@media (min-width:37.5rem){
+  #app{max-width:60%}
+  .tabs{position:sticky;bottom:0;transform:none;left:auto;max-width:100%}
 }
-
-@media (min-width: 768px) {
-  #app{max-width:800px}
-  .tab{font-size:11px;padding:14px 8px}
-  .header-sub{font-size:12px}
-}
-
-@media (min-width: 900px) {
-  #app{max-width:900px}
-}
-
-@media (min-width: 1024px) {
-  #app{max-width:900px}
-  .desktop-grid{display:block}
-  .desktop-center{max-width:900px;width:100%;padding:20px;margin:0 auto}
-  .desktop-spacer-left,.desktop-spacer-right{display:none}
-  .view{padding:0}
-  .tab{font-size:11px}
-}
-
-/* Gate hover animations to real pointer devices only */
 @media(hover:hover){
   .lb-row:hover{transform:translateX(4px)}
   .btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.3)}
 }
 
-/* ── HEADER ── */
-.header{background:linear-gradient(135deg,var(--wc-teal) 0%,var(--wc-aqua) 100%);border-bottom:3px solid var(--wc-gold);padding:16px 12px 14px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
-.badge{display:inline-block;background:var(--wc-gold);color:#0a1628;font-size:clamp(9px,2.5vw,11px);letter-spacing:1.5px;padding:4px 10px;border-radius:20px;margin-bottom:6px;font-weight:900;box-shadow:0 2px 8px rgba(251,176,52,0.3)}
-h1{font-weight:900;font-size:clamp(28px,8vw,48px);letter-spacing:clamp(1px,0.5vw,3px);line-height:1.1;color:var(--white);text-shadow:0 2px 10px rgba(0,0,0,0.5)}
-h1 span{color:var(--wc-gold)}
-.header-sub{font-size:clamp(10px,2.5vw,12px);color:rgba(255,255,255,0.85);margin-top:6px;letter-spacing:1px;text-transform:uppercase;line-height:1.4}
-
-/* ── USER BAR ── */
-.user-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--navy-card);border-bottom:1px solid var(--navy-border);box-shadow:0 2px 8px rgba(0,0,0,0.2)}
-.user-avatar{width:32px;height:32px;border-radius:50%;border:2px solid var(--accent);object-fit:cover;flex-shrink:0;box-shadow:0 2px 8px rgba(58,175,169,0.3)}
-.user-avatar-ph{width:32px;height:32px;border-radius:50%;background:var(--navy-border);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
-.user-name{flex:1;font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.user-name small{display:block;font-size:10px;color:var(--muted);font-weight:400}
-.btn-signout{background:rgba(255,255,255,0.05);border:1px solid var(--navy-border);border-radius:6px;color:var(--muted);font-size:11px;padding:5px 10px;cursor:pointer;transition:all .2s}
-.btn-signout:hover{background:rgba(255,255,255,0.1);border-color:var(--accent)}
+/* ── HEADER (hidden — replaced by in-content header on home) ── */
+.header{display:none}
+.badge{display:none}
 
 /* ── SIGN IN ── */
-.signin-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:28px 20px;text-align:center}
-.signin-icon{font-size:56px;margin-bottom:16px}
-.signin-title{font-weight:900;font-size:22px;letter-spacing:2px;margin-bottom:8px}
-.signin-sub{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.7;max-width:280px}
-.btn-google{display:flex;align-items:center;gap:12px;background:#fff;color:#1f1f1f;border:none;border-radius:8px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.3);transition:all .15s}
-.btn-google:hover{background:#f0f0f0}
+.signin-screen{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100svh;padding:0;text-align:center;position:relative;overflow:hidden;background:var(--bg)}
+.signin-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(245,166,35,0.12) 0%,transparent 65%);pointer-events:none}
+.signin-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;padding:80px 32px 32px;gap:0}
+.signin-icon-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:80px}
+.signin-title{font-weight:800;font-size:48px;letter-spacing:-0.02em;color:var(--text);margin-bottom:0;line-height:1}
+.signin-subtitle{font-size:11px;font-weight:500;letter-spacing:0.18em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;margin-top:6px}
+.signin-tagline{font-size:18px;font-weight:300;color:var(--muted);letter-spacing:0.01em;margin-bottom:32px}
+.signin-pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:32px}
+.signin-pill{background:var(--elevated);border:1px solid var(--border);border-radius:100px;padding:6px 13px;font-size:11px;font-weight:500;color:var(--muted);letter-spacing:0.03em}
+.signin-divider{width:64px;height:1px;background:var(--border);margin-bottom:48px}
+.btn-google{display:flex;align-items:center;gap:12px;background:#fff;color:#1f1f1f;border:none;border-radius:12px;padding:14px 24px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);transition:all .15s;min-width:220px;justify-content:center}
+.btn-google:hover{background:#f0f0f0;transform:translateY(-1px)}
 .signin-note{font-size:11px;color:var(--muted);margin-top:16px;line-height:1.7}
 
-/* ── TABS ── */
-.tabs{display:flex;background:var(--navy-card);border-bottom:1px solid var(--navy-border);overflow-x:auto;scrollbar-width:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);padding-bottom:env(safe-area-inset-bottom,0px)}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex:1 1 auto;min-width:max-content;padding:12px 8px;text-align:center;font-size:clamp(11px,2.5vw,12px);font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .3s ease;white-space:nowrap;position:relative}
-.tab:hover{color:var(--accent-light);background:rgba(58,175,169,0.05)}
-.tab.active{color:var(--accent);border-bottom-color:var(--accent);background:rgba(58,175,169,0.08)}
+/* ── USER BAR (inline in home header) ── */
+.user-bar{display:none}
+.user-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.user-avatar-ph{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#000;flex-shrink:0}
+.btn-signout{background:var(--elevated);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:12px;padding:6px 12px;cursor:pointer;transition:all .2s}
+.btn-signout:hover{border-color:var(--gold);color:var(--text)}
+
+/* ── BOTTOM NAV (replaces top tabs) ── */
+.tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;display:flex;background:var(--surface);border-top:1px solid var(--border);z-index:50;padding-bottom:env(safe-area-inset-bottom,0px)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;font-size:9px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:color .2s;border:none;min-height:56px}
+.tab .tab-icon{font-size:20px;line-height:1;transition:transform .2s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--gold)}
+.tab.active .tab-icon{transform:scale(1.1)}
 .tab.admin-only{display:none}
 
+/* ── HOME HEADER ── */
+.home-header{padding:20px 16px 14px;background:linear-gradient(160deg,#2D333B 60%,rgba(245,166,35,0.10) 100%);border-bottom:1px solid var(--gold-border)}
+.mini-banner{display:flex;align-items:center;justify-content:center;padding:10px 16px;background:linear-gradient(160deg,#2D333B 60%,rgba(245,166,35,0.10) 100%);border-bottom:1px solid var(--gold-border);cursor:pointer}
+.mini-banner img{height:44px;width:auto;display:block}
+.home-header-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;margin-bottom:10px}
+.home-greeting{flex:1;min-width:0}
+.home-greeting-sub{font-size:13px;color:var(--muted);font-weight:400;line-height:1;margin-bottom:2px}
+.home-greeting-name{font-size:26px;font-weight:800;color:var(--text);line-height:1.1;letter-spacing:-0.01em}
+.home-rank-chip{background:var(--elevated);border:1px solid var(--border);border-radius:12px;padding:6px 10px;text-align:center;min-width:56px}
+.home-rank-label{font-size:9px;font-weight:700;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+.home-rank-num{font-size:16px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace}
+.home-status-row{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.home-status-dot{width:6px;height:6px;border-radius:50%;background:var(--live);flex-shrink:0}
+.home-status-sep{color:var(--border)}
+
+/* ── WORLD CUP TAB HEADER ── */
+.wc-header{padding:16px 16px 12px;background:var(--surface);border-bottom:1px solid var(--border)}
+.wc-header-title{font-size:20px;font-weight:800;color:var(--text);letter-spacing:-0.01em}
+.wc-header-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.wc-subtabs{display:flex;gap:8px;padding:12px 16px 0;overflow-x:auto;scrollbar-width:none}
+.wc-subtabs::-webkit-scrollbar{display:none}
+.wc-subtab{flex-shrink:0;padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);color:var(--muted);background:var(--elevated);white-space:nowrap;transition:all .2s}
+.wc-subtab.active{background:var(--gold);border-color:var(--gold);color:#000}
+
+/* ── LEADERBOARD HEADER ── */
+.lb-header{padding:16px 16px 12px;background:var(--surface);border-bottom:1px solid var(--border)}
+.lb-header-title{font-size:20px;font-weight:800;color:var(--text)}
+.lb-toggle{display:flex;gap:8px;margin-top:10px}
+.lb-toggle-btn{flex:1;padding:7px 8px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);color:var(--muted);background:var(--elevated);text-align:center;transition:all .2s}
+.lb-toggle-btn.active{background:var(--gold-tint);border-color:var(--gold);color:var(--gold)}
+
 /* ── VIEWS ── */
-.view{display:none;padding:16px}
+.view{display:none;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
 .view.active{display:block}
-.view-header{margin-bottom:0}
-.section-title{font-weight:900;font-size:clamp(14px,4vw,16px);letter-spacing:1.5px;color:var(--amber);margin-bottom:14px;text-transform:uppercase}
-.view-meta{min-height:32px;margin-bottom:14px}
-.view-content{position:relative;display:flex;flex-direction:column;align-items:center}
+.view-header{display:none}
+.section-title{font-weight:800;font-size:16px;letter-spacing:-0.01em;color:var(--text);margin-bottom:14px}
+.view-meta{padding:0 16px;margin-bottom:0}
+.view-content{position:relative;padding:0 16px 16px}
 .view-content>*{min-width:0}
 
 /* ── CARDS ── */
-.card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,0.2);transition:all .3s ease}
-.card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.3);border-color:rgba(58,175,169,0.3)}
-.card-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-input{width:100%;background:rgba(10,21,32,0.8);border:1px solid var(--navy-border);border-radius:8px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 14px;margin-bottom:10px;outline:none;transition:all .3s ease}
-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(58,175,169,0.1)}
-input::placeholder{color:#475569}
-.btn{width:100%;padding:12px;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:0.5px;transition:all .3s ease;box-shadow:0 2px 8px rgba(0,0,0,0.2);touch-action:manipulation}
-.btn:hover{box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-.btn-primary{background:linear-gradient(135deg,var(--wc-gold) 0%,#fcc866 100%);color:#0a1628}
-.btn-primary:hover{background:linear-gradient(135deg,#fcc866 0%,var(--wc-gold) 100%)}
-.btn-secondary{background:var(--navy-border);color:var(--white)}
-.btn-secondary:hover{background:#2a4060}
-.btn-phase2{background:linear-gradient(135deg,var(--phase2) 0%,var(--phase2-light) 100%);color:var(--white)}
-.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;transition:border-color .2s}
+.card:hover{border-color:rgba(245,166,35,0.25)}
+.card-title{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+input{width:100%;background:var(--elevated);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 14px;margin-bottom:10px;outline:none;transition:all .2s}
+input:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-tint)}
+input::placeholder{color:var(--muted)}
+.btn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:0.3px;transition:all .2s;touch-action:manipulation}
+.btn-primary{background:var(--gold);color:#000}
+.btn-primary:hover{opacity:.9}
+.btn-secondary{background:var(--elevated);border:1px solid var(--border);color:var(--text)}
+.btn-secondary:hover{border-color:var(--gold)}
+.btn-phase2{background:var(--phase2);color:#fff}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 
 /* ── LEADERBOARD ── */
-.lb-row{display:flex;align-items:center;background:var(--navy-card);border:1px solid var(--navy-border);border-radius:10px;padding:12px 14px;margin-bottom:8px;gap:10px;cursor:pointer;transition:all .3s ease;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
-.lb-row:hover{background:rgba(58,175,169,0.08);border-color:var(--accent);box-shadow:0 4px 16px rgba(0,0,0,0.25)}
-.lb-row.me{border-color:var(--wc-gold);background:linear-gradient(135deg,rgba(251,176,52,0.1) 0%,rgba(58,175,169,0.1) 100%);box-shadow:0 4px 16px rgba(251,176,52,0.2)}
-.rank{font-weight:900;font-size:17px;width:22px;text-align:center;flex-shrink:0}
-.lb-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;flex-shrink:0}
-.lb-avatar-ph{width:26px;height:26px;border-radius:50%;background:var(--navy-border);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.lb-row{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;gap:10px;cursor:pointer;transition:border-color .2s}
+.lb-row:hover{border-color:rgba(245,166,35,0.3)}
+.lb-row.me{border-color:var(--gold);background:var(--gold-tint)}
+.rank{font-weight:700;font-size:15px;width:22px;text-align:center;flex-shrink:0;color:var(--muted)}
+.lb-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.lb-avatar-ph{width:32px;height:32px;border-radius:50%;background:var(--elevated);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;color:var(--muted)}
 .lb-name{flex:1;font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lb-you{font-size:10px;color:var(--amber);font-weight:700;margin-left:4px}
-.lb-pts{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--wc-gold);white-space:nowrap;text-shadow:0 2px 8px rgba(251,176,52,0.3)}
+.lb-you{font-size:10px;color:var(--gold);font-weight:700;margin-left:4px}
+.lb-pts{font-family:'DM Mono',monospace;font-size:16px;font-weight:600;color:var(--gold);white-space:nowrap}
 .lb-pts small{font-size:10px;color:var(--muted);font-weight:400}
 .lb-breakdown{font-size:10px;color:var(--muted)}
 .lb-empty{text-align:center;color:var(--muted);padding:32px 16px;font-size:14px}
@@ -132,7 +150,7 @@ input::placeholder{color:#475569}
 .wizard-steps::-webkit-scrollbar{display:none}
 .wizard-step{flex:1;padding:8px 4px;text-align:center;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:var(--navy-card);cursor:pointer;transition:all .2s;border-right:1px solid var(--navy-border)}
 .wizard-step:last-child{border-right:none}
-.wizard-step.active{background:linear-gradient(135deg,var(--wc-teal) 0%,var(--wc-aqua) 100%);color:var(--white);box-shadow:0 2px 8px rgba(58,175,169,0.3)}
+.wizard-step.active{background:var(--gold);color:#000}
 .wizard-step.done{background:#0a1a0a;color:var(--green)}
 .wizard-step.phase2{background:#1a0a2a}
 .wizard-step.phase2.active{background:linear-gradient(135deg,var(--phase2) 0%,var(--phase2-light) 100%);color:var(--white);box-shadow:0 2px 8px rgba(139,92,246,0.3)}
@@ -140,7 +158,7 @@ input::placeholder{color:#475569}
 /* ── THIRD PLACE QUALIFIERS ── */
 .tpq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:14px}
 .tpq-team{background:var(--navy-card);border:2px solid var(--navy-border);border-radius:8px;padding:10px;text-align:center;cursor:pointer;transition:all .15s}
-.tpq-team:hover{background:#162538}
+.tpq-team:hover{background:var(--elevated)}
 .tpq-team.selected{background:var(--pitch);border-color:var(--amber);color:var(--amber)}
 .tpq-team-flag{font-size:28px;margin-bottom:4px}
 .tpq-team-name{font-size:12px;font-weight:600}
@@ -150,7 +168,7 @@ input::placeholder{color:#475569}
 .tpq-rank-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
 .tpq-rank-item{display:flex;align-items:flex-start;gap:10px;background:var(--navy-card);border:1px solid var(--navy-border);border-radius:10px;padding:10px;cursor:grab;transition:background .15s}
 .tpq-rank-item:active{cursor:grabbing}
-.tpq-rank-item.dragging{opacity:.4;background:#0a1520}
+.tpq-rank-item.dragging{opacity:.4;background:var(--elevated)}
 .tpq-rank-item.drag-over{background:#1a3a2a;border-top:2px solid var(--amber)}
 .tpq-rank-badge{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;background:#2a2a2a;color:var(--muted)}
 .tpq-rank-badge.qual{background:var(--pitch);color:var(--amber);border:1px solid var(--amber)}
@@ -168,12 +186,14 @@ input::placeholder{color:#475569}
 /* ── GROUP DRAG ── */
 .group-block{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:10px;margin-bottom:10px;overflow:hidden}
 .group-block-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--navy-border);cursor:pointer}
-.group-block-title{font-weight:900;font-size:13px;letter-spacing:1.5px;color:var(--amber);text-transform:uppercase}
+.group-block-title{font-weight:900;font-size:13px;letter-spacing:1.5px;color:var(--amber);text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.group-block-chevron{font-size:11px;color:var(--amber);transition:transform .2s;display:inline-block}
+.group-block-chevron.collapsed{transform:rotate(-90deg)}
 .group-done-badge{font-size:10px;font-weight:700;color:var(--green);background:#102010;border:1px solid #1a4020;border-radius:3px;padding:2px 7px}
 .group-teams{padding:4px 0}
 .drag-item{display:flex;align-items:center;padding:9px 14px;gap:10px;cursor:grab;transition:background .15s;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:pan-y}
 .drag-item:active{cursor:grabbing}
-.drag-item.dragging{opacity:.4;background:#0a1520}
+.drag-item.dragging{opacity:.4;background:var(--elevated)}
 .drag-item.drag-over{background:#1a3a2a;border-top:2px solid var(--amber)}
 .drag-handle{color:var(--muted);font-size:14px;flex-shrink:0;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;min-width:36px;min-height:44px;display:flex;align-items:center;justify-content:center}
 .drag-item *{user-select:none;-webkit-user-select:none}
@@ -199,7 +219,7 @@ input::placeholder{color:#475569}
 .bracket-vs{text-align:center;font-size:11px;font-weight:900;color:var(--muted);padding:3px 0;background:rgba(255,255,255,0.03);letter-spacing:2px}
 .bracket-team-btn{width:100%;display:flex;align-items:center;gap:7px;padding:11px 12px;cursor:pointer;background:none;border:none;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-align:left;transition:background .15s;border-bottom:1px solid var(--navy-border);touch-action:manipulation;min-height:44px}
 .bracket-team-btn:last-child{border-bottom:none}
-.bracket-team-btn:hover{background:#162538}
+.bracket-team-btn:hover{background:var(--elevated)}
 .bracket-team-btn.selected{background:var(--pitch);color:var(--amber)}
 .bracket-team-btn.winner-result{background:#0a2010;color:var(--green)}
 .bracket-team-btn.loser-result{opacity:.5}
@@ -209,7 +229,8 @@ input::placeholder{color:#475569}
 .bracket-winner-flag{font-size:36px;margin-bottom:6px}
 .bracket-winner-name{font-weight:900;font-size:16px;color:var(--gold);letter-spacing:1px}
 .bracket-round-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0 10px}
-.bracket-round-indicator{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--white)}
+.bracket-round-nav .btn{width:auto;padding:6px 14px;font-size:12px}
+.bracket-round-indicator{flex:1;text-align:center;font-size:16px;font-weight:700;color:var(--white)}
 .bracket-single-container{width:100%}
 .bracket-single-container .bracket-grid{display:block;min-width:0;padding:0}
 .bracket-single-container .bracket-round-col{min-width:0;width:100%}
@@ -222,74 +243,101 @@ input::placeholder{color:#475569}
 .phase2-locked-icon{font-size:42px;margin-bottom:12px}
 
 /* ── DEADLINE BANNER ── */
-.deadline-banner{background:linear-gradient(135deg,#2a1a0a,#1a0a0a);border:1px solid var(--amber);border-radius:8px;padding:10px 14px;margin-bottom:6px;text-align:center;font-size:12px;color:var(--amber);font-weight:600}
-.deadline-banner strong{color:var(--white);font-weight:900}
-.deadline-banner.closed{background:linear-gradient(135deg,#1a0a0a,#0a0a0a);border-color:var(--muted);color:var(--muted)}
+.deadline-banner{background:var(--gold-tint);border:1px solid var(--gold-border);border-radius:8px;padding:10px 14px;margin-bottom:6px;text-align:center;font-size:12px;color:var(--gold);font-weight:600}
+.deadline-banner strong{color:var(--text);font-weight:700}
+.deadline-banner.closed{background:var(--elevated);border-color:var(--border);color:var(--muted)}
 
 /* ── LEAGUE ── */
 .sub-nav{display:flex;gap:7px;margin-bottom:0}
 .sub-btn{flex:1;padding:8px 4px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
-.sub-btn.active{background:var(--pitch);border:1px solid var(--amber);color:var(--amber)}
-.sub-btn.inactive{background:var(--navy-card);border:1px solid var(--navy-border);color:var(--muted)}
-.league-row{display:flex;justify-content:space-between;align-items:center;background:var(--navy-card);border:1px solid var(--navy-border);border-radius:8px;padding:10px 13px;margin-bottom:7px;cursor:pointer;transition:all .15s}
-.league-row:hover,.league-row.active-league{border-color:var(--amber);background:#0f2a1a}
-.code-badge{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:1px;background:#0a1520;border:1px solid var(--navy-border);border-radius:4px;padding:3px 7px;flex-shrink:0}
+.sub-btn.active{background:var(--gold-tint);border:1px solid var(--gold);color:var(--gold)}
+.sub-btn.inactive{background:var(--elevated);border:1px solid var(--border);color:var(--muted)}
+.league-row{display:flex;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 13px;margin-bottom:7px;cursor:pointer;transition:border-color .15s}
+.league-row:hover,.league-row.active-league{border-color:var(--gold)}
+.code-badge{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px;background:var(--elevated);border:1px solid var(--border);border-radius:4px;padding:3px 7px;flex-shrink:0}
 
-/* ── HOME ── */
-.home-section{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:10px;padding:14px;margin-bottom:14px;width:100%}
+/* ── HOME SECTIONS ── */
+.home-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;width:100%}
 .home-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.home-section-title{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent)}
-.home-see-more{font-size:12px;font-weight:600;color:var(--wc-gold);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:3px;opacity:0.85;transition:opacity .15s}
+.home-section-title{font-size:13px;font-weight:700;color:var(--text)}
+.home-see-more{font-size:12px;font-weight:600;color:var(--gold);background:none;border:none;cursor:pointer;padding:0;opacity:0.85;transition:opacity .15s}
 .home-see-more:hover{opacity:1}
-.home-fixture{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--navy-border)}
-.home-fixture:last-child{border-bottom:none;padding-bottom:0}
-.home-fixture-team{flex:1;font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px}
-.home-fixture-team.away{flex-direction:row-reverse;text-align:right}
-.home-fixture-score{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;min-width:46px;text-align:center;background:#0a1520;border-radius:4px;padding:2px 5px}
-.home-fixture-score.live{color:var(--green)}
-.home-fixture-meta{font-size:10px;color:var(--muted);text-align:center;margin-top:2px}
-.home-lb-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--navy-border)}
+/* Home fixture — horizontal scrolling pill cards */
+.home-matches-scroll{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:2px 0 6px}
+.home-matches-scroll::-webkit-scrollbar{display:none}
+.home-match-pill{flex-shrink:0;background:var(--elevated);border:1px solid var(--border);border-radius:12px;padding:12px 14px;min-width:155px;width:155px}
+.home-match-pill.live{border-color:var(--live)}
+.home-match-pill-team{display:flex;align-items:center;gap:7px}
+.home-match-pill-name{font-size:13px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.home-match-pill-score{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0}
+.home-match-pill-score.live{color:var(--live)}
+.home-match-pill-meta{font-size:11px;color:var(--muted);text-align:center;margin:6px 0;line-height:1.3}
+.home-match-pill-meta.live{color:var(--live);font-weight:700}
+.home-lb-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
 .home-lb-row:last-child{border-bottom:none;padding-bottom:0}
-.home-rules-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--navy-border);font-size:13px}
+.home-rules-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px}
 .home-rules-row:last-child{border-bottom:none}
 
-/* ── LIVE ── */
-.live-sub-nav{display:flex;gap:5px;margin-bottom:0;overflow-x:auto;scrollbar-width:none}
-.live-sub-nav::-webkit-scrollbar{display:none}
-.live-tab{flex-shrink:0;padding:7px 13px;border-radius:20px;font-size:clamp(12px,2.5vw,13px);font-weight:600;cursor:pointer;border:1px solid var(--navy-border);color:var(--muted);background:var(--navy-card);white-space:nowrap;display:flex;align-items:center;gap:5px;transition:border-color .2s,color .2s,background .2s}
-.live-tab.active{background:rgba(251,176,52,0.1);border-color:var(--wc-gold);color:var(--wc-gold);box-shadow:0 0 0 1px rgba(251,176,52,0.15)}
-.lt-icon{font-size:13px;line-height:1}
-.group-table{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:13px;table-layout:fixed}
-.group-table th{color:var(--muted);font-weight:600;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:8px 0;border-bottom:1px solid var(--navy-border);text-align:center;vertical-align:middle}
-.group-table th:first-child{text-align:left;padding-left:8px}
-.group-table td{padding:8px 0;border-bottom:1px solid #0d1825;text-align:center;vertical-align:middle}
-.group-table td:first-child{text-align:left;font-weight:600;padding-left:8px}
-.group-table tr.q td:first-child{border-left:3px solid var(--green)}
-.group-title{font-weight:900;font-size:12px;letter-spacing:1.5px;color:var(--amber);text-transform:uppercase;margin-top:12px;margin-bottom:16px;margin-left:0;margin-right:0;width:100%}
+/* ── MY PICKS CARD (Home) ── */
+.picks-card{background:var(--surface);border:1px solid var(--gold-border);border-radius:14px;overflow:hidden;margin-bottom:12px;width:100%}
+.picks-card-body{padding:14px}
+.picks-card-pts-row{display:flex;align-items:flex-end;gap:8px;margin-bottom:8px}
+.picks-card-pts{font-family:'DM Mono',monospace;font-size:48px;font-weight:600;color:var(--gold);line-height:1}
+.picks-card-pts-label{font-size:14px;color:var(--muted);padding-bottom:8px}
+.picks-card-rank{background:var(--elevated);border:1px solid var(--border);border-radius:10px;padding:6px 12px;display:inline-flex;gap:8px;align-items:center;margin-bottom:10px}
+.picks-card-rank-label{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+.picks-card-rank-num{font-size:15px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace}
+.picks-card-deadline{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--elevated);border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
+.picks-card-deadline-icon{font-size:14px;flex-shrink:0}
+.picks-card-btn{background:var(--gold);color:#000;border:none;border-radius:100px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;margin-left:auto;flex-shrink:0;transition:opacity .15s}
+.picks-card-btn:hover{opacity:.85}
+
+/* ── LIVE / WORLD CUP ── */
+.live-sub-nav{display:none}
+.live-tab{display:none}
+.lt-icon{display:none}
+/* Group standings grid — 3 columns × 4 rows */
+.groups-grid{display:grid;grid-template-columns:repeat(3,1fr);column-gap:8px;row-gap:16px;padding:14px 16px}
+.group-card{background:var(--elevated);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.group-card-header{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;padding:7px 9px 5px;border-bottom:1px solid var(--border)}
+.group-card-row{display:flex;align-items:center;gap:4px;padding:5px 9px;font-size:11px}
+.group-card-row.advance{background:rgba(58,175,169,0.08)}
+.group-card-flag{font-size:13px;flex-shrink:0}
+.group-card-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-weight:500}
+.group-card-pts{font-size:11px;font-weight:700;color:var(--text);flex-shrink:0}
+/* Group table */
+.group-table{width:100%;border-collapse:collapse;margin-bottom:0;font-size:13px;table-layout:fixed}
+.group-table thead{background:var(--elevated)}
+.group-table th{color:var(--muted);font-weight:600;font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:8px 4px;text-align:center;vertical-align:middle}
+.group-table th:first-child{text-align:left;padding-left:12px}
+.group-table td{padding:10px 4px;border-top:1px solid var(--border);text-align:center;vertical-align:middle}
+.group-table td:first-child{text-align:left;font-weight:600;padding-left:12px}
+.group-table tr.q td:first-child{border-left:3px solid var(--live)}
+.group-title{font-weight:700;font-size:13px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin-top:16px;margin-bottom:8px;padding:0 16px;width:100%}
 .group-title:first-child{margin-top:0}
-.date-header{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:10px 0 5px 0;width:100%}
+.date-header{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;width:100%}
 .date-header:first-child{margin-top:0}
 .leaderboard-group-header{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:1px}
-.fixture{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:7px;padding:11px 14px;margin-bottom:8px;width:100%}
-.fixture-teams{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.fixture-team{flex:1;min-width:0;font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px;overflow:hidden}
-.fixture-team span.fn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.fixture-team .ff{font-size:22px;flex-shrink:0;line-height:1}
-.fixture-team.away{flex-direction:row-reverse;text-align:right}
-.fixture-score{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;min-width:52px;text-align:center;background:#0a1520;border-radius:4px;padding:3px 6px}
-.fixture-score.live{color:var(--green)}
-.fixture-meta{font-size:10px;color:var(--muted);text-align:center;margin-top:4px}
-.fixture-date-nav{display:flex;align-items:center;background:var(--navy-card);border:1px solid var(--navy-border);border-radius:8px;overflow:hidden;margin-bottom:12px}
-.fixture-date-btn{background:none;border:none;color:var(--white);font-size:20px;padding:10px 18px;cursor:pointer;transition:background .15s;min-height:44px;display:flex;align-items:center;justify-content:center}
-.fixture-date-btn:hover:not(:disabled){background:rgba(255,255,255,0.06)}
-.fixture-date-btn:disabled{opacity:0.25;cursor:default}
-.fixture-date-label{flex:1;text-align:center;font-size:14px;font-weight:700}
-.scorer-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #0d1825}
+/* Fixture cards — Figma layout: each team on own row with flag name score */
+.fixture{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;transition:border-color .2s}
+.fixture.live-card{border-left:3px solid var(--gold)}
+.fixture.fin-card{opacity:0.82}
+.fixture-row{display:flex;align-items:center;gap:8px;padding:3px 0}
+.fixture-flag{font-size:20px;line-height:1;flex-shrink:0}
+.fixture-name{flex:1;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fixture-score-cell{font-family:'DM Mono',monospace;font-size:15px;font-weight:600;color:var(--text);min-width:28px;text-align:right}
+.fixture-score-cell.live-score{color:var(--live)}
+.fixture-meta{font-size:10px;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:4px}
+.live-dot-inline{width:5px;height:5px;border-radius:50%;background:var(--live);display:inline-block;flex-shrink:0;animation:pulse 2s infinite}
+/* Legacy fixture-score kept for home tab */
+.fixture-score{font-family:'DM Mono',monospace;font-size:16px;font-weight:600;min-width:52px;text-align:center;background:var(--elevated);border-radius:4px;padding:3px 6px}
+.fixture-score.live{color:var(--live)}
+.scorer-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
 
 /* ── RULES ── */
 .rules-table{width:100%;border-collapse:collapse;margin-bottom:12px}
 .rules-table th{text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:5px 7px;border-bottom:1px solid var(--navy-border)}
-.rules-table td{padding:7px;font-size:12px;border-bottom:1px solid #14273a}
+.rules-table td{padding:7px;font-size:12px;border-bottom:1px solid var(--border)}
 .rules-table td:last-child{color:var(--amber);font-family:'JetBrains Mono',monospace;font-weight:700;text-align:right}
 
 /* ── MODAL ── */
@@ -304,21 +352,21 @@ input::placeholder{color:#475569}
 .score-tag.pending{background:#1a1a0a;border:1px solid #3a3010;color:var(--amber)}
 
 /* ── TOAST & MISC ── */
-.toast{position:fixed;bottom:calc(22px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%) translateY(80px);background:var(--amber);color:var(--navy);font-weight:700;font-size:13px;padding:9px 18px;border-radius:6px;z-index:300;transition:transform .3s;white-space:nowrap;pointer-events:none}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;margin-right:4px;animation:pulse 2s infinite}
+.toast{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%) translateY(80px);background:var(--gold);color:#000;font-weight:700;font-size:13px;padding:9px 18px;border-radius:8px;z-index:300;transition:transform .3s,visibility .3s;white-space:nowrap;pointer-events:none;visibility:hidden}
+.toast.show{transform:translateX(-50%) translateY(0);visibility:visible}
+.live-dot{width:6px;height:6px;background:var(--live);border-radius:50%;display:inline-block;margin-right:4px;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .spinner{text-align:center;padding:28px;color:var(--muted);font-size:13px}
-.divider{height:1px;background:var(--navy-border);margin:12px 0}
+.divider{height:1px;background:var(--border);margin:12px 0}
 .phase-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;padding:2px 8px;border-radius:3px;text-transform:uppercase;margin-left:6px}
-.phase-label.p1{background:#0a2a1a;color:var(--green);border:1px solid #1a4a2a}
-.phase-label.p2{background:#1a0a2a;color:var(--phase2-light);border:1px solid var(--phase2)}
+.phase-label.p1{background:var(--live-tint);color:var(--live);border:1px solid rgba(34,197,94,0.3)}
+.phase-label.p2{background:rgba(167,139,250,0.12);color:var(--phase2-light);border:1px solid var(--phase2)}
 
 /* ── HOW TO PLAY MODAL ── */
 .how-to-play-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:400;display:none;align-items:center;justify-content:center;padding:20px;animation:fadeIn .3s}
 .how-to-play-overlay.open{display:flex}
-.how-to-play{background:linear-gradient(135deg,var(--navy-card) 0%,#0a1628 100%);border:2px solid var(--accent);border-radius:16px;padding:0;width:100%;max-width:600px;max-height:85vh;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.5);animation:slideUp .4s}
-.how-to-play-header{background:linear-gradient(135deg,var(--wc-teal) 0%,var(--wc-aqua) 100%);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--wc-gold)}
+.how-to-play{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:0;width:100%;max-width:600px;max-height:85vh;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.5);animation:slideUp .4s}
+.how-to-play-header{background:var(--elevated);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
 .how-to-play-title{font-size:20px;font-weight:900;letter-spacing:1px;color:var(--white);display:flex;align-items:center;gap:10px}
 .how-to-play-close{background:rgba(255,255,255,0.2);border:none;color:var(--white);font-size:24px;cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .how-to-play-close:hover{background:rgba(255,255,255,0.3);transform:rotate(90deg)}
@@ -337,35 +385,39 @@ input::placeholder{color:#475569}
 </head>
 <body>
 <div id="app">
-  <div class="header">
-    <div class="badge">FIFA WORLD CUP 2026</div>
-    <h1>BRACKET</h1>
-    <div class="header-sub">USA · Canada · Mexico &nbsp;·&nbsp; June–July 2026</div>
-  </div>
-
   <!-- SIGN IN -->
   <div id="signin-screen" class="signin-screen">
-    <div class="signin-icon">⚽</div>
-    <div class="signin-title">JOIN THE BRACKET</div>
-    <div class="signin-sub">Sign in with Google to make your predictions and compete with friends.</div>
-    <button class="btn-google" onclick="signIn()">
-      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-      Continue with Google
-    </button>
-    <div class="signin-note">Your Google name & photo appear on the leaderboard.</div>
+    <div class="signin-glow"></div>
+    <div class="signin-inner">
+      <div class="signin-icon-wrap">
+        <img src="2026_FIFA_World_Cup_emblem.svg" alt="FIFA World Cup 2026" style="height:220px;width:auto;display:block">
+      </div>
+      <div class="signin-tagline">Predict. Compete. Win.</div>
+      <div class="signin-pills">
+        <div class="signin-pill">Group Picks</div>
+        <div class="signin-pill">Knockout Bracket</div>
+        <div class="signin-pill">Golden Boot</div>
+      </div>
+      <div class="signin-divider"></div>
+      <button class="btn-google" onclick="signIn()">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Sign in with Google
+      </button>
+      <div class="signin-note">Your Google name &amp; photo appear on the leaderboard.</div>
+    </div>
   </div>
 
   <!-- MAIN APP -->
   <div id="main-app" style="display:none">
     <div class="user-bar" id="user-bar"></div>
     <div class="tabs">
-      <div class="tab active" data-tab="home">🏠 Home</div>
-      <div class="tab" data-tab="live">⚽ World Cup</div>
-      <div class="tab" data-tab="global">🏆 Leaderboard</div>
-      <div class="tab" data-tab="leagues">🏆 Leagues</div>
-      <div class="tab" data-tab="picks">✏️ My Predictions</div>
-      <div class="tab" data-tab="admin">🔧 Admin</div>
-      <div class="tab" data-tab="rules">📋 Rules</div>
+      <div class="tab active" data-tab="home"><span class="tab-icon">🏠</span>Home</div>
+      <div class="tab" data-tab="picks"><span class="tab-icon">✏️</span><span id="picks-tab-label">My Picks</span></div>
+      <div class="tab" data-tab="live"><span class="tab-icon">⚽</span>World Cup</div>
+      <div class="tab" data-tab="global"><span class="tab-icon">🏆</span>Standings</div>
+      <div class="tab" data-tab="leagues"><span class="tab-icon">👥</span>Leagues</div>
+      <div class="tab admin-only" data-tab="admin"><span class="tab-icon">🔧</span>Admin</div>
+      <div class="tab" data-tab="rules" style="display:none"><span class="tab-icon">📋</span>Rules</div>
     </div>
 
     <div class="desktop-grid">
@@ -374,84 +426,75 @@ input::placeholder{color:#475569}
       
       <!-- CENTER CONTENT -->
       <div class="desktop-center">
+        <div id="mini-banner" class="mini-banner" style="display:none" onclick="navTo('home')">
+          <img src="2026_FIFA_World_Cup_emblem.svg" alt="FIFA World Cup 2026">
+        </div>
         <div id="view-home" class="view active">
-          <div class="view-header">
-            <div class="section-title">FIFA World Cup 2026</div>
-          </div>
-          <div class="view-meta"></div>
-          <div class="view-content">
+          <div id="home-header-block"></div>
+          <div class="view-content" style="padding-top:20px">
             <div id="home-content"><div class="spinner">Loading…</div></div>
           </div>
         </div>
 
         <div id="view-global" class="view">
-          <div class="view-header">
-            <div class="section-title">Global Standings</div>
-          </div>
-          <div class="view-meta">
-            <div style="font-size:11px;color:var(--muted);display:flex;align-items:center;justify-content:space-between">
-              <span><span class="live-dot"></span>Updates as matches finish</span>
-              <span id="last-updated"></span>
+          <div class="lb-header">
+            <div class="lb-header-title">Standings</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:6px">
+              <span class="live-dot"></span>Updates as matches finish
+              <span style="margin-left:auto" id="last-updated"></span>
             </div>
           </div>
-          <div class="view-content">
+          <div class="view-content" style="padding-top:12px">
             <div id="global-list"><div class="spinner">Loading…</div></div>
-            <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px">Tap a row to see score breakdown</div>
+            <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:4px">Tap a row to see score breakdown</div>
           </div>
         </div>
 
         <div id="view-leagues" class="view">
-          <div class="view-header">
-            <div class="section-title">Leagues</div>
-          </div>
-          <div class="view-meta">
-            <div class="sub-nav">
-              <button class="sub-btn active"   id="btn-my"     onclick="setLeagueView('my')">My Leagues</button>
-              <button class="sub-btn inactive" id="btn-create" onclick="setLeagueView('create')">Create</button>
-              <button class="sub-btn inactive" id="btn-join"   onclick="setLeagueView('join')">Join</button>
+          <div class="lb-header">
+            <div class="lb-header-title">Leagues</div>
+            <div class="lb-toggle" style="margin-top:10px">
+              <button class="lb-toggle-btn active" id="btn-my" onclick="setLeagueView('my')">My Leagues</button>
+              <button class="lb-toggle-btn" id="btn-create" onclick="setLeagueView('create')">Create</button>
+              <button class="lb-toggle-btn" id="btn-join" onclick="setLeagueView('join')">Join</button>
             </div>
           </div>
-          <div class="view-content">
+          <div class="view-content" style="padding-top:12px">
             <div id="league-panel"></div>
           </div>
         </div>
 
         <div id="view-live" class="view">
-          <div class="view-header">
-            <div class="section-title">World Cup</div>
+          <div class="wc-header">
+            <div class="wc-header-title">World Cup 2026</div>
+            <div class="wc-header-sub">🇺🇸 USA · 🇨🇦 Canada · 🇲🇽 Mexico</div>
           </div>
-          <div class="view-meta">
-            <div class="live-sub-nav">
-              <div class="live-tab active" data-tab="groups" onclick="setLiveTab('groups')"><span class="lt-icon">🏟️</span> Groups</div>
-              <div class="live-tab" data-tab="knockouts" onclick="setLiveTab('knockouts')"><span class="lt-icon">🏆</span> Knockouts</div>
-              <div class="live-tab" data-tab="scorers" onclick="setLiveTab('scorers')"><span class="lt-icon">⚽</span> Scorers</div>
-              <div class="live-tab" data-tab="fixtures" onclick="setLiveTab('fixtures')"><span class="lt-icon">📋</span> Results</div>
-            </div>
+          <div class="wc-subtabs" id="wc-subtabs">
+            <div class="wc-subtab active" data-tab="groups" onclick="setLiveTab('groups')">🏟️ Groups</div>
+            <div class="wc-subtab" data-tab="knockouts" onclick="setLiveTab('knockouts')">🏆 Knockouts</div>
+            <div class="wc-subtab" data-tab="scorers" onclick="setLiveTab('scorers')">⚽ Scorers</div>
+            <div class="wc-subtab" data-tab="fixtures" onclick="setLiveTab('fixtures')">📋 Results</div>
           </div>
-          <div class="view-content">
-            <div id="live-content" style="width:100%"><div class="spinner">Loading…</div></div>
+          <div id="group-selector-wrap"></div>
+          <div class="view-content" style="padding-top:12px">
+            <div id="live-content"><div class="spinner">Loading…</div></div>
           </div>
         </div>
 
         <div id="view-picks" class="view">
-          <div class="view-header">
-            <div class="section-title">My Predictions</div>
+          <div class="lb-header">
+            <div class="lb-header-title">My Picks</div>
           </div>
-          <div class="view-meta">
-            <div id="picks-timer"></div>
-            <div id="picks-steps"></div>
-          </div>
-          <div class="view-content">
+          <div style="padding:0 16px" id="picks-timer"></div>
+          <div style="padding:0 16px" id="picks-steps"></div>
+          <div class="view-content" style="padding-top:12px">
             <div id="picks-content"><div class="spinner">Loading…</div></div>
           </div>
         </div>
 
         <div id="view-admin" class="view">
-          <div class="view-header">
-            <div class="section-title">Admin Panel</div>
-          </div>
-          <div class="view-meta"></div>
-          <div class="view-content">
+          <div class="lb-header"><div class="lb-header-title">Admin Panel</div></div>
+          <div class="view-content" style="padding-top:12px">
           <div id="admin-lock" class="card" style="margin-top:0">
             <div class="card-title">Password Required</div>
             <input id="admin-pass" type="password" placeholder="Admin password">
@@ -462,11 +505,8 @@ input::placeholder{color:#475569}
         </div>
 
         <div id="view-rules" class="view">
-          <div class="view-header">
-            <div class="section-title">Scoring Rules</div>
-          </div>
-          <div class="view-meta"></div>
-          <div class="view-content">
+          <div class="lb-header"><div class="lb-header-title">Scoring Rules</div></div>
+          <div class="view-content" style="padding-top:12px">
           <div class="card" style="background:rgba(251,176,52,0.05);border-color:rgba(251,176,52,0.3)">
             <div class="card-title" style="color:var(--amber)">⏰ Important Deadlines</div>
             <div style="font-size:13px;color:var(--white);line-height:1.8">
@@ -825,8 +865,69 @@ auth.onAuthStateChanged(user=>{
 });
 function renderUserBar(){
   if(!currentUser)return;
-  const av=currentUser.photoURL?`<img class="user-avatar" src="${currentUser.photoURL}" referrerpolicy="no-referrer">`:`<div class="user-avatar-ph">👤</div>`;
-  document.getElementById("user-bar").innerHTML=`${av}<div class="user-name">${esc(currentUser.displayName||"Anonymous")}<small>${esc(currentUser.email||"")}</small></div><button class="btn-signout" onclick="signOut()">Sign out</button>`;
+  // Renders into the home-header-block (rebuilt each time renderHomeTab runs)
+}
+function updatePicksTabLabel(){
+  const el=document.getElementById("picks-tab-label");
+  if(!el)return;
+  const hasPicks=!!myPicks.phase1SubmittedAt||(currentUser&&!!allPlayers[currentUser.uid]);
+  el.textContent=hasPicks?"My Picks":"Predict";
+}
+function renderHomeHeader(){
+  const el=document.getElementById("home-header-block");
+  if(!el||!currentUser)return;
+  const name=currentUser.displayName||"Friend";
+  const firstName=name.split(" ")[0];
+  const initials=name.split(" ").map(w=>w[0]||"").join("").slice(0,2).toUpperCase()||"?";
+  const av=currentUser.photoURL
+    ?`<img class="user-avatar" src="${esc(currentUser.photoURL)}" referrerpolicy="no-referrer" style="width:36px;height:36px;border-radius:50%;object-fit:cover">`
+    :`<div class="user-avatar-ph">${initials}</div>`;
+
+  const hr=new Date().getHours();
+  const greeting=hr<12?"Good morning":hr<17?"Good afternoon":"Good evening";
+
+  // Compute rank — only count users who have actually submitted (phase1SubmittedAt set)
+  const myScore=calcScore(myPicks).total;
+  const hasSubmitted=!!myPicks.phase1SubmittedAt||!!(currentUser&&allPlayers[currentUser.uid]);
+  const ranked=Object.entries(allPlayers||{})
+    .map(([uid,p])=>({uid,score:calcScore(p).total,submitted:!!(p.phase1SubmittedAt)}))
+    .filter(p=>p.submitted)
+    .sort((a,b)=>b.score-a.score);
+  const myRank=hasSubmitted?(ranked.findIndex(p=>p.uid===currentUser.uid)+1||"—"):"—";
+
+  // Matchday info
+  const td=tournamentData;
+  const todayET=new Date().toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"America/New_York"});
+  const todayMatches=td?(td.fixtures||[]).filter(f=>f.date===todayET):[];
+  const liveMatches=todayMatches.filter(f=>f.status==="live");
+  const statusTxt=liveMatches.length?`<span class="home-status-dot"></span> ${liveMatches.length} match${liveMatches.length>1?"es":""} live`
+    :todayMatches.length?`${todayMatches.length} match${todayMatches.length>1?"es":""} today`
+    :"Group Stage · Matchday 1";
+
+  el.innerHTML=`<div class="home-header">
+    <div class="home-header-row">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0">
+        ${av}
+        <div class="home-greeting">
+          <div class="home-greeting-sub">${greeting},</div>
+          <div class="home-greeting-name">${esc(firstName)}</div>
+        </div>
+      </div>
+      <img src="2026_FIFA_World_Cup_emblem.svg" alt="FIFA WC 2026" style="height:80px;width:auto;display:block;justify-self:center">
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;justify-self:end">
+        ${(myRank!=="—"&&myRank!==0)?`<div class="home-rank-chip">
+          <div class="home-rank-label">Rank</div>
+          <div class="home-rank-num">#${myRank}</div>
+        </div>`:""}
+      </div>
+    </div>
+    <div class="home-status-row">
+      ${statusTxt}
+      <span class="home-status-sep">·</span>
+      <span>🇺🇸 🇨🇦 🇲🇽 48 matches</span>
+      <button style="margin-left:auto;background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;padding:0" onclick="signOut()">Sign out</button>
+    </div>
+  </div>`;
 }
 
 // ══ FIRESTORE ══════════════════════════════════════════════════════════════
@@ -834,7 +935,7 @@ function startListeners(){
   unsubs.push(
     db.collection("wc2026").doc("players").onSnapshot(s=>{
       allPlayers=s.exists?s.data():{};
-      renderGlobal(); renderLeagueBoard();
+      renderGlobal(); renderLeagueBoard(); updatePicksTabLabel();
       if(document.getElementById("view-home")?.classList.contains("active"))renderHomeTab();
       document.getElementById("last-updated").textContent=new Date().toLocaleTimeString();
     }),
@@ -893,6 +994,7 @@ function startListeners(){
       myPicks.phase1SubmittedAt=null;
       setTimeout(()=>showHowToPlay(),1000);
     }
+    updatePicksTabLabel();
     if(document.getElementById("view-picks").classList.contains("active"))renderPicksView();
   });
 }
@@ -1144,12 +1246,18 @@ function renderLeaderboard(elId,players){
 }
 
 // ══ TABS ═══════════════════════════════════════════════════════════════════
+function setMiniBanner(tabName){
+  const mb=document.getElementById("mini-banner");
+  if(mb)mb.style.display=tabName==="home"?"none":"flex";
+}
+
 document.querySelectorAll(".tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
     document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
     document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
     tab.classList.add("active");
     document.getElementById("view-"+tab.dataset.tab).classList.add("active");
+    setMiniBanner(tab.dataset.tab);
     if(tab.dataset.tab==="home")renderHomeTab();
     if(tab.dataset.tab==="leagues")renderLeaguePanel();
     if(tab.dataset.tab==="picks")renderPicksView();
@@ -1230,7 +1338,7 @@ function renderGroupsStep(){
     const teamMap=Object.fromEntries(teams.map(t=>[t.name,t]));
     html+=`<div class="group-block" id="grp-${grpKey}">
       <div class="group-block-header" onclick="toggleGroup('${grpKey}')">
-        <div class="group-block-title">Group ${grpKey}</div>
+        <div class="group-block-title">Group ${grpKey}<span class="group-block-chevron" id="chevron-${grpKey}">▼</span></div>
         <div class="group-done-badge">✓ Ranked</div>
       </div>
       <div class="group-teams" id="grpteams-${grpKey}">
@@ -1258,7 +1366,10 @@ function renderGroupsStep(){
 
 function toggleGroup(key){
   const el=document.getElementById("grpteams-"+key);
-  el.style.display=el.style.display==="none"?"block":"none";
+  const ch=document.getElementById("chevron-"+key);
+  const collapsed=el.style.display==="none";
+  el.style.display=collapsed?"block":"none";
+  if(ch)ch.classList.toggle("collapsed",!collapsed);
 }
 
 // ── DRAG AND DROP ─────────────────────────────────────────────────────────
@@ -2028,6 +2139,7 @@ async function savePicks(isPhase2,ev){
     };
     await db.collection("wc2026").doc("players").set(playersData,{merge:true});
     showToast("Picks saved! ✓");
+    updatePicksTabLabel();
     setTimeout(()=>{
       // Switch to leaderboard view
       document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
@@ -2156,6 +2268,8 @@ function navTo(tab, liveSub){
   document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
   document.querySelector(`[data-tab="${tab}"]`).classList.add("active");
   document.getElementById(`view-${tab}`).classList.add("active");
+  setMiniBanner(tab);
+  if(tab==="home") renderHomeTab();
   if(tab==="live"){ renderLiveTab(); if(liveSub) setLiveTab(liveSub); }
   if(tab==="global") renderGlobal();
   if(tab==="picks") renderPicksView();
@@ -2163,6 +2277,7 @@ function navTo(tab, liveSub){
 
 // ══ HOME TAB ══════════════════════════════════════════════════════════════
 function renderHomeTab(){
+  renderHomeHeader();
   const el=document.getElementById("home-content");
   if(!el) return;
 
@@ -2211,37 +2326,87 @@ function renderHomeTab(){
   const medals=["🥇","🥈","🥉"];
   const medalColors=["var(--gold)","var(--silver)","var(--bronze)"];
 
+  // My picks card
+  const myScore=calcScore(myPicks).total;
+  const hasPicks=!!myPicks.phase1SubmittedAt||!!(currentUser&&allPlayers[currentUser.uid]);
+  const ranked=Object.entries(allPlayers||{})
+    .map(([uid,p])=>({uid,score:calcScore(p).total,hasPicks:!!(p.phase1?.groups&&Object.keys(p.phase1.groups).length>0)}))
+    .filter(p=>p.hasPicks).sort((a,b)=>b.score-a.score);
+  const myRankNum=ranked.findIndex(p=>p.uid===currentUser?.uid)+1||0;
+
+  const groupsSettled=results?Object.values(results.groups||{}).filter(g=>g&&g.length>0).length:0;
+  const totalGroups=12;
+  const deadlineTxt=isPhase1Open()?`Phase 1 deadline: <strong>Jun 17 · 11:59 PM ET</strong>`:`Phase 1 closed`;
+
   el.innerHTML=`
+    <!-- MY PICKS CARD -->
+    <div class="picks-card">
+      ${hasPicks?`
+      <div class="picks-card-body">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin-bottom:8px">My Picks</div>
+        <div class="picks-card-pts-row">
+          <div class="picks-card-pts">${myScore}</div>
+          <div class="picks-card-pts-label">pts</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="picks-card-rank">
+            <div class="picks-card-rank-label">Rank</div>
+            <div class="picks-card-rank-num">${myRankNum?"#"+myRankNum:"—"}</div>
+          </div>
+          <div style="font-size:12px;color:var(--muted)">${groupsSettled}/${totalGroups} groups settled</div>
+        </div>
+      </div>
+      <div class="picks-card-deadline">
+        <span class="picks-card-deadline-icon">⏰</span>
+        <span style="flex:1">${deadlineTxt}</span>
+        <button class="picks-card-btn" onclick="navTo('picks')">View Picks</button>
+      </div>`:`
+      <div class="picks-card-body" style="text-align:center;padding:20px 14px">
+        <div style="font-size:28px;margin-bottom:10px">🔮</div>
+        <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">Make Your Predictions</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">Pick group winners, bracket outcomes &amp; golden boot to compete on the leaderboard.</div>
+        <button class="picks-card-btn" style="width:100%;padding:12px" onclick="navTo('picks')">Get Started →</button>
+      </div>`}
+    </div>
+
     <!-- TODAY'S MATCHES -->
     <div class="home-section">
       <div class="home-section-header">
-        <div class="home-section-title">📅 ${esc(label)}</div>
+        <div class="home-section-title">${esc(label)}</div>
         <button class="home-see-more" onclick="navTo('live','fixtures')">See all →</button>
       </div>
       ${!hasData?`<div style="font-size:13px;color:var(--muted)">Live data loading…</div>`:
         !todayFixtures.length?`<div style="font-size:13px;color:var(--muted)">No matches scheduled</div>`:
-        todayFixtures.map(f=>{
+        `<div class="home-matches-scroll">${todayFixtures.map(f=>{
           const live=f.status==="live",fin=f.status==="fin";
-          const score=(live||fin)?`${live&&f.homeScore==null?0:f.homeScore??"-"} – ${live&&f.awayScore==null?0:f.awayScore??"-"}`:"vs";
-          const timeStr=f.utcDate?new Date(f.utcDate).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York",hour12:true})+" ET":f.time||"TBD";
-          return`<div class="home-fixture">
-            <div style="flex:1">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:5px">
-                <div class="home-fixture-team">${f.homeFlag||"🏳️"} ${esc(f.home||f.homeTeam||"")}</div>
-                <div class="home-fixture-score${live?" live":""}">${score}</div>
-                <div class="home-fixture-team away">${esc(f.away||f.awayTeam||"")} ${f.awayFlag||"🏳️"}</div>
-              </div>
-              <div class="home-fixture-meta">${live?'<span style="color:var(--green)">● Live</span>':fin?"Full time":timeStr}</div>
+          const hS=fin||live?String(f.homeScore??0):"";
+          const aS=fin||live?String(f.awayScore??0):"";
+          const timeStr=f.utcDate?new Date(f.utcDate).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York",hour12:true}):f.time||"TBD";
+          const meta=live?`<div class="home-match-pill-meta live">● LIVE</div>`
+            :fin?`<div class="home-match-pill-meta">Full time</div>`
+            :`<div class="home-match-pill-meta">${timeStr}</div>`;
+          return`<div class="home-match-pill${live?" live":""}">
+            <div class="home-match-pill-team">
+              <span style="font-size:16px">${f.homeFlag||"🏳️"}</span>
+              <span class="home-match-pill-name">${esc(f.home||f.homeTeam||"")}</span>
+              ${fin||live?`<span class="home-match-pill-score${live?" live":""}">${hS}</span>`:""}
+            </div>
+            ${meta}
+            <div class="home-match-pill-team">
+              <span style="font-size:16px">${f.awayFlag||"🏳️"}</span>
+              <span class="home-match-pill-name">${esc(f.away||f.awayTeam||"")}</span>
+              ${fin||live?`<span class="home-match-pill-score${live?" live":""}">${aS}</span>`:""}
+
             </div>
           </div>`;
-        }).join("")
+        }).join("")}</div>`
       }
     </div>
 
     <!-- LEADERBOARD -->
     <div class="home-section">
       <div class="home-section-header">
-        <div class="home-section-title">🏆 Leaderboard</div>
+        <div class="home-section-title">Leaderboard</div>
         <button class="home-see-more" onclick="navTo('global')">See all →</button>
       </div>
       ${!scored.length?`<div style="font-size:13px;color:var(--muted)">No picks submitted yet</div>`:
@@ -2249,9 +2414,9 @@ function renderHomeTab(){
           const av=p.photoURL?`<img class="lb-avatar" src="${esc(p.photoURL)}" referrerpolicy="no-referrer">`:`<div class="lb-avatar-ph">👤</div>`;
           const isMe=p.uid===currentUser?.uid;
           return`<div class="home-lb-row">
-            <div style="font-size:16px;color:${medalColors[i]||"var(--muted)"};width:22px;text-align:center">${medals[i]||i+1}</div>
+            <div style="font-size:15px;color:${medalColors[i]||"var(--muted)"};width:22px;text-align:center">${medals[i]||i+1}</div>
             ${av}
-            <div class="lb-name${isMe?" ":" "}">${esc(p.name)}${isMe?' <span style="font-size:10px;color:var(--wc-gold)">(you)</span>':""}</div>
+            <div class="lb-name">${esc(p.name)}${isMe?' <span class="lb-you">(you)</span>':""}</div>
             <div class="lb-pts">${p.score}<small> pts</small></div>
           </div>`;
         }).join("")
@@ -2266,11 +2431,13 @@ function renderHomeTab(){
       </div>
       ${!featuredGroup?`<div style="font-size:13px;color:var(--muted)">Standings loading…</div>`:`
         <table class="group-table">
-          <thead><tr><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
+          <thead><tr><th>#</th><th style="text-align:left;padding-left:0">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
           <tbody>${(featuredGroup.standings||[]).map((t,i)=>`<tr class="${i<2?"q":""}">
-            <td>${t.flag||"🏳️"} ${esc(t.team)}</td>
+            <td style="color:var(--muted);font-size:11px">${i+1}</td>
+            <td style="text-align:left;padding-left:0">${t.flag||"🏳️"} ${esc(t.team)}</td>
             <td>${t.played||0}</td><td>${t.won||0}</td><td>${t.drawn||0}</td><td>${t.lost||0}</td>
-            <td>${(t.gd||0)>=0?"+":""}${t.gd||0}</td><td><strong>${t.points||0}</strong></td>
+            <td style="color:${(t.gd||0)>=0?"var(--live)":"var(--red)"}">${(t.gd||0)>=0?"+":""}${t.gd||0}</td>
+            <td><strong>${t.points||0}</strong></td>
           </tr>`).join("")}</tbody>
         </table>`
       }
@@ -2279,12 +2446,12 @@ function renderHomeTab(){
     <!-- TOP SCORERS -->
     <div class="home-section">
       <div class="home-section-header">
-        <div class="home-section-title">⚽ Top Scorers</div>
+        <div class="home-section-title">Top Scorers</div>
         <button class="home-see-more" onclick="navTo('live','scorers')">See all →</button>
       </div>
       ${!scorers.length?`<div style="font-size:13px;color:var(--muted)">Scorer data loading…</div>`:
         scorers.map((s,i)=>`<div class="home-lb-row">
-          <div style="font-size:16px;color:${medalColors[i]||"var(--muted)"};width:22px;text-align:center">${medals[i]||i+1}</div>
+          <div style="font-size:15px;color:${medalColors[i]||"var(--muted)"};width:22px;text-align:center">${medals[i]||i+1}</div>
           <div style="flex:1">
             <div style="font-size:13px;font-weight:600">${s.flag||"🏳️"} ${esc(s.name)}</div>
             <div style="font-size:11px;color:var(--muted)">${esc(s.team)}</div>
@@ -2299,16 +2466,20 @@ function renderHomeTab(){
 
 // ══ LIVE TAB ═══════════════════════════════════════════════════════════════
 function setLiveTab(tab){
-  if(tab!=="fixtures") activeFixtureDate=null; // reset date when leaving Results
+  if(liveTab!=="fixtures"&&tab==="fixtures") resultsDateIndex=null; // re-auto-select today
   liveTab=tab;
-  document.querySelectorAll(".live-tab").forEach(t=>{
+  document.querySelectorAll(".wc-subtab").forEach(t=>{
     t.classList.toggle("active",t.dataset.tab===tab);
   });
+  const gsw=document.getElementById("group-selector-wrap");
+  if(gsw) gsw.style.display=(tab==="groups")?"block":"none";
   renderLiveTab();
 }
 function renderLiveTab(){
   const el=document.getElementById("live-content"),td=tournamentData;
   const hasLiveData=td&&Object.keys(td).length>0&&(td.groups||[]).length>0;
+  const gsw=document.getElementById("group-selector-wrap");
+  if(gsw) gsw.style.display=(liveTab==="groups")?"block":"none";
   
   // If no live data yet, show static tournament structure for groups
   if(!hasLiveData&&liveTab==="groups"){
@@ -2351,63 +2522,126 @@ function renderLiveTab(){
   if(liveTab==="scorers")   renderLiveScorers(el,td.scorers||[]);
   if(liveTab==="fixtures")  renderLiveFixtures(el,td.fixtures||[]);
 }
+let activeGroupPill="A";
 function renderLiveGroups(el,groups){
   if(!groups.length){el.innerHTML='<div class="lb-empty">Group data not yet available</div>';return;}
-  el.innerHTML=groups.map(g=>`
-    <div class="group-title">GROUP ${g.name}</div>
-    <table class="group-table">
-      <thead><tr><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
-      <tbody>${(g.standings||[]).map((t,i)=>`<tr class="${i<2?"q":""}">
-        <td>${t.flag||"🏳️"} ${esc(t.team)}</td>
-        <td>${t.played||0}</td><td>${t.won||0}</td><td>${t.drawn||0}</td><td>${t.lost||0}</td>
-        <td>${(t.gd||0)>=0?"+":""}${t.gd||0}</td><td><strong>${t.points||0}</strong></td>
-      </tr>`).join("")}</tbody>
-    </table>`).join("");
+
+  const gsw=document.getElementById("group-selector-wrap");
+  if(gsw) gsw.style.display="none";
+
+  const letters=groups.map(g=>g.name||g.group);
+  if(!letters.includes(activeGroupPill)) activeGroupPill=letters[0]||"A";
+  const idx=letters.indexOf(activeGroupPill);
+  const g=groups[idx]||groups[0];
+  const canPrev=idx>0, canNext=idx<letters.length-1;
+
+  const btnStyle=(enabled)=>`background:var(--elevated);border:1px solid var(--border);border-radius:8px;color:${enabled?"var(--text)":"var(--border)"};width:36px;height:36px;font-size:18px;cursor:${enabled?"pointer":"default"};flex-shrink:0`;
+
+  el.innerHTML=`
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:0 16px">
+      <button onclick="shiftGroup(-1)" style="${btnStyle(canPrev)}">‹</button>
+      <div style="flex:1;text-align:center">
+        <div style="font-size:15px;font-weight:700;color:var(--text)">Group ${g.name||g.group}</div>
+        <div style="font-size:11px;color:var(--muted)">${idx+1} of ${letters.length}</div>
+      </div>
+      <button onclick="shiftGroup(1)" style="${btnStyle(canNext)}">›</button>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin:0 16px">
+      <table class="group-table">
+        <thead><tr><th>#</th><th style="text-align:left;padding-left:0">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
+        <tbody>${(g.standings||[]).map((t,i)=>`<tr class="${i<2?"q":""}">
+          <td style="color:var(--muted);font-size:11px">${i+1}</td>
+          <td style="text-align:left;padding-left:0;font-weight:600">${t.flag||"🏳️"} ${esc(t.team)}</td>
+          <td>${t.played||0}</td><td>${t.won||0}</td><td>${t.drawn||0}</td><td>${t.lost||0}</td>
+          <td style="color:${(t.gd||0)>=0?"var(--live)":"var(--red)"}">${(t.gd||0)>=0?"+":""}${t.gd||0}</td>
+          <td><strong style="color:var(--text)">${t.points||0}</strong></td>
+        </tr>`).join("")}</tbody>
+      </table>
+    </div>`;
 }
-function navFixtureDate(dir){
-  const dates=[...new Set((tournamentData?.fixtures||[]).map(f=>f.date).filter(Boolean))];
-  const idx=dates.indexOf(activeFixtureDate);
-  const next=idx+dir;
-  if(next>=0&&next<dates.length){activeFixtureDate=dates[next];renderLiveTab();}
+
+function shiftGroup(delta){
+  const td=tournamentData;
+  const groups=((td&&td.groups)||[]).length>0?td.groups:(lastKnownGoodData?.groups||[]);
+  const letters=groups.map(g=>g.name||g.group);
+  const idx=Math.max(0,Math.min(letters.length-1,(letters.indexOf(activeGroupPill)||0)+delta));
+  activeGroupPill=letters[idx];
+  renderLiveGroups(document.getElementById("live-content"),groups);
 }
+let resultsDateIndex=null; // null = auto (today or nearest)
+
 function renderLiveFixtures(el,fixtures){
   if(!fixtures.length){el.innerHTML='<div class="lb-empty">Match results not yet available</div>';return;}
 
-  // Unique dates in chronological order
-  const dates=[...new Set(fixtures.map(f=>f.date).filter(Boolean))];
+  // Build sorted unique date list
+  const byDate={};
+  fixtures.forEach(f=>{const d=f.date||"TBD";if(!byDate[d])byDate[d]=[];byDate[d].push(f);});
+  const dates=Object.keys(byDate).sort((a,b)=>{
+    const da=byDate[a][0]?.utcDate,db=byDate[b][0]?.utcDate;
+    if(da&&db)return new Date(da)-new Date(db);
+    return 0;
+  });
 
-  // Default: today in ET, or first date with a live/upcoming match, or last date
-  if(!activeFixtureDate||!dates.includes(activeFixtureDate)){
+  // Auto-select today or nearest upcoming date
+  if(resultsDateIndex===null||resultsDateIndex>=dates.length){
     const todayET=new Date().toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"America/New_York"});
-    if(dates.includes(todayET)){
-      activeFixtureDate=todayET;
-    } else {
-      const firstActive=fixtures.find(f=>f.status==="live"||f.status==="upcoming");
-      activeFixtureDate=firstActive?.date||dates[dates.length-1];
+    let idx=dates.indexOf(todayET);
+    if(idx===-1){
+      // Find nearest future date
+      const nowMs=Date.now();
+      idx=dates.findIndex(d=>byDate[d].some(f=>f.utcDate&&new Date(f.utcDate).getTime()>nowMs));
+      if(idx===-1) idx=dates.length-1; // fall back to last date
     }
+    resultsDateIndex=Math.max(0,idx);
   }
 
-  const idx=dates.indexOf(activeFixtureDate);
-  const dayFixtures=fixtures.filter(f=>f.date===activeFixtureDate);
+  const selDate=dates[resultsDateIndex]||dates[0];
+  const matches=byDate[selDate]||[];
+  const canPrev=resultsDateIndex>0;
+  const canNext=resultsDateIndex<dates.length-1;
 
   el.innerHTML=`
-    <div class="fixture-date-nav">
-      <button class="fixture-date-btn" onclick="navFixtureDate(-1)" ${idx===0?"disabled":""}>&#8249;</button>
-      <span class="fixture-date-label">${activeFixtureDate}</span>
-      <button class="fixture-date-btn" onclick="navFixtureDate(1)" ${idx===dates.length-1?"disabled":""}>&#8250;</button>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <button onclick="shiftResultsDate(-1)" style="background:var(--elevated);border:1px solid var(--border);border-radius:8px;color:${canPrev?"var(--text)":"var(--border)"};width:36px;height:36px;font-size:18px;cursor:${canPrev?"pointer":"default"};flex-shrink:0">‹</button>
+      <div style="flex:1;text-align:center">
+        <div style="font-size:14px;font-weight:700;color:var(--text)">${selDate}</div>
+        <div style="font-size:11px;color:var(--muted)">${resultsDateIndex+1} of ${dates.length} matchdays</div>
+      </div>
+      <button onclick="shiftResultsDate(1)" style="background:var(--elevated);border:1px solid var(--border);border-radius:8px;color:${canNext?"var(--text)":"var(--border)"};width:36px;height:36px;font-size:18px;cursor:${canNext?"pointer":"default"};flex-shrink:0">›</button>
     </div>
-    ${dayFixtures.map(f=>{
+    ${matches.map(f=>{
       const live=f.status==="live",fin=f.status==="fin";
-      const score=(live||fin)?`${live&&f.homeScore==null?0:f.homeScore??"-"} – ${live&&f.awayScore==null?0:f.awayScore??"-"}`:"vs";
-      return`<div class="fixture">
-        <div class="fixture-teams">
-          <div class="fixture-team"><span class="ff">${f.homeFlag||"🏳️"}</span><span class="fn">${esc(f.home)}</span></div>
-          <div class="fixture-score${live?" live":""}">${score}</div>
-          <div class="fixture-team away"><span class="fn">${esc(f.away)}</span><span class="ff">${f.awayFlag||"🏳️"}</span></div>
+      const hScore=live||fin?String(f.homeScore??"-"):"";
+      const aScore=live||fin?String(f.awayScore??"-"):"";
+      const timeStr=f.utcDate?new Date(f.utcDate).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York',hour12:true})+' ET':f.time||'TBD';
+      const metaContent=live
+        ?`<span class="live-dot-inline"></span><span style="color:var(--live);font-weight:600">Live</span>`
+        :fin?'Full time':timeStr;
+      return`<div class="fixture${live?" live-card":fin?" fin-card":""}">
+        <div class="fixture-row">
+          <span class="fixture-flag">${f.homeFlag||"🏳️"}</span>
+          <span class="fixture-name">${esc(f.home||f.homeTeam||"")}</span>
+          <span class="fixture-score-cell${live?" live-score":""}">${hScore}</span>
         </div>
-        <div class="fixture-meta">${live?'<span style="color:var(--green)">● Live</span>':fin?"Full time":(f.utcDate?new Date(f.utcDate).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York",hour12:true})+" ET":f.time||"TBD")} · ${esc(f.round||"")}</div>
+        <div class="fixture-row">
+          <span class="fixture-flag">${f.awayFlag||"🏳️"}</span>
+          <span class="fixture-name">${esc(f.away||f.awayTeam||"")}</span>
+          <span class="fixture-score-cell${live?" live-score":""}">${aScore}</span>
+        </div>
+        <div class="fixture-meta">${metaContent}<span style="margin:0 4px;color:var(--border)">·</span>${esc(f.round||"")}</div>
       </div>`;
-    }).join("")}`;
+    }).join("")}
+  `;
+}
+
+function shiftResultsDate(delta){
+  const fixtures=tournamentData?.fixtures||[];
+  const byDate={};
+  fixtures.forEach(f=>{const d=f.date||"TBD";if(!byDate[d])byDate[d]=[];byDate[d].push(f);});
+  const total=Object.keys(byDate).length;
+  resultsDateIndex=Math.max(0,Math.min(total-1,(resultsDateIndex||0)+delta));
+  renderLiveFixtures(document.getElementById("live-content"),fixtures);
+
 }
 function renderLiveBracket(el,bracket){
   const rounds=[{k:"r32",l:"Round of 32"},{k:"r16",l:"Round of 16"},{k:"qf",l:"QF"},{k:"sf",l:"SF"},{k:"final",l:"Final"}];
@@ -2481,7 +2715,7 @@ function setLeagueView(v){
   leagueView=v;
   ["my","create","join"].forEach(id=>{
     const el=document.getElementById("btn-"+id);
-    if(el)el.className="sub-btn "+(v===id?"active":"inactive");
+    if(el)el.className="lb-toggle-btn"+(v===id?" active":"");
   });
   renderLeaguePanel();
 }
@@ -2719,24 +2953,24 @@ function showDetail(uid){
   // User has picks - show breakdown
   const s=calcScore(p);
   let html=`<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
-    <div style="flex:1;min-width:100px;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
+    <div style="flex:1;min-width:100px;background:var(--elevated);border-radius:8px;padding:10px;text-align:center">
       <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Groups</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--green)">${s.p1Group}</div>
     </div>
-    ${s.p1ThirdQual>0?`<div style="flex:1;min-width:100px;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
+    ${s.p1ThirdQual>0?`<div style="flex:1;min-width:100px;background:var(--elevated);border-radius:8px;padding:10px;text-align:center">
       <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Qualifiers</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--green)">${s.p1ThirdQual}</div>
     </div>`:""}
-    <div style="flex:1;min-width:100px;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
+    <div style="flex:1;min-width:100px;background:var(--elevated);border-radius:8px;padding:10px;text-align:center">
       <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Knockouts</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--amber)">${s.p1KO}</div>
     </div>
-    ${s.p2>0?`<div style="flex:1;min-width:100px;background:#0a1520;border-radius:8px;padding:10px;text-align:center">
+    ${s.p2>0?`<div style="flex:1;min-width:100px;background:var(--elevated);border-radius:8px;padding:10px;text-align:center">
       <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">2nd Chance</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--phase2-light)">${s.p2}</div>
     </div>`:""}
   </div>
-  <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:#0a1520;border-radius:8px">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--elevated);border-radius:8px">
     <span style="font-size:13px;color:var(--muted)">Total Score</span>
     <span style="font-weight:900;font-size:26px;color:var(--amber)">${s.total} <span style="font-size:13px;color:var(--muted);font-weight:400">pts</span></span>
   </div>`;
@@ -2765,7 +2999,7 @@ function showDetail(uid){
     .filter(Boolean)
     .join("<br>");
 
-  html+=`<div style="margin-top:12px;padding:12px;background:#0a1520;border-radius:8px">
+  html+=`<div style="margin-top:12px;padding:12px;background:var(--elevated);border-radius:8px">
     <div style="font-size:12px;font-weight:800;letter-spacing:0.6px;color:var(--white);margin-bottom:8px">Submitted Picks</div>
     <div style="font-size:12px;color:var(--muted);line-height:1.7">
       <div style="margin-bottom:8px"><strong style="color:var(--white)">Phase 1 Podium:</strong><br>🥇 ${esc(p1Winner)}<br>🥈 ${esc(p1RunnerUp)}<br>🥉 ${esc(p1Third)}</div>
