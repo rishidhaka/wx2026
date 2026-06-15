@@ -921,7 +921,7 @@ function applyTournamentData(raw) {
       date: f.utcDate
         ? new Date(f.utcDate).toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"America/New_York"})
         : f.date,
-    })),
+    })).sort((a, b) => (a.utcDate || '').localeCompare(b.utcDate || '')),
     scorers,
     lastUpdated: raw.lastUpdated ||
       (raw.lastSync ? new Date(raw.lastSync).toISOString() : null),
