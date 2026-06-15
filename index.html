@@ -2389,7 +2389,7 @@ function renderLiveFixtures(el,fixtures){
     </div>
     ${dayFixtures.map(f=>{
       const live=f.status==="live",fin=f.status==="fin";
-      const score=(live||fin)?`${f.homeScore??"-"} – ${f.awayScore??"-"}`:"vs";
+      const score=(live||fin)?`${live&&f.homeScore==null?0:f.homeScore??"-"} – ${live&&f.awayScore==null?0:f.awayScore??"-"}`:"vs";
       return`<div class="fixture">
         <div class="fixture-teams">
           <div class="fixture-team"><span class="ff">${f.homeFlag||"🏳️"}</span><span class="fn">${esc(f.home)}</span></div>
