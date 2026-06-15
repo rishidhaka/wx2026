@@ -223,6 +223,8 @@ async function fetchFromWC26() {
     };
   });
 
+  fixtures.sort((a, b) => (a.utcDate || '').localeCompare(b.utcDate || ''));
+
   const groups  = computeGroups(games);
   const scorers = buildTopScorers(games);
 
