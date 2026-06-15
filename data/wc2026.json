@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T20:59:35.455Z",
+  "lastUpdated": "2026-06-15T21:31:50.254Z",
   "groups": [
     {
       "group": "A",
@@ -58,30 +58,6 @@
       "group": "B",
       "standings": [
         {
-          "team": "Canada",
-          "flag": "🇨🇦",
-          "played": 1,
-          "won": 0,
-          "drawn": 1,
-          "lost": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
-          "points": 1
-        },
-        {
-          "team": "Bosnia-Herzegovina",
-          "flag": "🇧🇦",
-          "played": 1,
-          "won": 0,
-          "drawn": 1,
-          "lost": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
-          "points": 1
-        },
-        {
           "team": "Qatar",
           "flag": "🇶🇦",
           "played": 1,
@@ -102,6 +78,30 @@
           "lost": 0,
           "gf": 1,
           "ga": 1,
+          "gd": 0,
+          "points": 1
+        },
+        {
+          "team": "Canada",
+          "flag": "🇨🇦",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "points": 1
+        },
+        {
+          "team": "Bosnia-Herzegovina",
+          "flag": "🇧🇦",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 0,
+          "ga": 0,
           "gd": 0,
           "points": 1
         }
@@ -325,26 +325,26 @@
         {
           "team": "Belgium",
           "flag": "🇧🇪",
-          "played": 0,
+          "played": 1,
           "won": 0,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "gf": 1,
+          "ga": 1,
           "gd": 0,
-          "points": 0
+          "points": 1
         },
         {
           "team": "Egypt",
           "flag": "🇪🇬",
-          "played": 0,
+          "played": 1,
           "won": 0,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "gf": 1,
+          "ga": 1,
           "gd": 0,
-          "points": 0
+          "points": 1
         },
         {
           "team": "Iran",
@@ -888,7 +888,7 @@
       "awayFlag": "🇪🇬",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
+      "status": "fin",
       "winner": null
     },
     {
