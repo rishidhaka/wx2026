@@ -58,10 +58,9 @@ function flagFor(name) {
 }
 
 // ── UTC HELPERS ───────────────────────────────────────────────────────────
-// worldcup26.ir gives local_date in each stadium's local timezone.
-// We load accurate utcDate values from the existing data/wc2026.json (written
-// by football-data.org) and use them as ground truth. localDateToUTC is only
-// a fallback for IDs not yet seen (knockout games not yet in existing data).
+// Once correct utcDates are stored in data/wc2026.json (from football-data.org),
+// we lock them in permanently by indexing both by ID and by home|away team pair.
+// Every subsequent run finds the stored value by team pair and skips localDateToUTC.
 function loadExistingUtcDates() {
   const dataPath = path.join(__dirname, '..', 'data', 'wc2026.json');
   if (!fs.existsSync(dataPath)) return {};
@@ -69,7 +68,10 @@ function loadExistingUtcDates() {
     const existing = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
     const map = {};
     for (const f of (existing.fixtures || [])) {
-      if (f.id != null && f.utcDate) map[String(f.id)] = f.utcDate;
+      if (!f.utcDate) continue;
+      if (f.id != null) map[String(f.id)] = f.utcDate;
+      // Also index by team pair so utcDates survive API switches and ID changes
+      if (f.home && f.away) map[`${f.home}|${f.away}`] = f.utcDate;
     }
     return map;
   } catch { return {}; }
@@ -169,8 +171,42 @@ function computeGroups(games) {
     }));
 }
 
+// ── FETCH FD UTCDATES ─────────────────────────────────────────────────────
+// football-data.org scheduled times are always accurate (no live delay on dates).
+// We fetch these to use as ground truth for utcDate, so worldcup26.ir's ambiguous
+// local_date timezone never affects what we display.
+async function loadFDUtcDates() {
+  if (!FD_KEY) return {};
+  try {
+    const res = await axios.get(`${FD_BASE}/competitions/${WC_CODE}/matches`, {
+      headers: { 'X-Auth-Token': FD_KEY }, params: { season: WC_SEASON }, timeout: 15000,
+    });
+    const norm = s => (s || '').toLowerCase().replace(/[^a-z]/g, '');
+    // Some team names differ between APIs — normalise both to match
+    const aliases = {
+      'korearepublic': 'southkorea', 'republicofkorea': 'southkorea',
+      'unitedstates': 'usa',
+      'turkiye': 'turkey',
+      'ivorycoast': 'cotedivoire',
+      'democraticrepublicofthecongo': 'drcongo', 'congodr': 'drcongo',
+    };
+    const canonical = s => { const n = norm(s); return aliases[n] || n; };
+    const map = {};
+    for (const m of (res.data.matches || [])) {
+      if (!m.utcDate) continue;
+      const key = `${canonical(m.homeTeam.name)}|${canonical(m.awayTeam.name)}`;
+      map[key] = m.utcDate;
+    }
+    console.log(`📅  football-data.org utcDates: ${Object.keys(map).length} fixtures`);
+    return map;
+  } catch (err) {
+    console.warn('⚠️  Could not fetch football-data.org utcDates:', err.message);
+    return {};
+  }
+}
+
 // ══ PRIMARY: WORLDCUP26.IR ════════════════════════════════════════════════
-async function fetchFromWC26() {
+async function fetchFromWC26(fdUtcDates = {}) {
   console.log('🌐  Fetching from worldcup26.ir…');
   const headers = { Authorization: `Bearer ${WC26_TOKEN}` };
   const res = await axios.get(`${WC26_BASE}/get/games`, { headers, timeout: 15000 });
@@ -178,6 +214,14 @@ async function fetchFromWC26() {
   if (!games.length) throw new Error('worldcup26.ir returned 0 games');
 
   const existingUtcDates = loadExistingUtcDates();
+  const norm = s => (s || '').toLowerCase().replace(/[^a-z]/g, '');
+  const aliases = {
+    'korearepublic': 'southkorea', 'republicofkorea': 'southkorea',
+    'unitedstates': 'usa', 'turkiye': 'turkey',
+    'ivorycoast': 'cotedivoire',
+    'democraticrepublicofthecongo': 'drcongo', 'congodr': 'drcongo',
+  };
+  const canonical = s => { const n = norm(s); return aliases[n] || n; };
 
   const fixtures = games.map(game => {
     const isLive = game.time_elapsed === 'live';
@@ -186,8 +230,16 @@ async function fetchFromWC26() {
     const homeScore = parseInt(game.home_score) || 0;
     const awayScore = parseInt(game.away_score) || 0;
 
-    // Use accurate utcDate from existing data when available (ground truth from football-data.org)
-    const utcDate = existingUtcDates[String(game.id)] || localDateToUTC(game.local_date);
+    // Priority: football-data.org (accurate schedule) → stored team pair → stored ID → localDateToUTC
+    // Once a correct utcDate is stored in the JSON, the team-pair lookup locks it in permanently.
+    const homeName  = game.home_team_name_en || game.home_team_label || null;
+    const awayName  = game.away_team_name_en || game.away_team_label || null;
+    const fdKey     = `${canonical(homeName)}|${canonical(awayName)}`;
+    const pairKey   = `${homeName}|${awayName}`;
+    const utcDate   = fdUtcDates[fdKey]
+      || existingUtcDates[pairKey]
+      || existingUtcDates[String(game.id)]
+      || localDateToUTC(game.local_date);
 
     const isGroup = game.type === 'group';
     let stage, round;
@@ -197,10 +249,6 @@ async function fetchFromWC26() {
     } else {
       ({ stage, round } = stageFromType(game.type));
     }
-
-    // For upcoming knockouts, teams are TBD — use label if available
-    const homeName = game.home_team_name_en || game.home_team_label || null;
-    const awayName = game.away_team_name_en || game.away_team_label || null;
 
     return {
       id: parseInt(game.id),
@@ -466,8 +514,10 @@ async function main() {
   let result;
   // Try primary API first; fall back gracefully if it fails.
   if (WC26_TOKEN) {
+    // Load football-data.org utcDates in parallel — these are always accurate for scheduling.
+    const fdUtcDates = await loadFDUtcDates();
     try {
-      result = await fetchFromWC26();
+      result = await fetchFromWC26(fdUtcDates);
     } catch (err) {
       console.warn(`⚠️   worldcup26.ir failed (${err.message}) — trying fallback…`);
       if (!FD_KEY) { console.error('❌ No fallback key available.'); process.exit(1); }
