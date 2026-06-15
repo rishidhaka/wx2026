@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T18:22:16.318Z",
+  "lastUpdated": "2026-06-15T20:59:35.455Z",
   "groups": [
     {
       "group": "A",
@@ -886,9 +886,9 @@
       "homeFlag": "🇧🇪",
       "away": "Egypt",
       "awayFlag": "🇪🇬",
-      "homeScore": null,
-      "awayScore": null,
-      "status": "upcoming",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
       "winner": null
     },
     {
