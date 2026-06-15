@@ -1648,7 +1648,16 @@ function flagFor(name){
     const t=teams.find(t=>t.name===name);
     if(t)return t.flag;
   }
-  return "🏳️";
+  // Aliases for names that worldcup26.ir uses differently from WC_GROUPS
+  const extra={
+    "Czech Republic":"🇨🇿","Bosnia and Herzegovina":"🇧🇦","Bosnia-Herzegovina":"🇧🇦",
+    "Democratic Republic of the Congo":"🇨🇩","DR Congo":"🇨🇩",
+    "Cape Verde":"🇨🇻","Cape Verde Islands":"🇨🇻",
+    "South Korea":"🇰🇷","Korea Republic":"🇰🇷",
+    "Turkey":"🇹🇷","Ivory Coast":"🇨🇮","Iran":"🇮🇷","IR Iran":"🇮🇷",
+    "USA":"🇺🇸","United States":"🇺🇸",
+  };
+  return extra[name]||"🏳️";
 }
 
 function renderBracketStep(isPhase2){
