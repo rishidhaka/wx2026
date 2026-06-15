@@ -2213,7 +2213,7 @@ function renderHomeTab(){
         !todayFixtures.length?`<div style="font-size:13px;color:var(--muted)">No matches scheduled</div>`:
         todayFixtures.map(f=>{
           const live=f.status==="live",fin=f.status==="fin";
-          const score=(live||fin)?`${f.homeScore??"-"} – ${f.awayScore??"-"}`:"vs";
+          const score=(live||fin)?`${live&&f.homeScore==null?0:f.homeScore??"-"} – ${live&&f.awayScore==null?0:f.awayScore??"-"}`:"vs";
           const timeStr=f.utcDate?new Date(f.utcDate).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York",hour12:true})+" ET":f.time||"TBD";
           return`<div class="home-fixture">
             <div style="flex:1">

@@ -302,8 +302,8 @@ async function fetchFromFootballData() {
       utcDate: m.utcDate,
       home: m.homeTeam.name, homeFlag: flagFor(m.homeTeam.name),
       away: m.awayTeam.name, awayFlag: flagFor(m.awayTeam.name),
-      homeScore: (fin||live) ? ft.home : null,
-      awayScore: (fin||live) ? ft.away : null,
+      homeScore: live ? (ft.home ?? 0) : fin ? ft.home : null,
+      awayScore: live ? (ft.away ?? 0) : fin ? ft.away : null,
       status: live ? 'live' : fin ? 'fin' : 'upcoming',
       winner: fin ? winnerName(m) : null,
     };
