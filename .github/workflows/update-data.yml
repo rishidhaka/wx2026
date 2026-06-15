@@ -35,6 +35,7 @@ jobs:
 
       - name: Fetch latest World Cup data
         env:
+          WC26_API_TOKEN: ${{ secrets.WC26_API_TOKEN }}
           FOOTBALLDATA_KEY: ${{ secrets.FOOTBALLDATA_KEY }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_WORLD_CUP_2026_E1A0B }}
         run: node scripts/fetch-data.js

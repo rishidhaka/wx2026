@@ -3,18 +3,21 @@ const fs = require('fs');
 const path = require('path');
 
 // ── CONFIG ────────────────────────────────────────────────────────────────
-const API_KEY = process.env.FOOTBALLDATA_KEY;
-const API_BASE = "https://api.football-data.org/v4";
-const WC_CODE = "WC";
-const WC_SEASON = 2026;
+// Primary: worldcup26.ir (real-time live status, free, JWT auth)
+// Fallback: football-data.org (used if primary fails)
+const WC26_TOKEN    = process.env.WC26_API_TOKEN;
+const WC26_BASE     = 'https://worldcup26.ir';
+const FD_KEY        = process.env.FOOTBALLDATA_KEY;
+const FD_BASE       = 'https://api.football-data.org/v4';
+const WC_CODE       = 'WC';
+const WC_SEASON     = 2026;
 
-if (!API_KEY) {
-  console.error('❌ FOOTBALLDATA_KEY environment variable is not set.');
-  console.error('   Run: FOOTBALLDATA_KEY=your_key node scripts/fetch-data.js');
+if (!WC26_TOKEN && !FD_KEY) {
+  console.error('❌ No API credentials. Set WC26_API_TOKEN or FOOTBALLDATA_KEY.');
   process.exit(1);
 }
 
-// Initialize Firebase Admin only if credentials are provided (optional — skipped in CI without the secret)
+// Initialize Firebase Admin only if credentials are provided
 let db = null;
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {
   try {
@@ -27,120 +30,208 @@ if (process.env.FIREBASE_SERVICE_ACCOUNT) {
     console.warn('⚠️  Firebase Admin init failed (will skip Firestore writes):', err.message);
   }
 }
-const headers = { 'X-Auth-Token': API_KEY };
 
-// ── HELPER: flag emoji from team name ────────────────────────────────────
+// ── FLAGS ─────────────────────────────────────────────────────────────────
 function flagFor(name) {
   const map = {
-    'Mexico': '🇲🇽', 'South Africa': '🇿🇦', 'Korea Republic': '🇰🇷', 'South Korea': '🇰🇷',
-    'Canada': '🇨🇦', 'Qatar': '🇶🇦', 'Switzerland': '🇨🇭', 'United States': '🇺🇸', 'USA': '🇺🇸',
-    'Colombia': '🇨🇴', 'Argentina': '🇦🇷', 'Morocco': '🇲🇦', 'Nigeria': '🇳🇬', 'Tunisia': '🇹🇳',
-    'Brazil': '🇧🇷', 'Japan': '🇯🇵', 'Australia': '🇦🇺', 'Saudi Arabia': '🇸🇦', 'France': '🇫🇷',
-    'Egypt': '🇪🇬', 'Iran': '🇮🇷', 'Peru': '🇵🇪', 'Spain': '🇪🇸', 'Senegal': '🇸🇳',
-    'Ecuador': '🇪🇨', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Portugal': '🇵🇹', 'Cameroon': '🇨🇲', 'Chile': '🇨🇱',
-    'Germany': '🇩🇪', 'Belgium': '🇧🇪', 'Costa Rica': '🇨🇷', 'Italy': '🇮🇹', 'Uruguay': '🇺🇾',
-    'Panama': '🇵🇦', 'Bolivia': '🇧🇴', 'Netherlands': '🇳🇱', 'Croatia': '🇭🇷', 'Serbia': '🇷🇸',
-    'Paraguay': '🇵🇾', 'Poland': '🇵🇱', 'Denmark': '🇩🇰', 'Venezuela': '🇻🇪', 'Turkey': '🇹🇷',
-    'Türkiye': '🇹🇷', 'Algeria': '🇩🇿', 'New Zealand': '🇳🇿', 'Honduras': '🇭🇳',
-    'Guatemala': '🇬🇹', 'Jamaica': '🇯🇲', 'Cuba': '🇨🇺', 'New Caledonia': '🇳🇨',
+    // Group stage teams (worldcup26.ir names)
+    'Mexico': '🇲🇽', 'South Africa': '🇿🇦', 'South Korea': '🇰🇷', 'Korea Republic': '🇰🇷',
+    'Canada': '🇨🇦', 'Bosnia and Herzegovina': '🇧🇦', 'United States': '🇺🇸', 'USA': '🇺🇸',
+    'Paraguay': '🇵🇾', 'Qatar': '🇶🇦', 'Switzerland': '🇨🇭', 'Haiti': '🇭🇹',
+    'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 'Brazil': '🇧🇷', 'Morocco': '🇲🇦', 'Japan': '🇯🇵',
+    'Germany': '🇩🇪', 'Curaçao': '🇨🇼', 'Netherlands': '🇳🇱', 'Sweden': '🇸🇪',
+    'Australia': '🇦🇺', 'Turkey': '🇹🇷', 'Türkiye': '🇹🇷', 'Ivory Coast': '🇨🇮',
+    'Ecuador': '🇪🇨', 'Tunisia': '🇹🇳', 'Czech Republic': '🇨🇿', 'Argentina': '🇦🇷',
+    'Uruguay': '🇺🇾', 'Costa Rica': '🇨🇷', 'Saudi Arabia': '🇸🇦', 'France': '🇫🇷',
+    'Spain': '🇪🇸', 'Belgium': '🇧🇪', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Portugal': '🇵🇹',
+    'Colombia': '🇨🇴', 'Senegal': '🇸🇳', 'Nigeria': '🇳🇬', 'Egypt': '🇪🇬',
+    'Serbia': '🇷🇸', 'Croatia': '🇭🇷', 'Poland': '🇵🇱', 'Denmark': '🇩🇰',
+    'Venezuela': '🇻🇪', 'Peru': '🇵🇪', 'Algeria': '🇩🇿', 'New Zealand': '🇳🇿',
+    'Honduras': '🇭🇳', 'Guatemala': '🇬🇹', 'Jamaica': '🇯🇲', 'Cuba': '🇨🇺',
+    'New Caledonia': '🇳🇨', 'Panama': '🇵🇦', 'Bolivia': '🇧🇴', 'Chile': '🇨🇱',
+    'Cameroon': '🇨🇲', 'Italy': '🇮🇹', 'Iran': '🇮🇷',
   };
   return map[name] || '🏳️';
 }
 
-// ── FETCH: Group standings (derived from match results) ───────────────────
-// football-data.org returns a flat 48-team standings table with no group info,
-// so we compute per-group standings from group stage fixtures instead.
-async function fetchGroups() {
+// ── UTC HELPERS ───────────────────────────────────────────────────────────
+// worldcup26.ir gives local_date in each stadium's local timezone.
+// We load accurate utcDate values from the existing data/wc2026.json (written
+// by football-data.org) and use them as ground truth. localDateToUTC is only
+// a fallback for IDs not yet seen (knockout games not yet in existing data).
+function loadExistingUtcDates() {
+  const dataPath = path.join(__dirname, '..', 'data', 'wc2026.json');
+  if (!fs.existsSync(dataPath)) return {};
   try {
-    const res = await axios.get(`${API_BASE}/competitions/${WC_CODE}/matches`, {
-      headers, params: { season: WC_SEASON, stage: 'GROUP_STAGE' }
-    });
-    const matches = res.data.matches || [];
+    const existing = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+    const map = {};
+    for (const f of (existing.fixtures || [])) {
+      if (f.id != null && f.utcDate) map[String(f.id)] = f.utcDate;
+    }
+    return map;
+  } catch { return {}; }
+}
 
-    // Build a map: groupKey → { teamName → stats }
-    const groups = {};
-    for (const m of matches) {
-      const g = m.group; // e.g. "GROUP_A"
-      if (!g) continue;
-      if (!groups[g]) groups[g] = {};
+// Fallback UTC conversion — assumes Eastern Daylight Time (UTC-4).
+// WC 2026 venue timezones range from UTC-4 (ET) to UTC-7 (PT);
+// using ET means we may poll up to 3h early for Pacific games (harmless)
+// but we rely on the alreadyLive check to catch games whose window we miss.
+function localDateToUTC(localDate) {
+  if (!localDate) return null;
+  try {
+    const [datePart, timePart] = localDate.split(' ');
+    const [m, d, y] = datePart.split('/');
+    return new Date(`${y}-${m}-${d}T${timePart}:00-04:00`).toISOString();
+  } catch { return null; }
+}
 
-      const home = m.homeTeam.name;
-      const away = m.awayTeam.name;
-      if (!groups[g][home]) groups[g][home] = { team: home, flag: flagFor(home), played:0, won:0, drawn:0, lost:0, gf:0, ga:0, gd:0, points:0 };
-      if (!groups[g][away]) groups[g][away] = { team: away, flag: flagFor(away), played:0, won:0, drawn:0, lost:0, gf:0, ga:0, gd:0, points:0 };
+// ── KNOCKOUT STAGE MAPPING ────────────────────────────────────────────────
+// worldcup26.ir type field directly encodes the knockout round.
+function stageFromType(type) {
+  const map = {
+    'r32':   { stage: 'LAST_32',       round: 'Round of 32' },
+    'r16':   { stage: 'LAST_16',       round: 'Round of 16' },
+    'qf':    { stage: 'QUARTER_FINALS', round: 'Quarter-finals' },
+    'sf':    { stage: 'SEMI_FINALS',   round: 'Semi-finals' },
+    'third': { stage: 'THIRD_PLACE',   round: '3rd Place Playoff' },
+    'final': { stage: 'FINAL',         round: 'Final' },
+  };
+  return map[type] || { stage: 'KNOCKOUT', round: 'Knockout' };
+}
 
-      const fin = ['FINISHED', 'AWARDED'].includes(m.status);
-      if (!fin) continue;
+// ── SCORER PARSING ────────────────────────────────────────────────────────
+// worldcup26.ir encodes scorers as the string: {"Name Minute'","Name Minute'"}
+// Convert {}-set notation to a JSON array and extract player names.
+function parseGoalScorers(raw, teamName) {
+  if (!raw || raw === 'null') return [];
+  try {
+    const json = raw.trim().replace(/^\{/, '[').replace(/\}$/, ']');
+    const entries = JSON.parse(json);
+    return entries.map(text => ({
+      name: text.replace(/\s+\d+.*$/, '').trim(),
+      team: teamName,
+    }));
+  } catch { return []; }
+}
 
-      const hg = m.score.fullTime.home ?? 0;
-      const ag = m.score.fullTime.away ?? 0;
+function buildTopScorers(games) {
+  const map = {};
+  for (const g of games) {
+    if (g.finished !== 'TRUE') continue;
+    const home = g.home_team_name_en;
+    const away = g.away_team_name_en;
+    for (const s of [
+      ...parseGoalScorers(g.home_scorers, home),
+      ...parseGoalScorers(g.away_scorers, away),
+    ]) {
+      const key = `${s.name}|${s.team}`;
+      if (!map[key]) map[key] = { name: s.name, team: s.team, flag: flagFor(s.team), goals: 0, assists: 0 };
+      map[key].goals++;
+    }
+  }
+  return Object.values(map).sort((a, b) => b.goals - a.goals).slice(0, 20);
+}
 
-      groups[g][home].played++; groups[g][away].played++;
-      groups[g][home].gf += hg; groups[g][home].ga += ag;
-      groups[g][away].gf += ag; groups[g][away].ga += hg;
-      groups[g][home].gd += hg - ag; groups[g][away].gd += ag - hg;
+// ── GROUP STANDINGS ───────────────────────────────────────────────────────
+// Compute group standings from game results — same logic as football-data.org path.
+function computeGroups(games) {
+  const groups = {};
+  for (const game of games) {
+    if (game.type !== 'group') continue;
+    const g = game.group;
+    if (!g) continue;
+    if (!groups[g]) groups[g] = {};
+    const home = game.home_team_name_en;
+    const away = game.away_team_name_en;
+    if (!groups[g][home]) groups[g][home] = { team: home, flag: flagFor(home), played:0, won:0, drawn:0, lost:0, gf:0, ga:0, gd:0, points:0 };
+    if (!groups[g][away]) groups[g][away] = { team: away, flag: flagFor(away), played:0, won:0, drawn:0, lost:0, gf:0, ga:0, gd:0, points:0 };
+    if (game.finished !== 'TRUE') continue;
+    const hg = parseInt(game.home_score) || 0;
+    const ag = parseInt(game.away_score) || 0;
+    groups[g][home].played++; groups[g][away].played++;
+    groups[g][home].gf += hg; groups[g][home].ga += ag;
+    groups[g][away].gf += ag; groups[g][away].ga += hg;
+    groups[g][home].gd += hg - ag; groups[g][away].gd += ag - hg;
+    if (hg > ag)      { groups[g][home].won++; groups[g][home].points += 3; groups[g][away].lost++; }
+    else if (hg < ag) { groups[g][away].won++; groups[g][away].points += 3; groups[g][home].lost++; }
+    else              { groups[g][home].drawn++; groups[g][home].points++; groups[g][away].drawn++; groups[g][away].points++; }
+  }
+  return Object.entries(groups)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([g, teamsMap]) => ({
+      group: g,
+      standings: Object.values(teamsMap).sort((a, b) =>
+        b.points - a.points || b.gd - a.gd || b.gf - a.gf
+      ),
+    }));
+}
 
-      if (hg > ag) {
-        groups[g][home].won++; groups[g][home].points += 3; groups[g][away].lost++;
-      } else if (hg < ag) {
-        groups[g][away].won++; groups[g][away].points += 3; groups[g][home].lost++;
-      } else {
-        groups[g][home].drawn++; groups[g][home].points++;
-        groups[g][away].drawn++; groups[g][away].points++;
-      }
+// ══ PRIMARY: WORLDCUP26.IR ════════════════════════════════════════════════
+async function fetchFromWC26() {
+  console.log('🌐  Fetching from worldcup26.ir…');
+  const headers = { Authorization: `Bearer ${WC26_TOKEN}` };
+  const res = await axios.get(`${WC26_BASE}/get/games`, { headers, timeout: 15000 });
+  const games = Array.isArray(res.data) ? res.data : res.data.games || res.data.data || [];
+  if (!games.length) throw new Error('worldcup26.ir returned 0 games');
+
+  const existingUtcDates = loadExistingUtcDates();
+
+  const fixtures = games.map(game => {
+    const isLive = game.time_elapsed === 'live';
+    const isFin  = game.finished === 'TRUE';
+    const status = isLive ? 'live' : isFin ? 'fin' : 'upcoming';
+    const homeScore = parseInt(game.home_score) || 0;
+    const awayScore = parseInt(game.away_score) || 0;
+
+    // Use accurate utcDate from existing data when available (ground truth from football-data.org)
+    const utcDate = existingUtcDates[String(game.id)] || localDateToUTC(game.local_date);
+
+    const isGroup = game.type === 'group';
+    let stage, round;
+    if (isGroup) {
+      stage = 'GROUP_STAGE';
+      round = `Group Stage - Matchday ${game.matchday}`;
+    } else {
+      ({ stage, round } = stageFromType(game.type));
     }
 
-    return Object.entries(groups)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([g, teamsMap]) => ({
-        group: g.replace('GROUP_', ''),
-        standings: Object.values(teamsMap).sort((a, b) =>
-          b.points - a.points || b.gd - a.gd || b.gf - a.gf
-        ),
-      }));
-  } catch (err) {
-    console.error('Error fetching groups:', err.response?.data?.message || err.message);
-    return [];
-  }
+    // For upcoming knockouts, teams are TBD — use label if available
+    const homeName = game.home_team_name_en || game.home_team_label || null;
+    const awayName = game.away_team_name_en || game.away_team_label || null;
+
+    return {
+      id: parseInt(game.id),
+      round,
+      stage,
+      group: isGroup ? `GROUP_${game.group}` : null,
+      matchday: parseInt(game.matchday) || null,
+      date: utcDate
+        ? new Date(utcDate).toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', timeZone:'America/New_York' })
+        : game.local_date,
+      time: utcDate
+        ? new Date(utcDate).toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', timeZone:'America/New_York', hour12:true }) + ' ET'
+        : '',
+      utcDate,
+      home: homeName,
+      homeFlag: flagFor(homeName),
+      away: awayName,
+      awayFlag: flagFor(awayName),
+      homeScore: (isFin || isLive) ? homeScore : null,
+      awayScore: (isFin || isLive) ? awayScore : null,
+      status,
+      winner: isFin ? (homeScore > awayScore ? game.home_team_name_en : awayScore > homeScore ? game.away_team_name_en : null) : null,
+    };
+  });
+
+  const groups  = computeGroups(games);
+  const scorers = buildTopScorers(games);
+
+  const live = fixtures.filter(f => f.status === 'live');
+  console.log(`✅  worldcup26.ir: ${fixtures.length} fixtures, ${groups.length} groups, ${scorers.length} scorers${live.length ? `, ${live.length} LIVE` : ''}`);
+  return { fixtures, groups, scorers };
 }
 
-// ── FETCH: Fixtures ────────────────────────────────────────────────────────
-async function fetchFixtures() {
-  try {
-    const res = await axios.get(`${API_BASE}/competitions/${WC_CODE}/matches`, {
-      headers, params: { season: WC_SEASON }
-    });
-    const matches = res.data.matches || [];
-    return matches.map(m => {
-      const fin  = ['FINISHED', 'AWARDED'].includes(m.status);
-      const live = ['IN_PLAY', 'PAUSED', 'HALF_TIME'].includes(m.status);
-      const score = m.score || {};
-      const ft = score.fullTime || {};
-      return {
-        id: m.id,
-        round: m.stage === 'GROUP_STAGE' ? `Group Stage - Matchday ${m.matchday}` : humanRound(m.stage),
-        stage: m.stage,
-        group: m.group || null,
-        matchday: m.matchday,
-        date: new Date(m.utcDate).toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', timeZone:'America/New_York' }),
-        time: new Date(m.utcDate).toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', timeZone:'America/New_York', hour12:true }) + ' ET',
-        utcDate: m.utcDate,
-        home: m.homeTeam.name,
-        homeFlag: flagFor(m.homeTeam.name),
-        away: m.awayTeam.name,
-        awayFlag: flagFor(m.awayTeam.name),
-        homeScore: (fin || live) ? ft.home : null,
-        awayScore: (fin || live) ? ft.away : null,
-        status: live ? 'live' : fin ? 'fin' : 'upcoming',
-        winner: fin ? winnerName(m) : null,
-      };
-    });
-  } catch (err) {
-    console.error('Error fetching fixtures:', err.response?.data?.message || err.message);
-    return [];
-  }
-}
-
+// ══ FALLBACK: FOOTBALL-DATA.ORG ═══════════════════════════════════════════
 function humanRound(stage) {
   const map = {
     'LAST_16': 'Round of 16', 'LAST_32': 'Round of 32',
@@ -155,255 +246,211 @@ function winnerName(m) {
   if (!m.score?.winner) return null;
   if (m.score.winner === 'HOME_TEAM') return m.homeTeam.name;
   if (m.score.winner === 'AWAY_TEAM') return m.awayTeam.name;
-  return null; // DRAW
+  return null;
 }
 
-// ── FETCH: Top scorers ─────────────────────────────────────────────────────
-async function fetchScorers() {
-  try {
-    const res = await axios.get(`${API_BASE}/competitions/${WC_CODE}/scorers`, {
-      headers, params: { season: WC_SEASON, limit: 20 }
-    });
-    return (res.data.scorers || []).map(s => ({
-      name: s.player.name,
-      team: s.team.name,
-      flag: flagFor(s.team.name),
-      goals: s.goals || 0,
-      assists: s.assists || 0,
-    }));
-  } catch (err) {
-    console.error('Error fetching scorers:', err.response?.data?.message || err.message);
-    return [];
+async function fetchFromFootballData() {
+  console.log('⚠️   Using football-data.org fallback…');
+  const headers = { 'X-Auth-Token': FD_KEY };
+
+  const [groupsRes, fixturesRes, scorersRes] = await Promise.all([
+    axios.get(`${FD_BASE}/competitions/${WC_CODE}/matches`, { headers, params: { season: WC_SEASON, stage: 'GROUP_STAGE' } }),
+    axios.get(`${FD_BASE}/competitions/${WC_CODE}/matches`, { headers, params: { season: WC_SEASON } }),
+    axios.get(`${FD_BASE}/competitions/${WC_CODE}/scorers`, { headers, params: { season: WC_SEASON, limit: 20 } }),
+  ]);
+
+  // Groups
+  const groupMatches = groupsRes.data.matches || [];
+  const groupsMap = {};
+  for (const m of groupMatches) {
+    const g = m.group;
+    if (!g) continue;
+    if (!groupsMap[g]) groupsMap[g] = {};
+    const home = m.homeTeam.name, away = m.awayTeam.name;
+    if (!groupsMap[g][home]) groupsMap[g][home] = { team: home, flag: flagFor(home), played:0, won:0, drawn:0, lost:0, gf:0, ga:0, gd:0, points:0 };
+    if (!groupsMap[g][away]) groupsMap[g][away] = { team: away, flag: flagFor(away), played:0, won:0, drawn:0, lost:0, gf:0, ga:0, gd:0, points:0 };
+    if (!['FINISHED','AWARDED'].includes(m.status)) continue;
+    const hg = m.score.fullTime.home ?? 0, ag = m.score.fullTime.away ?? 0;
+    groupsMap[g][home].played++; groupsMap[g][away].played++;
+    groupsMap[g][home].gf += hg; groupsMap[g][home].ga += ag;
+    groupsMap[g][away].gf += ag; groupsMap[g][away].ga += hg;
+    groupsMap[g][home].gd += hg-ag; groupsMap[g][away].gd += ag-hg;
+    if (hg > ag)      { groupsMap[g][home].won++; groupsMap[g][home].points+=3; groupsMap[g][away].lost++; }
+    else if (hg < ag) { groupsMap[g][away].won++; groupsMap[g][away].points+=3; groupsMap[g][home].lost++; }
+    else              { groupsMap[g][home].drawn++; groupsMap[g][home].points++; groupsMap[g][away].drawn++; groupsMap[g][away].points++; }
   }
+  const groups = Object.entries(groupsMap)
+    .sort(([a],[b]) => a.localeCompare(b))
+    .map(([g, teamsMap]) => ({
+      group: g.replace('GROUP_',''),
+      standings: Object.values(teamsMap).sort((a,b) => b.points-a.points || b.gd-a.gd || b.gf-a.gf),
+    }));
+
+  // Fixtures
+  const fixtures = (fixturesRes.data.matches || []).map(m => {
+    const fin  = ['FINISHED','AWARDED'].includes(m.status);
+    const live = ['IN_PLAY','PAUSED','HALF_TIME'].includes(m.status);
+    const ft   = m.score?.fullTime || {};
+    return {
+      id: m.id,
+      round: m.stage === 'GROUP_STAGE' ? `Group Stage - Matchday ${m.matchday}` : humanRound(m.stage),
+      stage: m.stage,
+      group: m.group || null,
+      matchday: m.matchday,
+      date: new Date(m.utcDate).toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', timeZone:'America/New_York' }),
+      time: new Date(m.utcDate).toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', timeZone:'America/New_York', hour12:true }) + ' ET',
+      utcDate: m.utcDate,
+      home: m.homeTeam.name, homeFlag: flagFor(m.homeTeam.name),
+      away: m.awayTeam.name, awayFlag: flagFor(m.awayTeam.name),
+      homeScore: (fin||live) ? ft.home : null,
+      awayScore: (fin||live) ? ft.away : null,
+      status: live ? 'live' : fin ? 'fin' : 'upcoming',
+      winner: fin ? winnerName(m) : null,
+    };
+  });
+
+  // Scorers
+  const scorers = (scorersRes.data.scorers || []).map(s => ({
+    name: s.player.name, team: s.team.name, flag: flagFor(s.team.name),
+    goals: s.goals || 0, assists: s.assists || 0,
+  }));
+
+  console.log(`✅  football-data.org fallback: ${fixtures.length} fixtures, ${groups.length} groups`);
+  return { fixtures, groups, scorers };
 }
 
-// ── DERIVE BRACKET FROM KNOCKOUT FIXTURES (for Firestore scoring) ─────────
+// ══ FIRESTORE ══════════════════════════════════════════════════════════════
 function deriveBracket(fixtures) {
   const bracket = { r32:[], r16:[], qf:[], sf:[], final:[], winner:[] };
-  const stageMap = {
-    'LAST_32': 'r32', 'LAST_16': 'r16',
-    'QUARTER_FINALS': 'qf', 'SEMI_FINALS': 'sf', 'FINAL': 'final',
-  };
-
+  const stageMap = { 'LAST_32':'r32', 'LAST_16':'r16', 'QUARTER_FINALS':'qf', 'SEMI_FINALS':'sf', 'FINAL':'final' };
   for (const f of fixtures) {
     const key = stageMap[f.stage];
     if (!key) continue;
     if (f.home && f.away) bracket[key].push(f.home, f.away);
     if (key === 'final' && f.winner) bracket.winner = [f.winner];
   }
-
   return bracket;
 }
 
-// ── DERIVE RESULTS FOR SCORING ENGINE ─────────────────────────────────────
 function deriveResults(fixtures, groups) {
   const results = {
-    groups: {},
-    thirdPlaceQualifiers: [],
+    groups: {}, thirdPlaceQualifiers: [],
     bracket: { r32:[], r16:[], qf:[], sf:[], final:[], winner:[] },
-    goldenBoot: '',
-    phase2Unlocked: false,
+    goldenBoot: '', phase2Unlocked: false,
   };
-
-  // Group order from standings
   for (const g of groups) {
     results.groups[g.group] = g.standings.map(t => t.team);
   }
-  results.startedGroups = groups
-    .filter(g => g.standings.some(t => t.played > 0))
-    .map(g => g.group);
-
-  // Knockout results
-  const stageMap = {
-    'LAST_32': 'r32', 'LAST_16': 'r16',
-    'QUARTER_FINALS': 'qf', 'SEMI_FINALS': 'sf', 'FINAL': 'final',
-  };
-
+  results.startedGroups = groups.filter(g => g.standings.some(t => t.played > 0)).map(g => g.group);
+  const stageMap = { 'LAST_32':'r32', 'LAST_16':'r16', 'QUARTER_FINALS':'qf', 'SEMI_FINALS':'sf', 'FINAL':'final' };
   for (const f of fixtures) {
     const key = stageMap[f.stage];
     if (!key || f.status !== 'fin') continue;
     if (f.home && f.away) results.bracket[key].push(f.home, f.away);
     if (key === 'final' && f.winner) results.bracket.winner = [f.winner];
   }
-
-  // Unlock Phase 2 once all group games finish
   const groupFixtures = fixtures.filter(f => f.stage === 'GROUP_STAGE');
-  const allGroupDone = groupFixtures.length > 0 && groupFixtures.every(f => f.status === 'fin');
-  results.phase2Unlocked = allGroupDone;
-
+  results.phase2Unlocked = groupFixtures.length > 0 && groupFixtures.every(f => f.status === 'fin');
   return results;
 }
 
-// ── RECALCULATE ALL PLAYER SCORES ──────────────────────────────────────────
 async function recalculateScores(results, scorers) {
-  if (!db) {
-    console.log('⏭️   Skipping score recalculation (no Firestore connection)');
-    return;
-  }
-
+  if (!db) { console.log('⏭️   Skipping score recalculation (no Firestore)'); return; }
   const playersSnap = await db.collection('wc2026picks').get();
-  if (playersSnap.empty) {
-    console.log('   No players to score yet');
-    return;
-  }
-
-  const topScorer = scorers.length > 0 ? scorers[0].name : '';
+  if (playersSnap.empty) { console.log('   No players yet'); return; }
+  const topScorer = scorers[0]?.name || '';
   const scores = {};
-
   playersSnap.forEach(doc => {
-    const uid = doc.id;
-    const data = doc.data();
-    const phase1 = data.phase1 || {};
-    const phase2 = data.phase2 || {};
+    const { phase1={}, phase2={} } = doc.data();
     let score = 0;
-
-    // Phase 1 — group picks (only for started groups)
     const actualGroups = results.groups || {};
     const startedGroups = new Set(results.startedGroups || []);
     if (phase1.groups) {
       for (const [grp, order] of Object.entries(phase1.groups)) {
         if (!startedGroups.has(grp)) continue;
         const actual = actualGroups[grp] || [];
-        if (actual[0] && order[0] === actual[0]) score += 1;
-        if (actual[1] && order[1] === actual[1]) score += 1;
-        if (actual[2] && order[2] === actual[2]) score += 1;
+        if (actual[0] && order[0] === actual[0]) score++;
+        if (actual[1] && order[1] === actual[1]) score++;
+        if (actual[2] && order[2] === actual[2]) score++;
       }
     }
-
-    // Phase 1 — third place qualifiers
     const actualTPQ = results.thirdPlaceQualifiers || [];
-    (phase1.thirdPlaceQualifiers || []).forEach(t => {
-      if (actualTPQ.includes(t)) score += 2;
-    });
-
-    // Phase 1 — bracket
+    (phase1.thirdPlaceQualifiers || []).forEach(t => { if (actualTPQ.includes(t)) score += 2; });
     const P1_PTS = { r32:2, r16:3, qf:5, sf:10, final:20 };
     const actualBracket = results.bracket || {};
     for (const [round, pts] of Object.entries(P1_PTS)) {
-      const actual = actualBracket[round] || [];
-      (phase1.bracket?.[round] || []).forEach(t => {
-        if (t && actual.includes(t)) score += pts;
-      });
+      (phase1.bracket?.[round] || []).forEach(t => { if (t && (actualBracket[round]||[]).includes(t)) score += pts; });
     }
-
-    // Phase 1 — golden boot
-    if (phase1.goldenBoot && topScorer &&
-        phase1.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) {
-      score += 10;
+    if (phase1.goldenBoot && topScorer && phase1.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) score += 10;
+    for (const round of ['r16','qf','sf','final']) {
+      (phase2.bracket?.[round] || []).forEach(t => { if (t && (actualBracket[round]||[]).includes(t)) score += 5; });
     }
-
-    // Phase 2 — bracket
-    const P2_ROUNDS = ['r16', 'qf', 'sf', 'final'];
-    for (const round of P2_ROUNDS) {
-      const actual = actualBracket[round] || [];
-      (phase2.bracket?.[round] || []).forEach(t => {
-        if (t && actual.includes(t)) score += 5;
-      });
-    }
-
-    // Phase 2 — golden boot
-    if (phase2.goldenBoot && topScorer &&
-        phase2.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) {
-      score += 5;
-    }
-
-    scores[uid] = score;
+    if (phase2.goldenBoot && topScorer && phase2.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) score += 5;
+    scores[doc.id] = score;
   });
-
   await db.collection('wc2026').doc('scores').set(scores);
   console.log(`   Scores recalculated for ${Object.keys(scores).length} players`);
 }
 
-// ── WRITE TO FIRESTORE ─────────────────────────────────────────────────────
 async function writeToFirestore(groups, fixtures, scorers, bracket, results) {
-  if (!db) {
-    console.log('⏭️   Skipping Firestore writes (no connection)');
-    return;
-  }
-
+  if (!db) { console.log('⏭️   Skipping Firestore writes (no connection)'); return; }
   console.log('📤  Writing to Firestore…');
-
-  // Write display data
   await db.collection('wc2026').doc('tournament').set({
     groups: groups.map(g => ({ name: g.group, standings: g.standings })),
-    fixtures: fixtures.slice(0, 120), // cap to avoid 1MB limit
+    fixtures: fixtures.slice(0, 120),
     bracket,
     scorers,
     lastSync: Date.now(),
   });
-
-  // Write results for scoring
   await db.collection('wc2026').doc('results').set(results, { merge: true });
-
-  // Recalculate scores
   await recalculateScores(results, scorers);
-
   console.log('✅  Firestore updated');
 }
 
 // ── SMART FETCH GUARD ─────────────────────────────────────────────────────
-// Returns true if we should actually call the API right now.
-// Called before any network requests so we don't burn quota on idle runs.
 function shouldFetchNow() {
-  // 1. Always refresh during the midnight ET window (12:00–12:14 AM ET)
-  //    so "today's fixtures" on the home page and Results tab are current.
+  // Always refresh in the midnight ET window so daily fixture lists stay current.
   const etStr = new Date().toLocaleTimeString('en-US', {
     timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false,
   });
   const [etH, etM] = etStr.split(':').map(Number);
   if (etH === 0 && etM < 15) {
-    console.log('⏰  Midnight ET window — refreshing today\'s fixtures.');
+    console.log('⏰  Midnight ET window — refreshing.');
     return true;
   }
 
-  // 2. Read existing data to check game schedule.
   const dataPath = path.join(__dirname, '..', 'data', 'wc2026.json');
-  if (!fs.existsSync(dataPath)) {
-    console.log('📂  No existing data — fetching for the first time.');
-    return true;
-  }
+  if (!fs.existsSync(dataPath)) { console.log('📂  No existing data — first fetch.'); return true; }
 
   let existing;
-  try {
-    existing = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-  } catch {
-    return true; // corrupt file, re-fetch
-  }
+  try { existing = JSON.parse(fs.readFileSync(dataPath, 'utf8')); }
+  catch { return true; }
 
-  // If existing data already shows a game as live, always fetch regardless of time window.
-  // Matches can run past 2h (extra time, penalties) and the time window would otherwise block us.
-  const alreadyLive = (existing.fixtures || []).filter(f => f.status === 'live');
-  if (alreadyLive.length > 0) {
-    console.log(`🔴  ${alreadyLive.map(f => `${f.home} vs ${f.away}`).join(', ')} still live in existing data — fetching.`);
+  // If any game is currently live, always fetch — match could still be running.
+  const live = (existing.fixtures || []).filter(f => f.status === 'live');
+  if (live.length) {
+    console.log(`🔴  ${live.map(f => `${f.home} vs ${f.away}`).join(', ')} live in existing data — fetching.`);
     return true;
   }
 
-  const nowUTC = Date.now();
-  const BEFORE_MS  = 15 * 60 * 1000;    // start polling 15 min before kickoff
-  const AFTER_MS   = 2  * 60 * 60 * 1000; // cover 90 min + stoppage time (~2h max)
+  // Check upcoming game windows using stored utcDate (accurate from football-data.org origin).
+  const nowUTC   = Date.now();
+  const BEFORE   = 15 * 60 * 1000;       // 15 min before kickoff
+  const AFTER    = 2.5 * 60 * 60 * 1000; // 2.5h after kickoff (covers ET + stoppage)
 
-  // Games whose window overlaps right now
-  const activeWindow = (existing.fixtures || []).filter(f => {
+  const active = (existing.fixtures || []).filter(f => {
     if (!f.utcDate) return false;
-    const kick = new Date(f.utcDate).getTime();
-    const diff = kick - nowUTC;               // positive = future, negative = past
-    return diff >= -AFTER_MS && diff <= BEFORE_MS;
+    const diff = new Date(f.utcDate).getTime() - nowUTC;
+    return diff >= -AFTER && diff <= BEFORE;
   });
 
-  if (activeWindow.length === 0) {
-    console.log('💤  No active game window — skipping API call.');
+  if (!active.length) { console.log('💤  No active game window — skipping.'); return false; }
+  if (active.every(f => f.status === 'fin')) {
+    console.log(`✅  All active-window games finished (${active.map(f=>`${f.home} vs ${f.away}`).join(', ')}) — skipping.`);
     return false;
   }
 
-  // If every game in the window has already finished, stop polling
-  if (activeWindow.every(f => f.status === 'fin')) {
-    const teams = activeWindow.map(f => `${f.home} vs ${f.away}`).join(', ');
-    console.log(`✅  All active-window games finished (${teams}) — skipping until next game.`);
-    return false;
-  }
-
-  const pending = activeWindow.filter(f => f.status !== 'fin');
-  console.log(`⚽  ${pending.length} game(s) active or starting soon — fetching.`);
+  console.log(`⚽  ${active.filter(f=>f.status!=='fin').length} game(s) active or starting soon — fetching.`);
   return true;
 }
 
@@ -411,42 +458,34 @@ function shouldFetchNow() {
 async function main() {
   if (!shouldFetchNow()) process.exit(0);
 
-  console.log(`Fetching World Cup 2026 data from football-data.org…`);
+  let result;
+  // Try primary API first; fall back gracefully if it fails.
+  if (WC26_TOKEN) {
+    try {
+      result = await fetchFromWC26();
+    } catch (err) {
+      console.warn(`⚠️   worldcup26.ir failed (${err.message}) — trying fallback…`);
+      if (!FD_KEY) { console.error('❌ No fallback key available.'); process.exit(1); }
+      result = await fetchFromFootballData();
+    }
+  } else {
+    result = await fetchFromFootballData();
+  }
 
-  const [groups, fixtures, scorers] = await Promise.all([
-    fetchGroups(),
-    fetchFixtures(),
-    fetchScorers(),
-  ]);
-
+  const { fixtures, groups, scorers } = result;
   const bracket = deriveBracket(fixtures);
   const results = deriveResults(fixtures, groups);
 
-  // Write to static JSON for client fallback
-  const data = {
-    lastUpdated: new Date().toISOString(),
-    groups,
-    fixtures,
-    topScorers: scorers,
-  };
+  const data = { lastUpdated: new Date().toISOString(), groups, fixtures, topScorers: scorers };
 
   const dataDir = path.join(__dirname, '..', 'data');
   if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+  fs.writeFileSync(path.join(dataDir, 'wc2026.json'), JSON.stringify(data, null, 2));
 
-  const outputPath = path.join(dataDir, 'wc2026.json');
-  fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
+  const played = fixtures.filter(f => f.status === 'fin').length;
+  const liveNow = fixtures.filter(f => f.status === 'live').length;
+  console.log(`✅  data/wc2026.json written — ${played} played | ${liveNow} live | ${fixtures.length-played-liveNow} upcoming`);
 
-  console.log(`✅ Data written to ${outputPath}`);
-  console.log(`   Groups: ${groups.length}`);
-  console.log(`   Fixtures: ${fixtures.length}`);
-  console.log(`   Top Scorers: ${scorers.length}`);
-  if (fixtures.length) {
-    const played = fixtures.filter(f => f.status === 'fin').length;
-    const live   = fixtures.filter(f => f.status === 'live').length;
-    console.log(`   Played: ${played}  |  Live: ${live}  |  Upcoming: ${fixtures.length - played - live}`);
-  }
-
-  // Write to Firestore for real-time updates
   await writeToFirestore(groups, fixtures, scorers, bracket, results);
 }
 
