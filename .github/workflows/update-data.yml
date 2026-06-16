@@ -2,8 +2,8 @@ name: Update World Cup Data
 
 on:
   schedule:
-    # Run every minute during matches — fetch-data.js smart-skips when no game is active.
-    - cron: '* * * * *'
+    # Run every 5 minutes — fetch-data.js smart-skips when no game is active.
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:

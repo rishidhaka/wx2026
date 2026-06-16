@@ -347,6 +347,35 @@ input::placeholder{color:var(--muted)}
 .modal{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:12px;padding:18px;width:100%;max-width:500px;margin:auto}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .modal-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer}
+/* Match facts modal */
+.match-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:flex-end;justify-content:center;padding:0}
+.match-modal-overlay.open{display:flex}
+.match-modal{background:var(--surface);border:1px solid var(--border);border-radius:16px 16px 0 0;width:100%;max-width:500px;padding:20px 16px 32px;animation:slideUp .25s}
+.match-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.match-modal-title{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.match-modal-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:0}
+.match-modal-scoreboard{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin-bottom:18px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.match-modal-team{display:flex;flex-direction:column;align-items:center;gap:4px}
+.match-modal-flag{font-size:28px;line-height:1}
+.match-modal-team-name{font-size:12px;font-weight:600;color:var(--text);text-align:center}
+.match-modal-score{font-size:32px;font-weight:800;color:var(--text);text-align:center;font-family:'DM Mono',monospace;letter-spacing:2px}
+.match-modal-score.live{color:var(--live)}
+.match-modal-vs{font-size:15px;font-weight:700;color:var(--muted);text-align:center}
+.match-modal-goals{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:4px}
+.match-modal-goals-col{padding:0 4px}
+.match-modal-goals-col:first-child{border-right:1px solid var(--border);padding-right:12px}
+.match-modal-goals-col:last-child{padding-left:12px}
+.match-modal-goal-row{display:flex;align-items:baseline;gap:5px;padding:4px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.match-modal-goal-row:last-child{border-bottom:none}
+.match-modal-goal-name{flex:1;color:var(--text);font-weight:500}
+.match-modal-goal-min{font-size:11px;color:var(--muted);flex-shrink:0;white-space:nowrap}
+.match-modal-no-goals{font-size:12px;color:var(--muted);padding:6px 0;font-style:italic}
+.match-modal-status{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
+/* Phones/tablets: bottom sheet (default above). Wider screens: centred card. */
+@media (min-width:37.5rem){
+  .match-modal-overlay{align-items:center;padding:20px}
+  .match-modal{border-radius:16px;max-width:420px;animation:fadeIn .2s}
+}
 .score-tag{font-size:11px;padding:2px 7px;border-radius:3px;display:inline-block;margin:2px}
 .score-tag.hit{background:#102010;border:1px solid #1a4020;color:var(--green)}
 .score-tag.miss{background:#1a0a0a;border:1px solid #3a1010;color:#a05050}
@@ -585,6 +614,17 @@ input::placeholder{color:var(--muted)}
   </div>
 </div>
 
+<!-- MATCH FACTS MODAL -->
+<div class="match-modal-overlay" id="match-modal" onclick="if(event.target===this)closeMatchModal()">
+  <div class="match-modal">
+    <div class="match-modal-header">
+      <div class="match-modal-title" id="match-modal-round"></div>
+      <button class="match-modal-close" onclick="closeMatchModal()">✕</button>
+    </div>
+    <div id="match-modal-body"></div>
+  </div>
+</div>
+
 <!-- HOW TO PLAY MODAL -->
 <div class="how-to-play-overlay" id="how-to-play-modal">
   <div class="how-to-play">
@@ -755,6 +795,7 @@ const THIRD_PLACE_SLOT_COLUMNS = [
 
 // ══ STATE ══════════════════════════════════════════════════════════════════
 let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={}, lastKnownGoodData=null, activeFixtureDate=null;
+let fixtureMap={}; // id → fixture object, populated by applyTournamentData for modal lookup
 let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""},phase1SubmittedAt:null};
 let activeLeague=null, leagueView="my", liveTab="groups";
 let adminUnlocked=false, resState={};
@@ -924,7 +965,7 @@ function renderHomeHeader(){
     <div class="home-status-row">
       ${statusTxt}
       <span class="home-status-sep">·</span>
-      <span>🇺🇸 USA · 🇨🇦 Canada · 🇲🇽 Mexico · 48 matches</span>
+      <span>🇺🇸 USA · 🇨🇦 Canada · 🇲🇽 Mexico</span>
       <button style="margin-left:auto;background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;padding:0" onclick="signOut()">Sign out</button>
     </div>
   </div>`;
@@ -1015,19 +1056,32 @@ function applyTournamentData(raw) {
 
   tournamentData = {
     groups,
-    fixtures: (raw.fixtures || []).map(f => ({
-      ...f,
-      home: f.home || f.homeTeam,
-      away: f.away || f.awayTeam,
-      // Always derive date in ET — JSON written by Actions runner uses UTC
-      date: f.utcDate
-        ? new Date(f.utcDate).toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"America/New_York"})
-        : f.date,
-    })).sort((a, b) => (a.utcDate || '').localeCompare(b.utcDate || '')),
+    fixtures: (raw.fixtures || []).map(f => {
+      // fixtureMap still holds previous values here — carry forward homeGoals/awayGoals
+      // when Firestore overwrites JSON data (Cloud Function doesn't write goal data)
+      const prev = fixtureMap[f.id];
+      return {
+        ...f,
+        home: f.home || f.homeTeam,
+        away: f.away || f.awayTeam,
+        // Always derive date in ET — JSON written by Actions runner uses UTC
+        date: f.utcDate
+          ? new Date(f.utcDate).toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"America/New_York"})
+          : f.date,
+        homeGoals: f.homeGoals !== undefined ? f.homeGoals : (prev && prev.homeGoals),
+        awayGoals: f.awayGoals !== undefined ? f.awayGoals : (prev && prev.awayGoals),
+      };
+    }).sort((a, b) => (a.utcDate || '').localeCompare(b.utcDate || '')),
     scorers,
     lastUpdated: raw.lastUpdated ||
       (raw.lastSync ? new Date(raw.lastSync).toISOString() : null),
   };
+
+  // Build fixture lookup map for match modal
+  fixtureMap = {};
+  for (const f of tournamentData.fixtures) {
+    if (f.id != null) fixtureMap[f.id] = f;
+  }
 
   if (groups.length > 0) {
     lastKnownGoodData = JSON.parse(JSON.stringify(tournamentData));
@@ -1040,11 +1094,14 @@ function applyTournamentData(raw) {
 }
 
 async function loadTournamentData() {
-  // Fetch from GitHub raw URL — updated every 10 min by GitHub Actions (no hosting redeploy needed).
-  // Timestamp query param bypasses CDN cache so each poll gets the latest committed file.
-  const RAW_URL = 'https://raw.githubusercontent.com/rishidhaka/wx2026/refs/heads/main/data/wc2026.json';
+  // On localhost use the local file directly; in production use GitHub raw URL so
+  // data updates from GitHub Actions reach users without a full hosting redeploy.
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  const DATA_URL = isLocal
+    ? `/data/wc2026.json?t=${Date.now()}`
+    : `https://raw.githubusercontent.com/rishidhaka/wx2026/refs/heads/main/data/wc2026.json?t=${Date.now()}`;
   try {
-    const response = await fetch(`${RAW_URL}?t=${Date.now()}`);
+    const response = await fetch(DATA_URL);
     if (!response.ok) return;
     const data = await response.json();
     applyTournamentData(data);
@@ -2388,7 +2445,7 @@ function renderHomeTab(){
           const meta=live?`<div class="home-match-pill-meta live">● LIVE</div>`
             :fin?`<div class="home-match-pill-meta">Full time</div>`
             :`<div class="home-match-pill-meta">${timeStr}</div>`;
-          return`<div class="home-match-pill${live?" live":""}">
+          return`<div class="home-match-pill${live?" live":""}" style="cursor:pointer" onclick="showMatchModal(${f.id})">
             <div class="home-match-pill-team">
               <span style="font-size:16px">${f.homeFlag||"🏳️"}</span>
               <span class="home-match-pill-name">${esc(f.home||f.homeTeam||"")}</span>
@@ -2618,7 +2675,7 @@ function renderLiveFixtures(el,fixtures){
       const metaContent=live
         ?`<span class="live-dot-inline"></span><span style="color:var(--live);font-weight:600">Live</span>`
         :fin?'Full time':timeStr;
-      return`<div class="fixture${live?" live-card":fin?" fin-card":""}">
+      return`<div class="fixture${live?" live-card":fin?" fin-card":""}" style="cursor:pointer" onclick="showMatchModal(${f.id})">
         <div class="fixture-row">
           <span class="fixture-flag">${f.homeFlag||"🏳️"}</span>
           <span class="fixture-name">${esc(f.home||f.homeTeam||"")}</span>
@@ -3015,6 +3072,57 @@ function showDetail(uid){
   document.getElementById("modal").classList.add("open");
 }
 function closeModal(){document.getElementById("modal").classList.remove("open");}
+
+function showMatchModal(id){
+  const f=fixtureMap[id]; if(!f) return;
+  const live=f.status==="live", fin=f.status==="fin";
+  const hasScore=live||fin;
+  document.getElementById("match-modal-round").textContent=f.round||"";
+  const homeGoals=f.homeGoals, awayGoals=f.awayGoals;
+  const hasGoalData=Array.isArray(homeGoals)&&Array.isArray(awayGoals);
+  // Combine multiple goals by the same player into one row. Each goal's (P)/(OG)
+  // tag stays attached to its own timestamp so e.g. a penalty + open-play goal by
+  // the same player still group under one name instead of splitting in two.
+  const groupByScorer=(goals)=>{
+    const order=[], byName={};
+    for(const g of goals){
+      if(!byName[g.name]){byName[g.name]={name:g.name,stamps:[]};order.push(g.name);}
+      if(g.minute)byName[g.name].stamps.push(`${g.minute}'${g.tag?` ${g.tag}`:""}`);
+    }
+    return order.map(n=>byName[n]);
+  };
+  const goalsCol=(goals)=>{
+    const grouped=groupByScorer(goals);
+    return grouped.length
+      ?grouped.map(g=>`<div class="match-modal-goal-row">
+          <span style="font-size:12px;margin-right:2px">⚽</span>
+          <span class="match-modal-goal-name">${esc(g.name)}</span>
+          ${g.stamps.length?`<span class="match-modal-goal-min">${g.stamps.join(", ")}</span>`:""}
+        </div>`).join("")
+      :`<div class="match-modal-no-goals">No goals</div>`;
+  };
+  document.getElementById("match-modal-body").innerHTML=`
+    <div class="match-modal-scoreboard">
+      <div class="match-modal-team">
+        <div class="match-modal-flag">${f.homeFlag||"🏳️"}</div>
+        <div class="match-modal-team-name">${esc(f.home||"")}</div>
+      </div>
+      ${hasScore
+        ?`<div class="match-modal-score${live?" live":""}">${f.homeScore??0} – ${f.awayScore??0}</div>`
+        :`<div class="match-modal-vs">vs</div>`}
+      <div class="match-modal-team">
+        <div class="match-modal-flag">${f.awayFlag||"🏳️"}</div>
+        <div class="match-modal-team-name">${esc(f.away||"")}</div>
+      </div>
+    </div>
+    ${hasScore&&hasGoalData?`<div class="match-modal-goals">
+      <div class="match-modal-goals-col">${goalsCol(homeGoals)}</div>
+      <div class="match-modal-goals-col">${goalsCol(awayGoals)}</div>
+    </div>`:hasScore?`<div style="text-align:center;font-size:12px;color:var(--muted);padding:12px 0">Goal details updating…</div>`:""}
+    <div class="match-modal-status">${live?"● Live now":fin?"Full time":`Kick-off: ${f.time||"TBD"}`}</div>`;
+  document.getElementById("match-modal").classList.add("open");
+}
+function closeMatchModal(){document.getElementById("match-modal").classList.remove("open");}
 function showHowToPlay(){document.getElementById("how-to-play-modal").classList.add("open");}
 function closeHowToPlay(){document.getElementById("how-to-play-modal").classList.remove("open");}
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
