@@ -4,15 +4,35 @@
 
 Live tournament data flows:
 ```
-football-data.org → GitHub Actions (every 10 min, smart-gated) → data/wc2026.json → Client (polling)
+worldcup26.ir (primary)      ┐
+football-data.org (fallback) ┘→ GitHub Actions (every 1 min, smart-gated) → data/wc2026.json → Client (polling)
+
 football-data.org → Cloud Function (every 60 min) → Firestore → Client (real-time)
 ```
 
-The client never calls football-data.org directly. The API key never touches the browser.
+The client never calls either API directly. API keys never touch the browser.
 
 ---
 
-## football-data.org
+## worldcup26.ir (Primary Live Source)
+
+- Provider: worldcup26.ir
+- Free, JWT auth via `Authorization: Bearer <token>` header
+- Provides real-time live match status and scores
+- Secret: `WC26_API_TOKEN` (GitHub Actions secret + Cloud Function secret)
+
+**Team name differences from football-data.org** — `flagFor()` must include both variants:
+
+| worldcup26.ir name | football-data.org name |
+|---|---|
+| Czechia | Czech Republic |
+| Congo DR | Democratic Republic of the Congo |
+| Bosnia-Herzegovina | Bosnia and Herzegovina |
+| Cape Verde Islands | Cape Verde |
+
+---
+
+## football-data.org (Fallback / Cloud Function)
 
 - Provider: football-data.org
 - Free tier: 10 requests/minute
@@ -50,22 +70,23 @@ football-data.org uses these stage identifiers in match responses:
 
 File: `.github/workflows/update-data.yml`
 
-Runs every 10 minutes. Before calling the API, `scripts/fetch-data.js` runs a
-smart guard (`shouldFetchNow()`) that reads the existing `data/wc2026.json` and
-skips the API call unless one of these conditions is met:
+**Runs every 1 minute** (cron `* * * * *`). The frequent cron is cheap because `scripts/fetch-data.js` runs a smart guard (`shouldFetchNow()`) that reads the existing `data/wc2026.json` and exits early unless one of these conditions is met:
 
 - **Midnight ET window** (12:00–12:14 AM ET): always refresh to update today's fixtures
-- **Active game window**: a game kicks off within the next 15 minutes, or started
-  within the last 2 hours AND its status is not yet `fin`
+- **Active game window**: a game kicks off within the next 15 minutes, or started within the last 2 hours AND its status is not yet `fin`
 
 When the guard passes, it:
-1. Fetches all matches from football-data.org
+1. Tries worldcup26.ir first (primary); falls back to football-data.org if it fails
 2. Derives per-group standings from GROUP_STAGE fixtures
 3. Fetches top scorers
-4. Writes `data/wc2026.json` to the repo
-5. Firebase Hosting redeploys if file changed
+4. Locks in `utcDate` values by indexing both by match ID and by `home|away` team pair — so kick-off times survive API switches and ID changes across runs
+5. Writes `data/wc2026.json` to the repo
+6. Firebase Hosting redeploys automatically if the file changed
 
-Environment variable required: `FOOTBALLDATA_KEY` (set as GitHub Actions secret)
+Secrets required (both set in GitHub Actions):
+- `WC26_API_TOKEN` — worldcup26.ir JWT
+- `FOOTBALLDATA_KEY` — football-data.org key
+- `FIREBASE_SERVICE_ACCOUNT_WORLD_CUP_2026_E1A0B` — for Firestore writes from Actions
 
 ---
 

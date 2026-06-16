@@ -6,14 +6,14 @@ Single-page app. No build step. One HTML file contains all HTML, CSS, and JS.
 Firebase provides auth, database, hosting, and serverless functions.
 
 ```
-Browser ──── Firebase Auth (Google) ─────────────── Google Identity
+Browser ──── Firebase Auth (Google signInWithPopup) ── Google Identity
     │
     ├── Firestore (real-time listeners)
-    │     ├── wc2026/players      (all player picks + identity)
+    │     ├── wc2026/players      (all player picks + identity; only users who have saved picks)
     │     ├── wc2026/results      (confirmed match results)
     │     ├── wc2026/leagues      (mini league membership)
     │     ├── wc2026/tournament   (live data written by Cloud Function)
-    │     └── wc2026picks/{uid}   (full picks doc per user)
+    │     └── wc2026picks/{uid}   (full picks doc per user, including phase1SubmittedAt)
     │
     └── Firebase Hosting ──── index.html (the app)
                          └─── data/wc2026.json (static, 60s cache)
@@ -21,11 +21,25 @@ Browser ──── Firebase Auth (Google) ────────────
 Cloud Function (every 60 min)
     └── football-data.org → Firestore wc2026/tournament + wc2026/results
 
-GitHub Actions (every 10 min, smart-gated)
+GitHub Actions (every 1 min, smart-gated)
     └── fetch-data.js checks existing data before calling the API:
         active game window or midnight ET → fetch + deploy
-        no active games → exit early, no API call
+        no active games → exit early (no API call, no commit)
 ```
+
+### Data sources for live data
+`scripts/fetch-data.js` (run by GitHub Actions) uses a **primary + fallback** strategy:
+- **Primary**: `worldcup26.ir` — real-time live match status, JWT auth (`WC26_API_TOKEN` secret)
+- **Fallback**: `football-data.org` — used if primary fails (`FOOTBALLDATA_KEY` secret)
+
+**Critical**: These two APIs use different team name strings. `flagFor()` must include all variants. Known mismatches: Czechia vs Czech Republic, Congo DR vs Democratic Republic of the Congo, Bosnia-Herzegovina vs Bosnia and Herzegovina, Cape Verde Islands vs Cape Verde.
+
+### Repository fork structure
+```
+rishidhaka/wx2026  ← origin (upstream, production)
+siddhaka/wx2026    ← fork (development)
+```
+All UI development happens on `siddhaka/wx2026:main`. PRs are opened from `siddhaka:main` → `rishidhaka:main`. The GitHub Actions auto-deploy fires on push to `rishidhaka/wx2026:main`.
 
 ---
 
@@ -175,6 +189,34 @@ for fast sorting at scale (>500 players).
 
 ## Responsive Layout
 
-- **Mobile** (< 600px): Single column, full-width tabs, touch drag for groups
-- **Tablet** (600–1024px): Wider cards, more breathing room
-- **Desktop** (> 1024px): Two-column layout — leaderboard left, picks/live right; bracket displayed full-width horizontally
+- **Mobile** (< 37.5rem): Single column, full-width tabs (sticky bottom), touch drag for groups
+- **Desktop** (≥ 37.5rem): `max-width: 60%` of viewport; tabs sticky at bottom of the app container
+
+The 60% breakpoint uses relative units so the layout is device-agnostic. No two-column layout yet — that remains a future task.
+
+---
+
+## Tab Navigation & `setMiniBanner`
+
+The bottom tab bar has 5 tabs: Home · Predict/My Picks · World Cup · Standings · Leagues.
+
+Tab switches call `setMiniBanner(tabName)` which shows a compact logo bar on every non-home tab and hides it on Home. This function is called from both the tab click listener and from `navTo()` (the programmatic navigation helper used by in-app buttons).
+
+`navTo('home')` also calls `renderHomeTab()` directly, so navigating home from the mini banner correctly re-renders the home content.
+
+---
+
+## `hasPicks` Detection
+
+Two signals are OR'd together to determine whether a user has submitted picks:
+
+```js
+const hasPicks = !!myPicks.phase1SubmittedAt || !!(currentUser && allPlayers[currentUser.uid]);
+```
+
+**Why two signals?**
+- `phase1SubmittedAt` is set when a user saves picks after the field was introduced (v4.2.0)
+- `allPlayers` (`wc2026/players` Firestore doc) only contains users who have *actually saved picks* — it is NOT populated for new users who haven't submitted yet (unlike `myPicks.phase1.groups` which is always pre-filled by `defaultGroups()`)
+- Legacy users who saved before `phase1SubmittedAt` existed are caught by the `allPlayers` check
+
+This pattern is used in three places: `renderHomeTab()`, `renderHomeHeader()`, and `updatePicksTabLabel()`.

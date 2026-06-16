@@ -1,6 +1,34 @@
 # Changelog
 
-## v4.4.0 — Smart Polling, Home Tab, Results Nav & Scoring Fix (June 12, 2026) ⚡ CURRENT
+## v4.5.0 — UI Overhaul: Home Banner, Tab Nav, Group Picker & Picks Flow (June 15, 2026) ⚡ CURRENT
+
+### Added
+- **FIFA WC 2026 emblem SVG** (`2026_FIFA_World_Cup_emblem.svg`): displayed on the login screen (220px) and centred in the home banner (80px)
+- **Home banner redesign**: 3-column CSS grid — avatar + greeting on left, logo centred, rank chip right-aligned. Background lightened to `#2D333B` (was `--surface` `#161B22`) so the dark logo is visible against it
+- **Mini banner on non-home tabs**: compact strip (44px logo, same background) that appears at the top of every non-home view; tapping it navigates back to Home. Hidden on the Home tab
+- **Conditional home picks card**: new users (no `phase1SubmittedAt`) see a full-width "Make Your Predictions" CTA with crystal ball; returning users see their points, rank, and deadline footer
+- **`hasPicks` dual-signal detection**: `!!myPicks.phase1SubmittedAt || !!allPlayers[currentUser.uid]`. The second signal handles legacy users who saved picks before `phase1SubmittedAt` was introduced — `wc2026/players` only contains users who have actually saved picks, so its presence is a reliable fallback
+- **Dynamic Predict/My Picks tab label**: `updatePicksTabLabel()` reads the same `hasPicks` signal and sets the 2nd tab label to "Predict" for new users and "My Picks" for returning users
+- **Collapsible group blocks in Picks tab**: group headers show a `▼` chevron that rotates to `▶` when collapsed; `toggleGroup()` toggles both the content and the chevron class
+- **World Cup → Groups subtab arrow navigation**: replaced the old group-pill selector with `‹ / ›` arrow buttons cycling through groups A–L (same pattern as Results date navigation); uses `activeGroupPill` state and `shiftGroup(delta)` function
+- **Phase 1 deadline label**: footer of home picks card reads "Phase 1 deadline: Jun 17 · 11:59 PM ET" (was "Next Picks Deadline")
+- **Knockout bracket UX fix**: round label (`bracket-round-indicator`) increased from 12px to 16px; Prev/Next buttons scoped to `.bracket-round-nav .btn` to override the full-width `100%` default without touching other buttons globally
+
+### Changed
+- **Bottom tab order**: Home → Predict/My Picks → World Cup → Standings → Leagues (was Home → World Cup → Standings → Leagues → Predict)
+- **Picks tab moved to position 2**: surfacing prediction entry earlier reduces friction for new users
+- **Desktop layout width**: `max-width: 60%` of viewport using relative units (was hardcoded `px`). Tabs use `position:sticky;bottom:0` inside the app container on wider screens
+- **Banner rank chip**: only shown for users with a real rank (rank ≠ "—" and rank ≠ 0); new users see nothing in the right column of the banner (CTA lives only in the home content card, not the banner)
+- **Toast pill fix**: `.toast` default changed to `visibility:hidden` (not `display:none`) so the CSS `transform` transition still fires on `.toast.show`. This fixed an empty gold pill visible at the bottom of all screens
+
+### Fixed
+- **Missing flags for Czechia, Congo DR, Bosnia-Herzegovina, Cape Verde Islands**: `worldcup26.ir` uses different team name strings than `football-data.org`. Both `scripts/fetch-data.js` and the inline `flagFor()` in `index.html` now include all name variants: `'Czechia'`, `'Congo DR'`, `'Bosnia-Herzegovina'`, `'Cape Verde Islands'`
+- **Results tab fixture ordering**: fixtures now sorted client-side by `utcDate` before grouping by date, fixing cases where the JSON arrived in an inconsistent order
+- **Live match score dashes**: null scores from the API defaulted to `—`; now default to `0` for live matches
+
+---
+
+## v4.4.0 — Smart Polling, Home Tab, Results Nav & Scoring Fix (June 12, 2026)
 
 ### Added
 - **Home tab (landing page)**: shows today's fixtures, top 3 leaderboard, Group A standings, and top 3 scorers — each with a "See all →" link to the relevant tab
