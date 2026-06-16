@@ -1,6 +1,41 @@
 # Changelog
 
-## v4.5.0 — UI Overhaul: Home Banner, Tab Nav, Group Picker & Picks Flow (June 15, 2026) ⚡ CURRENT
+## v4.6.0 — Goal-Scorer Modal, Actions Reliability, View-Only Picks (June 16, 2026) ⚡ CURRENT
+
+### Added
+- **Tappable match goal-scorer modal**: tapping any match pill (Home tab) or fixture row (World Cup → Results tab) opens a modal with the scoreboard and a per-team list of goal scorers + minutes. New global `fixtureMap` (id → fixture) populated in `applyTournamentData`, looked up by `showMatchModal(id)`
+  - Modal is a centred, fully-rounded card on screens ≥600px; unchanged bottom-sheet behaviour on phones/tablets (`@media (min-width:37.5rem)` override on `.match-modal-overlay`/`.match-modal`)
+  - Multiple goals by the same scorer are grouped into a single row, with each timestamp keeping its own tag — e.g. `K. Havertz 45+5' (P), 88'` instead of two separate rows
+  - Own goals and penalties render as `(OG)` / `(P)` attached to the specific goal's timestamp, not the player's name — this matters because tagging the *name* instead of the *timestamp* silently broke grouping (and double-counted goals on the top-scorers leaderboard) for any player with both a penalty and a regular goal in the same match
+- **`scripts/fetch-data.js`**: `parseGoalScorers()` rewritten to extract minute, injury time (`45'+5'`), own goals (`(OG)`), and penalties (`(p)`/`(pen)`) from worldcup26.ir's `home_scorers`/`away_scorers` strings; results feed `homeGoals`/`awayGoals` on each fixture (previously these fields didn't exist at all — only a simpler name-only parse existed, used solely for the top-scorers list)
+  - Fixed a parsing bug: some scorer strings use curly/smart quotes (`“ ” ‘ ’`) instead of straight quotes, which silently broke `JSON.parse` and dropped those goals entirely
+  - `OG_OVERRIDES` manual list added for own goals the API doesn't flag itself (e.g. Belgium 1-1 Egypt — Mohamed Hany's goal is an OG, credited to Belgium, not flagged `(OG)` by the API)
+  - worldcup26.ir's previous Arabic-script/garbled-transliteration scorer-name issue (Egypt, Saudi Arabia/Uruguay) was fixed **upstream by the API provider** — confirmed via live fetch; no client-side workaround needed
+  - Bumped the worldcup26.ir axios timeout from 15s to 60s (15s was occasionally insufficient)
+- **`.github/workflows/force-update-data.yml`**: new manual-only (`workflow_dispatch`) workflow that sets `FORCE_FETCH=true`, which makes `shouldFetchNow()` skip its game-window gate and fetch immediately — for refreshing `data/wc2026.json` right after a data-shape change instead of waiting for the next live game
+- **My Picks — view-only mode for submitted Phase 1 picks**: previously, once `phase1SubmittedAt` was set (and before Phase 2 unlocked), "My Picks" showed a blocking "picks submitted and locked" message with no way to see what you'd actually picked. It now renders the real Groups/Thirds/Knockouts tabs read-only — no dragging, no tapping bracket buttons, golden boot shown as static text
+  - Each pick is highlighted green if it already scored points, red if already proven wrong, and left uncoloured if not yet decided or not a scoring pick (e.g. teams ranked 9–12 in the third-place ranking, or groups with no games played yet) — driven directly by `calcScore()`'s existing `detail` hit/miss object
+  - Added new CSS: `.pick-correct` / `.pick-wrong` (generic row highlight) and `.bracket-team-btn.selected.pick-correct` / `.selected.pick-wrong` (bracket button override)
+  - The lock is now also enforced in `pickBracket()`, `saveGroupsAndNext()`, `saveThirdPlaceAndNext()` directly (checking `myPicks.phase1SubmittedAt`) as defense-in-depth, not just by hiding the UI — though see Known Issues below, this still isn't enforced at the Firestore rules layer
+- **Fixed a real scoring bug, not just a display bug**: 8 teams had inconsistent name spellings between the picks wizard's static `WC_GROUPS` list and the live API feeding `results` — Korea Republic/South Korea, Czechia/Czech Republic, USA/United States, Türkiye/Turkey, Côte d'Ivoire/Ivory Coast, IR Iran/Iran, Cabo Verde/Cape Verde, Congo DR/Democratic Republic of the Congo. Since scoring compared these with strict `===`, a *correct* pick involving any of these teams was being scored as wrong, across 6 of 12 groups. Added `TEAM_NAME_ALIASES`/`canonicalTeam()`/`teamsMatch()` in `calcScore()` so both old (already-submitted) and future picks compare correctly regardless of which spelling was used on either side
+
+### Changed
+- **GitHub Actions cron frequency**: `update-data.yml` changed from every 1 minute to every 5 minutes (`*/5 * * * *`) — native GitHub scheduled cron can be delayed under load regardless of frequency, and an external trigger (cron-job.org calling the `workflow_dispatch` API) was set up as a more reliable supplement. The 5-min cadence is cheap either way since `shouldFetchNow()` smart-skips outside active game windows
+- **`update-data.yml`, `firebase-hosting-merge.yml`, `firebase-hosting-pull-request.yml`**: all three now guard on `if: github.repository == 'rishidhaka/wx2026'` so they only run on the upstream/production repo. Previously the fork (`siddhaka/wx2026`) was independently running its own copy of all three on every push/schedule, wasting Actions minutes and API calls with no effect on the deployed site
+
+### Known Issues / Found, Not Yet Fixed 🐛
+- **Group 4th-place picks score points, contradicting `docs/SCORING.md`**: `calcScore()` awards 1pt for a correct 4th-place group pick, same as 1st/2nd/3rd — but `SCORING.md` documents only 3 scoring positions per group (36pts max for groups, 178pts Phase 1 max, 258pts combined max). This is **pre-existing**, not introduced this session — it was simply invisible while submitted picks were hidden behind the old "locked" message, and is now visible for the first time via the new read-only picks view (4th-place picks now visibly highlight green/red). The documented design (3 positions, no scoring for 4th) is the intended one; **the code currently contradicts it** — see `index.html`'s `calcScore()`, the `_4th` block in the group-picks loop. Not fixed yet: changing this affects live leaderboard scores for an active competition, so it needs a deliberate decision (fix forward only vs. recompute already-awarded points) before touching it.
+- **Firestore security gaps found via audit, not yet fixed** (see `docs/SECURITY.md` for full detail and drafted-but-reverted fix code):
+  - Picks lock (`phase1SubmittedAt` → `phase1` immutable) is enforced **only in client JS**. A user can bypass it with a direct Firestore SDK call from the browser console.
+  - `wc2026/leagues` allows any signed-in user to write the entire shared leagues document — comments claim "enforced in app logic," which provides no real protection against direct SDK calls.
+  - `ADMIN_UID` (`index.html`) and the matching UID in `firestore.rules` were never set to a real value (`"YOUR_ADMIN_UID_HERE"` placeholder) — the intended UID-gated admin boundary isn't actually wired up.
+  - `ADMIN_PASS` is a hardcoded plaintext client-side password (`"worldcup2026"`), visible via View Source — only gates UI visibility, not Firestore writes.
+  - `wc2026/players`' write rule likely breaks for more than one player (checks the full resulting document has only one key, instead of diffing affected keys).
+  - Fixes for the rules-layer issues were drafted and verified against documented Firestore Rules syntax, then reverted at the user's request since rules changes can't be deployed/tested without Firebase Console access. Revisit when that access is available.
+
+---
+
+## v4.5.0 — UI Overhaul: Home Banner, Tab Nav, Group Picker & Picks Flow (June 15, 2026)
 
 ### Added
 - **FIFA WC 2026 emblem SVG** (`2026_FIFA_World_Cup_emblem.svg`): displayed on the login screen (220px) and centred in the home banner (80px)

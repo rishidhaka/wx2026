@@ -9,9 +9,8 @@ Mobile-first, but scales gracefully to desktop.
 
 ## Colour Tokens
 
-The app uses two colour namespaces that co-exist in `index.html`:
+One palette, defined once in `:root`. The picks wizard/bracket's older `--navy-*`/`--amber`/`--pitch`/`--white`/`--green` names are now backwards-compat aliases onto these same tokens, not a second independently-maintained hex set:
 
-### Global UI tokens (home banner, tabs, picks wizard, leaderboard)
 ```css
 :root {
   /* Backgrounds */
@@ -22,38 +21,30 @@ The app uses two colour namespaces that co-exist in `index.html`:
 
   /* Brand */
   --gold:        #F5A623;   /* Primary CTA, active tabs, scores */
-  --gold-tint:   rgba(245,166,35,0.12);  /* Subtle gold fill */
-  --gold-border: rgba(245,166,35,0.25);  /* Gold-tinted borders */
+  --gold-tint:   rgba(245,166,35,0.12);
+  --gold-border: rgba(245,166,35,0.25);
 
   /* Semantic */
-  --live:        #2ecc71;   /* Correct picks, advancing teams, success */
-  --red:         #e74c3c;   /* Wrong picks, errors */
-  --phase2:      #6c3fc7;   /* Phase 2 / Second Chance purple */
-  --phase2-light:#8b5cf6;   /* Phase 2 text on dark */
+  --live:        #22C55E;   /* Correct picks, advancing teams, success */
+  --live-tint:   rgba(34,197,94,0.12);
+  --red:         #F85149;   /* Wrong picks, errors */
+  --red-tint:    rgba(248,81,73,0.12);
+  --phase2:      #A78BFA;   /* Phase 2 / Second Chance purple */
+  --phase2-light:#C4B5FD;
 
   /* Text */
-  --text:        #E6EDF3;   /* Primary text */
-  --muted:       #7a9ab5;   /* Secondary text, labels */
+  --text:        #F0F6FC;   /* Primary text */
+  --muted:       #7D8590;   /* Secondary text, labels */
+
+  /* Aliases (picks wizard/bracket selectors use these names) */
+  --navy: var(--bg); --navy-card: var(--surface); --navy-border: var(--border);
+  --white: var(--text); --green: var(--live); --amber: var(--gold);
+  --pitch: #0a2a1a;         /* own value — selected/active team state, not an alias */
+  --silver: #c0c0c0; --bronze: #cd7f32;
 }
 ```
 
-### Picks wizard & bracket tokens (legacy, used inside the picks view)
-```css
-  --navy:        #0d1b2a;   /* Picks wizard background */
-  --navy-card:   #111f2f;   /* Bracket card background */
-  --navy-border: #1e3045;   /* Bracket borders */
-  --pitch:       #1a3a2a;   /* Selected/active team state */
-  --amber:       #f5a623;   /* Group header text, active picks */
-  --green:       #2ecc71;   /* Correct picks */
-  --white:       #f0f4f8;   /* Primary text inside wizard */
-
-  /* Rankings */
-  --gold-rank:   #ffd700;   /* 1st place medal */
-  --silver:      #c0c0c0;   /* 2nd place medal */
-  --bronze:      #cd7f32;   /* 3rd place medal */
-```
-
-**Why two namespaces?** The picks wizard and bracket were built earlier with a navy palette. The home/standings/leagues UI was redesigned in v4.5.0 with a GitHub-style dark palette. Both systems live in the same file; avoid mixing `--navy` in global UI or `--surface` inside the wizard.
+**Why aliases instead of two real palettes?** The picks wizard and bracket were built earlier with `--navy-*` naming. Rather than rename every CSS selector when the home/standings/leagues UI was redesigned in v4.5.0, the old names were pointed at the same underlying tokens. There is one palette to keep in sync, not two — if you change `--bg`, the wizard background changes too via `--navy`.
 
 ---
 
@@ -162,6 +153,23 @@ State tracked in `activeGroupPill` (letter string). `shiftGroup(delta)` incremen
 - Columns scroll horizontally as a unit
 - Prev/Next nav between rounds: round label at `16px`, nav buttons scoped to `.bracket-round-nav .btn` (auto width, tight padding) so global `.btn { width: 100% }` does not apply
 
+### Match Facts Modal
+Tapping a match pill (Home) or fixture row (World Cup → Results) opens `#match-modal`:
+```
+┌─────────────────────────────┐
+│ GROUP STAGE - MATCHDAY 1   ✕│
+│  🇩🇪 Germany   1 – 1   🇨🇮 Curaçao │
+│  ⚽ Felix Nmecha      7'      │  ⚽ L. Comenencia   21'
+│  ● Live now                  │
+└─────────────────────────────┘
+```
+- **Mobile/tablet (< 600px, default)**: bottom sheet — `align-items: flex-end`, rounded top corners only, `slideUp` animation
+- **Desktop (≥ 600px)**: centred card — `@media (min-width:37.5rem)` overrides to `align-items: center`, fully rounded, `fadeIn` animation instead of slide-up
+- Two-column goal list (home scorers left, away scorers right), each row: ⚽ + name + minute(s)
+- Multiple goals by the same player collapse into one row with comma-separated timestamps: `K. Havertz 45+5' (P), 88'` — `(P)`/`(OG)` tags are attached per-timestamp so this still groups correctly even when one goal is a penalty and another isn't
+- No score yet (upcoming match): shows "vs" instead of the score, and kickoff time instead of the goals list
+- Score exists but goal data hasn't arrived yet: "Goal details updating…" placeholder
+
 ### Phase 2 Banner
 Purple gradient background, distinct from Phase 1 amber theme.
 Used to clearly signal the second prediction window.
@@ -269,5 +277,5 @@ Examples: 🇺🇸 🇧🇷 🇫🇷 🇩🇪 🇦🇷 🇪🇸 🇵🇹
 - **Never** use --amber for error states (use --red)
 - **Never** use --green for CTAs (use --amber)
 - Phase 2 elements always use --phase2 / --phase2-light
-- Correct picks: --green. Wrong picks: #a05050 (muted red, not full --red)
-- Pending/unknown: --amber
+- Correct picks: --green. Wrong picks: --red. Pending/unknown: no colour (default text/background) — not --amber; --amber is reserved for active/selected wizard state, mixing it into "pending" pick colouring would be ambiguous with that
+- **Read-only picks view correctness highlighting** (`.pick-correct` / `.pick-wrong`, added for the post-submission picks view): background tint at 10% opacity (`rgba(34,197,94,0.10)` / `rgba(248,81,73,0.10)`) plus a 3px `box-shadow: inset` accent bar in the full `--green`/`--red`. This reads as muted/subtle from the low-opacity fill while still using the real token underneath, rather than a separate hardcoded muted-red constant — same intent as the old `#a05050` rule, different implementation. Bracket buttons use a stronger variant (`.bracket-team-btn.selected.pick-correct`/`.pick-wrong`, 18% opacity solid background + full-strength text colour) since they need to stand out against the wizard's navy background, not just tint a list row.
