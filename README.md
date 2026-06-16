@@ -75,13 +75,14 @@ A full-stack World Cup bracket competition app built with vanilla JS + Firebase.
 ## Tech Stack
 | Layer | Tech |
 |---|---|
-| Frontend | Vanilla JS, single HTML file |
-| Auth | Firebase Authentication (Google Sign-In) |
-| Database | Cloud Firestore (real-time listeners) |
-| Backend | Firebase Cloud Functions (scheduled, every 60 min) |
-| Live data | football-data.org (free tier) |
-| Hosting | Firebase Hosting |
-| CI/CD | GitHub Actions → Firebase auto-deploy |
+| Frontend | Vanilla JS, single HTML file (`index.html`) |
+| Auth | Firebase Authentication (Google `signInWithPopup`) |
+| Database | Cloud Firestore (real-time `onSnapshot` listeners) |
+| Backend | Firebase Cloud Functions (scheduled every 60 min) |
+| Live data (primary) | worldcup26.ir — real-time live status, JWT auth |
+| Live data (fallback) | football-data.org — free tier, 10 req/min |
+| Hosting | Firebase Hosting (60s cache on `data/wc2026.json`) |
+| CI/CD | GitHub Actions (every 1 min, smart-gated) → Firebase auto-deploy |
 
 ---
 
@@ -94,33 +95,35 @@ A full-stack World Cup bracket competition app built with vanilla JS + Firebase.
 
 ## 📂 Repository Structure
 ```
-wc2026-repo/
-├── index.html                          ← Full frontend app (deploy this)
-├── PHASE_TIMING_IMPLEMENTATION.md      ← Deadlines & phase unlock documentation 🆕
-├── EMAIL_REMINDERS.md                  ← Email reminder setup guide 🆕
+wx2026/
+├── index.html                          ← Full frontend app (single file — HTML + CSS + JS)
+├── 2026_FIFA_World_Cup_emblem.svg      ← Official WC 2026 logo (login screen + home banner)
+├── data/
+│   └── wc2026.json                     ← Written by GitHub Actions (never commit manually)
+├── scripts/
+│   └── fetch-data.js                   ← Data fetcher (worldcup26.ir primary, football-data.org fallback)
+├── PHASE_TIMING_IMPLEMENTATION.md      ← Deadlines & phase unlock documentation
+├── EMAIL_REMINDERS.md                  ← Email reminder setup guide
 ├── DEPLOYMENT_READY.md                 ← Deployment checklist
 ├── README.md                           ← This file
 ├── functions/
-│   ├── index.js                        ← Cloud Function (live data sync)
+│   ├── index.js                        ← Cloud Function (live data sync, every 60 min)
 │   └── package.json
-├── tests/
-│   └── suite.jsx                       ← Full test suite (React artifact)
 ├── docs/
-│   ├── SETUP.md                        ← Step-by-step deploy guide
-│   ├── ARCHITECTURE.md                 ← Data models, Firestore schema
-│   ├── SCORING.md                      ← Complete scoring rules
-│   ├── DESIGN.md                       ← UI/UX design system
-│   ├── API.md                          ← Cloud Function + API-Football guide
-│   ├── SECURITY.md                     ← Firestore rules + security model
+│   ├── AI_CONTEXT.md                   ← Start here when resuming with an AI assistant
+│   ├── ARCHITECTURE.md                 ← Data models, Firestore schema, key patterns
+│   ├── DESIGN.md                       ← Colour tokens, components, layout decisions
 │   ├── CHANGELOG.md                    ← Version history
-│   └── AI_CONTEXT.md                   ← AI-friendly codebase summary
+│   ├── API.md                          ← worldcup26.ir + football-data.org integration
+│   ├── SCORING.md                      ← Complete scoring rules
+│   ├── SECURITY.md                     ← Firestore rules + security model
+│   └── SETUP.md                        ← Step-by-step deploy guide
 ├── firestore.rules                     ← Firestore security rules
-├── firebase.json                       ← Firebase config
+├── firebase.json                       ← Firebase config (includes 60s cache on wc2026.json)
 ├── .firebaserc                         ← Firebase project binding
 └── .github/
     └── workflows/
-        ├── firebase-hosting-merge.yml  ← Auto-deploy on push to main
-        └── firebase-hosting-pull-request.yml ← Preview deploys for PRs
+        └── update-data.yml             ← Runs every minute, smart-gated fetch + deploy
 ```
 
 ---
@@ -180,19 +183,21 @@ Send automatic reminders to users who haven't made picks:
 
 ---
 
-## 🎯 Latest Updates (June 2026)
+## 🎯 Latest Updates (v4.5.0 — June 15, 2026)
 
-✅ **One-time submission lock** - Phase 1 picks lock permanently once saved  
-✅ **App renamed to "Bracket"** - More familiar terminology  
-✅ **World Cup tab** - Renamed from Tournament for clarity  
-✅ **Knockouts tab** - Moved after Groups, renamed from Bracket  
-✅ **Responsive design** - Better text scaling across all screen sizes  
-✅ **Phase timing controls** - Deadlines enforced automatically  
-✅ **Auto-unlock Phase 2** - June 27, no manual action needed  
-✅ **Countdown banners** - Shows time remaining  
-✅ **Balanced scoring** - Champion 15pts in Phase 2  
-✅ **Player autocomplete** - Easy Golden Boot selection  
-✅ **URL-based invites** - Share leagues with one link  
-✅ **GitHub auto-deploy** - Push to main = instant deploy  
+✅ **WC 2026 emblem** — Official SVG logo on login screen and centred in the home banner  
+✅ **Home banner redesign** — 3-column grid: greeting · logo · rank chip. Lighter background (`#2D333B`) for logo visibility  
+✅ **Mini banner on non-home tabs** — compact logo strip that navigates back to Home when tapped  
+✅ **Conditional home picks card** — new users see a "Make Your Predictions" CTA; returning users see score + rank  
+✅ **Predict / My Picks tab** — label switches dynamically based on whether picks are submitted  
+✅ **Tab reorder** — Home → Predict/My Picks → World Cup → Standings → Leagues  
+✅ **Groups arrow navigation** — World Cup Groups subtab now uses ‹/› arrows to cycle A–L (like Results tab)  
+✅ **Collapsible group blocks** — animated ▼/▶ chevron in Picks wizard  
+✅ **Bracket Prev/Next fix** — round label enlarged; buttons no longer full-width  
+✅ **Layout: 60% viewport width** — relative units, not px  
+✅ **Toast fix** — removed ghost gold pill that appeared on all screens  
+✅ **Phase 1 deadline label** — "Phase 1 deadline" in the picks card footer  
+✅ **Flag fixes** — worldcup26.ir name variants added (Czechia, Congo DR, Bosnia-Herzegovina, Cape Verde Islands)  
 
-📖 **See [docs/CHANGELOG.md](docs/CHANGELOG.md) for full version history**
+📖 **See [docs/CHANGELOG.md](docs/CHANGELOG.md) for full version history**  
+🤖 **See [docs/AI_CONTEXT.md](docs/AI_CONTEXT.md) for AI-resumable context**
