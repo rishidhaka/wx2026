@@ -108,16 +108,48 @@ function stageFromType(type) {
 
 // ── SCORER PARSING ────────────────────────────────────────────────────────
 // worldcup26.ir encodes scorers as the string: {"Name Minute'","Name Minute'"}
-// Convert {}-set notation to a JSON array and extract player names.
-function parseGoalScorers(raw, teamName) {
+// Formats seen: "Name 31'" | "Name 45'+5'" (injury time) | "Name 7'(OG)" (own goal) | "Name 17' (p)" (penalty)
+
+// The API doesn't always flag own goals with "(OG)" in the raw scorer string.
+// Add entries here when one is spotted so it displays correctly and is excluded
+// from the top-scorers leaderboard. Match on gameId + exact base name (pre-suffix).
+const OG_OVERRIDES = [
+  { gameId: 15, name: 'Mohamed Hany' }, // Belgium 1-1 Egypt — credited to Belgium, scored by Egypt's Hany
+];
+
+function parseGoalScorers(raw, teamName, gameId) {
   if (!raw || raw === 'null') return [];
   try {
-    const json = raw.trim().replace(/^\{/, '[').replace(/\}$/, ']');
+    // Some entries use curly/smart quotes (“ ” ‘ ’) instead of straight quotes — normalise before parsing.
+    const json = raw.trim()
+      .replace(/[“”]/g, '"')
+      .replace(/[‘’]/g, "'")
+      .replace(/^\{/, '[')
+      .replace(/\}$/, ']');
     const entries = JSON.parse(json);
-    return entries.map(text => ({
-      name: text.replace(/\s+\d+.*$/, '').trim(),
-      team: teamName,
-    }));
+    return entries.map(text => {
+      const parts = text.trim().split(/\s+/);
+      // Time token is the last token starting with a digit, or the second-to-last
+      // if the last is a trailing modifier like (p)/(OG) with no leading digit.
+      let timeIdx = parts.length - 1;
+      if (!/^\d/.test(parts[timeIdx]) && timeIdx > 0 && /^\d/.test(parts[timeIdx - 1])) {
+        timeIdx = timeIdx - 1;
+      }
+      const timeToken = parts[timeIdx];
+      if (/^\d/.test(timeToken)) {
+        // Tag (P)/(OG) is attached to this specific goal's timestamp, not the player's
+        // name — keeps multiple goals by the same player (e.g. one penalty, one open-play)
+        // grouped together under a single name when rendered.
+        const name = parts.slice(0, timeIdx).join(' ');
+        const isOG = text.toUpperCase().includes('(OG)')
+          || OG_OVERRIDES.some(o => o.gameId === gameId && o.name === name);
+        const isPen = text.toLowerCase().includes('(p)') || text.toLowerCase().includes('(pen)');
+        const minute = timeToken.replace(/'/g, '').replace(/\(.*\)/g, '').trim() || null;
+        const tag = isOG ? '(OG)' : isPen ? '(P)' : '';
+        return { name, minute, tag, team: teamName, og: isOG };
+      }
+      return { name: text.trim(), minute: null, tag: '', team: teamName, og: false };
+    });
   } catch { return []; }
 }
 
@@ -127,10 +159,12 @@ function buildTopScorers(games) {
     if (g.finished !== 'TRUE') continue;
     const home = g.home_team_name_en;
     const away = g.away_team_name_en;
+    const gameId = parseInt(g.id);
     for (const s of [
-      ...parseGoalScorers(g.home_scorers, home),
-      ...parseGoalScorers(g.away_scorers, away),
+      ...parseGoalScorers(g.home_scorers, home, gameId),
+      ...parseGoalScorers(g.away_scorers, away, gameId),
     ]) {
+      if (s.og) continue; // own goals don't count toward the scorer's tally
       const key = `${s.name}|${s.team}`;
       if (!map[key]) map[key] = { name: s.name, team: s.team, flag: flagFor(s.team), goals: 0, assists: 0 };
       map[key].goals++;
@@ -211,7 +245,7 @@ async function loadFDUtcDates() {
 async function fetchFromWC26(fdUtcDates = {}) {
   console.log('🌐  Fetching from worldcup26.ir…');
   const headers = { Authorization: `Bearer ${WC26_TOKEN}` };
-  const res = await axios.get(`${WC26_BASE}/get/games`, { headers, timeout: 15000 });
+  const res = await axios.get(`${WC26_BASE}/get/games`, { headers, timeout: 60000 });
   const games = Array.isArray(res.data) ? res.data : res.data.games || res.data.data || [];
   if (!games.length) throw new Error('worldcup26.ir returned 0 games');
 
@@ -271,6 +305,8 @@ async function fetchFromWC26(fdUtcDates = {}) {
       awayFlag: flagFor(awayName),
       homeScore: (isFin || isLive) ? homeScore : null,
       awayScore: (isFin || isLive) ? awayScore : null,
+      homeGoals: (isFin || isLive) ? parseGoalScorers(game.home_scorers, homeName, parseInt(game.id)) : [],
+      awayGoals: (isFin || isLive) ? parseGoalScorers(game.away_scorers, awayName, parseInt(game.id)) : [],
       status,
       winner: isFin ? (homeScore > awayScore ? game.home_team_name_en : awayScore > homeScore ? game.away_team_name_en : null) : null,
     };
