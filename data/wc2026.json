@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T23:35:40.926Z",
+  "lastUpdated": "2026-06-16T23:40:43.379Z",
   "groups": [
     {
       "group": "A",
@@ -1371,7 +1371,7 @@
       "away": "Norway",
       "awayFlag": "🇳🇴",
       "homeScore": 1,
-      "awayScore": 2,
+      "awayScore": 3,
       "homeGoals": [
         {
           "name": "Aimn Hsin",
@@ -1392,6 +1392,13 @@
         {
           "name": "Arling Halnd",
           "minute": "43",
+          "tag": "",
+          "team": "Norway",
+          "og": false
+        },
+        {
+          "name": "Liv Avstigard",
+          "minute": "77",
           "tag": "",
           "team": "Norway",
           "og": false
