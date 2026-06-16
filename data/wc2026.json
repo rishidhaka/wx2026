@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T03:10:31.033Z",
+  "lastUpdated": "2026-06-16T05:59:11.339Z",
   "groups": [
     {
       "group": "A",
@@ -654,6 +654,23 @@
       "awayFlag": "🇿🇦",
       "homeScore": 2,
       "awayScore": 0,
+      "homeGoals": [
+        {
+          "name": "J. Quiñones",
+          "minute": "9",
+          "tag": "",
+          "team": "Mexico",
+          "og": false
+        },
+        {
+          "name": "R. Jiménez",
+          "minute": "67",
+          "tag": "",
+          "team": "Mexico",
+          "og": false
+        }
+      ],
+      "awayGoals": [],
       "status": "fin",
       "winner": "Mexico"
     },
@@ -672,6 +689,31 @@
       "awayFlag": "🇨🇿",
       "homeScore": 2,
       "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "I.B. Hwang",
+          "minute": "67",
+          "tag": "",
+          "team": "South Korea",
+          "og": false
+        },
+        {
+          "name": "H.G. Oh",
+          "minute": "80",
+          "tag": "",
+          "team": "South Korea",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "L. Krejčí",
+          "minute": "59",
+          "tag": "",
+          "team": "Czech Republic",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": "South Korea"
     },
@@ -690,6 +732,24 @@
       "awayFlag": "🇧🇦",
       "homeScore": 1,
       "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "C. Larin",
+          "minute": "11",
+          "tag": "",
+          "team": "Canada",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Jovo Lukić",
+          "minute": "21",
+          "tag": "",
+          "team": "Bosnia and Herzegovina",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": null
     },
@@ -708,6 +768,45 @@
       "awayFlag": "🇵🇾",
       "homeScore": 4,
       "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "D. Bobadilla",
+          "minute": "7",
+          "tag": "(OG)",
+          "team": "United States",
+          "og": true
+        },
+        {
+          "name": "F. Balogun",
+          "minute": "31",
+          "tag": "",
+          "team": "United States",
+          "og": false
+        },
+        {
+          "name": "F. Balogun",
+          "minute": "45+5",
+          "tag": "",
+          "team": "United States",
+          "og": false
+        },
+        {
+          "name": "G. Reyna",
+          "minute": "90+8",
+          "tag": "",
+          "team": "United States",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Maurício",
+          "minute": "73",
+          "tag": "",
+          "team": "Paraguay",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": "United States"
     },
@@ -726,6 +825,24 @@
       "awayFlag": "🇨🇭",
       "homeScore": 1,
       "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "B. Khoukhi",
+          "minute": "90+5",
+          "tag": "",
+          "team": "Qatar",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Breel Embolo",
+          "minute": "17",
+          "tag": "(P)",
+          "team": "Switzerland",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": null
     },
@@ -744,6 +861,24 @@
       "awayFlag": "🇲🇦",
       "homeScore": 1,
       "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "V. Júnior",
+          "minute": "32",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "I. Saibari",
+          "minute": "21",
+          "tag": "",
+          "team": "Morocco",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": null
     },
@@ -762,6 +897,16 @@
       "awayFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
       "homeScore": 0,
       "awayScore": 1,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "name": "J. McGinn",
+          "minute": "28",
+          "tag": "",
+          "team": "Scotland",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": "Scotland"
     },
@@ -780,6 +925,23 @@
       "awayFlag": "🇹🇷",
       "homeScore": 2,
       "awayScore": 0,
+      "homeGoals": [
+        {
+          "name": "Nestory Irankunda",
+          "minute": "27",
+          "tag": "",
+          "team": "Australia",
+          "og": false
+        },
+        {
+          "name": "C. Metcalfe",
+          "minute": "75",
+          "tag": "",
+          "team": "Australia",
+          "og": false
+        }
+      ],
+      "awayGoals": [],
       "status": "fin",
       "winner": "Australia"
     },
@@ -798,6 +960,66 @@
       "awayFlag": "🇨🇼",
       "homeScore": 7,
       "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "Felix Nmecha",
+          "minute": "7",
+          "tag": "",
+          "team": "Germany",
+          "og": false
+        },
+        {
+          "name": "N. Schlotterbeck",
+          "minute": "38",
+          "tag": "",
+          "team": "Germany",
+          "og": false
+        },
+        {
+          "name": "K. Havertz",
+          "minute": "45+5",
+          "tag": "(P)",
+          "team": "Germany",
+          "og": false
+        },
+        {
+          "name": "J. Musiala",
+          "minute": "47",
+          "tag": "",
+          "team": "Germany",
+          "og": false
+        },
+        {
+          "name": "N. Brown",
+          "minute": "68",
+          "tag": "",
+          "team": "Germany",
+          "og": false
+        },
+        {
+          "name": "D. Undav",
+          "minute": "78",
+          "tag": "",
+          "team": "Germany",
+          "og": false
+        },
+        {
+          "name": "K. Havertz",
+          "minute": "88",
+          "tag": "",
+          "team": "Germany",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "L. Comenencia",
+          "minute": "21",
+          "tag": "",
+          "team": "Curaçao",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": "Germany"
     },
@@ -816,6 +1038,38 @@
       "awayFlag": "🇯🇵",
       "homeScore": 2,
       "awayScore": 2,
+      "homeGoals": [
+        {
+          "name": "Virgil van Dijk",
+          "minute": "51",
+          "tag": "",
+          "team": "Netherlands",
+          "og": false
+        },
+        {
+          "name": "C. Summerville",
+          "minute": "64",
+          "tag": "",
+          "team": "Netherlands",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "K. Nakamura",
+          "minute": "57",
+          "tag": "",
+          "team": "Japan",
+          "og": false
+        },
+        {
+          "name": "K. Ogawa",
+          "minute": "89",
+          "tag": "",
+          "team": "Japan",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": null
     },
@@ -834,6 +1088,16 @@
       "awayFlag": "🇪🇨",
       "homeScore": 1,
       "awayScore": 0,
+      "homeGoals": [
+        {
+          "name": "A. Diallo",
+          "minute": "90",
+          "tag": "",
+          "team": "Ivory Coast",
+          "og": false
+        }
+      ],
+      "awayGoals": [],
       "status": "fin",
       "winner": "Ivory Coast"
     },
@@ -852,6 +1116,52 @@
       "awayFlag": "🇹🇳",
       "homeScore": 5,
       "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "Y.Ayari",
+          "minute": "7",
+          "tag": "",
+          "team": "Sweden",
+          "og": false
+        },
+        {
+          "name": "A. Isak",
+          "minute": "30",
+          "tag": "",
+          "team": "Sweden",
+          "og": false
+        },
+        {
+          "name": "V. Gyökeres",
+          "minute": "59",
+          "tag": "",
+          "team": "Sweden",
+          "og": false
+        },
+        {
+          "name": "M. Svanberg",
+          "minute": "84",
+          "tag": "",
+          "team": "Sweden",
+          "og": false
+        },
+        {
+          "name": "Y.Ayari",
+          "minute": "90+6",
+          "tag": "",
+          "team": "Sweden",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "O. Rekik",
+          "minute": "43",
+          "tag": "",
+          "team": "Tunisia",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": "Sweden"
     },
@@ -870,6 +1180,8 @@
       "awayFlag": "🇨🇻",
       "homeScore": 0,
       "awayScore": 0,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "fin",
       "winner": null
     },
@@ -888,6 +1200,24 @@
       "awayFlag": "🇪🇬",
       "homeScore": 1,
       "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "Mohamed Hany",
+          "minute": "66",
+          "tag": "(OG)",
+          "team": "Belgium",
+          "og": true
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Emam Ashour",
+          "minute": "20",
+          "tag": "",
+          "team": "Egypt",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": null
     },
@@ -906,6 +1236,24 @@
       "awayFlag": "🇺🇾",
       "homeScore": 1,
       "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "Abdallh Alamri",
+          "minute": "41",
+          "tag": "",
+          "team": "Saudi Arabia",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Maksimilianv Araivkhv",
+          "minute": "80",
+          "tag": "",
+          "team": "Uruguay",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": null
     },
@@ -924,6 +1272,38 @@
       "awayFlag": "🇳🇿",
       "homeScore": 2,
       "awayScore": 2,
+      "homeGoals": [
+        {
+          "name": "Ramin Rzaiian",
+          "minute": "32",
+          "tag": "",
+          "team": "Iran",
+          "og": false
+        },
+        {
+          "name": "Mohamed Mhbi",
+          "minute": "64",
+          "tag": "",
+          "team": "Iran",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Ali Jast",
+          "minute": "7",
+          "tag": "",
+          "team": "New Zealand",
+          "og": false
+        },
+        {
+          "name": "Ali Jast",
+          "minute": "54",
+          "tag": "",
+          "team": "New Zealand",
+          "og": false
+        }
+      ],
       "status": "fin",
       "winner": null
     },
@@ -942,6 +1322,8 @@
       "awayFlag": "🇸🇳",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -960,6 +1342,8 @@
       "awayFlag": "🇳🇴",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -978,6 +1362,8 @@
       "awayFlag": "🇩🇿",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -996,6 +1382,8 @@
       "awayFlag": "🇯🇴",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1014,6 +1402,8 @@
       "awayFlag": "🇨🇩",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1032,6 +1422,8 @@
       "awayFlag": "🇭🇷",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1050,6 +1442,8 @@
       "awayFlag": "🇵🇦",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1068,6 +1462,8 @@
       "awayFlag": "🇨🇴",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1086,6 +1482,8 @@
       "awayFlag": "🇧🇦",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1104,6 +1502,8 @@
       "awayFlag": "🇿🇦",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1122,6 +1522,8 @@
       "awayFlag": "🇶🇦",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1140,6 +1542,8 @@
       "awayFlag": "🇰🇷",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1158,6 +1562,8 @@
       "awayFlag": "🇦🇺",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1176,6 +1582,8 @@
       "awayFlag": "🇲🇦",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1194,6 +1602,8 @@
       "awayFlag": "🇭🇹",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1212,6 +1622,8 @@
       "awayFlag": "🇵🇾",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1230,6 +1642,8 @@
       "awayFlag": "🇸🇪",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1248,6 +1662,8 @@
       "awayFlag": "🇨🇮",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1266,6 +1682,8 @@
       "awayFlag": "🇨🇼",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1284,6 +1702,8 @@
       "awayFlag": "🇯🇵",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1302,6 +1722,8 @@
       "awayFlag": "🇸🇦",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1320,6 +1742,8 @@
       "awayFlag": "🇮🇷",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1338,6 +1762,8 @@
       "awayFlag": "🇨🇻",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1356,6 +1782,8 @@
       "awayFlag": "🇪🇬",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1374,6 +1802,8 @@
       "awayFlag": "🇦🇹",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1392,6 +1822,8 @@
       "awayFlag": "🇮🇶",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1410,6 +1842,8 @@
       "awayFlag": "🇸🇳",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1428,6 +1862,8 @@
       "awayFlag": "🇩🇿",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1446,6 +1882,8 @@
       "awayFlag": "🇺🇿",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1464,6 +1902,8 @@
       "awayFlag": "🇬🇭",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1482,6 +1922,8 @@
       "awayFlag": "🇭🇷",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1500,6 +1942,8 @@
       "awayFlag": "🇨🇩",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1518,6 +1962,8 @@
       "awayFlag": "🇶🇦",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1536,6 +1982,8 @@
       "awayFlag": "🇨🇦",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1554,6 +2002,8 @@
       "awayFlag": "🇭🇹",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1572,6 +2022,8 @@
       "awayFlag": "🇧🇷",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1590,6 +2042,8 @@
       "awayFlag": "🇲🇽",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1608,6 +2062,8 @@
       "awayFlag": "🇰🇷",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1626,6 +2082,8 @@
       "awayFlag": "🇨🇮",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1644,6 +2102,8 @@
       "awayFlag": "🇩🇪",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1662,6 +2122,8 @@
       "awayFlag": "🇸🇪",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1680,6 +2142,8 @@
       "awayFlag": "🇳🇱",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1698,6 +2162,8 @@
       "awayFlag": "🇺🇸",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1716,6 +2182,8 @@
       "awayFlag": "🇦🇺",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1734,6 +2202,8 @@
       "awayFlag": "🇮🇶",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1752,6 +2222,8 @@
       "awayFlag": "🇫🇷",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1770,6 +2242,8 @@
       "awayFlag": "🇸🇦",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1788,6 +2262,8 @@
       "awayFlag": "🇪🇸",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1806,6 +2282,8 @@
       "awayFlag": "🇮🇷",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1824,6 +2302,8 @@
       "awayFlag": "🇧🇪",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1842,6 +2322,8 @@
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1860,6 +2342,8 @@
       "awayFlag": "🇬🇭",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1878,6 +2362,8 @@
       "awayFlag": "🇺🇿",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1896,6 +2382,8 @@
       "awayFlag": "🇵🇹",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1914,6 +2402,8 @@
       "awayFlag": "🇦🇷",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1932,6 +2422,8 @@
       "awayFlag": "🇦🇹",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1950,6 +2442,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1968,6 +2462,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -1986,6 +2482,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2004,6 +2502,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2022,6 +2522,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2040,6 +2542,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2058,6 +2562,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2076,6 +2582,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2094,6 +2602,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2112,6 +2622,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2130,6 +2642,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2148,6 +2662,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2166,6 +2682,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2184,6 +2702,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2202,6 +2722,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2220,6 +2742,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2238,6 +2762,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2256,6 +2782,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2274,6 +2802,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2292,6 +2822,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2310,6 +2842,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2328,6 +2862,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2346,6 +2882,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2364,6 +2902,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2382,6 +2922,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2400,6 +2942,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2418,6 +2962,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2436,6 +2982,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2454,6 +3002,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2472,6 +3022,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2490,6 +3042,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     },
@@ -2508,6 +3062,8 @@
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
       "status": "upcoming",
       "winner": null
     }
@@ -2598,13 +3154,6 @@
       "assists": 0
     },
     {
-      "name": "D. Bobadilla",
-      "team": "United States",
-      "flag": "🇺🇸",
-      "goals": 1,
-      "assists": 0
-    },
-    {
       "name": "G. Reyna",
       "team": "United States",
       "flag": "🇺🇸",
@@ -2648,6 +3197,13 @@
     },
     {
       "name": "N. Brown",
+      "team": "Germany",
+      "flag": "🇩🇪",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "D. Undav",
       "team": "Germany",
       "flag": "🇩🇪",
       "goals": 1,
