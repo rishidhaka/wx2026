@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T22:45:24.845Z",
+  "lastUpdated": "2026-06-16T22:50:29.192Z",
   "groups": [
     {
       "group": "A",
@@ -707,8 +707,8 @@
       "homeFlag": "🇨🇦",
       "away": "Bosnia-Herzegovina",
       "awayFlag": "🇧🇦",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": null,
+      "awayScore": null,
       "status": "fin",
       "winner": null,
       "homeGoals": [],
@@ -1331,7 +1331,7 @@
       "homeFlag": "🇮🇶",
       "away": "Norway",
       "awayFlag": "🇳🇴",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
       "status": "live",
       "winner": null,
@@ -3104,6 +3104,13 @@
       "assists": 0
     },
     {
+      "name": "Erling Haaland",
+      "team": "Norway",
+      "flag": "🇳🇴",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "Julián Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -3198,13 +3205,6 @@
       "name": "John McGinn",
       "team": "Scotland",
       "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Nestor Irankunda",
-      "team": "Australia",
-      "flag": "🇦🇺",
       "goals": 1,
       "assists": 0
     }
