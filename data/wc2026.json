@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T02:29:21.546Z",
+  "lastUpdated": "2026-06-16T02:35:33.761Z",
   "groups": [
     {
       "group": "A",
@@ -922,7 +922,7 @@
       "homeFlag": "🇮🇷",
       "away": "New Zealand",
       "awayFlag": "🇳🇿",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 2,
       "status": "live",
       "winner": null
