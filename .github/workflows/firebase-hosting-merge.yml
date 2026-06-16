@@ -10,6 +10,7 @@ on:
       - 'data/**'
 jobs:
   build_and_deploy:
+    if: github.repository == 'rishidhaka/wx2026'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

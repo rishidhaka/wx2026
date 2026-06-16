@@ -500,6 +500,11 @@ async function writeToFirestore(groups, fixtures, scorers, bracket, results) {
 
 // ── SMART FETCH GUARD ─────────────────────────────────────────────────────
 function shouldFetchNow() {
+  if (process.env.FORCE_FETCH === 'true') {
+    console.log('🔧  FORCE_FETCH set — bypassing game-window gate.');
+    return true;
+  }
+
   // Always refresh in the midnight ET window so daily fixture lists stay current.
   const etStr = new Date().toLocaleTimeString('en-US', {
     timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false,
