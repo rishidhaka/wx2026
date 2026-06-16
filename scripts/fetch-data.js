@@ -79,6 +79,25 @@ function loadExistingUtcDates() {
   } catch { return {}; }
 }
 
+// Preserve goal scorer data across fetches — if the primary API is down and
+// we fall back to football-data.org (which has no scorer data), or if a game
+// temporarily returns empty scorer arrays, we keep whatever we had stored.
+function loadExistingGoalData() {
+  const dataPath = path.join(__dirname, '..', 'data', 'wc2026.json');
+  if (!fs.existsSync(dataPath)) return {};
+  try {
+    const existing = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+    const map = {};
+    for (const f of (existing.fixtures || [])) {
+      if (!f.homeGoals?.length && !f.awayGoals?.length) continue;
+      const entry = { homeGoals: f.homeGoals || [], awayGoals: f.awayGoals || [] };
+      if (f.id != null) map[String(f.id)] = entry;
+      if (f.home && f.away) map[`${f.home}|${f.away}`] = entry;
+    }
+    return map;
+  } catch { return {}; }
+}
+
 // Fallback UTC conversion — assumes Eastern Daylight Time (UTC-4).
 // WC 2026 venue timezones range from UTC-4 (ET) to UTC-7 (PT);
 // using ET means we may poll up to 3h early for Pacific games (harmless)
@@ -117,6 +136,17 @@ const OG_OVERRIDES = [
   { gameId: 15, name: 'Mohamed Hany' }, // Belgium 1-1 Egypt — credited to Belgium, scored by Egypt's Hany
 ];
 
+// The API sometimes garbles player names via a bad transliteration (separate from
+// the Arabic-script issue, which was fixed upstream) — e.g. "Kilian Ambaph" instead
+// of "Kylian Mbappé". No general fix is possible without a players/roster endpoint
+// (none exists), so corrections are added here as they're spotted. Match on gameId +
+// exact garbled name (pre-tag).
+const SCORER_NAME_OVERRIDES = [
+  { gameId: 17, name: 'Kilian Ambaph', corrected: 'Kylian Mbappé' }, // France 1-0 Senegal
+  { gameId: 16, name: 'Abdallh Alamri', corrected: 'Abdullah Al-Amri' }, // Saudi Arabia 1-1 Uruguay
+  { gameId: 16, name: 'Maksimilianv Araivkhv', corrected: 'Maximiliano Araújo' }, // Saudi Arabia 1-1 Uruguay
+];
+
 function parseGoalScorers(raw, teamName, gameId) {
   if (!raw || raw === 'null') return [];
   try {
@@ -140,12 +170,14 @@ function parseGoalScorers(raw, teamName, gameId) {
         // Tag (P)/(OG) is attached to this specific goal's timestamp, not the player's
         // name — keeps multiple goals by the same player (e.g. one penalty, one open-play)
         // grouped together under a single name when rendered.
-        const name = parts.slice(0, timeIdx).join(' ');
+        let name = parts.slice(0, timeIdx).join(' ');
         const isOG = text.toUpperCase().includes('(OG)')
           || OG_OVERRIDES.some(o => o.gameId === gameId && o.name === name);
         const isPen = text.toLowerCase().includes('(p)') || text.toLowerCase().includes('(pen)');
         const minute = timeToken.replace(/'/g, '').replace(/\(.*\)/g, '').trim() || null;
         const tag = isOG ? '(OG)' : isPen ? '(P)' : '';
+        const override = SCORER_NAME_OVERRIDES.find(o => o.gameId === gameId && o.name === name);
+        if (override) name = override.corrected;
         return { name, minute, tag, team: teamName, og: isOG };
       }
       return { name: text.trim(), minute: null, tag: '', team: teamName, og: false };
@@ -571,6 +603,24 @@ async function main() {
   }
 
   const { fixtures, groups, scorers } = result;
+
+  // Restore stored goal scorer data for any fixture where the new fetch returned none.
+  // This prevents fallback API runs (football-data.org has no scorer data) or transient
+  // primary API failures from wiping match facts that were already captured.
+  const existingGoals = loadExistingGoalData();
+  for (const fix of fixtures) {
+    if (!fix.homeGoals?.length && !fix.awayGoals?.length) {
+      const stored = existingGoals[String(fix.id)] || existingGoals[`${fix.home}|${fix.away}`];
+      if (stored) {
+        fix.homeGoals = stored.homeGoals;
+        fix.awayGoals = stored.awayGoals;
+      } else {
+        fix.homeGoals = fix.homeGoals || [];
+        fix.awayGoals = fix.awayGoals || [];
+      }
+    }
+  }
+
   const bracket = deriveBracket(fixtures);
   const results = deriveResults(fixtures, groups);
 
