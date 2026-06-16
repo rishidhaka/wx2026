@@ -265,13 +265,14 @@ input::placeholder{color:var(--muted)}
 /* Home fixture — horizontal scrolling pill cards */
 .home-matches-scroll{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:2px 0 6px}
 .home-matches-scroll::-webkit-scrollbar{display:none}
-.home-match-pill{flex-shrink:0;background:var(--elevated);border:1px solid var(--border);border-radius:12px;padding:12px 14px;min-width:155px;width:155px}
+.home-match-pill{flex-shrink:0;background:var(--elevated);border:1px solid var(--border);border-radius:12px;padding:10px 14px;min-width:155px;width:155px;display:flex;flex-direction:column;gap:4px}
 .home-match-pill.live{border-color:var(--live)}
 .home-match-pill-team{display:flex;align-items:center;gap:7px}
 .home-match-pill-name{font-size:13px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.home-match-pill-score{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0}
-.home-match-pill-score.live{color:var(--live)}
-.home-match-pill-meta{font-size:11px;color:var(--muted);text-align:center;margin:6px 0;line-height:1.3}
+.home-match-pill-vs{text-align:center;font-size:14px;font-weight:700;padding:2px 0;color:var(--muted)}
+.home-match-pill-vs.score{font-family:'DM Mono',monospace;color:var(--text)}
+.home-match-pill-vs.live{color:var(--live)}
+.home-match-pill-meta{font-size:11px;color:var(--muted);text-align:center;line-height:1.3;margin-top:2px}
 .home-match-pill-meta.live{color:var(--live);font-weight:700}
 .home-lb-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
 .home-lb-row:last-child{border-bottom:none;padding-bottom:0}
@@ -381,6 +382,7 @@ input::placeholder{color:var(--muted)}
 .how-to-play-footer .btn{margin:0}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+
 </style>
 </head>
 <body>
@@ -813,15 +815,13 @@ function normalizeBracketData(bracket,isPhase2){
 
 // ══ AUTH ═══════════════════════════════════════════════════════════════════
 function signIn(){
-  // Always use popup — works on desktop and mobile browsers including Safari.
-  // Redirect-based flow causes the page to reload which loses auth state on
-  // many mobile browsers before onAuthStateChanged can process the result.
   auth.signInWithPopup(provider).catch(err=>{
     console.error("Google sign-in error",err?.code, err);
     showToast(`Sign-in failed: ${err?.code||"unknown"}`);
   });
 }
 function signOut(){auth.signOut();}
+
 // Handle any pending redirect result (legacy, safe no-op if no redirect pending)
 auth.getRedirectResult().then(result=>{
   if(result&&result.user) console.log("Redirect result user:",result.user.email);
@@ -924,7 +924,7 @@ function renderHomeHeader(){
     <div class="home-status-row">
       ${statusTxt}
       <span class="home-status-sep">·</span>
-      <span>🇺🇸 🇨🇦 🇲🇽 48 matches</span>
+      <span>🇺🇸 USA · 🇨🇦 Canada · 🇲🇽 Mexico · 48 matches</span>
       <button style="margin-left:auto;background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;padding:0" onclick="signOut()">Sign out</button>
     </div>
   </div>`;
@@ -2382,6 +2382,9 @@ function renderHomeTab(){
           const hS=fin||live?String(f.homeScore??0):"";
           const aS=fin||live?String(f.awayScore??0):"";
           const timeStr=f.utcDate?new Date(f.utcDate).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York",hour12:true}):f.time||"TBD";
+          const vsBlock=live?`<div class="home-match-pill-vs live">${hS} – ${aS}</div>`
+            :fin?`<div class="home-match-pill-vs score">${hS} – ${aS}</div>`
+            :`<div class="home-match-pill-vs">vs</div>`;
           const meta=live?`<div class="home-match-pill-meta live">● LIVE</div>`
             :fin?`<div class="home-match-pill-meta">Full time</div>`
             :`<div class="home-match-pill-meta">${timeStr}</div>`;
@@ -2389,15 +2392,13 @@ function renderHomeTab(){
             <div class="home-match-pill-team">
               <span style="font-size:16px">${f.homeFlag||"🏳️"}</span>
               <span class="home-match-pill-name">${esc(f.home||f.homeTeam||"")}</span>
-              ${fin||live?`<span class="home-match-pill-score${live?" live":""}">${hS}</span>`:""}
             </div>
-            ${meta}
+            ${vsBlock}
             <div class="home-match-pill-team">
               <span style="font-size:16px">${f.awayFlag||"🏳️"}</span>
               <span class="home-match-pill-name">${esc(f.away||f.awayTeam||"")}</span>
-              ${fin||live?`<span class="home-match-pill-score${live?" live":""}">${aS}</span>`:""}
-
             </div>
+            ${meta}
           </div>`;
         }).join("")}</div>`
       }
