@@ -225,6 +225,12 @@ input::placeholder{color:var(--muted)}
 .bracket-team-btn.loser-result{opacity:.5}
 .bracket-team-btn .bf{font-size:16px;flex-shrink:0}
 .bracket-team-btn .bn{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bracket-team-btn.selected.pick-correct{background:rgba(34,197,94,0.18);color:var(--green)}
+.bracket-team-btn.selected.pick-wrong{background:rgba(248,81,73,0.18);color:var(--red)}
+
+/* ── READ-ONLY PICK RESULT HIGHLIGHTING (submitted Phase 1 picks) ── */
+.pick-correct{background:rgba(34,197,94,0.10);box-shadow:inset 3px 0 0 var(--green)}
+.pick-wrong{background:rgba(248,81,73,0.10);box-shadow:inset 3px 0 0 var(--red)}
 .bracket-winner-display{background:linear-gradient(135deg,#1a3a0a,#0f2a1a);border:2px solid var(--gold);border-radius:10px;padding:14px;text-align:center;margin-top:8px}
 .bracket-winner-flag{font-size:36px;margin-bottom:6px}
 .bracket-winner-name{font-weight:900;font-size:16px;color:var(--gold);letter-spacing:1px}
@@ -1192,6 +1198,24 @@ function getFlagEmojiForTeam(teamName) {
 const P1_KO_PTS = {r32:2, r16:3, qf:5, sf:10, final:20};
 const P2_PTS = {r16:5, qf:5, sf:10, final:15};
 
+// Some teams are stored under different spellings depending on source (the picks wizard's
+// static WC_GROUPS list vs. the live API feeding `results`). Canonicalize before comparing
+// so e.g. a pick of "Côte d'Ivoire" still matches a live result of "Ivory Coast".
+const TEAM_NAME_ALIASES={
+  "Korea Republic":"South Korea",
+  "Czechia":"Czech Republic",
+  "USA":"United States",
+  "Türkiye":"Turkey",
+  "Côte d'Ivoire":"Ivory Coast",
+  "IR Iran":"Iran",
+  "Cabo Verde":"Cape Verde",
+  "Congo DR":"Democratic Republic of the Congo",
+  "DR Congo":"Democratic Republic of the Congo",
+  "Bosnia-Herzegovina":"Bosnia and Herzegovina",
+};
+function canonicalTeam(name){return TEAM_NAME_ALIASES[name]||name;}
+function teamsMatch(a,b){return !!a&&!!b&&canonicalTeam(a)===canonicalTeam(b);}
+
 function calcScore(playerData){
   const p1=(playerData.phase1)||{};
   const p2=(playerData.phase2)||{};
@@ -1204,21 +1228,22 @@ function calcScore(playerData){
   Object.entries(p1.groups||{}).forEach(([grp,order])=>{
     if(res.startedGroups&&!startedGroups.has(grp)) return;
     const actual=(res.groups||{})[grp]||[];
-    if(actual[0]&&order[0]===actual[0]){p1Group+=1;detail.p1Group[grp+"_1st"]="hit";}
+    if(actual[0]&&teamsMatch(order[0],actual[0])){p1Group+=1;detail.p1Group[grp+"_1st"]="hit";}
     else if(actual[0]) detail.p1Group[grp+"_1st"]="miss";
-    if(actual[1]&&order[1]===actual[1]){p1Group+=1;detail.p1Group[grp+"_2nd"]="hit";}
+    if(actual[1]&&teamsMatch(order[1],actual[1])){p1Group+=1;detail.p1Group[grp+"_2nd"]="hit";}
     else if(actual[1]) detail.p1Group[grp+"_2nd"]="miss";
-    if(actual[2]&&order[2]===actual[2]){p1Group+=1;detail.p1Group[grp+"_3rd"]="hit";}
+    if(actual[2]&&teamsMatch(order[2],actual[2])){p1Group+=1;detail.p1Group[grp+"_3rd"]="hit";}
     else if(actual[2]) detail.p1Group[grp+"_3rd"]="miss";
-    if(actual[3]&&order[3]===actual[3]){p1Group+=1;detail.p1Group[grp+"_4th"]="hit";}
+    if(actual[3]&&teamsMatch(order[3],actual[3])){p1Group+=1;detail.p1Group[grp+"_4th"]="hit";}
     else if(actual[3]) detail.p1Group[grp+"_4th"]="miss";
   });
 
   // Third-place qualifiers (2pts each)
   const pickedQual=(p1.thirdPlaceQualifiers||[]);
   const actualQual=(res.thirdPlaceQualifiers||[]);
+  const actualQualCanon=actualQual.map(canonicalTeam);
   pickedQual.forEach((team,i)=>{
-    if(actualQual.includes(team)){p1ThirdQual+=2;detail.p1ThirdQual["q"+i]="hit";}
+    if(actualQualCanon.includes(canonicalTeam(team))){p1ThirdQual+=2;detail.p1ThirdQual["q"+i]="hit";}
     else if(actualQual.length) detail.p1ThirdQual["q"+i]="miss";
   });
 
@@ -1227,7 +1252,7 @@ function calcScore(playerData){
     const picks=(p1.bracket||{})[round]||[];
     const actual=(res.bracket||{})[round]||[];
     picks.forEach((team,i)=>{
-      if(actual[i]&&team===actual[i]){p1KO+=pts;detail.p1KO[round+"_"+i]="hit";}
+      if(actual[i]&&teamsMatch(team,actual[i])){p1KO+=pts;detail.p1KO[round+"_"+i]="hit";}
       else if(actual[i]) detail.p1KO[round+"_"+i]="miss";
     });
   });
@@ -1240,7 +1265,7 @@ function calcScore(playerData){
       const actual=(res.bracket||{})[round]||[];
       const pts=P2_PTS[round]||5;
       picks.forEach((team,i)=>{
-        if(actual[i]&&team===actual[i]){p2Score+=pts;detail.p2[round+"_"+i]="hit";}
+        if(actual[i]&&teamsMatch(team,actual[i])){p2Score+=pts;detail.p2[round+"_"+i]="hit";}
         else if(actual[i]) detail.p2[round+"_"+i]="miss";
       });
     });
@@ -1329,26 +1354,13 @@ function renderPicksView(){
   const timerEl=document.getElementById("picks-timer");
   const stepsEl=document.getElementById("picks-steps");
   const phase2Unlocked=results.phase2Unlocked;
+  const phase1Locked=!!myPicks.phase1SubmittedAt;
 
-  // If Phase 1 picks already submitted, show locked message
-  if(myPicks.phase1SubmittedAt&&!phase2Unlocked){
-    timerEl.innerHTML=`<div class="deadline-banner closed">🔒 Phase 1 picks submitted and locked</div>`;
-    stepsEl.innerHTML="";
-    el.innerHTML=`<div style="padding:20px;text-align:center;color:var(--muted)">
-      <div style="font-size:48px;margin-bottom:12px">✅</div>
-      <div style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px">Your Phase 1 picks are submitted!</div>
-      <div style="font-size:13px;line-height:1.6">
-        Your predictions are locked to preserve competitive integrity.<br>
-        Check the <strong>Leaderboard</strong> to see how you're doing.<br><br>
-        <strong>Phase 2</strong> unlocks after the group stage — you'll get a fresh chance to predict the knockout rounds with the real bracket!
-      </div>
-    </div>`;
-    return;
-  }
-
-  // Show deadline warning if Phase 1 is closing soon
+  // Show deadline warning if Phase 1 is closing soon, or a view-only notice once submitted
   let deadlineWarning="";
-  if(!phase2Unlocked&&isPhase1Open()){
+  if(phase1Locked){
+    deadlineWarning=`<div class="deadline-banner closed">🔒 Phase 1 picks submitted — view only. <span style="color:var(--green)">Green</span> = correct, <span style="color:var(--red)">red</span> = incorrect.</div>`;
+  }else if(!phase2Unlocked&&isPhase1Open()){
     const timeLeft=getPhase1TimeRemaining();
     deadlineWarning=`<div class="deadline-banner">⏰ Phase 1 closes: <strong>${esc(timeLeft)}</strong> (June 17, 11:59 PM)</div>`;
   }else if(!phase2Unlocked&&!isPhase1Open()){
@@ -1372,8 +1384,8 @@ function renderPicksView(){
   if(wizardStep==="phase2") content=renderPhase2Step();
 
   el.innerHTML=content;
-  if(wizardStep==="groups") initDragDrop();
-  if(wizardStep==="thirdplace") initThirdPlaceDrag();
+  if(wizardStep==="groups"&&!phase1Locked) initDragDrop();
+  if(wizardStep==="thirdplace"&&!phase1Locked) initThirdPlaceDrag();
 }
 
 function setWizardStep(step){
@@ -1386,8 +1398,10 @@ function setWizardStep(step){
 // ── GROUPS STEP ───────────────────────────────────────────────────────────
 function renderGroupsStep(){
   const groups=myPicks.phase1.groups;
+  const locked=!!myPicks.phase1SubmittedAt;
+  const detail=locked?calcScore(myPicks).detail:null;
   let html=`<div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">
-    Drag teams to predict each group's finishing order. Top 2 advance to the knockout rounds.
+    ${locked?"Your submitted group predictions.":"Drag teams to predict each group's finishing order. Top 2 advance to the knockout rounds."}
   </div>`;
 
   Object.entries(WC_GROUPS).forEach(([grpKey,teams])=>{
@@ -1403,8 +1417,10 @@ function renderGroupsStep(){
           const t=teamMap[name]||{name,flag:"🏳️"};
           const posClass=["p1","p2","p3","p4"][i];
           const posLabel=["1st","2nd","3rd","4th"][i];
-          return`<div class="drag-item" draggable="true" data-team="${esc(name)}" data-group="${grpKey}">
-            <span class="drag-handle">⠿</span>
+          const outcome=detail?detail.p1Group[grpKey+"_"+posLabel]:null;
+          const outcomeClass=outcome==="hit"?" pick-correct":outcome==="miss"?" pick-wrong":"";
+          return`<div class="drag-item${outcomeClass}" draggable="${locked?"false":"true"}" data-team="${esc(name)}" data-group="${grpKey}">
+            <span class="drag-handle">${locked?"":"⠿"}</span>
             <div class="drag-pos ${posClass}">${i+1}</div>
             <span class="drag-flag">${t.flag}</span>
             <span class="drag-name">${esc(t.name)}</span>
@@ -1415,7 +1431,9 @@ function renderGroupsStep(){
     </div>`;
   });
 
-  html+=`<div style="height:10px"></div>
+  html+=locked
+    ?`<div style="height:60px"></div>`
+    :`<div style="height:10px"></div>
   <button class="btn btn-primary" onclick="saveGroupsAndNext()">Next: Pick Third-Place Qualifiers →</button>
   <div style="height:60px"></div>`;
   return html;
@@ -1588,12 +1606,17 @@ function refreshGroupPositions(grpKey){
 }
 
 function saveGroupsAndNext(){
+  // Picks are permanently locked once submitted, regardless of deadline.
+  if(myPicks.phase1SubmittedAt){
+    showToast("🔒 Phase 1 picks are locked");
+    return;
+  }
   // Prevent editing if deadline passed (allow editing until deadline even if submitted)
   if(!isPhase1Open()){
     showToast("🔒 Phase 1 deadline passed");
     return;
   }
-  
+
   // Persist current DOM order before moving
   Object.keys(WC_GROUPS).forEach(grpKey=>{
     const container=document.getElementById("grpteams-"+grpKey);
@@ -1631,6 +1654,8 @@ function renderThirdPlaceStep(){
   syncThirdPlaceRanking();
   const thirdPlaceTeams=getCurrentThirdPlaceTeams();
   const ranking=myPicks.phase1.thirdPlaceRanking||[];
+  const locked=!!myPicks.phase1SubmittedAt;
+  const detail=locked?calcScore(myPicks).detail:null;
 
   const rankedTeams=ranking.map((name,i)=>{
     const entry=thirdPlaceTeams.find(t=>t.name===name);
@@ -1640,9 +1665,9 @@ function renderThirdPlaceStep(){
   }).filter(Boolean);
 
   let html=`<div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">
-    In 2026, the top 2 from each group advance, PLUS the 8 best third-placed teams (out of 12).<br>
+    ${locked?"Your submitted third-place qualifier ranking.":`In 2026, the top 2 from each group advance, PLUS the 8 best third-placed teams (out of 12).<br>
     Rank all 12 third-placed teams by likely performance. Top <strong>8</strong> automatically qualify.<br>
-    Each row shows the full group context so you can estimate likely goal-difference scenarios.
+    Each row shows the full group context so you can estimate likely goal-difference scenarios.`}
   </div>
   <div class="tpq-counter">Qualified (Top 8): <strong>${(myPicks.phase1.thirdPlaceQualifiers||[]).length}</strong> / 8 ✓</div>
   <div class="tpq-rank-list" id="tpq-rank-list">`;
@@ -1650,8 +1675,10 @@ function renderThirdPlaceStep(){
   rankedTeams.forEach(t=>{
     const [t1,t2,t3,t4]=t.row||[];
     const open=!!tpqExpandedDetails[t.name];
-    html+=`<div class="tpq-rank-item" draggable="true" data-team="${esc(t.name)}">
-      <div class="drag-handle">⋮⋮</div>
+    const outcome=(detail&&t.isQual)?detail.p1ThirdQual["q"+(t.rank-1)]:null;
+    const outcomeClass=outcome==="hit"?" pick-correct":outcome==="miss"?" pick-wrong":"";
+    html+=`<div class="tpq-rank-item${outcomeClass}" draggable="${locked?"false":"true"}" data-team="${esc(t.name)}">
+      <div class="drag-handle">${locked?"":"⋮⋮"}</div>
       <div class="tpq-rank-badge${t.isQual?" qual":""}">${t.rank}</div>
       <div class="tpq-rank-main">
         <div class="tpq-rank-head">
@@ -1667,7 +1694,9 @@ function renderThirdPlaceStep(){
     </div>`;
   });
 
-  html+=`</div>
+  html+=locked
+    ?`</div><div style="height:60px"></div>`
+    :`</div>
   <button class="btn btn-secondary" onclick="wizardStep='groups';renderPicksView()">← Back to Groups</button>
   <button class="btn btn-primary" onclick="saveThirdPlaceAndNext()" ${(myPicks.phase1.thirdPlaceQualifiers||[]).length!==8?"disabled":""}>
     Next: Build My Bracket →
@@ -1692,6 +1721,11 @@ function toggleTpqDetails(teamName){
 }
 
 function saveThirdPlaceAndNext(){
+  // Picks are permanently locked once submitted, regardless of deadline.
+  if(myPicks.phase1SubmittedAt){
+    showToast("🔒 Phase 1 picks are locked");
+    return;
+  }
   // Prevent editing if deadline passed (allow editing until deadline even if submitted)
   if(!isPhase1Open()){
     showToast("🔒 Phase 1 deadline passed");
@@ -1832,6 +1866,8 @@ function renderBracketStep(isPhase2){
   const picks=isPhase2?myPicks.phase2:myPicks.phase1;
   const bracket=picks.bracket||{};
   const rounds=buildRoundsData(isPhase2);
+  const locked=!isPhase2&&!!myPicks.phase1SubmittedAt;
+  const detail=locked?calcScore(myPicks).detail:null;
 
   const stateKey=isPhase2?"phase2":"phase1";
   const maxIndex=Math.max(0,rounds.length-1);
@@ -1840,6 +1876,7 @@ function renderBracketStep(isPhase2){
 
   let html=`<div style="font-size:12px;color:var(--muted);margin-bottom:10px">
     ${isPhase2?`<span class="phase-label p2">Phase 2</span> Real bracket — 5pts R16/QF, 10pts SF, 15pts Champion.`
+    :locked?`<span class="phase-label p1">Phase 1</span> Your submitted knockout picks.`
     :`<span class="phase-label p1">Phase 1</span> Based on your group predictions — pick match winners all the way to the Final.`}
   </div>
   <div class="bracket-round-nav">
@@ -1856,14 +1893,16 @@ function renderBracketStep(isPhase2){
   </div>
   <div style="margin-top:12px">
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
-    <input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border='';${isPhase2?"myPicks.phase2.goldenBoot=this.value.trim();":"myPicks.phase1.goldenBoot=this.value.trim();"}scheduleDraftAutoSave('golden-boot')" autocomplete="off">
+    ${locked
+      ?`<div class="drag-item${detail.gb.p1==="hit"?" pick-correct":""}" style="margin-top:6px;border-radius:8px;cursor:default"><span class="drag-name">${esc(picks.goldenBoot||"—")}</span></div>`
+      :`<input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border='';${isPhase2?"myPicks.phase2.goldenBoot=this.value.trim();":"myPicks.phase1.goldenBoot=this.value.trim();"}scheduleDraftAutoSave('golden-boot')" autocomplete="off">`}
   </div>
-  <button id="save-picks-btn-${isPhase2?"p2":"p1"}" type="button" class="btn btn-primary" style="margin-top:8px" onclick="savePicks(${isPhase2},event)">Save ${isPhase2?"Second Chance ":""}Picks ✓</button>
-  ${!isPhase2?`<button class="btn btn-secondary" style="margin-top:8px" onclick="setWizardStep('groups')">← Back to Groups</button>`:""}
+  ${locked?"":`<button id="save-picks-btn-${isPhase2?"p2":"p1"}" type="button" class="btn btn-primary" style="margin-top:8px" onclick="savePicks(${isPhase2},event)">Save ${isPhase2?"Second Chance ":""}Picks ✓</button>`}
+  ${(!isPhase2&&!locked)?`<button class="btn btn-secondary" style="margin-top:8px" onclick="setWizardStep('groups')">← Back to Groups</button>`:""}
   ${renderPredictedPodiumBanner(isPhase2)}
   <div style="height:60px"></div>`;
 
-  setTimeout(()=>renderBracketGrid([activeRound], bracket, isPhase2), 0);
+  setTimeout(()=>renderBracketGrid([activeRound], bracket, isPhase2, locked, detail), 0);
   return html;
 }
 
@@ -1895,7 +1934,7 @@ function changeBracketRound(isPhase2,delta){
   renderPicksView();
 }
 
-function renderBracketGrid(rounds, bracket, isPhase2){
+function renderBracketGrid(rounds, bracket, isPhase2, locked, detail){
   const grid=document.getElementById("bracket-grid");
   if(!grid)return;
 
@@ -1921,14 +1960,18 @@ function renderBracketGrid(rounds, bracket, isPhase2){
       const matchIdx=Math.floor(i/2);
       const pickedWinner=(picks&&picks.length>matchIdx&&picks[matchIdx])?picks[matchIdx]:"";
       const hSel=pickedWinner&&pickedWinner===h, aSel=pickedWinner&&pickedWinner===a;
+      const outcome=detail?detail.p1KO[round.key+"_"+matchIdx]:null;
+      const outcomeClass=outcome==="hit"?" pick-correct":outcome==="miss"?" pick-wrong":"";
       const matchNum=Math.floor(i/2)+1;
+      const hAttr=locked?`disabled style="cursor:default"`:`onclick="pickBracket('${round.key}',${i},'${escA(h)}',${isPhase2})"`;
+      const aAttr=locked?`disabled style="cursor:default"`:`onclick="pickBracket('${round.key}',${i+1},'${escA(a)}',${isPhase2})"`;
       matches.push(`<div class="bracket-match">
         <div class="bracket-match-num">Match ${matchNum}</div>
-        <button class="bracket-team-btn${hSel?" selected":""}" onclick="pickBracket('${round.key}',${i},'${escA(h)}',${isPhase2})">
+        <button class="bracket-team-btn${hSel?" selected":""}${hSel?outcomeClass:""}" ${hAttr}>
           <span class="bf">${hf}</span><span class="bn">${esc(h)}</span>
         </button>
         <div class="bracket-vs">vs</div>
-        <button class="bracket-team-btn${aSel?" selected":""}" onclick="pickBracket('${round.key}',${i+1},'${escA(a)}',${isPhase2})">
+        <button class="bracket-team-btn${aSel?" selected":""}${aSel?outcomeClass:""}" ${aAttr}>
           <span class="bf">${af}</span><span class="bn">${esc(a)}</span>
         </button>
       </div>`);
@@ -1947,6 +1990,11 @@ function renderBracketGrid(rounds, bracket, isPhase2){
 }
 
 function pickBracket(round, idx, team, isPhase2){
+  // Picks are permanently locked once submitted, regardless of deadline.
+  if(!isPhase2&&myPicks.phase1SubmittedAt){
+    showToast("🔒 Phase 1 picks are locked");
+    return;
+  }
   // Prevent editing if deadline passed (allow editing until deadline even if submitted)
   if(isPhase2&&!isPhase2Open()){
     showToast("🔒 Phase 2 deadline passed");
