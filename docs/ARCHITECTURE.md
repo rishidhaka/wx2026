@@ -21,25 +21,27 @@ Browser ──── Firebase Auth (Google signInWithPopup) ── Google Identi
 Cloud Function (every 60 min)
     └── football-data.org → Firestore wc2026/tournament + wc2026/results
 
-GitHub Actions (every 1 min, smart-gated)
+GitHub Actions (every 5 min schedule + workflow_dispatch, smart-gated, upstream repo only)
     └── fetch-data.js checks existing data before calling the API:
-        active game window or midnight ET → fetch + deploy
+        active game window, midnight ET, or FORCE_FETCH=true → fetch + deploy
         no active games → exit early (no API call, no commit)
 ```
 
 ### Data sources for live data
 `scripts/fetch-data.js` (run by GitHub Actions) uses a **primary + fallback** strategy:
-- **Primary**: `worldcup26.ir` — real-time live match status, JWT auth (`WC26_API_TOKEN` secret)
-- **Fallback**: `football-data.org` — used if primary fails (`FOOTBALLDATA_KEY` secret)
+- **Primary**: `worldcup26.ir` — real-time live match status, goal scorers, JWT auth (`WC26_API_TOKEN` secret), 60s timeout
+- **Fallback**: `football-data.org` — used if primary fails (`FOOTBALLDATA_KEY` secret); does NOT populate `homeGoals`/`awayGoals`
 
 **Critical**: These two APIs use different team name strings. `flagFor()` must include all variants. Known mismatches: Czechia vs Czech Republic, Congo DR vs Democratic Republic of the Congo, Bosnia-Herzegovina vs Bosnia and Herzegovina, Cape Verde Islands vs Cape Verde.
+
+**Separately**: the picks wizard's static `WC_GROUPS` team names (used when a user submits picks) don't always match either live API's names — e.g. "Côte d'Ivoire" (picks) vs "Ivory Coast" (live results in `wc2026/results`). Since scoring compares picks against live results, this caused real (now-fixed) scoring bugs for 8 teams. Fixed via `canonicalTeam()`/`teamsMatch()` in `calcScore()` — see "Scoring Engine" below.
 
 ### Repository fork structure
 ```
 rishidhaka/wx2026  ← origin (upstream, production)
 siddhaka/wx2026    ← fork (development)
 ```
-All UI development happens on `siddhaka/wx2026:main`. PRs are opened from `siddhaka:main` → `rishidhaka:main`. The GitHub Actions auto-deploy fires on push to `rishidhaka/wx2026:main`.
+All UI development happens on `siddhaka/wx2026:main`. PRs are opened from `siddhaka:main` → `rishidhaka:main`. The GitHub Actions auto-deploy fires on push to `rishidhaka/wx2026:main`. The data-fetch workflow (`update-data.yml`), the manual force-fetch workflow (`force-update-data.yml`), and both Firebase Hosting deploy workflows all guard on `if: github.repository == 'rishidhaka/wx2026'` — without this, the fork would independently run its own copy of every scheduled/push-triggered workflow with no effect on the deployed site, just wasted Actions minutes and API calls.
 
 ---
 
@@ -125,12 +127,14 @@ Written only by Cloud Function. Never by client.
 ```json
 {
   "groups": [...group standings...],
-  "fixtures": [...upcoming and recent matches...],
+  "fixtures": [...upcoming and recent matches, NO homeGoals/awayGoals — see gotcha below...],
   "bracket": {...knockout results...},
   "scorers": [...top scorers...],
   "lastSync": 1718000000000
 }
 ```
+
+**Gotcha**: only `data/wc2026.json` (written by GitHub Actions, not this Cloud Function) includes `homeGoals`/`awayGoals` per fixture. Since this doc's `onSnapshot` listener can fire after the JSON loads, `applyTournamentData` explicitly carries forward goal data from the previous `fixtureMap` when the incoming fixture lacks it — otherwise the match modal would regress to "Goal details updating…" every time this listener fires. See `docs/AI_CONTEXT.md`'s "Match Modal & Goal Data" section.
 
 ### `wc2026picks/{uid}` (per-user document)
 Full picks stored here for retrieval on login.
@@ -166,13 +170,20 @@ in the results doc. Phase 2 is then unlocked.
 
 ## Scoring Engine
 
-`calcScore(playerData, results)` runs entirely client-side.
+`calcScore(playerData)` runs entirely client-side (reads the global `results`).
 Called on every Firestore snapshot update.
 Returns `{ total, p1Group, p1ThirdQual, p1KO, p2, gb, detail }`.
+
+`detail` carries per-pick `"hit"`/`"miss"` flags (e.g. `detail.p1Group["A_1st"]`) — originally only consumed by the leaderboard score-breakdown modal, now also driving the read-only picks view's green/red highlighting (see below).
+
+All picks-vs-results comparisons go through `teamsMatch(a, b)` (which calls `canonicalTeam()`), not raw `===`, because picks and results can use different spellings for the same team (`WC_GROUPS` vs. the live API — see "Data sources for live data" above). **Known bug, not yet fixed**: the group-picks loop also scores a correct 4th-place pick (1pt, same as 1st/2nd/3rd), which `docs/SCORING.md` doesn't document — see that file's note and `docs/AI_CONTEXT.md`'s Known Issues before changing this.
 
 No server-side score storage needed for display.
 The Cloud Function optionally writes computed scores to `wc2026/scores`
 for fast sorting at scale (>500 players).
+
+### Read-only picks view
+Once `myPicks.phase1SubmittedAt` is set, `renderGroupsStep()`/`renderThirdPlaceStep()`/`renderBracketStep(false)` switch to a non-interactive render (no `draggable`, no bracket `onclick`, golden boot as static text) coloured via `calcScore(myPicks).detail`. Phase 2 is unaffected. The lock is also checked directly inside `pickBracket()`/`saveGroupsAndNext()`/`saveThirdPlaceAndNext()` as defense-in-depth — but **not yet at the Firestore rules layer** (`wc2026picks/{userId}` still allows the owner to rewrite `phase1` after submission via a direct SDK call). See `docs/SECURITY.md`.
 
 ---
 

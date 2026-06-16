@@ -60,12 +60,18 @@ A full-stack World Cup bracket competition app built with vanilla JS + Firebase.
 ### 🎮 Live Tournament Tab
 - Real-time groups standings
 - Match fixtures with scores
+- **Tap any match for goal scorers + minutes** (see-through modal: centred card on desktop, bottom sheet on mobile)
 - Knockout bracket with results
 - Top scorers leaderboard
 - Updates via Cloud Function + football-data.org
 
+### ✅ My Picks (after submitting)
+- Submitted Phase 1 picks are viewable, not hidden behind a "locked" message
+- Each pick highlighted green (already scored), red (already wrong), or uncoloured (not yet decided / not a scoring pick)
+- Fully read-only — no editing once submitted
+
 ### 🔧 Admin Panel
-- Password + UID-protected
+- Password + UID-protected (⚠️ admin UID is currently an unfilled placeholder in production — see [docs/SECURITY.md](docs/SECURITY.md))
 - Phase 2 unlock toggle (or auto-unlocks June 27)
 - Manual result entry for groups/thirds/bracket
 - Testing and troubleshooting tools
@@ -79,10 +85,10 @@ A full-stack World Cup bracket competition app built with vanilla JS + Firebase.
 | Auth | Firebase Authentication (Google `signInWithPopup`) |
 | Database | Cloud Firestore (real-time `onSnapshot` listeners) |
 | Backend | Firebase Cloud Functions (scheduled every 60 min) |
-| Live data (primary) | worldcup26.ir — real-time live status, JWT auth |
+| Live data (primary) | worldcup26.ir — real-time live status, goal scorers, JWT auth |
 | Live data (fallback) | football-data.org — free tier, 10 req/min |
 | Hosting | Firebase Hosting (60s cache on `data/wc2026.json`) |
-| CI/CD | GitHub Actions (every 1 min, smart-gated) → Firebase auto-deploy |
+| CI/CD | GitHub Actions (every 5 min + workflow_dispatch, smart-gated, upstream repo only) → Firebase auto-deploy |
 
 ---
 
@@ -123,7 +129,10 @@ wx2026/
 ├── .firebaserc                         ← Firebase project binding
 └── .github/
     └── workflows/
-        └── update-data.yml             ← Runs every minute, smart-gated fetch + deploy
+        ├── update-data.yml             ← Runs every 5 min, smart-gated, upstream repo only
+        ├── force-update-data.yml       ← Manual-only, bypasses the game-window gate
+        ├── firebase-hosting-merge.yml  ← Deploy on push to main, upstream repo only
+        └── firebase-hosting-pull-request.yml ← Deploy preview on PR, upstream repo only
 ```
 
 ---
@@ -183,8 +192,16 @@ Send automatic reminders to users who haven't made picks:
 
 ---
 
-## 🎯 Latest Updates (v4.5.0 — June 15, 2026)
+## 🎯 Latest Updates (v4.6.0 — June 16, 2026)
 
+✅ **Tappable goal-scorer modal** — tap any match for scoreboard + per-team goal scorers with minutes; centred card on desktop, bottom sheet on mobile  
+✅ **Multi-goal grouping + (P)/(OG) tags** — a player's penalty and regular goals group into one row; tags attach to the timestamp, not the name  
+✅ **My Picks view-only mode** — submitted Phase 1 picks are now viewable (not hidden behind a locked message), colour-coded green/red by correctness, fully non-editable  
+✅ **Fixed a real scoring bug** — 8 teams with inconsistent name spellings between the picks wizard and live results were scoring correct picks as wrong across 6 of 12 groups  
+✅ **GitHub Actions reliability** — 5-min cron + `workflow_dispatch`, new manual force-fetch workflow, all auto-triggered workflows restricted to the upstream repo (no more wasted runs on the fork)  
+⚠️ **Security audit found real gaps, not yet fixed** — picks lock and league writes aren't enforced server-side; see [docs/SECURITY.md](docs/SECURITY.md)
+
+### v4.5.0 — June 15, 2026
 ✅ **WC 2026 emblem** — Official SVG logo on login screen and centred in the home banner  
 ✅ **Home banner redesign** — 3-column grid: greeting · logo · rank chip. Lighter background (`#2D333B`) for logo visibility  
 ✅ **Mini banner on non-home tabs** — compact logo strip that navigates back to Home when tapped  

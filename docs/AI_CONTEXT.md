@@ -24,22 +24,24 @@ Never commit directly to `rishidhaka/wx2026`.
 
 ---
 
-## Current State (as of v4.5.0, June 15, 2026)
+## Current State (as of v4.6.0, June 16, 2026)
 
 ### Completed ✅
 - Google Sign-In (`signInWithPopup`) — Firebase Auth
 - Firestore real-time sync via `onSnapshot` listeners
 - Phase 1 picks wizard: group drag-to-rank → third-place qualifiers → bracket → golden boot
 - Phase 2 (Second Chance): unlocks post-group-stage, real R16 bracket, 5pts flat per pick
-- One-time submission lock: `phase1SubmittedAt` timestamp set on first save; picks locked after
+- One-time submission lock: `phase1SubmittedAt` timestamp set on first save; `phase1` becomes immutable client-side after (see Known Issues — not yet enforced server-side)
+- **My Picks view-only mode**: once submitted, picks render read-only with green/red correctness highlighting instead of a blocking message — see "Read-Only Picks View" below
+- **Tappable match goal-scorer modal**: tap any match pill/fixture row to see scoreboard + goal scorers with minutes — see "Match Modal & Goal Data" below
 - Mini leagues with 5-letter codes + URL-based invites (`?league=XXXXX`)
 - Global leaderboard with per-player score breakdown modal
 - Home tab: today's fixtures, top-3 leaderboard preview, group standings, top scorers
 - World Cup tab: Groups (arrow nav A–L), Knockouts, Scorers, Results (date arrow nav)
 - Admin panel: phase control, manual result entry
-- Scoring engine: `calcScore(playerData, results)` — client-side, returns full detail
+- Scoring engine: `calcScore(playerData)` — client-side, returns full detail; uses `canonicalTeam()`/`teamsMatch()` to reconcile team-name spelling differences between picks and results (see Known Issues — fixed this session)
 - Firebase Cloud Function: `syncWorldCup` (every 60 min, football-data.org)
-- GitHub Actions: every-minute polling with smart skip logic (worldcup26.ir primary, football-data.org fallback)
+- GitHub Actions: every-5-minutes polling with smart skip logic (worldcup26.ir primary, football-data.org fallback), `workflow_dispatch` for manual/external triggering, restricted to the upstream repo only (see "GitHub Actions" below)
 - Full documentation suite in `docs/`
 - `2026_FIFA_World_Cup_emblem.svg` — WC 2026 logo used in login and home banner
 
@@ -48,6 +50,14 @@ Never commit directly to `rishidhaka/wx2026`.
 - **R32 bracket seeding**: simplified 1A-vs-2B seeding is used; exact 495 FIFA third-place scenarios not implemented
 - **Full two-column desktop layout**: not yet built; current desktop is single-column at 60% width
 - **`startedGroups` accuracy**: group pick points are only awarded for groups where games have started, tracked via `results.startedGroups`; relies on Cloud Function + admin keeping this up to date
+- **Group 4th-place picks score points, contradicting `docs/SCORING.md`** (found this session, pre-existing): `calcScore()` awards 1pt for a correct 4th-place pick same as 1st/2nd/3rd, making groups worth 48pts not the documented 36pts. Was invisible until the new read-only picks view made all four positions visible with hit/miss colouring. Decided to keep `SCORING.md` as the source of truth (3 positions) and treat the 4th-place scoring as a bug to fix later — touching it now would change live leaderboard scores mid-competition without a plan for already-awarded points. Do not silently "fix" this without raising it first.
+- **Firestore security gaps found via audit this session, not yet fixed** — full detail in `docs/SECURITY.md`, including drafted (then reverted) fix code:
+  - `wc2026picks/{userId}` only enforces "picks lock once submitted" in client JS — a direct Firestore SDK call from the browser console bypasses it entirely.
+  - `wc2026/leagues` allows any signed-in user to write the whole shared leagues document; the "enforced in app logic" comment provides no protection against direct SDK calls.
+  - `ADMIN_UID` placeholder (`"YOUR_ADMIN_UID_HERE"`) was never replaced with a real UID, in both `index.html` and `firestore.rules` — the admin tab is permanently hidden and the results-write rule never matches any real user.
+  - `ADMIN_PASS` is a hardcoded plaintext password in client JS, visible via View Source.
+  - `wc2026/players` write rule probably breaks for 2+ players (uses `hasOnly` against the full resulting doc instead of diffing affected keys).
+  - Reason these aren't fixed yet: deploying/testing Firestore rule changes needs Firebase Console access the user didn't have when this was found. Don't re-attempt without checking in — the fix was already drafted once.
 
 ---
 
@@ -66,7 +76,10 @@ wx2026/
 ├── firestore.rules                     ← Security rules
 ├── firebase.json                       ← Hosting + caching config
 ├── .github/workflows/
-│   └── update-data.yml                 ← Runs every minute, smart-gated
+│   ├── update-data.yml                 ← Runs every 5 min, smart-gated, upstream repo only
+│   ├── force-update-data.yml           ← Manual-only, bypasses the game-window gate (FORCE_FETCH=true)
+│   ├── firebase-hosting-merge.yml      ← Deploy on push to main, upstream repo only
+│   └── firebase-hosting-pull-request.yml ← Deploy preview on PR, upstream repo only
 └── docs/
     ├── AI_CONTEXT.md                   ← This file
     ├── ARCHITECTURE.md                 ← Data models, Firestore schema, key patterns
@@ -148,21 +161,47 @@ Placed inside `.desktop-center` but **outside** all `.view` divs, so it persists
 
 ---
 
+## Match Modal & Goal Data
+
+Tapping a match pill (Home tab) or fixture row (World Cup → Results) calls `showMatchModal(${f.id})`, which looks up the fixture in the global `fixtureMap` (id → fixture, rebuilt in `applyTournamentData` on every data load) and renders a scoreboard + per-team goal-scorer list into `#match-modal`.
+
+**Where goal data comes from**: `scripts/fetch-data.js`'s `fetchFromWC26()` parses worldcup26.ir's `home_scorers`/`away_scorers` strings via `parseGoalScorers()` into `homeGoals`/`awayGoals` arrays of `{name, minute, tag, team, og}`. `tag` is `"(P)"`/`"(OG)"`/`""` and is attached to the **timestamp**, not the name — this matters because a player who scores both a penalty and a regular goal in the same match needs to group under one name in the modal (and count as one entry, not two, on the top-scorers leaderboard).
+
+**`fetchFromFootballData()` (the fallback path, used only if worldcup26.ir fails entirely) does NOT populate `homeGoals`/`awayGoals`** — if you're debugging "why don't I see goal scorers," check which path actually ran.
+
+**Critical gotcha**: `wc2026/tournament` (written by the Cloud Function) also does NOT include `homeGoals`/`awayGoals` — only `data/wc2026.json` does. Since the Cloud Function's `onSnapshot` listener can fire *after* the JSON load and overwrite `fixtureMap`, `applyTournamentData` explicitly carries forward `homeGoals`/`awayGoals` from the previous `fixtureMap` entry when the incoming fixture doesn't have them (`f.homeGoals !== undefined ? f.homeGoals : (prev && prev.homeGoals)`). Don't remove this carry-forward without also fixing the Cloud Function to write goal data, or the modal will regress to "Goal details updating…" for everyone.
+
+**Own goals the API doesn't flag**: `OG_OVERRIDES` in `fetch-data.js` is a manual list of `{gameId, name}` pairs for own goals the API credits to the wrong team without an `(OG)` marker (one confirmed case: Belgium 1-1 Egypt, Mohamed Hany). Add entries here as they're discovered — there's no general way to detect this from the API alone.
+
+---
+
+## Read-Only Picks View
+
+Once `myPicks.phase1SubmittedAt` is set, "My Picks" no longer blocks access behind a message — `renderPicksView()` always renders the wizard tabs (Groups/Thirds/Knockouts/Phase 2), but `renderGroupsStep()`, `renderThirdPlaceStep()`, and `renderBracketStep(false)` each check `myPicks.phase1SubmittedAt` and switch to a non-interactive rendering: no `draggable`, no `onclick` on bracket buttons, golden boot shown as static text instead of an `<input>`. Phase 2 (`renderBracketStep(true)`) is unaffected and stays fully editable.
+
+Correctness highlighting reuses `calcScore(myPicks).detail` — the same hit/miss object that's always existed for the leaderboard score-breakdown modal, just never previously rendered against the full picks UI:
+- `detail.p1Group[grp+"_1st"/"_2nd"/"_3rd"/"_4th"]` → group position rows
+- `detail.p1ThirdQual["q"+i]` → third-place qualifier rows (only for `i < 8`, i.e. teams actually picked as qualifiers; ranks 9–12 never get a colour since they don't score)
+- `detail.p1KO[round+"_"+matchIdx]` → bracket match buttons
+- `"hit"` → `.pick-correct` (green), `"miss"` → `.pick-wrong` (red), absent key → no colour (not yet decided, or not a scoring pick)
+
+**The lock itself is enforced in three places in client JS** (`pickBracket`, `saveGroupsAndNext`, `saveThirdPlaceAndNext` all check `myPicks.phase1SubmittedAt` and bail with a toast) as defense-in-depth beyond just hiding the editable UI — but this is still not enforced at the Firestore rules layer. See Known Issues above and `docs/SECURITY.md`.
+
+---
+
 ## Colour System
 
-Two palettes co-exist in `index.html`. Do not mix them:
+One palette, defined once in `:root`. The picks wizard/bracket's `--navy-*`/`--amber`/`--pitch`/`--white`/`--green` names are now just backwards-compat aliases onto the same tokens (kept so older CSS selectors don't need renaming) — there are not two independent hex value sets to keep in sync:
 
-**Global UI** (home, standings, leagues, mini banner):
 ```css
---bg: #0E1117; --surface: #161B22; --elevated: #1C2128; --border: #21262D;
---gold: #F5A623; --gold-tint: rgba(245,166,35,0.12); --gold-border: rgba(245,166,35,0.25);
---text: #E6EDF3; --muted: #7a9ab5; --live: #2ecc71; --red: #e74c3c;
-```
-
-**Picks wizard / bracket** (uses `--navy-*`, `--amber`, `--pitch`):
-```css
---navy: #0d1b2a; --navy-card: #111f2f; --navy-border: #1e3045;
---pitch: #1a3a2a; --amber: #f5a623; --green: #2ecc71; --white: #f0f4f8;
+--bg:#0E1117; --surface:#161B22; --elevated:#1C2128; --border:#21262D;
+--gold:#F5A623; --gold-tint:rgba(245,166,35,0.12); --gold-border:rgba(245,166,35,0.25);
+--text:#F0F6FC; --muted:#7D8590;
+--live:#22C55E; --live-tint:rgba(34,197,94,0.12);
+--red:#F85149; --red-tint:rgba(248,81,73,0.12);
+--phase2:#A78BFA; --phase2-light:#C4B5FD;
+/* Aliases: --navy→--bg, --navy-card→--surface, --navy-border→--border,
+   --white→--text, --green→--live, --amber→--gold, --pitch:#0a2a1a (own value) */
 ```
 
 ---
@@ -195,6 +234,10 @@ Two palettes co-exist in `index.html`. Do not mix them:
 | `signIn()` / `signOut()` | Firebase Auth (popup only — no redirect) |
 | `startListeners()` | Set up all Firestore `onSnapshot` listeners |
 | `isPhase1Open()` | Returns true if current time is before June 17 deadline |
+| `showMatchModal(id)` / `closeMatchModal()` | Looks up `fixtureMap[id]`, renders scoreboard + grouped goal-scorer list |
+| `canonicalTeam(name)` / `teamsMatch(a,b)` | Reconciles team-name spelling differences (e.g. "Côte d'Ivoire" vs "Ivory Coast") before comparing picks to results in `calcScore()` |
+
+`renderGroupsStep()`, `renderThirdPlaceStep()`, `renderBracketStep(isPhase2)`, and `renderBracketGrid(rounds, bracket, isPhase2, locked, detail)` now all branch on `myPicks.phase1SubmittedAt` to render read-only with green/red correctness highlighting instead of editable drag/tap controls — see "Read-Only Picks View" below.
 
 ---
 
@@ -231,6 +274,15 @@ wc2026/scores     → { [uid]: totalScore } (Cloud Function only, for fast leade
 }
 ```
 
+### `data/wc2026.json` fixture fields (NOT present in `wc2026/tournament` — see Match Modal section above)
+```json
+{
+  "id": 15, "home": "Belgium", "away": "Egypt", "homeScore": 1, "awayScore": 1, "status": "fin",
+  "homeGoals": [{"name": "Mohamed Hany", "minute": "66", "tag": "(OG)", "team": "Belgium", "og": true}],
+  "awayGoals": [{"name": "Emam Ashour", "minute": "20", "tag": "", "team": "Egypt", "og": false}]
+}
+```
+
 ---
 
 ## 2026 Tournament Format
@@ -247,20 +299,24 @@ Path to win: 3 group + R32 + R16 + QF + SF + Final = 8 games total.
 ---
 
 ## Groups (all 48 teams)
+
+This is the real post-draw lineup, defined in `index.html`'s `WC_GROUPS` constant — any earlier version of this doc listing different teams was written before the actual draw and is wrong.
 ```
-A: USA, England, Panama, Bolivia
-B: Mexico, Ecuador, Jamaica, Venezuela
-C: Argentina, Canada, Chile, Peru
-D: France, Australia, Guatemala, Saudi Arabia
-E: Spain, Colombia, Costa Rica, Morocco
-F: Germany, Japan, Honduras, South Africa
-G: Brazil, Uruguay, Paraguay, New Zealand
-H: Portugal, Croatia, Algeria, South Korea
-I: Netherlands, Serbia, Nigeria, Cuba
-J: Belgium, Turkey, Senegal, Egypt
-K: Poland, Switzerland, Qatar, Cameroon
-L: Italy, Denmark, Iran, Tunisia
+A: Mexico, South Africa, Korea Republic, Czechia
+B: Canada, Bosnia and Herzegovina, Qatar, Switzerland
+C: Brazil, Morocco, Haiti, Scotland
+D: USA, Paraguay, Australia, Türkiye
+E: Germany, Curaçao, Côte d'Ivoire, Ecuador
+F: Netherlands, Japan, Sweden, Tunisia
+G: Belgium, Egypt, IR Iran, New Zealand
+H: Spain, Cabo Verde, Saudi Arabia, Uruguay
+I: France, Senegal, Iraq, Norway
+J: Argentina, Algeria, Austria, Jordan
+K: Portugal, Congo DR, Uzbekistan, Colombia
+L: England, Croatia, Ghana, Panama
 ```
+
+**Team-name gotcha**: the names above (used throughout the picks wizard) don't always match what the live worldcup26.ir API returns for the same team — e.g. `WC_GROUPS` says "Korea Republic", the API says "South Korea"; "Côte d'Ivoire" vs "Ivory Coast"; "USA" vs "United States"; "Türkiye" vs "Turkey"; "IR Iran" vs "Iran"; "Cabo Verde" vs "Cape Verde"; "Czechia" vs "Czech Republic"; "Congo DR" vs "Democratic Republic of the Congo". Since `results.groups` (used for scoring) is synced from the live API, a strict string comparison would mark correct picks wrong. Fixed this session via `canonicalTeam()`/`teamsMatch()` in `calcScore()` — see Known Issues / v4.6.0 changelog. If you rename a `WC_GROUPS` entry or add a new team-name source, check whether `TEAM_NAME_ALIASES` needs a new entry.
 
 ---
 
