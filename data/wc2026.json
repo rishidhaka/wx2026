@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T05:35:31.716Z",
+  "lastUpdated": "2026-06-17T05:40:35.823Z",
   "groups": [
     {
       "group": "A",
@@ -1469,19 +1469,12 @@
       "homeFlag": "🇦🇹",
       "away": "Jordan",
       "awayFlag": "🇯🇴",
-      "homeScore": 2,
+      "homeScore": 1,
       "awayScore": 1,
       "homeGoals": [
         {
           "name": "Rvmanv Ashmid",
           "minute": "21",
-          "tag": "",
-          "team": "Austria",
-          "og": false
-        },
-        {
-          "name": "Markv Arnatvvich",
-          "minute": "67",
           "tag": "",
           "team": "Austria",
           "og": false
