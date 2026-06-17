@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T22:05:31.109Z",
+  "lastUpdated": "2026-06-17T22:45:34.981Z",
   "groups": [
     {
       "group": "A",
@@ -1552,21 +1552,28 @@
       "awayScore": 2,
       "homeGoals": [
         {
-          "name": "Hri Kin",
+          "name": "H. Kane",
+          "minute": "12",
+          "tag": "(P)",
+          "team": "England",
+          "og": false
+        },
+        {
+          "name": "H. Kane",
           "minute": "42",
           "tag": "",
           "team": "England",
           "og": false
         },
         {
-          "name": "Jvd Blingham",
+          "name": "J. Bellingham",
           "minute": "47",
           "tag": "",
           "team": "England",
           "og": false
         },
         {
-          "name": "Markvs Rshfvrd",
+          "name": "M. Rashford",
           "minute": "85",
           "tag": "",
           "team": "England",
@@ -1575,14 +1582,14 @@
       ],
       "awayGoals": [
         {
-          "name": "Martin Batvrina",
+          "name": "M. Baturina",
           "minute": "36",
           "tag": "",
           "team": "Croatia",
           "og": false
         },
         {
-          "name": "Ptar Mvsa",
+          "name": "P. Musa",
           "minute": "45+5",
           "tag": "",
           "team": "Croatia",
@@ -3284,6 +3291,13 @@
       "assists": 0
     },
     {
+      "name": "H. Kane",
+      "team": "England",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "J. Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -3364,13 +3378,6 @@
       "name": "C. Metcalfe",
       "team": "Australia",
       "flag": "🇦🇺",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "V. Júnior",
-      "team": "Brazil",
-      "flag": "🇧🇷",
       "goals": 1,
       "assists": 0
     }
