@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T00:00:49.815Z",
+  "lastUpdated": "2026-06-17T00:05:43.097Z",
   "groups": [
     {
       "group": "A",
@@ -429,6 +429,18 @@
       "group": "I",
       "standings": [
         {
+          "team": "Norway",
+          "flag": "🇳🇴",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 4,
+          "ga": 1,
+          "gd": 3,
+          "points": 3
+        },
+        {
           "team": "France",
           "flag": "🇫🇷",
           "played": 1,
@@ -441,30 +453,6 @@
           "points": 3
         },
         {
-          "team": "Iraq",
-          "flag": "🇮🇶",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "points": 0
-        },
-        {
-          "team": "Norway",
-          "flag": "🇳🇴",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "points": 0
-        },
-        {
           "team": "Senegal",
           "flag": "🇸🇳",
           "played": 1,
@@ -474,6 +462,18 @@
           "gf": 1,
           "ga": 3,
           "gd": -2,
+          "points": 0
+        },
+        {
+          "team": "Iraq",
+          "flag": "🇮🇶",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "gf": 1,
+          "ga": 4,
+          "gd": -3,
           "points": 0
         }
       ]
@@ -1371,7 +1371,7 @@
       "away": "Norway",
       "awayFlag": "🇳🇴",
       "homeScore": 1,
-      "awayScore": 3,
+      "awayScore": 4,
       "homeGoals": [
         {
           "name": "Aimn Hsin",
@@ -1404,15 +1404,15 @@
           "og": false
         },
         {
-          "name": "Kristin Tvrstvdk",
+          "name": "Aimn Hsin",
           "minute": "90+7",
           "tag": "",
           "team": "Norway",
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Norway"
     },
     {
       "id": 19,
@@ -3151,6 +3151,13 @@
       "assists": 0
     },
     {
+      "name": "Arling Halnd",
+      "team": "Norway",
+      "flag": "🇳🇴",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "K. Havertz",
       "team": "Germany",
       "flag": "🇩🇪",
@@ -3256,23 +3263,16 @@
       "assists": 0
     },
     {
-      "name": "A. Diallo",
-      "team": "Ivory Coast",
-      "flag": "🇨🇮",
+      "name": "Aimn Hsin",
+      "team": "Iraq",
+      "flag": "🇮🇶",
       "goals": 1,
       "assists": 0
     },
     {
-      "name": "Felix Nmecha",
-      "team": "Germany",
-      "flag": "🇩🇪",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "N. Schlotterbeck",
-      "team": "Germany",
-      "flag": "🇩🇪",
+      "name": "Liv Avstigard",
+      "team": "Norway",
+      "flag": "🇳🇴",
       "goals": 1,
       "assists": 0
     }
