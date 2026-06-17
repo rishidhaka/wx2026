@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T23:55:36.380Z",
+  "lastUpdated": "2026-06-17T00:00:49.815Z",
   "groups": [
     {
       "group": "A",
@@ -1399,6 +1399,13 @@
         {
           "name": "Liv Avstigard",
           "minute": "76",
+          "tag": "",
+          "team": "Norway",
+          "og": false
+        },
+        {
+          "name": "Kristin Tvrstvdk",
+          "minute": "90+7",
           "tag": "",
           "team": "Norway",
           "og": false
