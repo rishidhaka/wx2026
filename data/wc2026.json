@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T20:40:37.661Z",
+  "lastUpdated": "2026-06-17T20:45:40.422Z",
   "groups": [
     {
       "group": "A",
@@ -1548,9 +1548,17 @@
       "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "away": "Croatia",
       "awayFlag": "🇭🇷",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Hri Kin",
+          "minute": "42",
+          "tag": "",
+          "team": "England",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Martin Batvrina",
