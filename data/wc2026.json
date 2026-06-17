@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T06:15:54.407Z",
+  "lastUpdated": "2026-06-17T16:45:42.293Z",
   "groups": [
     {
       "group": "A",
@@ -58,30 +58,6 @@
       "group": "B",
       "standings": [
         {
-          "team": "Qatar",
-          "flag": "🇶🇦",
-          "played": 1,
-          "won": 0,
-          "drawn": 1,
-          "lost": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
-          "points": 1
-        },
-        {
-          "team": "Switzerland",
-          "flag": "🇨🇭",
-          "played": 1,
-          "won": 0,
-          "drawn": 1,
-          "lost": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
-          "points": 1
-        },
-        {
           "team": "Canada",
           "flag": "🇨🇦",
           "played": 1,
@@ -96,6 +72,30 @@
         {
           "team": "Bosnia and Herzegovina",
           "flag": "🇧🇦",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 1,
+          "ga": 1,
+          "gd": 0,
+          "points": 1
+        },
+        {
+          "team": "Qatar",
+          "flag": "🇶🇦",
+          "played": 1,
+          "won": 0,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 1,
+          "ga": 1,
+          "gd": 0,
+          "points": 1
+        },
+        {
+          "team": "Switzerland",
+          "flag": "🇨🇭",
           "played": 1,
           "won": 0,
           "drawn": 1,
@@ -123,8 +123,8 @@
           "points": 3
         },
         {
-          "team": "Morocco",
-          "flag": "🇲🇦",
+          "team": "Brazil",
+          "flag": "🇧🇷",
           "played": 1,
           "won": 0,
           "drawn": 1,
@@ -135,8 +135,8 @@
           "points": 1
         },
         {
-          "team": "Brazil",
-          "flag": "🇧🇷",
+          "team": "Morocco",
+          "flag": "🇲🇦",
           "played": 1,
           "won": 0,
           "drawn": 1,
@@ -547,8 +547,8 @@
           "points": 0
         },
         {
-          "team": "Uzbekistan",
-          "flag": "🇺🇿",
+          "team": "Democratic Republic of the Congo",
+          "flag": "🇨🇩",
           "played": 0,
           "won": 0,
           "drawn": 0,
@@ -559,8 +559,8 @@
           "points": 0
         },
         {
-          "team": "Democratic Republic of the Congo",
-          "flag": "🇨🇩",
+          "team": "Uzbekistan",
+          "flag": "🇺🇿",
           "played": 0,
           "won": 0,
           "drawn": 0,
@@ -612,8 +612,8 @@
           "points": 0
         },
         {
-          "team": "Panama",
-          "flag": "🇵🇦",
+          "team": "Ghana",
+          "flag": "🇬🇭",
           "played": 0,
           "won": 0,
           "drawn": 0,
@@ -624,8 +624,8 @@
           "points": 0
         },
         {
-          "team": "Ghana",
-          "flag": "🇬🇭",
+          "team": "Panama",
+          "flag": "🇵🇦",
           "played": 0,
           "won": 0,
           "drawn": 0,
@@ -2100,26 +2100,6 @@
       "winner": null
     },
     {
-      "id": 50,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_C",
-      "matchday": 3,
-      "date": "Wed 24 Jun",
-      "time": "6:00 PM ET",
-      "utcDate": "2026-06-24T22:00:00Z",
-      "home": "Morocco",
-      "homeFlag": "🇲🇦",
-      "away": "Haiti",
-      "awayFlag": "🇭🇹",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
       "id": 49,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
@@ -2132,6 +2112,26 @@
       "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
       "away": "Brazil",
       "awayFlag": "🇧🇷",
+      "homeScore": null,
+      "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "id": 50,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_C",
+      "matchday": 3,
+      "date": "Wed 24 Jun",
+      "time": "6:00 PM ET",
+      "utcDate": "2026-06-24T22:00:00Z",
+      "home": "Morocco",
+      "homeFlag": "🇲🇦",
+      "away": "Haiti",
+      "awayFlag": "🇭🇹",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
@@ -2260,26 +2260,6 @@
       "winner": null
     },
     {
-      "id": 58,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_D",
-      "matchday": 3,
-      "date": "Thu 25 Jun",
-      "time": "10:00 PM ET",
-      "utcDate": "2026-06-26T02:00:00Z",
-      "home": "Turkey",
-      "homeFlag": "🇹🇷",
-      "away": "United States",
-      "awayFlag": "🇺🇸",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
       "id": 57,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
@@ -2292,6 +2272,26 @@
       "homeFlag": "🇵🇾",
       "away": "Australia",
       "awayFlag": "🇦🇺",
+      "homeScore": null,
+      "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "id": 58,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_D",
+      "matchday": 3,
+      "date": "Thu 25 Jun",
+      "time": "10:00 PM ET",
+      "utcDate": "2026-06-26T02:00:00Z",
+      "home": "Turkey",
+      "homeFlag": "🇹🇷",
+      "away": "United States",
+      "awayFlag": "🇺🇸",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
@@ -2460,26 +2460,6 @@
       "winner": null
     },
     {
-      "id": 72,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_K",
-      "matchday": 3,
-      "date": "Sat 27 Jun",
-      "time": "7:30 PM ET",
-      "utcDate": "2026-06-27T23:30:00Z",
-      "home": "Democratic Republic of the Congo",
-      "homeFlag": "🇨🇩",
-      "away": "Uzbekistan",
-      "awayFlag": "🇺🇿",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
       "id": 71,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
@@ -2500,18 +2480,18 @@
       "winner": null
     },
     {
-      "id": 70,
+      "id": 72,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_J",
+      "group": "GROUP_K",
       "matchday": 3,
       "date": "Sat 27 Jun",
-      "time": "10:00 PM ET",
-      "utcDate": "2026-06-28T02:00:00Z",
-      "home": "Jordan",
-      "homeFlag": "🇯🇴",
-      "away": "Argentina",
-      "awayFlag": "🇦🇷",
+      "time": "7:30 PM ET",
+      "utcDate": "2026-06-27T23:30:00Z",
+      "home": "Democratic Republic of the Congo",
+      "homeFlag": "🇨🇩",
+      "away": "Uzbekistan",
+      "awayFlag": "🇺🇿",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
@@ -2532,6 +2512,26 @@
       "homeFlag": "🇩🇿",
       "away": "Austria",
       "awayFlag": "🇦🇹",
+      "homeScore": null,
+      "awayScore": null,
+      "homeGoals": [],
+      "awayGoals": [],
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "id": 70,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_J",
+      "matchday": 3,
+      "date": "Sat 27 Jun",
+      "time": "10:00 PM ET",
+      "utcDate": "2026-06-28T02:00:00Z",
+      "home": "Jordan",
+      "homeFlag": "🇯🇴",
+      "away": "Argentina",
+      "awayFlag": "🇦🇷",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
@@ -3196,20 +3196,6 @@
       "assists": 0
     },
     {
-      "name": "K. Mbappé",
-      "team": "France",
-      "flag": "🇫🇷",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Erling Haaland",
-      "team": "Norway",
-      "flag": "🇳🇴",
-      "goals": 2,
-      "assists": 0
-    },
-    {
       "name": "K. Havertz",
       "team": "Germany",
       "flag": "🇩🇪",
@@ -3231,37 +3217,30 @@
       "assists": 0
     },
     {
-      "name": "Nestory Irankunda",
-      "team": "Australia",
-      "flag": "🇦🇺",
+      "name": "K. Mbappé",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 2,
+      "assists": 0
+    },
+    {
+      "name": "Erling Haaland",
+      "team": "Norway",
+      "flag": "🇳🇴",
+      "goals": 2,
+      "assists": 0
+    },
+    {
+      "name": "J. Quiñones",
+      "team": "Mexico",
+      "flag": "🇲🇽",
       "goals": 1,
       "assists": 0
     },
     {
-      "name": "C. Metcalfe",
-      "team": "Australia",
-      "flag": "🇦🇺",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "B. Khoukhi",
-      "team": "Qatar",
-      "flag": "🇶🇦",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Breel Embolo",
-      "team": "Switzerland",
-      "flag": "🇨🇭",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "J. McGinn",
-      "team": "Scotland",
-      "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "name": "R. Jiménez",
+      "team": "Mexico",
+      "flag": "🇲🇽",
       "goals": 1,
       "assists": 0
     },
@@ -3287,6 +3266,20 @@
       "assists": 0
     },
     {
+      "name": "C. Larin",
+      "team": "Canada",
+      "flag": "🇨🇦",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Jovo Lukić",
+      "team": "Bosnia and Herzegovina",
+      "flag": "🇧🇦",
+      "goals": 1,
+      "assists": 0
+    },
+    {
       "name": "G. Reyna",
       "team": "United States",
       "flag": "🇺🇸",
@@ -3301,23 +3294,30 @@
       "assists": 0
     },
     {
-      "name": "B. Barcola",
-      "team": "France",
-      "flag": "🇫🇷",
+      "name": "J. McGinn",
+      "team": "Scotland",
+      "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
       "goals": 1,
       "assists": 0
     },
     {
-      "name": "I. Mbaye",
-      "team": "Senegal",
-      "flag": "🇸🇳",
+      "name": "Nestory Irankunda",
+      "team": "Australia",
+      "flag": "🇦🇺",
       "goals": 1,
       "assists": 0
     },
     {
-      "name": "Aymen Hussein",
-      "team": "Iraq",
-      "flag": "🇮🇶",
+      "name": "C. Metcalfe",
+      "team": "Australia",
+      "flag": "🇦🇺",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "V. Júnior",
+      "team": "Brazil",
+      "flag": "🇧🇷",
       "goals": 1,
       "assists": 0
     }
