@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T05:15:46.396Z",
+  "lastUpdated": "2026-06-17T05:20:43.060Z",
   "groups": [
     {
       "group": "A",
@@ -1470,7 +1470,7 @@
       "away": "Jordan",
       "awayFlag": "🇯🇴",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Rvmanv Ashmid",
@@ -1480,7 +1480,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Ali Avlvan",
+          "minute": "50",
+          "tag": "",
+          "team": "Jordan",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
