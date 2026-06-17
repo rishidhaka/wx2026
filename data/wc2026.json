@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T02:40:38.931Z",
+  "lastUpdated": "2026-06-17T02:45:33.482Z",
   "groups": [
     {
       "group": "A",
@@ -1427,7 +1427,7 @@
       "homeFlag": "🇦🇷",
       "away": "Algeria",
       "awayFlag": "🇩🇿",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -1440,6 +1440,13 @@
         {
           "name": "Livnl Msi",
           "minute": "60",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        },
+        {
+          "name": "Livnl Msi",
+          "minute": "76",
           "tag": "",
           "team": "Argentina",
           "og": false
