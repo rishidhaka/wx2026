@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T03:00:42.892Z",
+  "lastUpdated": "2026-06-17T03:05:46.456Z",
   "groups": [
     {
       "group": "A",
@@ -482,32 +482,20 @@
       "group": "J",
       "standings": [
         {
-          "team": "Jordan",
-          "flag": "🇯🇴",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "points": 0
-        },
-        {
-          "team": "Algeria",
-          "flag": "🇩🇿",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "points": 0
-        },
-        {
           "team": "Argentina",
           "flag": "🇦🇷",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 3,
+          "ga": 0,
+          "gd": 3,
+          "points": 3
+        },
+        {
+          "team": "Jordan",
+          "flag": "🇯🇴",
           "played": 0,
           "won": 0,
           "drawn": 0,
@@ -527,6 +515,18 @@
           "gf": 0,
           "ga": 0,
           "gd": 0,
+          "points": 0
+        },
+        {
+          "team": "Algeria",
+          "flag": "🇩🇿",
+          "played": 1,
+          "won": 0,
+          "drawn": 0,
+          "lost": 1,
+          "gf": 0,
+          "ga": 3,
+          "gd": -3,
           "points": 0
         }
       ]
@@ -1453,8 +1453,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Argentina"
     },
     {
       "id": 20,
@@ -3159,6 +3159,13 @@
   ],
   "topScorers": [
     {
+      "name": "Livnl Msi",
+      "team": "Argentina",
+      "flag": "🇦🇷",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "F. Balogun",
       "team": "United States",
       "flag": "🇺🇸",
@@ -3288,13 +3295,6 @@
       "name": "Aimn Hsin",
       "team": "Iraq",
       "flag": "🇮🇶",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Liv Avstigard",
-      "team": "Norway",
-      "flag": "🇳🇴",
       "goals": 1,
       "assists": 0
     }
