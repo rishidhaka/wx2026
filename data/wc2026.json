@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T02:00:40.097Z",
+  "lastUpdated": "2026-06-18T02:05:40.053Z",
   "groups": [
     {
       "group": "A",
@@ -1640,11 +1640,11 @@
       "homeFlag": "🇺🇿",
       "away": "Colombia",
       "awayFlag": "🇨🇴",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null
     },
     {
