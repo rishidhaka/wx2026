@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T18:45:42.417Z",
+  "lastUpdated": "2026-06-18T21:45:37.242Z",
   "groups": [
     {
       "group": "A",
@@ -58,20 +58,20 @@
       "group": "B",
       "standings": [
         {
-          "team": "Canada",
-          "flag": "🇨🇦",
-          "played": 1,
-          "won": 0,
+          "team": "Switzerland",
+          "flag": "🇨🇭",
+          "played": 2,
+          "won": 1,
           "drawn": 1,
           "lost": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
-          "points": 1
+          "gf": 5,
+          "ga": 2,
+          "gd": 3,
+          "points": 4
         },
         {
-          "team": "Bosnia and Herzegovina",
-          "flag": "🇧🇦",
+          "team": "Canada",
+          "flag": "🇨🇦",
           "played": 1,
           "won": 0,
           "drawn": 1,
@@ -94,15 +94,15 @@
           "points": 1
         },
         {
-          "team": "Switzerland",
-          "flag": "🇨🇭",
-          "played": 1,
+          "team": "Bosnia and Herzegovina",
+          "flag": "🇧🇦",
+          "played": 2,
           "won": 0,
           "drawn": 1,
-          "lost": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
+          "lost": 1,
+          "gf": 2,
+          "ga": 5,
+          "gd": -3,
           "points": 1
         }
       ]
@@ -1690,12 +1690,42 @@
       "homeFlag": "🇨🇭",
       "away": "Bosnia and Herzegovina",
       "awayFlag": "🇧🇦",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "homeScore": 4,
+      "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "Jvhan Mnzambi",
+          "minute": "74",
+          "tag": "",
+          "team": "Switzerland",
+          "og": false
+        },
+        {
+          "name": "Rvbn Vargas",
+          "minute": "84",
+          "tag": "",
+          "team": "Switzerland",
+          "og": false
+        },
+        {
+          "name": "Jvhan Mnzambi",
+          "minute": "90",
+          "tag": "",
+          "team": "Switzerland",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Armin Mhmich",
+          "minute": "90+3",
+          "tag": "",
+          "team": "Bosnia and Herzegovina",
+          "og": false
+        }
+      ],
+      "status": "fin",
+      "winner": "Switzerland"
     },
     {
       "id": 28,
@@ -3344,6 +3374,13 @@
       "assists": 0
     },
     {
+      "name": "Jvhan Mnzambi",
+      "team": "Switzerland",
+      "flag": "🇨🇭",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "J. Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -3415,13 +3452,6 @@
     },
     {
       "name": "Nestory Irankunda",
-      "team": "Australia",
-      "flag": "🇦🇺",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "C. Metcalfe",
       "team": "Australia",
       "flag": "🇦🇺",
       "goals": 1,
