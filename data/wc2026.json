@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T00:55:37.335Z",
+  "lastUpdated": "2026-06-18T01:00:42.276Z",
   "groups": [
     {
       "group": "A",
@@ -1612,9 +1612,17 @@
       "homeFlag": "🇬🇭",
       "away": "Panama",
       "awayFlag": "🇵🇦",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Kalb Iirnki",
+          "minute": "90+5",
+          "tag": "",
+          "team": "Ghana",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null
