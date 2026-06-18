@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T03:20:48.729Z",
+  "lastUpdated": "2026-06-18T03:25:42.844Z",
   "groups": [
     {
       "group": "A",
@@ -1640,9 +1640,17 @@
       "homeFlag": "🇺🇿",
       "away": "Colombia",
       "awayFlag": "🇨🇴",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Abas Bk Fiz Allh Af",
+          "minute": "60",
+          "tag": "",
+          "team": "Uzbekistan",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Dnil Mvnvz",
