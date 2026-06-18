@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T22:45:26.795Z",
+  "lastUpdated": "2026-06-18T22:50:26.443Z",
   "groups": [
     {
       "group": "A",
@@ -707,8 +707,8 @@
       "homeFlag": "🇨🇦",
       "away": "Bosnia-Herzegovina",
       "awayFlag": "🇧🇦",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": null,
+      "awayScore": null,
       "status": "fin",
       "winner": null,
       "homeGoals": [],
@@ -3310,6 +3310,13 @@
       "assists": 0
     },
     {
+      "name": "Jonathan David",
+      "team": "Canada",
+      "flag": "🇨🇦",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "Julián Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -3371,13 +3378,6 @@
       "flag": "🇨🇭",
       "goals": 1,
       "assists": 1
-    },
-    {
-      "name": "Boualem Khoukhi",
-      "team": "Qatar",
-      "flag": "🇶🇦",
-      "goals": 1,
-      "assists": 0
     }
   ]
 }
