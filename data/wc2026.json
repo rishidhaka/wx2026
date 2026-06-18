@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T23:50:43.455Z",
+  "lastUpdated": "2026-06-18T23:55:44.589Z",
   "groups": [
     {
       "group": "A",
@@ -1768,7 +1768,7 @@
       "homeFlag": "🇨🇦",
       "away": "Qatar",
       "awayFlag": "🇶🇦",
-      "homeScore": 5,
+      "homeScore": 6,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -1802,6 +1802,13 @@
         {
           "name": "Mohamed Almnai",
           "minute": "75",
+          "tag": "",
+          "team": "Canada",
+          "og": false
+        },
+        {
+          "name": "Jonathan David",
+          "minute": "90+2",
           "tag": "",
           "team": "Canada",
           "og": false
