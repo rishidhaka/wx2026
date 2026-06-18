@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T01:05:37.367Z",
+  "lastUpdated": "2026-06-18T01:10:39.773Z",
   "groups": [
     {
       "group": "A",
@@ -602,25 +602,25 @@
         {
           "team": "Ghana",
           "flag": "🇬🇭",
-          "played": 0,
-          "won": 0,
+          "played": 1,
+          "won": 1,
           "drawn": 0,
           "lost": 0,
-          "gf": 0,
+          "gf": 1,
           "ga": 0,
-          "gd": 0,
-          "points": 0
+          "gd": 1,
+          "points": 3
         },
         {
           "team": "Panama",
           "flag": "🇵🇦",
-          "played": 0,
+          "played": 1,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
+          "lost": 1,
           "gf": 0,
-          "ga": 0,
-          "gd": 0,
+          "ga": 1,
+          "gd": -1,
           "points": 0
         },
         {
@@ -1624,8 +1624,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Ghana"
     },
     {
       "id": 23,
