@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T04:00:38.471Z",
+  "lastUpdated": "2026-06-18T04:05:42.445Z",
   "groups": [
     {
       "group": "A",
@@ -535,6 +535,18 @@
       "group": "K",
       "standings": [
         {
+          "team": "Colombia",
+          "flag": "🇨🇴",
+          "played": 1,
+          "won": 1,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 3,
+          "ga": 1,
+          "gd": 2,
+          "points": 3
+        },
+        {
           "team": "Portugal",
           "flag": "🇵🇹",
           "played": 1,
@@ -561,25 +573,13 @@
         {
           "team": "Uzbekistan",
           "flag": "🇺🇿",
-          "played": 0,
+          "played": 1,
           "won": 0,
           "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "points": 0
-        },
-        {
-          "team": "Colombia",
-          "flag": "🇨🇴",
-          "played": 0,
-          "won": 0,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
+          "lost": 1,
+          "gf": 1,
+          "ga": 3,
+          "gd": -2,
           "points": 0
         }
       ]
@@ -1641,7 +1641,7 @@
       "away": "Colombia",
       "awayFlag": "🇨🇴",
       "homeScore": 1,
-      "awayScore": 2,
+      "awayScore": 3,
       "homeGoals": [
         {
           "name": "Abas Bk Fiz Allh Af",
@@ -1665,10 +1665,17 @@
           "tag": "",
           "team": "Colombia",
           "og": false
+        },
+        {
+          "name": "Khamintvn Kampaz",
+          "minute": "90+9",
+          "tag": "",
+          "team": "Colombia",
+          "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Colombia"
     },
     {
       "id": 26,
