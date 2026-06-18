@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T23:35:37.700Z",
+  "lastUpdated": "2026-06-18T23:40:33.984Z",
   "groups": [
     {
       "group": "A",
@@ -1768,7 +1768,7 @@
       "homeFlag": "🇨🇦",
       "away": "Qatar",
       "awayFlag": "🇶🇦",
-      "homeScore": 4,
+      "homeScore": 5,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -1795,6 +1795,13 @@
         {
           "name": "Nathan Saliba",
           "minute": "64",
+          "tag": "",
+          "team": "Canada",
+          "og": false
+        },
+        {
+          "name": "Mohamed Almnai",
+          "minute": "75",
           "tag": "",
           "team": "Canada",
           "og": false
