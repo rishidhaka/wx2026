@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T21:55:45.441Z",
+  "lastUpdated": "2026-06-18T22:00:28.372Z",
   "groups": [
     {
       "group": "A",
@@ -29,7 +29,7 @@
           "points": 3
         },
         {
-          "team": "Czech Republic",
+          "team": "Czechia",
           "flag": "🇨🇿",
           "played": 2,
           "won": 0,
@@ -94,7 +94,7 @@
           "points": 1
         },
         {
-          "team": "Bosnia and Herzegovina",
+          "team": "Bosnia-Herzegovina",
           "flag": "🇧🇦",
           "played": 2,
           "won": 0,
@@ -412,7 +412,7 @@
           "points": 1
         },
         {
-          "team": "Cape Verde",
+          "team": "Cape Verde Islands",
           "flag": "🇨🇻",
           "played": 1,
           "won": 0,
@@ -559,7 +559,7 @@
           "points": 1
         },
         {
-          "team": "Democratic Republic of the Congo",
+          "team": "Congo DR",
           "flag": "🇨🇩",
           "played": 1,
           "won": 0,
@@ -640,7 +640,7 @@
   ],
   "fixtures": [
     {
-      "id": 1,
+      "id": 537327,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -654,6 +654,8 @@
       "awayFlag": "🇿🇦",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Mexico",
       "homeGoals": [
         {
           "name": "J. Quiñones",
@@ -670,91 +672,50 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Mexico"
+      "awayGoals": []
     },
     {
-      "id": 2,
+      "id": 537328,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
       "matchday": 1,
       "date": "Thu 11 Jun",
-      "time": "8:00 PM ET",
-      "utcDate": "2026-06-12T00:00:00.000Z",
+      "time": "10:00 PM ET",
+      "utcDate": "2026-06-12T02:00:00Z",
       "home": "South Korea",
       "homeFlag": "🇰🇷",
-      "away": "Czech Republic",
+      "away": "Czechia",
       "awayFlag": "🇨🇿",
       "homeScore": 2,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "I.B. Hwang",
-          "minute": "67",
-          "tag": "",
-          "team": "South Korea",
-          "og": false
-        },
-        {
-          "name": "H.G. Oh",
-          "minute": "80",
-          "tag": "",
-          "team": "South Korea",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "L. Krejčí",
-          "minute": "59",
-          "tag": "",
-          "team": "Czech Republic",
-          "og": false
-        }
-      ],
       "status": "fin",
-      "winner": "South Korea"
+      "winner": "South Korea",
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 3,
+      "id": 537333,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
       "matchday": 1,
       "date": "Fri 12 Jun",
       "time": "3:00 PM ET",
-      "utcDate": "2026-06-12T19:00:00.000Z",
+      "utcDate": "2026-06-12T19:00:00Z",
       "home": "Canada",
       "homeFlag": "🇨🇦",
-      "away": "Bosnia and Herzegovina",
+      "away": "Bosnia-Herzegovina",
       "awayFlag": "🇧🇦",
       "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "C. Larin",
-          "minute": "11",
-          "tag": "",
-          "team": "Canada",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Jovo Lukić",
-          "minute": "21",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        }
-      ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 4,
+      "id": 537345,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -768,6 +729,8 @@
       "awayFlag": "🇵🇾",
       "homeScore": 4,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "United States",
       "homeGoals": [
         {
           "name": "D. Bobadilla",
@@ -806,12 +769,10 @@
           "team": "Paraguay",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "United States"
+      ]
     },
     {
-      "id": 8,
+      "id": 537334,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -825,6 +786,8 @@
       "awayFlag": "🇨🇭",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "B. Khoukhi",
@@ -842,12 +805,10 @@
           "team": "Switzerland",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 7,
+      "id": 537339,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -861,6 +822,8 @@
       "awayFlag": "🇲🇦",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "V. Júnior",
@@ -878,12 +841,10 @@
           "team": "Morocco",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 5,
+      "id": 537340,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -897,6 +858,8 @@
       "awayFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Scotland",
       "homeGoals": [],
       "awayGoals": [
         {
@@ -906,12 +869,10 @@
           "team": "Scotland",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Scotland"
+      ]
     },
     {
-      "id": 6,
+      "id": 537346,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -925,6 +886,8 @@
       "awayFlag": "🇹🇷",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Australia",
       "homeGoals": [
         {
           "name": "Nestory Irankunda",
@@ -941,12 +904,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Australia"
+      "awayGoals": []
     },
     {
-      "id": 10,
+      "id": 537351,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -960,6 +921,8 @@
       "awayFlag": "🇨🇼",
       "homeScore": 7,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Germany",
       "homeGoals": [
         {
           "name": "Felix Nmecha",
@@ -1019,12 +982,10 @@
           "team": "Curaçao",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Germany"
+      ]
     },
     {
-      "id": 11,
+      "id": 537357,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -1038,6 +999,8 @@
       "awayFlag": "🇯🇵",
       "homeScore": 2,
       "awayScore": 2,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "Virgil van Dijk",
@@ -1069,12 +1032,10 @@
           "team": "Japan",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 9,
+      "id": 537352,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -1088,6 +1049,8 @@
       "awayFlag": "🇪🇨",
       "homeScore": 1,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Ivory Coast",
       "homeGoals": [
         {
           "name": "A. Diallo",
@@ -1097,12 +1060,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Ivory Coast"
+      "awayGoals": []
     },
     {
-      "id": 12,
+      "id": 537358,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -1116,6 +1077,8 @@
       "awayFlag": "🇹🇳",
       "homeScore": 5,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Sweden",
       "homeGoals": [
         {
           "name": "Y.Ayari",
@@ -1161,32 +1124,30 @@
           "team": "Tunisia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Sweden"
+      ]
     },
     {
-      "id": 14,
+      "id": 537369,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
       "matchday": 1,
       "date": "Mon 15 Jun",
       "time": "12:00 PM ET",
-      "utcDate": "2026-06-15T16:00:00.000Z",
+      "utcDate": "2026-06-15T16:00:00Z",
       "home": "Spain",
       "homeFlag": "🇪🇸",
-      "away": "Cape Verde",
+      "away": "Cape Verde Islands",
       "awayFlag": "🇨🇻",
       "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 15,
+      "id": 537363,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -1200,6 +1161,8 @@
       "awayFlag": "🇪🇬",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "Mohamed Hany",
@@ -1217,12 +1180,10 @@
           "team": "Egypt",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 16,
+      "id": 537370,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -1236,6 +1197,8 @@
       "awayFlag": "🇺🇾",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "Abdulelah Al-Amri",
@@ -1253,12 +1216,10 @@
           "team": "Uruguay",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 13,
+      "id": 537364,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -1272,6 +1233,8 @@
       "awayFlag": "🇳🇿",
       "homeScore": 2,
       "awayScore": 2,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "Ramin Rezaiian",
@@ -1303,12 +1266,10 @@
           "team": "New Zealand",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 17,
+      "id": 537391,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -1322,6 +1283,8 @@
       "awayFlag": "🇸🇳",
       "homeScore": 3,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "France",
       "homeGoals": [
         {
           "name": "K. Mbappé",
@@ -1353,12 +1316,10 @@
           "team": "Senegal",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "France"
+      ]
     },
     {
-      "id": 18,
+      "id": 537392,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -1372,6 +1333,8 @@
       "awayFlag": "🇳🇴",
       "homeScore": 1,
       "awayScore": 4,
+      "status": "fin",
+      "winner": "Norway",
       "homeGoals": [
         {
           "name": "Aymen Hussein",
@@ -1410,12 +1373,10 @@
           "team": "Norway",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Norway"
+      ]
     },
     {
-      "id": 19,
+      "id": 537397,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -1429,6 +1390,8 @@
       "awayFlag": "🇩🇿",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Argentina",
       "homeGoals": [
         {
           "name": "Lionel Messi",
@@ -1452,12 +1415,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Argentina"
+      "awayGoals": []
     },
     {
-      "id": 20,
+      "id": 537398,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -1471,6 +1432,8 @@
       "awayFlag": "🇯🇴",
       "homeScore": 3,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Austria",
       "homeGoals": [
         {
           "name": "Rvmanv Ashmid",
@@ -1495,12 +1458,10 @@
           "team": "Jordan",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Austria"
+      ]
     },
     {
-      "id": 21,
+      "id": 537403,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -1510,33 +1471,17 @@
       "utcDate": "2026-06-17T17:00:00Z",
       "home": "Portugal",
       "homeFlag": "🇵🇹",
-      "away": "Democratic Republic of the Congo",
+      "away": "Congo DR",
       "awayFlag": "🇨🇩",
       "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "J. Neves",
-          "minute": "6",
-          "tag": "",
-          "team": "Portugal",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Y. Wissa",
-          "minute": "45+5",
-          "tag": "",
-          "team": "Democratic Republic of the Congo",
-          "og": false
-        }
-      ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 22,
+      "id": 537409,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -1550,6 +1495,8 @@
       "awayFlag": "🇭🇷",
       "homeScore": 4,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "England",
       "homeGoals": [
         {
           "name": "H. Kane",
@@ -1595,12 +1542,10 @@
           "team": "Croatia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "England"
+      ]
     },
     {
-      "id": 24,
+      "id": 537410,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -1614,6 +1559,8 @@
       "awayFlag": "🇵🇦",
       "homeScore": 1,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Ghana",
       "homeGoals": [
         {
           "name": "Kalb Iirnki",
@@ -1623,12 +1570,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Ghana"
+      "awayGoals": []
     },
     {
-      "id": 23,
+      "id": 537404,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -1642,6 +1587,8 @@
       "awayFlag": "🇨🇴",
       "homeScore": 1,
       "awayScore": 3,
+      "status": "fin",
+      "winner": "Colombia",
       "homeGoals": [
         {
           "name": "Abas Bk Fiz Allh Af",
@@ -1673,90 +1620,50 @@
           "team": "Colombia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Colombia"
+      ]
     },
     {
-      "id": 26,
-      "round": "Group Stage - Matchday 2",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_B",
-      "matchday": 2,
-      "date": "Thu 18 Jun",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-06-18T16:00:00.000Z",
-      "home": "Switzerland",
-      "homeFlag": "🇨🇭",
-      "away": "Bosnia and Herzegovina",
-      "awayFlag": "🇧🇦",
-      "homeScore": 4,
-      "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "Jvhan Mnzambi",
-          "minute": "74",
-          "tag": "",
-          "team": "Switzerland",
-          "og": false
-        },
-        {
-          "name": "Rvbn Vargas",
-          "minute": "84",
-          "tag": "",
-          "team": "Switzerland",
-          "og": false
-        },
-        {
-          "name": "Jvhan Mnzambi",
-          "minute": "90",
-          "tag": "",
-          "team": "Switzerland",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Armin Mhmich",
-          "minute": "90+3",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        }
-      ],
-      "status": "fin",
-      "winner": "Switzerland"
-    },
-    {
-      "id": 28,
+      "id": 537329,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
       "matchday": 2,
       "date": "Thu 18 Jun",
       "time": "12:00 PM ET",
-      "utcDate": "2026-06-18T16:00:00.000Z",
-      "home": "Czech Republic",
+      "utcDate": "2026-06-18T16:00:00Z",
+      "home": "Czechia",
       "homeFlag": "🇨🇿",
       "away": "South Africa",
       "awayFlag": "🇿🇦",
       "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "mikhal Sadilk",
-          "minute": "6",
-          "tag": "",
-          "team": "Czech Republic",
-          "og": false
-        }
-      ],
-      "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 27,
+      "id": 537335,
+      "round": "Group Stage - Matchday 2",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_B",
+      "matchday": 2,
+      "date": "Thu 18 Jun",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-06-18T19:00:00Z",
+      "home": "Switzerland",
+      "homeFlag": "🇨🇭",
+      "away": "Bosnia-Herzegovina",
+      "awayFlag": "🇧🇦",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "fin",
+      "winner": "Switzerland",
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537336,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -1770,13 +1677,13 @@
       "awayFlag": "🇶🇦",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 25,
+      "id": 537330,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -1790,13 +1697,13 @@
       "awayFlag": "🇰🇷",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 31,
+      "id": 537348,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -1810,13 +1717,13 @@
       "awayFlag": "🇦🇺",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 30,
+      "id": 537342,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -1830,13 +1737,13 @@
       "awayFlag": "🇲🇦",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 29,
+      "id": 537341,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -1850,13 +1757,13 @@
       "awayFlag": "🇭🇹",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 32,
+      "id": 537347,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -1870,13 +1777,13 @@
       "awayFlag": "🇵🇾",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 35,
+      "id": 537359,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -1890,13 +1797,13 @@
       "awayFlag": "🇸🇪",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 33,
+      "id": 537353,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -1910,13 +1817,13 @@
       "awayFlag": "🇨🇮",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 34,
+      "id": 537354,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -1930,13 +1837,13 @@
       "awayFlag": "🇨🇼",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 36,
+      "id": 537360,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -1950,13 +1857,13 @@
       "awayFlag": "🇯🇵",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 39,
+      "id": 537371,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -1970,13 +1877,13 @@
       "awayFlag": "🇸🇦",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 37,
+      "id": 537365,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -1990,33 +1897,33 @@
       "awayFlag": "🇮🇷",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 40,
+      "id": 537372,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
       "matchday": 2,
       "date": "Sun 21 Jun",
       "time": "6:00 PM ET",
-      "utcDate": "2026-06-21T22:00:00.000Z",
+      "utcDate": "2026-06-21T22:00:00Z",
       "home": "Uruguay",
       "homeFlag": "🇺🇾",
-      "away": "Cape Verde",
+      "away": "Cape Verde Islands",
       "awayFlag": "🇨🇻",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 38,
+      "id": 537366,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -2030,13 +1937,13 @@
       "awayFlag": "🇪🇬",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 43,
+      "id": 537399,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -2050,13 +1957,13 @@
       "awayFlag": "🇦🇹",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 41,
+      "id": 537393,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -2070,13 +1977,13 @@
       "awayFlag": "🇮🇶",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 42,
+      "id": 537394,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -2090,13 +1997,13 @@
       "awayFlag": "🇸🇳",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 44,
+      "id": 537400,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -2110,13 +2017,13 @@
       "awayFlag": "🇩🇿",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 45,
+      "id": 537405,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -2130,13 +2037,13 @@
       "awayFlag": "🇺🇿",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 48,
+      "id": 537411,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -2150,13 +2057,13 @@
       "awayFlag": "🇬🇭",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 46,
+      "id": 537412,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -2170,13 +2077,13 @@
       "awayFlag": "🇭🇷",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 47,
+      "id": 537406,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -2186,37 +2093,17 @@
       "utcDate": "2026-06-24T02:00:00Z",
       "home": "Colombia",
       "homeFlag": "🇨🇴",
-      "away": "Democratic Republic of the Congo",
+      "away": "Congo DR",
       "awayFlag": "🇨🇩",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 53,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_B",
-      "matchday": 3,
-      "date": "Wed 24 Jun",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-06-24T16:00:00.000Z",
-      "home": "Bosnia and Herzegovina",
-      "homeFlag": "🇧🇦",
-      "away": "Qatar",
-      "awayFlag": "🇶🇦",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
-      "id": 54,
+      "id": 537337,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -2230,33 +2117,33 @@
       "awayFlag": "🇨🇦",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 49,
+      "id": 537338,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_C",
+      "group": "GROUP_B",
       "matchday": 3,
       "date": "Wed 24 Jun",
-      "time": "6:00 PM ET",
-      "utcDate": "2026-06-24T22:00:00Z",
-      "home": "Scotland",
-      "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-      "away": "Brazil",
-      "awayFlag": "🇧🇷",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-06-24T19:00:00Z",
+      "home": "Bosnia-Herzegovina",
+      "homeFlag": "🇧🇦",
+      "away": "Qatar",
+      "awayFlag": "🇶🇦",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 50,
+      "id": 537344,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -2270,33 +2157,53 @@
       "awayFlag": "🇭🇹",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 52,
+      "id": 537343,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_C",
+      "matchday": 3,
+      "date": "Wed 24 Jun",
+      "time": "6:00 PM ET",
+      "utcDate": "2026-06-24T22:00:00Z",
+      "home": "Scotland",
+      "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "away": "Brazil",
+      "awayFlag": "🇧🇷",
+      "homeScore": null,
+      "awayScore": null,
+      "status": "upcoming",
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537331,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
       "matchday": 3,
       "date": "Wed 24 Jun",
-      "time": "7:00 PM ET",
-      "utcDate": "2026-06-24T23:00:00.000Z",
-      "home": "Czech Republic",
+      "time": "9:00 PM ET",
+      "utcDate": "2026-06-25T01:00:00Z",
+      "home": "Czechia",
       "homeFlag": "🇨🇿",
       "away": "Mexico",
       "awayFlag": "🇲🇽",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 51,
+      "id": 537332,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -2310,33 +2217,13 @@
       "awayFlag": "🇰🇷",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 55,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_E",
-      "matchday": 3,
-      "date": "Thu 25 Jun",
-      "time": "4:00 PM ET",
-      "utcDate": "2026-06-25T20:00:00Z",
-      "home": "Curaçao",
-      "homeFlag": "🇨🇼",
-      "away": "Ivory Coast",
-      "awayFlag": "🇨🇮",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
-      "id": 56,
+      "id": 537355,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -2350,33 +2237,33 @@
       "awayFlag": "🇩🇪",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 59,
+      "id": 537356,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_F",
+      "group": "GROUP_E",
       "matchday": 3,
       "date": "Thu 25 Jun",
-      "time": "7:00 PM ET",
-      "utcDate": "2026-06-25T23:00:00Z",
-      "home": "Japan",
-      "homeFlag": "🇯🇵",
-      "away": "Sweden",
-      "awayFlag": "🇸🇪",
+      "time": "4:00 PM ET",
+      "utcDate": "2026-06-25T20:00:00Z",
+      "home": "Curaçao",
+      "homeFlag": "🇨🇼",
+      "away": "Ivory Coast",
+      "awayFlag": "🇨🇮",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 60,
+      "id": 537361,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -2390,33 +2277,33 @@
       "awayFlag": "🇳🇱",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 57,
+      "id": 537362,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_D",
+      "group": "GROUP_F",
       "matchday": 3,
       "date": "Thu 25 Jun",
-      "time": "10:00 PM ET",
-      "utcDate": "2026-06-26T02:00:00Z",
-      "home": "Paraguay",
-      "homeFlag": "🇵🇾",
-      "away": "Australia",
-      "awayFlag": "🇦🇺",
+      "time": "7:00 PM ET",
+      "utcDate": "2026-06-25T23:00:00Z",
+      "home": "Japan",
+      "homeFlag": "🇯🇵",
+      "away": "Sweden",
+      "awayFlag": "🇸🇪",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 58,
+      "id": 537349,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -2430,33 +2317,33 @@
       "awayFlag": "🇺🇸",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 61,
+      "id": 537350,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_I",
+      "group": "GROUP_D",
       "matchday": 3,
-      "date": "Fri 26 Jun",
-      "time": "3:00 PM ET",
-      "utcDate": "2026-06-26T19:00:00Z",
-      "home": "Senegal",
-      "homeFlag": "🇸🇳",
-      "away": "Iraq",
-      "awayFlag": "🇮🇶",
+      "date": "Thu 25 Jun",
+      "time": "10:00 PM ET",
+      "utcDate": "2026-06-26T02:00:00Z",
+      "home": "Paraguay",
+      "homeFlag": "🇵🇾",
+      "away": "Australia",
+      "awayFlag": "🇦🇺",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 62,
+      "id": 537395,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -2470,33 +2357,33 @@
       "awayFlag": "🇫🇷",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 65,
+      "id": 537396,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_H",
+      "group": "GROUP_I",
       "matchday": 3,
       "date": "Fri 26 Jun",
-      "time": "7:00 PM ET",
-      "utcDate": "2026-06-26T23:00:00.000Z",
-      "home": "Cape Verde",
-      "homeFlag": "🇨🇻",
-      "away": "Saudi Arabia",
-      "awayFlag": "🇸🇦",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "home": "Senegal",
+      "homeFlag": "🇸🇳",
+      "away": "Iraq",
+      "awayFlag": "🇮🇶",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 66,
+      "id": 537373,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -2510,33 +2397,33 @@
       "awayFlag": "🇪🇸",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 63,
+      "id": 537374,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_G",
+      "group": "GROUP_H",
       "matchday": 3,
       "date": "Fri 26 Jun",
-      "time": "11:00 PM ET",
-      "utcDate": "2026-06-27T03:00:00Z",
-      "home": "Egypt",
-      "homeFlag": "🇪🇬",
-      "away": "Iran",
-      "awayFlag": "🇮🇷",
+      "time": "8:00 PM ET",
+      "utcDate": "2026-06-27T00:00:00Z",
+      "home": "Cape Verde Islands",
+      "homeFlag": "🇨🇻",
+      "away": "Saudi Arabia",
+      "awayFlag": "🇸🇦",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 64,
+      "id": 537367,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -2550,13 +2437,33 @@
       "awayFlag": "🇧🇪",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 67,
+      "id": 537368,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_G",
+      "matchday": 3,
+      "date": "Fri 26 Jun",
+      "time": "11:00 PM ET",
+      "utcDate": "2026-06-27T03:00:00Z",
+      "home": "Egypt",
+      "homeFlag": "🇪🇬",
+      "away": "Iran",
+      "awayFlag": "🇮🇷",
+      "homeScore": null,
+      "awayScore": null,
+      "status": "upcoming",
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537413,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -2570,13 +2477,13 @@
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 68,
+      "id": 537414,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -2590,13 +2497,13 @@
       "awayFlag": "🇬🇭",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 71,
+      "id": 537407,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -2610,13 +2517,13 @@
       "awayFlag": "🇵🇹",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 72,
+      "id": 537408,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -2624,39 +2531,19 @@
       "date": "Sat 27 Jun",
       "time": "7:30 PM ET",
       "utcDate": "2026-06-27T23:30:00Z",
-      "home": "Democratic Republic of the Congo",
+      "home": "Congo DR",
       "homeFlag": "🇨🇩",
       "away": "Uzbekistan",
       "awayFlag": "🇺🇿",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 69,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_J",
-      "matchday": 3,
-      "date": "Sat 27 Jun",
-      "time": "10:00 PM ET",
-      "utcDate": "2026-06-28T02:00:00Z",
-      "home": "Algeria",
-      "homeFlag": "🇩🇿",
-      "away": "Austria",
-      "awayFlag": "🇦🇹",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
-      "id": 70,
+      "id": 537401,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -2670,650 +2557,670 @@
       "awayFlag": "🇦🇷",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 73,
+      "id": 537402,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_J",
+      "matchday": 3,
+      "date": "Sat 27 Jun",
+      "time": "10:00 PM ET",
+      "utcDate": "2026-06-28T02:00:00Z",
+      "home": "Algeria",
+      "homeFlag": "🇩🇿",
+      "away": "Austria",
+      "awayFlag": "🇦🇹",
+      "homeScore": null,
+      "awayScore": null,
+      "status": "upcoming",
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537417,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Sun 28 Jun",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-06-28T16:00:00.000Z",
-      "home": "Runner-up Group A",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-06-28T19:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Runner-up Group B",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 76,
+      "id": 537423,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Mon 29 Jun",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-06-29T16:00:00.000Z",
-      "home": "Winner Group C",
+      "time": "1:00 PM ET",
+      "utcDate": "2026-06-29T17:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Runner-up Group F",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 74,
+      "id": 537415,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Mon 29 Jun",
       "time": "4:30 PM ET",
-      "utcDate": "2026-06-29T20:30:00.000Z",
-      "home": "Winner Group E",
+      "utcDate": "2026-06-29T20:30:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "3rd Group A/B/C/D/F",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 75,
+      "id": 537418,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Mon 29 Jun",
-      "time": "7:00 PM ET",
-      "utcDate": "2026-06-29T23:00:00.000Z",
-      "home": "Winner Group F",
+      "time": "9:00 PM ET",
+      "utcDate": "2026-06-30T01:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Runner-up Group C",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 78,
+      "id": 537424,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Tue 30 Jun",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-06-30T16:00:00.000Z",
-      "home": "Runner-up Group E",
-      "homeFlag": "🏳️",
-      "away": "Runner-up Group I",
-      "awayFlag": "🏳️",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
-      "id": 77,
-      "round": "Round of 32",
-      "stage": "LAST_32",
-      "group": null,
-      "matchday": 4,
-      "date": "Tue 30 Jun",
-      "time": "5:00 PM ET",
-      "utcDate": "2026-06-30T21:00:00.000Z",
-      "home": "Winner Group I",
-      "homeFlag": "🏳️",
-      "away": "3rd Group C/D/F/G/H",
-      "awayFlag": "🏳️",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
-      "id": 79,
-      "round": "Round of 32",
-      "stage": "LAST_32",
-      "group": null,
-      "matchday": 4,
-      "date": "Tue 30 Jun",
-      "time": "7:00 PM ET",
-      "utcDate": "2026-06-30T23:00:00.000Z",
-      "home": "Winner Group A",
-      "homeFlag": "🏳️",
-      "away": "3rd Group C/E/F/H/I",
-      "awayFlag": "🏳️",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
-      "id": 80,
-      "round": "Round of 32",
-      "stage": "LAST_32",
-      "group": null,
-      "matchday": 4,
-      "date": "Wed 1 Jul",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-07-01T16:00:00.000Z",
-      "home": "Winner Group L",
-      "homeFlag": "🏳️",
-      "away": "3rd Group E/H/I/J/K",
-      "awayFlag": "🏳️",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
-      "id": 82,
-      "round": "Round of 32",
-      "stage": "LAST_32",
-      "group": null,
-      "matchday": 4,
-      "date": "Wed 1 Jul",
       "time": "1:00 PM ET",
-      "utcDate": "2026-07-01T17:00:00.000Z",
-      "home": "Winner Group G",
+      "utcDate": "2026-06-30T17:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "3rd Group A/E/H/I/J",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 81,
+      "id": 537416,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
-      "date": "Wed 1 Jul",
+      "matchday": null,
+      "date": "Tue 30 Jun",
       "time": "5:00 PM ET",
-      "utcDate": "2026-07-01T21:00:00.000Z",
-      "home": "Winner Group D",
+      "utcDate": "2026-06-30T21:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "3rd Group B/E/F/I/J",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 84,
+      "id": 537425,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
-      "date": "Thu 2 Jul",
+      "matchday": null,
+      "date": "Tue 30 Jun",
+      "time": "9:00 PM ET",
+      "utcDate": "2026-07-01T01:00:00Z",
+      "home": null,
+      "homeFlag": "🏳️",
+      "away": null,
+      "awayFlag": "🏳️",
+      "homeScore": null,
+      "awayScore": null,
+      "status": "upcoming",
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537426,
+      "round": "Round of 32",
+      "stage": "LAST_32",
+      "group": null,
+      "matchday": null,
+      "date": "Wed 1 Jul",
       "time": "12:00 PM ET",
-      "utcDate": "2026-07-02T16:00:00.000Z",
-      "home": "Winner Group H",
+      "utcDate": "2026-07-01T16:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Runner-up Group J",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 83,
+      "id": 537422,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
-      "date": "Thu 2 Jul",
-      "time": "7:00 PM ET",
-      "utcDate": "2026-07-02T23:00:00.000Z",
-      "home": "Runner-up Group K",
+      "matchday": null,
+      "date": "Wed 1 Jul",
+      "time": "4:00 PM ET",
+      "utcDate": "2026-07-01T20:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Runner-up Group L",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 85,
+      "id": 537421,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
-      "date": "Thu 2 Jul",
+      "matchday": null,
+      "date": "Wed 1 Jul",
       "time": "8:00 PM ET",
-      "utcDate": "2026-07-03T00:00:00.000Z",
-      "home": "Winner Group B",
+      "utcDate": "2026-07-02T00:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "3rd Group E/F/G/I/J",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 88,
+      "id": 537420,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
+      "date": "Thu 2 Jul",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-02T19:00:00Z",
+      "home": null,
+      "homeFlag": "🏳️",
+      "away": null,
+      "awayFlag": "🏳️",
+      "homeScore": null,
+      "awayScore": null,
+      "status": "upcoming",
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537419,
+      "round": "Round of 32",
+      "stage": "LAST_32",
+      "group": null,
+      "matchday": null,
+      "date": "Thu 2 Jul",
+      "time": "7:00 PM ET",
+      "utcDate": "2026-07-02T23:00:00Z",
+      "home": null,
+      "homeFlag": "🏳️",
+      "away": null,
+      "awayFlag": "🏳️",
+      "homeScore": null,
+      "awayScore": null,
+      "status": "upcoming",
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537429,
+      "round": "Round of 32",
+      "stage": "LAST_32",
+      "group": null,
+      "matchday": null,
+      "date": "Thu 2 Jul",
+      "time": "11:00 PM ET",
+      "utcDate": "2026-07-03T03:00:00Z",
+      "home": null,
+      "homeFlag": "🏳️",
+      "away": null,
+      "awayFlag": "🏳️",
+      "homeScore": null,
+      "awayScore": null,
+      "status": "upcoming",
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537428,
+      "round": "Round of 32",
+      "stage": "LAST_32",
+      "group": null,
+      "matchday": null,
       "date": "Fri 3 Jul",
-      "time": "1:00 PM ET",
-      "utcDate": "2026-07-03T17:00:00.000Z",
-      "home": "Runner-up Group D",
+      "time": "2:00 PM ET",
+      "utcDate": "2026-07-03T18:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Runner-up Group G",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 86,
+      "id": 537427,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Fri 3 Jul",
       "time": "6:00 PM ET",
-      "utcDate": "2026-07-03T22:00:00.000Z",
-      "home": "Winner Group J",
+      "utcDate": "2026-07-03T22:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Runner-up Group H",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 87,
+      "id": 537430,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Fri 3 Jul",
-      "time": "8:30 PM ET",
-      "utcDate": "2026-07-04T00:30:00.000Z",
-      "home": "Winner Group K",
+      "time": "9:30 PM ET",
+      "utcDate": "2026-07-04T01:30:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "3rd Group D/E/I/J/L",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 90,
+      "id": 537376,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sat 4 Jul",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-07-04T16:00:00.000Z",
-      "home": "Winner Match 73",
+      "time": "1:00 PM ET",
+      "utcDate": "2026-07-04T17:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 75",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 89,
+      "id": 537375,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sat 4 Jul",
       "time": "5:00 PM ET",
-      "utcDate": "2026-07-04T21:00:00.000Z",
-      "home": "Winner Match 74",
+      "utcDate": "2026-07-04T21:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 77",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 91,
+      "id": 537377,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sun 5 Jul",
       "time": "4:00 PM ET",
-      "utcDate": "2026-07-05T20:00:00.000Z",
-      "home": "Winner Match 76",
+      "utcDate": "2026-07-05T20:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 78",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 92,
+      "id": 537378,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sun 5 Jul",
-      "time": "6:00 PM ET",
-      "utcDate": "2026-07-05T22:00:00.000Z",
-      "home": "Winner Match 79",
+      "time": "8:00 PM ET",
+      "utcDate": "2026-07-06T00:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 80",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 93,
+      "id": 537379,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Mon 6 Jul",
-      "time": "2:00 PM ET",
-      "utcDate": "2026-07-06T18:00:00.000Z",
-      "home": "Winner Match 83",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-06T19:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 84",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 94,
+      "id": 537380,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Mon 6 Jul",
-      "time": "5:00 PM ET",
-      "utcDate": "2026-07-06T21:00:00.000Z",
-      "home": "Winner Match 81",
+      "time": "8:00 PM ET",
+      "utcDate": "2026-07-07T00:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 82",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 95,
+      "id": 537381,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Tue 7 Jul",
       "time": "12:00 PM ET",
-      "utcDate": "2026-07-07T16:00:00.000Z",
-      "home": "Winner Match 86",
+      "utcDate": "2026-07-07T16:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 88",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 96,
+      "id": 537382,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Tue 7 Jul",
-      "time": "1:00 PM ET",
-      "utcDate": "2026-07-07T17:00:00.000Z",
-      "home": "Winner Match 85",
+      "time": "4:00 PM ET",
+      "utcDate": "2026-07-07T20:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 87",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 97,
+      "id": 537383,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Thu 9 Jul",
       "time": "4:00 PM ET",
-      "utcDate": "2026-07-09T20:00:00.000Z",
-      "home": "Winner Match 89",
+      "utcDate": "2026-07-09T20:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 90",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 98,
+      "id": 537384,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Fri 10 Jul",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-07-10T16:00:00.000Z",
-      "home": "Winner Match 93",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-10T19:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 94",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 99,
+      "id": 537385,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Sat 11 Jul",
       "time": "5:00 PM ET",
-      "utcDate": "2026-07-11T21:00:00.000Z",
-      "home": "Winner Match 91",
+      "utcDate": "2026-07-11T21:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 92",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 100,
+      "id": 537386,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Sat 11 Jul",
-      "time": "8:00 PM ET",
-      "utcDate": "2026-07-12T00:00:00.000Z",
-      "home": "Winner Match 95",
+      "time": "9:00 PM ET",
+      "utcDate": "2026-07-12T01:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 96",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 101,
+      "id": 537387,
       "round": "Semi-finals",
       "stage": "SEMI_FINALS",
       "group": null,
-      "matchday": 7,
+      "matchday": null,
       "date": "Tue 14 Jul",
-      "time": "2:00 PM ET",
-      "utcDate": "2026-07-14T18:00:00.000Z",
-      "home": "Winner Match 97",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-14T19:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 98",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 102,
+      "id": 537388,
       "round": "Semi-finals",
       "stage": "SEMI_FINALS",
       "group": null,
-      "matchday": 7,
+      "matchday": null,
       "date": "Wed 15 Jul",
       "time": "3:00 PM ET",
-      "utcDate": "2026-07-15T19:00:00.000Z",
-      "home": "Winner Match 99",
+      "utcDate": "2026-07-15T19:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 100",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 103,
+      "id": 537389,
       "round": "3rd Place Playoff",
       "stage": "THIRD_PLACE",
       "group": null,
-      "matchday": 8,
+      "matchday": null,
       "date": "Sat 18 Jul",
       "time": "5:00 PM ET",
-      "utcDate": "2026-07-18T21:00:00.000Z",
-      "home": "Loser Match 101",
+      "utcDate": "2026-07-18T21:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Loser Match 102",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 104,
+      "id": 537390,
       "round": "Final",
       "stage": "FINAL",
       "group": null,
-      "matchday": 9,
+      "matchday": null,
       "date": "Sun 19 Jul",
       "time": "3:00 PM ET",
-      "utcDate": "2026-07-19T19:00:00.000Z",
-      "home": "Winner Match 101",
+      "utcDate": "2026-07-19T19:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 102",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     }
   ],
   "topScorers": [
@@ -3325,21 +3232,21 @@
       "assists": 0
     },
     {
-      "name": "F. Balogun",
+      "name": "Folarin Balogun",
       "team": "United States",
       "flag": "🇺🇸",
       "goals": 2,
       "assists": 0
     },
     {
-      "name": "K. Havertz",
+      "name": "Kai Havertz",
       "team": "Germany",
       "flag": "🇩🇪",
       "goals": 2,
       "assists": 0
     },
     {
-      "name": "Y.Ayari",
+      "name": "Yasin Ayari",
       "team": "Sweden",
       "flag": "🇸🇪",
       "goals": 2,
@@ -3353,7 +3260,7 @@
       "assists": 0
     },
     {
-      "name": "K. Mbappé",
+      "name": "Kylian Mbappé",
       "team": "France",
       "flag": "🇫🇷",
       "goals": 2,
@@ -3367,93 +3274,93 @@
       "assists": 0
     },
     {
-      "name": "H. Kane",
+      "name": "Harry Kane",
       "team": "England",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "goals": 2,
       "assists": 0
     },
     {
-      "name": "Jvhan Mnzambi",
+      "name": "Johan Manzambi",
       "team": "Switzerland",
       "flag": "🇨🇭",
       "goals": 2,
       "assists": 0
     },
     {
-      "name": "J. Quiñones",
+      "name": "Julián Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
       "goals": 1,
       "assists": 0
     },
     {
-      "name": "R. Jiménez",
+      "name": "Raúl Jiménez",
       "team": "Mexico",
       "flag": "🇲🇽",
       "goals": 1,
       "assists": 0
     },
     {
-      "name": "I.B. Hwang",
-      "team": "South Korea",
-      "flag": "🇰🇷",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "H.G. Oh",
-      "team": "South Korea",
-      "flag": "🇰🇷",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "L. Krejčí",
-      "team": "Czech Republic",
+      "name": "Ladislav Krejčí",
+      "team": "Czechia",
       "flag": "🇨🇿",
       "goals": 1,
       "assists": 0
     },
     {
-      "name": "C. Larin",
+      "name": "In-beom Hwang",
+      "team": "South Korea",
+      "flag": "🇰🇷",
+      "goals": 1,
+      "assists": 1
+    },
+    {
+      "name": "Hyun-Gyu Oh",
+      "team": "South Korea",
+      "flag": "🇰🇷",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Jovo Lukić",
+      "team": "Bosnia-Herzegovina",
+      "flag": "🇧🇦",
+      "goals": 1,
+      "assists": 0
+    },
+    {
+      "name": "Cyle Larin",
       "team": "Canada",
       "flag": "🇨🇦",
       "goals": 1,
       "assists": 0
     },
     {
-      "name": "Jovo Lukić",
-      "team": "Bosnia and Herzegovina",
-      "flag": "🇧🇦",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "G. Reyna",
-      "team": "United States",
-      "flag": "🇺🇸",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Maurício",
+      "name": "Mauricio",
       "team": "Paraguay",
       "flag": "🇵🇾",
       "goals": 1,
       "assists": 0
     },
     {
-      "name": "J. McGinn",
-      "team": "Scotland",
-      "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "name": "Gio Reyna",
+      "team": "United States",
+      "flag": "🇺🇸",
       "goals": 1,
       "assists": 0
     },
     {
-      "name": "Nestory Irankunda",
-      "team": "Australia",
-      "flag": "🇦🇺",
+      "name": "Breel Embolo",
+      "team": "Switzerland",
+      "flag": "🇨🇭",
+      "goals": 1,
+      "assists": 1
+    },
+    {
+      "name": "Boualem Khoukhi",
+      "team": "Qatar",
+      "flag": "🇶🇦",
       "goals": 1,
       "assists": 0
     }
