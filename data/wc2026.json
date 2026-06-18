@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T22:15:28.746Z",
+  "lastUpdated": "2026-06-18T22:20:31.282Z",
   "groups": [
     {
       "group": "A",
@@ -3232,6 +3232,13 @@
       "assists": 0
     },
     {
+      "name": "Cyle Larin",
+      "team": "Canada",
+      "flag": "🇨🇦",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "Folarin Balogun",
       "team": "United States",
       "flag": "🇺🇸",
@@ -3326,13 +3333,6 @@
       "name": "Jovo Lukić",
       "team": "Bosnia-Herzegovina",
       "flag": "🇧🇦",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "Cyle Larin",
-      "team": "Canada",
-      "flag": "🇨🇦",
       "goals": 1,
       "assists": 0
     },
