@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T02:10:36.204Z",
+  "lastUpdated": "2026-06-19T02:15:33.937Z",
   "groups": [
     {
       "group": "A",
@@ -1831,9 +1831,17 @@
       "homeFlag": "🇲🇽",
       "away": "South Korea",
       "awayFlag": "🇰🇷",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Luis Romo",
+          "minute": "50",
+          "tag": "",
+          "team": "Mexico",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null
