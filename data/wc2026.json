@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T21:05:39.730Z",
+  "lastUpdated": "2026-06-19T21:10:41.807Z",
   "groups": [
     {
       "group": "A",
@@ -166,25 +166,25 @@
         {
           "team": "United States",
           "flag": "🇺🇸",
-          "played": 1,
-          "won": 1,
+          "played": 2,
+          "won": 2,
           "drawn": 0,
           "lost": 0,
-          "gf": 4,
+          "gf": 6,
           "ga": 1,
-          "gd": 3,
-          "points": 3
+          "gd": 5,
+          "points": 6
         },
         {
           "team": "Australia",
           "flag": "🇦🇺",
-          "played": 1,
+          "played": 2,
           "won": 1,
           "drawn": 0,
-          "lost": 0,
+          "lost": 1,
           "gf": 2,
-          "ga": 0,
-          "gd": 2,
+          "ga": 2,
+          "gd": 0,
           "points": 3
         },
         {
@@ -1878,8 +1878,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "United States"
     },
     {
       "id": 30,
