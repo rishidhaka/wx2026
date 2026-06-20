@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T22:00:36.939Z",
+  "lastUpdated": "2026-06-20T22:05:31.950Z",
   "groups": [
     {
       "group": "A",
@@ -219,25 +219,25 @@
         {
           "team": "Germany",
           "flag": "🇩🇪",
-          "played": 1,
-          "won": 1,
+          "played": 2,
+          "won": 2,
           "drawn": 0,
           "lost": 0,
-          "gf": 7,
-          "ga": 1,
-          "gd": 6,
-          "points": 3
+          "gf": 9,
+          "ga": 2,
+          "gd": 7,
+          "points": 6
         },
         {
           "team": "Ivory Coast",
           "flag": "🇨🇮",
-          "played": 1,
+          "played": 2,
           "won": 1,
           "drawn": 0,
-          "lost": 0,
-          "gf": 1,
-          "ga": 0,
-          "gd": 1,
+          "lost": 1,
+          "gf": 2,
+          "ga": 2,
+          "gd": 0,
           "points": 3
         },
         {
@@ -1963,10 +1963,10 @@
       "homeFlag": "🇩🇪",
       "away": "Ivory Coast",
       "awayFlag": "🇨🇮",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Germany",
       "homeGoals": [
         {
           "name": "Dniz Avndav",
