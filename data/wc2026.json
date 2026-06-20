@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T21:45:33.187Z",
+  "lastUpdated": "2026-06-20T21:50:34.994Z",
   "groups": [
     {
       "group": "A",
@@ -64,8 +64,8 @@
           "won": 1,
           "drawn": 1,
           "lost": 0,
-          "gf": 7,
-          "ga": 1,
+          "gf": 6,
+          "ga": 0,
           "gd": 6,
           "points": 4
         },
@@ -88,8 +88,8 @@
           "won": 0,
           "drawn": 1,
           "lost": 1,
-          "gf": 2,
-          "ga": 5,
+          "gf": 1,
+          "ga": 4,
           "gd": -3,
           "points": 1
         },
