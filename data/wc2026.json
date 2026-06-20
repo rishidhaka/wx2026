@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T19:00:33.730Z",
+  "lastUpdated": "2026-06-20T19:05:25.469Z",
   "groups": [
     {
       "group": "A",
@@ -270,28 +270,28 @@
       "group": "F",
       "standings": [
         {
-          "team": "Sweden",
-          "flag": "🇸🇪",
-          "played": 1,
-          "won": 1,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 5,
-          "ga": 1,
-          "gd": 4,
-          "points": 3
-        },
-        {
           "team": "Netherlands",
           "flag": "🇳🇱",
-          "played": 1,
-          "won": 0,
+          "played": 2,
+          "won": 1,
           "drawn": 1,
           "lost": 0,
-          "gf": 2,
-          "ga": 2,
+          "gf": 7,
+          "ga": 3,
+          "gd": 4,
+          "points": 4
+        },
+        {
+          "team": "Sweden",
+          "flag": "🇸🇪",
+          "played": 2,
+          "won": 1,
+          "drawn": 0,
+          "lost": 1,
+          "gf": 6,
+          "ga": 6,
           "gd": 0,
-          "points": 1
+          "points": 3
         },
         {
           "team": "Japan",
@@ -1901,8 +1901,8 @@
       "awayFlag": "🇸🇪",
       "homeScore": 5,
       "awayScore": 1,
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Netherlands",
       "homeGoals": [
         {
           "name": "Brian Brobbey",
