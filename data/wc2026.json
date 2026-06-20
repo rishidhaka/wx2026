@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T05:05:38.876Z",
+  "lastUpdated": "2026-06-20T05:10:43.329Z",
   "groups": [
     {
       "group": "A",
@@ -188,26 +188,26 @@
           "points": 3
         },
         {
-          "team": "Turkey",
-          "flag": "🇹🇷",
-          "played": 1,
-          "won": 0,
-          "drawn": 0,
-          "lost": 1,
-          "gf": 0,
-          "ga": 2,
-          "gd": -2,
-          "points": 0
-        },
-        {
           "team": "Paraguay",
           "flag": "🇵🇾",
-          "played": 1,
-          "won": 0,
+          "played": 2,
+          "won": 1,
           "drawn": 0,
           "lost": 1,
-          "gf": 1,
+          "gf": 2,
           "ga": 4,
+          "gd": -2,
+          "points": 3
+        },
+        {
+          "team": "Turkey",
+          "flag": "🇹🇷",
+          "played": 2,
+          "won": 0,
+          "drawn": 0,
+          "lost": 2,
+          "gf": 0,
+          "ga": 3,
           "gd": -3,
           "points": 0
         }
@@ -1976,8 +1976,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Paraguay"
     },
     {
       "id": 35,
