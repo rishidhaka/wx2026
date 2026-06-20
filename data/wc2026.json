@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T18:20:40.261Z",
+  "lastUpdated": "2026-06-20T18:25:41.760Z",
   "groups": [
     {
       "group": "A",
@@ -1993,7 +1993,7 @@
       "away": "Sweden",
       "awayFlag": "🇸🇪",
       "homeScore": 4,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Brian Brobbey",
