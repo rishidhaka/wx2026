@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T18:15:38.888Z",
+  "lastUpdated": "2026-06-20T18:20:40.261Z",
   "groups": [
     {
       "group": "A",
@@ -1992,7 +1992,7 @@
       "homeFlag": "🇳🇱",
       "away": "Sweden",
       "awayFlag": "🇸🇪",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -2015,9 +2015,24 @@
           "tag": "",
           "team": "Netherlands",
           "og": false
+        },
+        {
+          "name": "Kvdi Khakpv",
+          "minute": "54",
+          "tag": "",
+          "team": "Netherlands",
+          "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Anthony Elanga",
+          "minute": "59",
+          "tag": "",
+          "team": "Sweden",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
