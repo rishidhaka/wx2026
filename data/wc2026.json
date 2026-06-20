@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T21:55:29.678Z",
+  "lastUpdated": "2026-06-20T22:00:36.939Z",
   "groups": [
     {
       "group": "A",
@@ -3389,6 +3389,13 @@
   ],
   "topScorers": [
     {
+      "name": "Deniz Undav",
+      "team": "Germany",
+      "flag": "🇩🇪",
+      "goals": 3,
+      "assists": 2
+    },
+    {
       "name": "Lionel Messi",
       "team": "Argentina",
       "flag": "🇦🇷",
@@ -3436,13 +3443,6 @@
       "flag": "🇩🇪",
       "goals": 2,
       "assists": 0
-    },
-    {
-      "name": "Deniz Undav",
-      "team": "Germany",
-      "flag": "🇩🇪",
-      "goals": 2,
-      "assists": 2
     },
     {
       "name": "Yasin Ayari",
