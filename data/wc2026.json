@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T00:55:36.548Z",
+  "lastUpdated": "2026-06-20T01:00:41.276Z",
   "groups": [
     {
       "group": "A",
@@ -1922,9 +1922,17 @@
       "homeFlag": "🇧🇷",
       "away": "Haiti",
       "awayFlag": "🇭🇹",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Matheus Cunha",
+          "minute": "24",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null
