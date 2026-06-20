@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T01:20:35.258Z",
+  "lastUpdated": "2026-06-20T01:25:34.768Z",
   "groups": [
     {
       "group": "A",
@@ -1922,7 +1922,7 @@
       "homeFlag": "🇧🇷",
       "away": "Haiti",
       "awayFlag": "🇭🇹",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -1935,6 +1935,13 @@
         {
           "name": "Matheus Cunha",
           "minute": "36",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        },
+        {
+          "name": "Vinícius Júnior",
+          "minute": "45+3",
           "tag": "",
           "team": "Brazil",
           "og": false
