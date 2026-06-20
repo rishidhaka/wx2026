@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T03:00:39.932Z",
+  "lastUpdated": "2026-06-20T03:05:32.544Z",
   "groups": [
     {
       "group": "A",
@@ -1964,11 +1964,19 @@
       "homeFlag": "🇹🇷",
       "away": "Paraguay",
       "awayFlag": "🇵🇾",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
+      "awayGoals": [
+        {
+          "name": "Matías Galarza",
+          "minute": "2",
+          "tag": "",
+          "team": "Paraguay",
+          "og": false
+        }
+      ],
+      "status": "live",
       "winner": null
     },
     {
