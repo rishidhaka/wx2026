@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T20:20:31.545Z",
+  "lastUpdated": "2026-06-21T20:25:33.282Z",
   "groups": [
     {
       "group": "A",
@@ -376,16 +376,16 @@
       "group": "H",
       "standings": [
         {
-          "team": "Saudi Arabia",
-          "flag": "🇸🇦",
-          "played": 1,
-          "won": 0,
+          "team": "Spain",
+          "flag": "🇪🇸",
+          "played": 2,
+          "won": 1,
           "drawn": 1,
           "lost": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
-          "points": 1
+          "gf": 4,
+          "ga": 0,
+          "gd": 4,
+          "points": 4
         },
         {
           "team": "Uruguay",
@@ -400,8 +400,8 @@
           "points": 1
         },
         {
-          "team": "Spain",
-          "flag": "🇪🇸",
+          "team": "Cape Verde",
+          "flag": "🇨🇻",
           "played": 1,
           "won": 0,
           "drawn": 1,
@@ -412,15 +412,15 @@
           "points": 1
         },
         {
-          "team": "Cape Verde",
-          "flag": "🇨🇻",
-          "played": 1,
+          "team": "Saudi Arabia",
+          "flag": "🇸🇦",
+          "played": 2,
           "won": 0,
           "drawn": 1,
-          "lost": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
+          "lost": 1,
+          "gf": 1,
+          "ga": 5,
+          "gd": -4,
           "points": 1
         }
       ]
@@ -2168,12 +2168,41 @@
       "homeFlag": "🇪🇸",
       "away": "Saudi Arabia",
       "awayFlag": "🇸🇦",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
+      "homeScore": 4,
+      "awayScore": 0,
+      "homeGoals": [
+        {
+          "name": "Lamine Yamal",
+          "minute": "10",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        },
+        {
+          "name": "Mikel Oyarzabal",
+          "minute": "21",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        },
+        {
+          "name": "Mikel Oyarzabal",
+          "minute": "24",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        },
+        {
+          "name": "Hassan Mohamed Altmbkti",
+          "minute": "49",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        }
+      ],
       "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "status": "fin",
+      "winner": "Spain"
     },
     {
       "id": 37,
@@ -2188,11 +2217,11 @@
       "homeFlag": "🇧🇪",
       "away": "Iran",
       "awayFlag": "🇮🇷",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null
     },
     {
@@ -3623,6 +3652,13 @@
       "assists": 0
     },
     {
+      "name": "Mikel Oyarzabal",
+      "team": "Spain",
+      "flag": "🇪🇸",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "J. Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -3647,13 +3683,6 @@
       "name": "H.G. Oh",
       "team": "South Korea",
       "flag": "🇰🇷",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "L. Krejčí",
-      "team": "Czech Republic",
-      "flag": "🇨🇿",
       "goals": 1,
       "assists": 0
     }
