@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T05:25:37.131Z",
+  "lastUpdated": "2026-06-21T05:30:37.210Z",
   "groups": [
     {
       "group": "A",
@@ -2120,7 +2120,7 @@
       "away": "Japan",
       "awayFlag": "🇯🇵",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 3,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -2133,6 +2133,13 @@
         {
           "name": "Aiash Ivida",
           "minute": "31",
+          "tag": "",
+          "team": "Japan",
+          "og": false
+        },
+        {
+          "name": "Junya Itō",
+          "minute": "69",
           "tag": "",
           "team": "Japan",
           "og": false
