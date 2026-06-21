@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T21:00:34.770Z",
+  "lastUpdated": "2026-06-21T21:05:41.132Z",
   "groups": [
     {
       "group": "A",
@@ -325,14 +325,26 @@
         {
           "team": "Iran",
           "flag": "🇮🇷",
-          "played": 1,
+          "played": 2,
           "won": 0,
-          "drawn": 1,
+          "drawn": 2,
           "lost": 0,
           "gf": 2,
           "ga": 2,
           "gd": 0,
-          "points": 1
+          "points": 2
+        },
+        {
+          "team": "Belgium",
+          "flag": "🇧🇪",
+          "played": 2,
+          "won": 0,
+          "drawn": 2,
+          "lost": 0,
+          "gf": 1,
+          "ga": 1,
+          "gd": 0,
+          "points": 2
         },
         {
           "team": "New Zealand",
@@ -343,18 +355,6 @@
           "lost": 0,
           "gf": 2,
           "ga": 2,
-          "gd": 0,
-          "points": 1
-        },
-        {
-          "team": "Belgium",
-          "flag": "🇧🇪",
-          "played": 1,
-          "won": 0,
-          "drawn": 1,
-          "lost": 0,
-          "gf": 1,
-          "ga": 1,
           "gd": 0,
           "points": 1
         },
@@ -2221,7 +2221,7 @@
       "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "live",
+      "status": "fin",
       "winner": null
     },
     {
