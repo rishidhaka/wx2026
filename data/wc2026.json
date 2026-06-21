@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T22:40:36.433Z",
+  "lastUpdated": "2026-06-21T22:45:35.505Z",
   "groups": [
     {
       "group": "A",
@@ -2237,9 +2237,17 @@
       "homeFlag": "🇺🇾",
       "away": "Cape Verde",
       "awayFlag": "🇨🇻",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Maximiliano Araújo",
+          "minute": "44",
+          "tag": "",
+          "team": "Uruguay",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Kevin Pina",
