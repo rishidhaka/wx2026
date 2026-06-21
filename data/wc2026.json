@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T00:00:46.418Z",
+  "lastUpdated": "2026-06-21T00:05:33.153Z",
   "groups": [
     {
       "group": "A",
@@ -2099,11 +2099,11 @@
       "homeFlag": "🇪🇨",
       "away": "Curaçao",
       "awayFlag": "🇨🇼",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null
     },
     {
