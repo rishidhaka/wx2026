@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T05:50:22.273Z",
+  "lastUpdated": "2026-06-21T05:55:20.670Z",
   "groups": [
     {
       "group": "A",
@@ -64,8 +64,8 @@
           "won": 1,
           "drawn": 1,
           "lost": 0,
-          "gf": 7,
-          "ga": 1,
+          "gf": 6,
+          "ga": 0,
           "gd": 6,
           "points": 4
         },
@@ -88,8 +88,8 @@
           "won": 0,
           "drawn": 1,
           "lost": 1,
-          "gf": 2,
-          "ga": 5,
+          "gf": 1,
+          "ga": 4,
           "gd": -3,
           "points": 1
         },
@@ -2027,7 +2027,7 @@
       "away": "Japan",
       "awayFlag": "🇯🇵",
       "homeScore": 0,
-      "awayScore": 3,
+      "awayScore": 4,
       "status": "live",
       "winner": null,
       "homeGoals": [],
