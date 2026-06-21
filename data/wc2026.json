@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T04:05:37.458Z",
+  "lastUpdated": "2026-06-21T04:10:35.464Z",
   "groups": [
     {
       "group": "A",
@@ -2120,9 +2120,17 @@
       "away": "Japan",
       "awayFlag": "🇯🇵",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Daichi Kamada",
+          "minute": "4",
+          "tag": "",
+          "team": "Japan",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
