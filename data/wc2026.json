@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T02:40:32.524Z",
+  "lastUpdated": "2026-06-22T02:45:34.817Z",
   "groups": [
     {
       "group": "A",
@@ -2288,7 +2288,7 @@
       "away": "Egypt",
       "awayFlag": "🇪🇬",
       "homeScore": 1,
-      "awayScore": 2,
+      "awayScore": 3,
       "homeGoals": [
         {
           "name": "Fin Svrman",
@@ -2309,6 +2309,13 @@
         {
           "name": "Mohamed Salah",
           "minute": "67",
+          "tag": "",
+          "team": "Egypt",
+          "og": false
+        },
+        {
+          "name": "Mahmoud Hassan Trezeguet",
+          "minute": "82",
           "tag": "",
           "team": "Egypt",
           "og": false
