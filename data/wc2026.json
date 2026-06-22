@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T00:05:31.668Z",
+  "lastUpdated": "2026-06-22T00:10:39.471Z",
   "groups": [
     {
       "group": "A",
@@ -390,26 +390,26 @@
         {
           "team": "Uruguay",
           "flag": "🇺🇾",
-          "played": 1,
+          "played": 2,
           "won": 0,
-          "drawn": 1,
+          "drawn": 2,
           "lost": 0,
-          "gf": 1,
-          "ga": 1,
+          "gf": 3,
+          "ga": 3,
           "gd": 0,
-          "points": 1
+          "points": 2
         },
         {
           "team": "Cape Verde",
           "flag": "🇨🇻",
-          "played": 1,
+          "played": 2,
           "won": 0,
-          "drawn": 1,
+          "drawn": 2,
           "lost": 0,
-          "gf": 0,
-          "ga": 0,
+          "gf": 2,
+          "ga": 2,
           "gd": 0,
-          "points": 1
+          "points": 2
         },
         {
           "team": "Saudi Arabia",
@@ -2271,7 +2271,7 @@
           "og": false
         }
       ],
-      "status": "live",
+      "status": "fin",
       "winner": null
     },
     {
@@ -3619,6 +3619,13 @@
       "assists": 0
     },
     {
+      "name": "Maximiliano Araújo",
+      "team": "Uruguay",
+      "flag": "🇺🇾",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "K. Mbappé",
       "team": "France",
       "flag": "🇫🇷",
@@ -3704,13 +3711,6 @@
     },
     {
       "name": "I.B. Hwang",
-      "team": "South Korea",
-      "flag": "🇰🇷",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "H.G. Oh",
       "team": "South Korea",
       "flag": "🇰🇷",
       "goals": 1,
