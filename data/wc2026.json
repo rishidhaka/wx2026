@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T21:15:27.873Z",
+  "lastUpdated": "2026-06-22T21:20:31.453Z",
   "groups": [
     {
       "group": "A",
@@ -2372,9 +2372,17 @@
       "homeFlag": "🇫🇷",
       "away": "Iraq",
       "awayFlag": "🇮🇶",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Kylian Mbappé",
+          "minute": "14",
+          "tag": "",
+          "team": "France",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null
