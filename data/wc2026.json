@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T01:15:35.444Z",
+  "lastUpdated": "2026-06-22T01:20:43.185Z",
   "groups": [
     {
       "group": "A",
@@ -2287,9 +2287,17 @@
       "homeFlag": "🇳🇿",
       "away": "Egypt",
       "awayFlag": "🇪🇬",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Fin Svrman",
+          "minute": "15",
+          "tag": "",
+          "team": "New Zealand",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null
