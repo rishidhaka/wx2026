@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T02:30:27.764Z",
+  "lastUpdated": "2026-06-22T02:35:20.900Z",
   "groups": [
     {
       "group": "A",
@@ -64,8 +64,8 @@
           "won": 1,
           "drawn": 1,
           "lost": 0,
-          "gf": 6,
-          "ga": 0,
+          "gf": 7,
+          "ga": 1,
           "gd": 6,
           "points": 4
         },
@@ -88,8 +88,8 @@
           "won": 0,
           "drawn": 1,
           "lost": 1,
-          "gf": 1,
-          "ga": 4,
+          "gf": 2,
+          "ga": 5,
           "gd": -3,
           "points": 1
         },
@@ -2165,7 +2165,7 @@
       "away": "Egypt",
       "awayFlag": "🇪🇬",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
       "winner": null,
       "homeGoals": [
