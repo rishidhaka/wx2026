@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T17:35:27.998Z",
+  "lastUpdated": "2026-06-23T17:40:31.999Z",
   "groups": [
     {
       "group": "A",
@@ -2514,7 +2514,7 @@
       "homeFlag": "🇵🇹",
       "away": "Uzbekistan",
       "awayFlag": "🇺🇿",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -2527,6 +2527,13 @@
         {
           "name": "Nvnv Mndz",
           "minute": "17",
+          "tag": "",
+          "team": "Portugal",
+          "og": false
+        },
+        {
+          "name": "Cristiano Ronaldo",
+          "minute": "39",
           "tag": "",
           "team": "Portugal",
           "og": false
