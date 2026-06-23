@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T17:25:32.061Z",
+  "lastUpdated": "2026-06-23T17:30:37.420Z",
   "groups": [
     {
       "group": "A",
@@ -2515,7 +2515,7 @@
       "away": "Uzbekistan",
       "awayFlag": "🇺🇿",
       "homeScore": 2,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Cristiano Ronaldo",
@@ -2532,7 +2532,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Aziz Jan Ganivf",
+          "minute": "29",
+          "tag": "",
+          "team": "Uzbekistan",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
