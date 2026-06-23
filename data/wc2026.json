@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T04:30:25.058Z",
+  "lastUpdated": "2026-06-23T04:35:28.041Z",
   "groups": [
     {
       "group": "A",
@@ -2472,7 +2472,7 @@
       "away": "Algeria",
       "awayFlag": "🇩🇿",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Al Rashdan",
@@ -2482,7 +2482,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Nzir Bnbvali",
+          "minute": "69",
+          "tag": "",
+          "team": "Algeria",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
