@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T01:05:21.868Z",
+  "lastUpdated": "2026-06-23T01:10:22.077Z",
   "groups": [
     {
       "group": "A",
@@ -2414,12 +2414,19 @@
       "homeFlag": "🇳🇴",
       "away": "Senegal",
       "awayFlag": "🇸🇳",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "homeGoals": [
         {
           "name": "Markvs Hlmgrn Pdrsn",
           "minute": "43",
+          "tag": "",
+          "team": "Norway",
+          "og": false
+        },
+        {
+          "name": "Erling Haaland",
+          "minute": "48",
           "tag": "",
           "team": "Norway",
           "og": false
