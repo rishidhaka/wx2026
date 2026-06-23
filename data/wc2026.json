@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T00:25:24.649Z",
+  "lastUpdated": "2026-06-23T00:30:24.179Z",
   "groups": [
     {
       "group": "A",
@@ -2372,7 +2372,7 @@
       "homeFlag": "🇫🇷",
       "away": "Iraq",
       "awayFlag": "🇮🇶",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -2385,6 +2385,13 @@
         {
           "name": "Kylian Mbappé",
           "minute": "54",
+          "tag": "",
+          "team": "France",
+          "og": false
+        },
+        {
+          "name": "Ousmane Dembélé",
+          "minute": "66",
           "tag": "",
           "team": "France",
           "og": false
