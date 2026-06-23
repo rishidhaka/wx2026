@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T05:00:30.287Z",
+  "lastUpdated": "2026-06-23T05:05:20.292Z",
   "groups": [
     {
       "group": "A",
@@ -506,26 +506,26 @@
           "points": 3
         },
         {
-          "team": "Jordan",
-          "flag": "🇯🇴",
-          "played": 1,
-          "won": 0,
-          "drawn": 0,
-          "lost": 1,
-          "gf": 1,
-          "ga": 3,
-          "gd": -2,
-          "points": 0
-        },
-        {
           "team": "Algeria",
           "flag": "🇩🇿",
-          "played": 1,
-          "won": 0,
+          "played": 2,
+          "won": 1,
           "drawn": 0,
           "lost": 1,
-          "gf": 0,
-          "ga": 3,
+          "gf": 2,
+          "ga": 4,
+          "gd": -2,
+          "points": 3
+        },
+        {
+          "team": "Jordan",
+          "flag": "🇯🇴",
+          "played": 2,
+          "won": 0,
+          "drawn": 0,
+          "lost": 2,
+          "gf": 2,
+          "ga": 5,
           "gd": -3,
           "points": 0
         }
@@ -2498,8 +2498,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Algeria"
     },
     {
       "id": 45,
