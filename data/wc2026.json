@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T18:30:34.705Z",
+  "lastUpdated": "2026-06-23T18:35:28.824Z",
   "groups": [
     {
       "group": "A",
@@ -3740,11 +3740,25 @@
       "assists": 0
     },
     {
+      "name": "Kylian Mbappé",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 4,
+      "assists": 0
+    },
+    {
       "name": "Erling Haaland",
       "team": "Norway",
       "flag": "🇳🇴",
       "goals": 4,
       "assists": 0
+    },
+    {
+      "name": "Deniz Undav",
+      "team": "Germany",
+      "flag": "🇩🇪",
+      "goals": 3,
+      "assists": 2
     },
     {
       "name": "Jonathan David",
@@ -3754,25 +3768,67 @@
       "assists": 0
     },
     {
-      "name": "F. Balogun",
+      "name": "Cyle Larin",
+      "team": "Canada",
+      "flag": "🇨🇦",
+      "goals": 2,
+      "assists": 0
+    },
+    {
+      "name": "Folarin Balogun",
       "team": "United States",
       "flag": "🇺🇸",
       "goals": 2,
       "assists": 0
     },
     {
-      "name": "K. Havertz",
+      "name": "Ismael Saibari",
+      "team": "Morocco",
+      "flag": "🇲🇦",
+      "goals": 2,
+      "assists": 0
+    },
+    {
+      "name": "Vinicius Junior",
+      "team": "Brazil",
+      "flag": "🇧🇷",
+      "goals": 2,
+      "assists": 1
+    },
+    {
+      "name": "Kai Havertz",
       "team": "Germany",
       "flag": "🇩🇪",
       "goals": 2,
       "assists": 0
     },
     {
-      "name": "Y.Ayari",
+      "name": "Crysencio Summerville",
+      "team": "Netherlands",
+      "flag": "🇳🇱",
+      "goals": 2,
+      "assists": 1
+    },
+    {
+      "name": "Daichi Kamada",
+      "team": "Japan",
+      "flag": "🇯🇵",
+      "goals": 2,
+      "assists": 0
+    },
+    {
+      "name": "Yasin Ayari",
       "team": "Sweden",
       "flag": "🇸🇪",
       "goals": 2,
       "assists": 0
+    },
+    {
+      "name": "Maximiliano Araújo",
+      "team": "Uruguay",
+      "flag": "🇺🇾",
+      "goals": 2,
+      "assists": 1
     },
     {
       "name": "Elijah Just",
@@ -3782,28 +3838,14 @@
       "assists": 0
     },
     {
-      "name": "Maximiliano Araújo",
-      "team": "Uruguay",
-      "flag": "🇺🇾",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "K. Mbappé",
-      "team": "France",
-      "flag": "🇫🇷",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "H. Kane",
+      "name": "Harry Kane",
       "team": "England",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "goals": 2,
       "assists": 0
     },
     {
-      "name": "Jvhan Mnzambi",
+      "name": "Johan Manzambi",
       "team": "Switzerland",
       "flag": "🇨🇭",
       "goals": 2,
@@ -3817,13 +3859,6 @@
       "assists": 0
     },
     {
-      "name": "Dniz Avndav",
-      "team": "Germany",
-      "flag": "🇩🇪",
-      "goals": 2,
-      "assists": 0
-    },
-    {
       "name": "Brian Brobbey",
       "team": "Netherlands",
       "flag": "🇳🇱",
@@ -3831,46 +3866,11 @@
       "assists": 0
     },
     {
-      "name": "Kvdi Khakpv",
+      "name": "Cody Gakpo",
       "team": "Netherlands",
       "flag": "🇳🇱",
       "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Aiash Ivida",
-      "team": "Japan",
-      "flag": "🇯🇵",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Mikel Oyarzabal",
-      "team": "Spain",
-      "flag": "🇪🇸",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Kylian Mbappé",
-      "team": "France",
-      "flag": "🇫🇷",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Ismaïla Sarr",
-      "team": "Senegal",
-      "flag": "🇸🇳",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "J. Quiñones",
-      "team": "Mexico",
-      "flag": "🇲🇽",
-      "goals": 1,
-      "assists": 0
+      "assists": 1
     }
   ]
 }
