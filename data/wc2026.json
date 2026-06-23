@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T01:10:22.077Z",
+  "lastUpdated": "2026-06-23T01:15:25.801Z",
   "groups": [
     {
       "group": "A",
@@ -2415,7 +2415,7 @@
       "away": "Senegal",
       "awayFlag": "🇸🇳",
       "homeScore": 2,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Markvs Hlmgrn Pdrsn",
@@ -2432,7 +2432,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Ismaïla Sarr",
+          "minute": "53",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
