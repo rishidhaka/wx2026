@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T02:00:27.521Z",
+  "lastUpdated": "2026-06-23T02:05:21.499Z",
   "groups": [
     {
       "group": "A",
@@ -443,25 +443,25 @@
         {
           "team": "Norway",
           "flag": "🇳🇴",
-          "played": 1,
-          "won": 1,
+          "played": 2,
+          "won": 2,
           "drawn": 0,
           "lost": 0,
-          "gf": 4,
-          "ga": 1,
-          "gd": 3,
-          "points": 3
+          "gf": 7,
+          "ga": 3,
+          "gd": 4,
+          "points": 6
         },
         {
           "team": "Senegal",
           "flag": "🇸🇳",
-          "played": 1,
+          "played": 2,
           "won": 0,
           "drawn": 0,
-          "lost": 1,
-          "gf": 1,
-          "ga": 3,
-          "gd": -2,
+          "lost": 2,
+          "gf": 3,
+          "ga": 6,
+          "gd": -3,
           "points": 0
         },
         {
@@ -2455,8 +2455,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Norway"
     },
     {
       "id": 44,
@@ -3688,6 +3688,13 @@
       "assists": 0
     },
     {
+      "name": "Erling Haaland",
+      "team": "Norway",
+      "flag": "🇳🇴",
+      "goals": 4,
+      "assists": 0
+    },
+    {
       "name": "Jonathan David",
       "team": "Canada",
       "flag": "🇨🇦",
@@ -3733,13 +3740,6 @@
       "name": "K. Mbappé",
       "team": "France",
       "flag": "🇫🇷",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Erling Haaland",
-      "team": "Norway",
-      "flag": "🇳🇴",
       "goals": 2,
       "assists": 0
     },
@@ -3807,14 +3807,14 @@
       "assists": 0
     },
     {
-      "name": "J. Quiñones",
-      "team": "Mexico",
-      "flag": "🇲🇽",
-      "goals": 1,
+      "name": "Ismaïla Sarr",
+      "team": "Senegal",
+      "flag": "🇸🇳",
+      "goals": 2,
       "assists": 0
     },
     {
-      "name": "R. Jiménez",
+      "name": "J. Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
       "goals": 1,
