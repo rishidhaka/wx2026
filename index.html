@@ -1006,7 +1006,10 @@ function startListeners(){
 
   // Real-time overlay: if GitHub Actions can write to Firestore, onSnapshot fires
   // instantly on every write and overrides the polled data with fresher values.
-  unsubs.push(
+  // Skip on localhost — local JSON file is the authoritative source there, and
+  // the Firestore doc (written by Cloud Function) would overwrite it with stale data.
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  if (!isLocal) unsubs.push(
     db.collection("wc2026").doc("tournament").onSnapshot(snap => {
       if (!snap.exists) return;
       applyTournamentData(snap.data());
