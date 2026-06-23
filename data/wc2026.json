@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T20:00:42.487Z",
+  "lastUpdated": "2026-06-23T20:05:28.301Z",
   "groups": [
     {
       "group": "A",
@@ -2570,11 +2570,11 @@
       "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "away": "Ghana",
       "awayFlag": "🇬🇭",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null
     },
     {
