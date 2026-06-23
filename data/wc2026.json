@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T18:50:29.428Z",
+  "lastUpdated": "2026-06-23T18:55:26.386Z",
   "groups": [
     {
       "group": "A",
@@ -2514,7 +2514,7 @@
       "homeFlag": "🇵🇹",
       "away": "Uzbekistan",
       "awayFlag": "🇺🇿",
-      "homeScore": 4,
+      "homeScore": 5,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -2541,6 +2541,13 @@
         {
           "name": "Abdalvhid Namtvf",
           "minute": "60",
+          "tag": "",
+          "team": "Portugal",
+          "og": false
+        },
+        {
+          "name": "Rafael Leão",
+          "minute": "87",
           "tag": "",
           "team": "Portugal",
           "og": false
