@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T19:00:30.139Z",
+  "lastUpdated": "2026-06-23T19:05:25.424Z",
   "groups": [
     {
       "group": "A",
@@ -535,6 +535,18 @@
       "group": "K",
       "standings": [
         {
+          "team": "Portugal",
+          "flag": "🇵🇹",
+          "played": 2,
+          "won": 1,
+          "drawn": 1,
+          "lost": 0,
+          "gf": 6,
+          "ga": 1,
+          "gd": 5,
+          "points": 4
+        },
+        {
           "team": "Colombia",
           "flag": "🇨🇴",
           "played": 1,
@@ -545,18 +557,6 @@
           "ga": 1,
           "gd": 2,
           "points": 3
-        },
-        {
-          "team": "Portugal",
-          "flag": "🇵🇹",
-          "played": 1,
-          "won": 0,
-          "drawn": 1,
-          "lost": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
-          "points": 1
         },
         {
           "team": "Democratic Republic of the Congo",
@@ -573,13 +573,13 @@
         {
           "team": "Uzbekistan",
           "flag": "🇺🇿",
-          "played": 1,
+          "played": 2,
           "won": 0,
           "drawn": 0,
-          "lost": 1,
+          "lost": 2,
           "gf": 1,
-          "ga": 3,
-          "gd": -2,
+          "ga": 8,
+          "gd": -7,
           "points": 0
         }
       ]
@@ -2554,8 +2554,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Portugal"
     },
     {
       "id": 48,
