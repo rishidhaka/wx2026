@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T18:20:27.916Z",
+  "lastUpdated": "2026-06-23T18:25:24.895Z",
   "groups": [
     {
       "group": "A",
@@ -2514,7 +2514,7 @@
       "homeFlag": "🇵🇹",
       "away": "Uzbekistan",
       "awayFlag": "🇺🇿",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -2534,6 +2534,13 @@
         {
           "name": "Cristiano Ronaldo",
           "minute": "39",
+          "tag": "",
+          "team": "Portugal",
+          "og": false
+        },
+        {
+          "name": "Abdalghadr Khvsanvf",
+          "minute": "60",
           "tag": "",
           "team": "Portugal",
           "og": false
