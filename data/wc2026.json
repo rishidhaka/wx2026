@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T00:50:26.189Z",
+  "lastUpdated": "2026-06-23T00:55:23.330Z",
   "groups": [
     {
       "group": "A",
@@ -429,6 +429,18 @@
       "group": "I",
       "standings": [
         {
+          "team": "France",
+          "flag": "🇫🇷",
+          "played": 2,
+          "won": 2,
+          "drawn": 0,
+          "lost": 0,
+          "gf": 6,
+          "ga": 1,
+          "gd": 5,
+          "points": 6
+        },
+        {
           "team": "Norway",
           "flag": "🇳🇴",
           "played": 1,
@@ -438,18 +450,6 @@
           "gf": 4,
           "ga": 1,
           "gd": 3,
-          "points": 3
-        },
-        {
-          "team": "France",
-          "flag": "🇫🇷",
-          "played": 1,
-          "won": 1,
-          "drawn": 0,
-          "lost": 0,
-          "gf": 3,
-          "ga": 1,
-          "gd": 2,
           "points": 3
         },
         {
@@ -467,13 +467,13 @@
         {
           "team": "Iraq",
           "flag": "🇮🇶",
-          "played": 1,
+          "played": 2,
           "won": 0,
           "drawn": 0,
-          "lost": 1,
+          "lost": 2,
           "gf": 1,
-          "ga": 4,
-          "gd": -3,
+          "ga": 7,
+          "gd": -6,
           "points": 0
         }
       ]
@@ -2398,8 +2398,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "France"
     },
     {
       "id": 42,
@@ -3771,6 +3771,13 @@
       "assists": 0
     },
     {
+      "name": "Kylian Mbappé",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "J. Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -3781,13 +3788,6 @@
       "name": "R. Jiménez",
       "team": "Mexico",
       "flag": "🇲🇽",
-      "goals": 1,
-      "assists": 0
-    },
-    {
-      "name": "I.B. Hwang",
-      "team": "South Korea",
-      "flag": "🇰🇷",
       "goals": 1,
       "assists": 0
     }
