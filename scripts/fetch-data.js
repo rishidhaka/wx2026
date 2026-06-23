@@ -202,7 +202,32 @@ function buildTopScorers(games) {
       map[key].goals++;
     }
   }
-  return Object.values(map).sort((a, b) => b.goals - a.goals).slice(0, 20);
+
+  // Merge abbreviated names ("K. Mbappé") with full names ("Kylian Mbappé") from the
+  // same team. The API is inconsistent across game records. Group by team + last name(s)
+  // + first initial; keep the full name spelling when both forms exist.
+  const groups = {};
+  for (const e of Object.values(map)) {
+    const parts = e.name.trim().split(/\s+/);
+    const isAbbrev = parts.length === 2 && /^[A-Z]\.$/.test(parts[0]);
+    const lastName = parts.slice(1).join(' ');
+    const initial = parts[0][0].toUpperCase();
+    const canon = `${e.team}|${lastName}|${initial}`;
+    if (!groups[canon]) {
+      groups[canon] = { ...e, _abbrev: isAbbrev };
+    } else {
+      groups[canon].goals += e.goals;
+      if (groups[canon]._abbrev && !isAbbrev) {
+        groups[canon].name = e.name;
+        groups[canon]._abbrev = false;
+      }
+    }
+  }
+
+  return Object.values(groups)
+    .map(({ _abbrev: _, ...rest }) => rest)
+    .sort((a, b) => b.goals - a.goals)
+    .slice(0, 20);
 }
 
 // ── GROUP STANDINGS ───────────────────────────────────────────────────────
@@ -530,6 +555,35 @@ async function writeToFirestore(groups, fixtures, scorers, bracket, results) {
   console.log('✅  Firestore updated');
 }
 
+// ── FOOTBALL-DATA.ORG SCORERS (authoritative source) ─────────────────────
+// football-data.org uses a single consistent name per player across all games,
+// eliminating the "K. Mbappé" vs "Kylian Mbappé" duplicates from worldcup26.ir.
+// Fetched independently of which primary API ran for fixture/group data.
+async function fetchFDScorers() {
+  if (!FD_KEY) return null;
+  try {
+    const res = await axios.get(`${FD_BASE}/competitions/${WC_CODE}/scorers`, {
+      headers: { 'X-Auth-Token': FD_KEY },
+      params: { season: WC_SEASON, limit: 20 },
+      timeout: 15000,
+    });
+    const list = (res.data.scorers || []).map(s => ({
+      name: s.player.name,
+      team: s.team.name,
+      flag: flagFor(s.team.name),
+      goals: s.goals || 0,
+      assists: s.assists || 0,
+    })).filter(s => s.goals > 0);
+    if (list.length) {
+      console.log(`✅  football-data.org scorers: ${list.length} players (leader: ${list[0].name} ${list[0].goals}g)`);
+      return list;
+    }
+  } catch (err) {
+    console.warn(`⚠️   football-data.org scorers fetch failed (${err.message}) — using primary API scorer data`);
+  }
+  return null;
+}
+
 // ── SMART FETCH GUARD ─────────────────────────────────────────────────────
 function shouldFetchNow() {
   if (process.env.FORCE_FETCH === 'true') {
@@ -588,9 +642,9 @@ async function main() {
 
   let result;
   // Try primary API first; fall back gracefully if it fails.
+  // Fetch football-data.org utcDates and scorers in parallel — both are always accurate.
   if (WC26_TOKEN) {
-    // Load football-data.org utcDates in parallel — these are always accurate for scheduling.
-    const fdUtcDates = await loadFDUtcDates();
+    const [fdUtcDates, fdScorers] = await Promise.all([loadFDUtcDates(), fetchFDScorers()]);
     try {
       result = await fetchFromWC26(fdUtcDates);
     } catch (err) {
@@ -598,6 +652,9 @@ async function main() {
       if (!FD_KEY) { console.error('❌ No fallback key available.'); process.exit(1); }
       result = await fetchFromFootballData();
     }
+    // Use football-data.org scorer list when available: single consistent name per player,
+    // no duplicates from worldcup26.ir's inconsistent transliterations.
+    if (fdScorers) result.scorers = fdScorers;
   } else {
     result = await fetchFromFootballData();
   }
