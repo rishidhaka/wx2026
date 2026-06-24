@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T23:25:24.470Z",
+  "lastUpdated": "2026-06-24T23:30:25.329Z",
   "groups": [
     {
       "group": "A",
@@ -2790,7 +2790,7 @@
       "away": "Brazil",
       "awayFlag": "🇧🇷",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 3,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -2803,6 +2803,13 @@
         {
           "name": "Vinícius Júnior",
           "minute": "45+3",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        },
+        {
+          "name": "Matheus Cunha",
+          "minute": "60",
           "tag": "",
           "team": "Brazil",
           "og": false
@@ -3910,6 +3917,13 @@
       "assists": 0
     },
     {
+      "name": "Matheus Cunha",
+      "team": "Brazil",
+      "flag": "🇧🇷",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "Cyle Larin",
       "team": "Canada",
       "flag": "🇨🇦",
@@ -3985,13 +3999,6 @@
       "flag": "🇨🇭",
       "goals": 2,
       "assists": 1
-    },
-    {
-      "name": "Ermin Mahmic",
-      "team": "Bosnia-Herzegovina",
-      "flag": "🇧🇦",
-      "goals": 2,
-      "assists": 0
     }
   ]
 }
