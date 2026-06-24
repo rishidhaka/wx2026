@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T20:55:21.847Z",
+  "lastUpdated": "2026-06-24T21:00:26.566Z",
   "groups": [
     {
       "group": "A",
@@ -58,51 +58,51 @@
       "group": "B",
       "standings": [
         {
-          "team": "Canada",
-          "flag": "🇨🇦",
-          "played": 2,
-          "won": 1,
+          "team": "Switzerland",
+          "flag": "🇨🇭",
+          "played": 3,
+          "won": 2,
           "drawn": 1,
           "lost": 0,
           "gf": 7,
-          "ga": 1,
-          "gd": 6,
-          "points": 4
+          "ga": 3,
+          "gd": 4,
+          "points": 7
         },
         {
-          "team": "Switzerland",
-          "flag": "🇨🇭",
-          "played": 2,
+          "team": "Canada",
+          "flag": "🇨🇦",
+          "played": 3,
           "won": 1,
           "drawn": 1,
-          "lost": 0,
-          "gf": 5,
-          "ga": 2,
-          "gd": 3,
+          "lost": 1,
+          "gf": 8,
+          "ga": 3,
+          "gd": 5,
           "points": 4
         },
         {
           "team": "Bosnia and Herzegovina",
           "flag": "🇧🇦",
-          "played": 2,
-          "won": 0,
+          "played": 3,
+          "won": 1,
           "drawn": 1,
           "lost": 1,
-          "gf": 2,
-          "ga": 5,
-          "gd": -3,
-          "points": 1
+          "gf": 5,
+          "ga": 6,
+          "gd": -1,
+          "points": 4
         },
         {
           "team": "Qatar",
           "flag": "🇶🇦",
-          "played": 2,
+          "played": 3,
           "won": 0,
           "drawn": 1,
-          "lost": 1,
-          "gf": 1,
-          "ga": 7,
-          "gd": -6,
+          "lost": 2,
+          "gf": 2,
+          "ga": 10,
+          "gd": -8,
           "points": 1
         }
       ]
@@ -2680,8 +2680,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Bosnia and Herzegovina"
     },
     {
       "id": 54,
@@ -2723,8 +2723,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Switzerland"
     },
     {
       "id": 50,
