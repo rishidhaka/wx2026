@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T22:10:23.537Z",
+  "lastUpdated": "2026-06-24T22:15:21.535Z",
   "groups": [
     {
       "group": "A",
@@ -2740,9 +2740,17 @@
       "away": "Haiti",
       "awayFlag": "🇭🇹",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Lni Jvzf",
+          "minute": "10",
+          "tag": "",
+          "team": "Haiti",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
@@ -3185,8 +3193,8 @@
       "utcDate": "2026-06-28T16:00:00.000Z",
       "home": "Runner-up Group A",
       "homeFlag": "🏳️",
-      "away": "Runner-up Group B",
-      "awayFlag": "🏳️",
+      "away": "Canada",
+      "awayFlag": "🇨🇦",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
@@ -3423,8 +3431,8 @@
       "date": "Thu 2 Jul",
       "time": "8:00 PM ET",
       "utcDate": "2026-07-03T00:00:00.000Z",
-      "home": "Winner Group B",
-      "homeFlag": "🏳️",
+      "home": "Switzerland",
+      "homeFlag": "🇨🇭",
       "away": "3rd Group E/F/G/I/J",
       "awayFlag": "🏳️",
       "homeScore": null,
@@ -3463,8 +3471,8 @@
       "date": "Fri 3 Jul",
       "time": "6:00 PM ET",
       "utcDate": "2026-07-03T22:00:00.000Z",
-      "home": "Winner Group J",
-      "homeFlag": "🏳️",
+      "home": "Argentina",
+      "homeFlag": "🇦🇷",
       "away": "Runner-up Group H",
       "awayFlag": "🏳️",
       "homeScore": null,
