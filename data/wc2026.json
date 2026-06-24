@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T00:10:23.643Z",
+  "lastUpdated": "2026-06-24T00:15:21.365Z",
   "groups": [
     {
       "group": "A",
@@ -2591,9 +2591,17 @@
       "away": "Croatia",
       "awayFlag": "🇭🇷",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Ante Budimir",
+          "minute": "54",
+          "tag": "",
+          "team": "Croatia",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
