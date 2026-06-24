@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T23:40:22.107Z",
+  "lastUpdated": "2026-06-24T23:45:25.361Z",
   "groups": [
     {
       "group": "A",
@@ -2739,7 +2739,7 @@
       "homeFlag": "🇲🇦",
       "away": "Haiti",
       "awayFlag": "🇭🇹",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 2,
       "homeGoals": [
         {
@@ -2752,6 +2752,13 @@
         {
           "name": "Asmaail Saibari",
           "minute": "45+1",
+          "tag": "",
+          "team": "Morocco",
+          "og": false
+        },
+        {
+          "name": "Svfian Rhimi",
+          "minute": "78",
           "tag": "",
           "team": "Morocco",
           "og": false
