@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T20:35:20.856Z",
+  "lastUpdated": "2026-06-24T20:40:21.388Z",
   "groups": [
     {
       "group": "A",
@@ -2657,7 +2657,7 @@
           "og": false
         },
         {
-          "name": "Hsin Sltan Albrik",
+          "name": "Abvnad",
           "minute": "34",
           "tag": "",
           "team": "Bosnia and Herzegovina",
@@ -2690,7 +2690,7 @@
       "away": "Canada",
       "awayFlag": "🇨🇦",
       "homeScore": 2,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Rubén Vargas",
@@ -2707,7 +2707,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Prvmis Divid",
+          "minute": "76",
+          "tag": "",
+          "team": "Canada",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
