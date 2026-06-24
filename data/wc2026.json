@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T19:40:27.437Z",
+  "lastUpdated": "2026-06-24T19:45:25.581Z",
   "groups": [
     {
       "group": "A",
@@ -2647,7 +2647,7 @@
       "away": "Qatar",
       "awayFlag": "🇶🇦",
       "homeScore": 2,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Karim Alaibgvvich",
@@ -2664,7 +2664,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Hassan Al-Haydos",
+          "minute": "42",
+          "tag": "",
+          "team": "Qatar",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
