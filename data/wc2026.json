@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T20:40:21.388Z",
+  "lastUpdated": "2026-06-24T20:45:25.106Z",
   "groups": [
     {
       "group": "A",
@@ -2646,7 +2646,7 @@
       "homeFlag": "🇧🇦",
       "away": "Qatar",
       "awayFlag": "🇶🇦",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 1,
       "homeGoals": [
         {
@@ -2659,6 +2659,13 @@
         {
           "name": "Abvnad",
           "minute": "34",
+          "tag": "",
+          "team": "Bosnia and Herzegovina",
+          "og": false
+        },
+        {
+          "name": "Armin Mhmich",
+          "minute": "80",
           "tag": "",
           "team": "Bosnia and Herzegovina",
           "og": false
