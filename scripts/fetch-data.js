@@ -264,6 +264,24 @@ function computeGroups(games) {
     }));
 }
 
+// ── TEAM NAME NORMALISATION ───────────────────────────────────────────────
+// Both APIs use different names for the same team. Strip punctuation/spaces to
+// a bare lowercase key, then alias known variants to a single canonical form.
+// Used in both loadFDUtcDates and fetchFromWC26 so their keys always match.
+const _normTeam = s => (s || '').toLowerCase().replace(/[^a-z]/g, '');
+const _teamAliases = {
+  'korearepublic': 'southkorea', 'republicofkorea': 'southkorea',
+  'unitedstates': 'usa',
+  'turkiye': 'turkey',
+  'ivorycoast': 'cotedivoire',
+  'democraticrepublicofthecongo': 'drcongo', 'congodr': 'drcongo',
+  // FD renamed these teams mid-tournament; alias old form → current canonical
+  'bosniaandherzegovina': 'bosniaherzegovina', // "Bosnia and Herzegovina" → "Bosnia-Herzegovina"
+  'czechrepublic': 'czechia',                  // "Czech Republic" → "Czechia"
+  'capeverde': 'capeverdeislands',             // "Cape Verde" → "Cape Verde Islands"
+};
+const canonicalTeam = s => { const n = _normTeam(s); return _teamAliases[n] || n; };
+
 // ── FETCH FD UTCDATES ─────────────────────────────────────────────────────
 // football-data.org scheduled times are always accurate (no live delay on dates).
 // We fetch these to use as ground truth for utcDate, so worldcup26.ir's ambiguous
@@ -274,20 +292,10 @@ async function loadFDUtcDates() {
     const res = await axios.get(`${FD_BASE}/competitions/${WC_CODE}/matches`, {
       headers: { 'X-Auth-Token': FD_KEY }, params: { season: WC_SEASON }, timeout: 15000,
     });
-    const norm = s => (s || '').toLowerCase().replace(/[^a-z]/g, '');
-    // Some team names differ between APIs — normalise both to match
-    const aliases = {
-      'korearepublic': 'southkorea', 'republicofkorea': 'southkorea',
-      'unitedstates': 'usa',
-      'turkiye': 'turkey',
-      'ivorycoast': 'cotedivoire',
-      'democraticrepublicofthecongo': 'drcongo', 'congodr': 'drcongo',
-    };
-    const canonical = s => { const n = norm(s); return aliases[n] || n; };
     const map = {};
     for (const m of (res.data.matches || [])) {
       if (!m.utcDate) continue;
-      const key = `${canonical(m.homeTeam.name)}|${canonical(m.awayTeam.name)}`;
+      const key = `${canonicalTeam(m.homeTeam.name)}|${canonicalTeam(m.awayTeam.name)}`;
       map[key] = m.utcDate;
     }
     console.log(`📅  football-data.org utcDates: ${Object.keys(map).length} fixtures`);
@@ -307,14 +315,6 @@ async function fetchFromWC26(fdUtcDates = {}) {
   if (!games.length) throw new Error('worldcup26.ir returned 0 games');
 
   const existingUtcDates = loadExistingUtcDates();
-  const norm = s => (s || '').toLowerCase().replace(/[^a-z]/g, '');
-  const aliases = {
-    'korearepublic': 'southkorea', 'republicofkorea': 'southkorea',
-    'unitedstates': 'usa', 'turkiye': 'turkey',
-    'ivorycoast': 'cotedivoire',
-    'democraticrepublicofthecongo': 'drcongo', 'congodr': 'drcongo',
-  };
-  const canonical = s => { const n = norm(s); return aliases[n] || n; };
 
   const fixtures = games.map(game => {
     const isLive = game.time_elapsed === 'live';
@@ -327,7 +327,7 @@ async function fetchFromWC26(fdUtcDates = {}) {
     // Once a correct utcDate is stored in the JSON, the team-pair lookup locks it in permanently.
     const homeName  = game.home_team_name_en || game.home_team_label || null;
     const awayName  = game.away_team_name_en || game.away_team_label || null;
-    const fdKey     = `${canonical(homeName)}|${canonical(awayName)}`;
+    const fdKey     = `${canonicalTeam(homeName)}|${canonicalTeam(awayName)}`;
     const pairKey   = `${homeName}|${awayName}`;
     const utcDate   = fdUtcDates[fdKey]
       || existingUtcDates[pairKey]
