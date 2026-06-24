@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T19:35:24.426Z",
+  "lastUpdated": "2026-06-24T19:40:27.437Z",
   "groups": [
     {
       "group": "A",
@@ -2646,12 +2646,19 @@
       "homeFlag": "🇧🇦",
       "away": "Qatar",
       "awayFlag": "🇶🇦",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "homeGoals": [
         {
           "name": "Karim Alaibgvvich",
           "minute": "29",
+          "tag": "",
+          "team": "Bosnia and Herzegovina",
+          "og": false
+        },
+        {
+          "name": "Hsin Sltan Albrik",
+          "minute": "34",
           "tag": "",
           "team": "Bosnia and Herzegovina",
           "og": false
