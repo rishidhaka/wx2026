@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T22:50:21.290Z",
+  "lastUpdated": "2026-06-24T22:55:20.804Z",
   "groups": [
     {
       "group": "A",
@@ -2790,12 +2790,19 @@
       "away": "Brazil",
       "awayFlag": "🇧🇷",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [],
       "awayGoals": [
         {
           "name": "Vinícius Júnior",
           "minute": "7",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        },
+        {
+          "name": "Vinícius Júnior",
+          "minute": "45+3",
           "tag": "",
           "team": "Brazil",
           "og": false
