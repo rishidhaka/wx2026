@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T03:35:20.872Z",
+  "lastUpdated": "2026-06-24T03:40:24.095Z",
   "groups": [
     {
       "group": "A",
@@ -2618,9 +2618,17 @@
       "homeFlag": "🇨🇴",
       "away": "Democratic Republic of the Congo",
       "awayFlag": "🇨🇩",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Dnil Mvnvz",
+          "minute": "76",
+          "tag": "",
+          "team": "Colombia",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null
@@ -3860,6 +3868,13 @@
       "assists": 0
     },
     {
+      "name": "Daniel Muñoz",
+      "team": "Colombia",
+      "flag": "🇨🇴",
+      "goals": 2,
+      "assists": 0
+    },
+    {
       "name": "Johan Manzambi",
       "team": "Switzerland",
       "flag": "🇨🇭",
@@ -3879,13 +3894,6 @@
       "flag": "🇳🇱",
       "goals": 2,
       "assists": 0
-    },
-    {
-      "name": "Cody Gakpo",
-      "team": "Netherlands",
-      "flag": "🇳🇱",
-      "goals": 2,
-      "assists": 1
     }
   ]
 }
