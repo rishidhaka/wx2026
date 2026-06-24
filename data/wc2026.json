@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T22:45:21.942Z",
+  "lastUpdated": "2026-06-24T22:50:21.290Z",
   "groups": [
     {
       "group": "A",
@@ -2739,12 +2739,19 @@
       "homeFlag": "🇲🇦",
       "away": "Haiti",
       "awayFlag": "🇭🇹",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 2,
       "homeGoals": [
         {
           "name": "Achraf Hakimi",
           "minute": "39",
+          "tag": "",
+          "team": "Morocco",
+          "og": false
+        },
+        {
+          "name": "Asmaail Saibari",
+          "minute": "45+1",
           "tag": "",
           "team": "Morocco",
           "og": false
@@ -2754,6 +2761,13 @@
         {
           "name": "Yassine Bounou",
           "minute": "10",
+          "tag": "",
+          "team": "Haiti",
+          "og": false
+        },
+        {
+          "name": "Wilson Isidor",
+          "minute": "43",
           "tag": "",
           "team": "Haiti",
           "og": false
@@ -3840,6 +3854,13 @@
       "assists": 0
     },
     {
+      "name": "Vinicius Junior",
+      "team": "Brazil",
+      "flag": "🇧🇷",
+      "goals": 4,
+      "assists": 1
+    },
+    {
       "name": "Kylian Mbappé",
       "team": "France",
       "flag": "🇫🇷",
@@ -3854,11 +3875,11 @@
       "assists": 0
     },
     {
-      "name": "Vinicius Junior",
-      "team": "Brazil",
-      "flag": "🇧🇷",
+      "name": "Ismael Saibari",
+      "team": "Morocco",
+      "flag": "🇲🇦",
       "goals": 3,
-      "assists": 1
+      "assists": 0
     },
     {
       "name": "Deniz Undav",
@@ -3892,13 +3913,6 @@
       "name": "Folarin Balogun",
       "team": "United States",
       "flag": "🇺🇸",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Ismael Saibari",
-      "team": "Morocco",
-      "flag": "🇲🇦",
       "goals": 2,
       "assists": 0
     },
