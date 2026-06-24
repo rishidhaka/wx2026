@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T22:05:24.370Z",
+  "lastUpdated": "2026-06-24T22:10:23.537Z",
   "groups": [
     {
       "group": "A",
@@ -2760,9 +2760,17 @@
       "away": "Brazil",
       "awayFlag": "🇧🇷",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Vinícius Júnior",
+          "minute": "7",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
@@ -3830,6 +3838,13 @@
       "assists": 0
     },
     {
+      "name": "Vinicius Junior",
+      "team": "Brazil",
+      "flag": "🇧🇷",
+      "goals": 3,
+      "assists": 1
+    },
+    {
       "name": "Deniz Undav",
       "team": "Germany",
       "flag": "🇩🇪",
@@ -3870,13 +3885,6 @@
       "flag": "🇲🇦",
       "goals": 2,
       "assists": 0
-    },
-    {
-      "name": "Vinicius Junior",
-      "team": "Brazil",
-      "flag": "🇧🇷",
-      "goals": 2,
-      "assists": 1
     },
     {
       "name": "Kai Havertz",
