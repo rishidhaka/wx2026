@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T19:00:27.881Z",
+  "lastUpdated": "2026-06-24T19:03:10.363Z",
   "groups": [
     {
       "group": "A",
@@ -2646,11 +2646,11 @@
       "homeFlag": "🇧🇦",
       "away": "Qatar",
       "awayFlag": "🇶🇦",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null
     },
     {
@@ -2666,11 +2666,11 @@
       "homeFlag": "🇨🇭",
       "away": "Canada",
       "awayFlag": "🇨🇦",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null
     },
     {
