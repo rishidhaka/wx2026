@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T23:50:22.902Z",
+  "lastUpdated": "2026-06-24T23:55:20.889Z",
   "groups": [
     {
       "group": "A",
@@ -2739,7 +2739,7 @@
       "homeFlag": "🇲🇦",
       "away": "Haiti",
       "awayFlag": "🇭🇹",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 2,
       "homeGoals": [
         {
@@ -2759,6 +2759,13 @@
         {
           "name": "Svfian Rhimi",
           "minute": "78",
+          "tag": "",
+          "team": "Morocco",
+          "og": false
+        },
+        {
+          "name": "Gessime Yassine",
+          "minute": "89",
           "tag": "",
           "team": "Morocco",
           "og": false
