@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T22:40:24.650Z",
+  "lastUpdated": "2026-06-24T22:45:21.942Z",
   "groups": [
     {
       "group": "A",
@@ -2739,9 +2739,17 @@
       "homeFlag": "🇲🇦",
       "away": "Haiti",
       "awayFlag": "🇭🇹",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Achraf Hakimi",
+          "minute": "39",
+          "tag": "",
+          "team": "Morocco",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Yassine Bounou",
