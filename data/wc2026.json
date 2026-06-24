@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T22:20:21.980Z",
+  "lastUpdated": "2026-06-24T22:25:25.150Z",
   "groups": [
     {
       "group": "A",
@@ -2768,12 +2768,19 @@
       "away": "Brazil",
       "awayFlag": "🇧🇷",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [],
       "awayGoals": [
         {
           "name": "Vinícius Júnior",
           "minute": "7",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        },
+        {
+          "name": "Vinícius Júnior",
+          "minute": "22",
           "tag": "",
           "team": "Brazil",
           "og": false
@@ -3832,6 +3839,13 @@
       "assists": 0
     },
     {
+      "name": "Vinicius Junior",
+      "team": "Brazil",
+      "flag": "🇧🇷",
+      "goals": 4,
+      "assists": 1
+    },
+    {
       "name": "Kylian Mbappé",
       "team": "France",
       "flag": "🇫🇷",
@@ -3844,13 +3858,6 @@
       "flag": "🇳🇴",
       "goals": 4,
       "assists": 0
-    },
-    {
-      "name": "Vinicius Junior",
-      "team": "Brazil",
-      "flag": "🇧🇷",
-      "goals": 3,
-      "assists": 1
     },
     {
       "name": "Deniz Undav",
