@@ -2427,6 +2427,8 @@ function renderHomeTab(){
     }
   }
   const featuredGroup=hasData?(td.groups||[]).find(g=>(g.name||g.group)===featuredGroupLetter):null;
+  const featuredGroupLive=featuredGroup?computeLiveGroupStandings(featuredGroupLetter,td.groups||[],td.fixtures||[]):null;
+  const displayGroup=featuredGroupLive||featuredGroup;
 
   // Top 3 scorers
   const scorers=hasData?(td.scorers||[]).slice(0,3):[];
@@ -2535,19 +2537,25 @@ function renderHomeTab(){
     <!-- FEATURED GROUP STANDINGS -->
     <div class="home-section">
       <div class="home-section-header">
-        <div class="home-section-title">🏟️ Group ${featuredGroupLetter} Standings</div>
+        <div class="home-section-title">🏟️ Group ${featuredGroupLetter} Standings${displayGroup?.isLive?` <span style="font-size:10px;font-weight:700;background:var(--live);color:#000;padding:2px 5px;border-radius:4px;vertical-align:middle">LIVE</span>`:""}
+        </div>
         <button class="home-see-more" onclick="navTo('live','groups')">All groups →</button>
       </div>
-      ${!featuredGroup?`<div style="font-size:13px;color:var(--muted)">Standings loading…</div>`:`
+      ${!displayGroup?`<div style="font-size:13px;color:var(--muted)">Standings loading…</div>`:`
         <table class="group-table">
-          <thead><tr><th>#</th><th style="text-align:left;padding-left:0">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
-          <tbody>${(featuredGroup.standings||[]).map((t,i)=>`<tr class="${i<2?"q":""}">
-            <td style="color:var(--muted);font-size:11px">${i+1}</td>
-            <td style="text-align:left;padding-left:0">${t.flag||"🏳️"} ${esc(t.team)}</td>
-            <td>${t.played||0}</td><td>${t.won||0}</td><td>${t.drawn||0}</td><td>${t.lost||0}</td>
-            <td style="color:${(t.gd||0)>=0?"var(--live)":"var(--red)"}">${(t.gd||0)>=0?"+":""}${t.gd||0}</td>
-            <td><strong>${t.points||0}</strong></td>
-          </tr>`).join("")}</tbody>
+          <thead><tr><th>#</th><th style="text-align:left;padding-left:0">Team</th><th style="padding:8px 2px">W</th><th style="padding:8px 2px">D</th><th style="padding:8px 2px">L</th><th style="padding:8px 2px">GD</th><th style="padding:8px 2px">Pts</th></tr></thead>
+          <tbody>${(displayGroup.standings||[]).map((t,i)=>{
+            const arrow=t._moved==="up"?`<span style="color:var(--live);font-size:10px;margin-left:3px">▲</span>`:t._moved==="down"?`<span style="color:var(--red);font-size:10px;margin-left:3px">▼</span>`:"";
+            const lm=t._liveMatch;
+            const badge=lm?`<span style="display:inline-block;font-size:11px;font-weight:700;background:${lm.myGoals>lm.oppGoals?"var(--live)":lm.myGoals<lm.oppGoals?"var(--red)":"#777"};color:#fff;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle">${lm.score}</span>`:"";
+            return`<tr class="${i<2?"q":""}">
+              <td style="color:var(--muted);font-size:11px">${i+1}${arrow}</td>
+              <td style="text-align:left;padding-left:0">${t.flag||"🏳️"} ${esc(t.team)}${badge}</td>
+              <td style="padding:10px 2px;font-size:12px">${t.won||0}</td><td style="padding:10px 2px;font-size:12px">${t.drawn||0}</td><td style="padding:10px 2px;font-size:12px">${t.lost||0}</td>
+              <td style="padding:10px 2px;font-size:12px;color:${(t.gd||0)>=0?"var(--live)":"var(--red)"}">${(t.gd||0)>=0?"+":""}${t.gd||0}</td>
+              <td style="padding:10px 2px"><strong>${t.points||0}</strong></td>
+            </tr>`;
+          }).join("")}</tbody>
         </table>`
       }
     </div>
@@ -2571,6 +2579,74 @@ function renderHomeTab(){
     </div>
 
   `;
+}
+
+// ══ LIVE GROUP STANDINGS ═══════════════════════════════════════════════════
+// Recomputes group standings from all finished + live fixtures so the table
+// reflects the score as it stands right now, not just completed matches.
+// Tiebreakers: Points → H2H points → H2H GD → overall GD.
+function computeLiveGroupStandings(groupLetter, groups, fixtures) {
+  const groupData = (groups || []).find(g => (g.name || g.group) === groupLetter);
+  if (!groupData) return null;
+
+  const groupFx = (fixtures || []).filter(f => {
+    const gl = (f.group || '').replace('GROUP_', '');
+    return gl === groupLetter && (f.status === 'fin' || f.status === 'live');
+  });
+
+  const hasLive = groupFx.some(f => f.status === 'live' && f.homeScore != null && f.awayScore != null);
+  if (!hasLive) return { ...groupData, isLive: false };
+
+  // Recompute from scratch using all played + live matches
+  const teams = {};
+  for (const t of (groupData.standings || [])) {
+    teams[t.team] = { ...t, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, points: 0 };
+  }
+  for (const f of groupFx) {
+    const h = teams[f.home], a = teams[f.away];
+    if (!h || !a) continue;
+    const hg = f.homeScore ?? 0, ag = f.awayScore ?? 0;
+    h.played++; a.played++;
+    h.gf += hg; h.ga += ag; h.gd += hg - ag;
+    a.gf += ag; a.ga += hg; a.gd += ag - hg;
+    if (hg > ag)      { h.won++; h.points += 3; a.lost++; }
+    else if (ag > hg) { a.won++; a.points += 3; h.lost++; }
+    else              { h.drawn++; h.points++; a.drawn++; a.points++; }
+    if (f.status === 'live' && f.homeScore != null && f.awayScore != null) {
+      h._liveMatch = { score: `${hg}-${ag}`, myGoals: hg, oppGoals: ag };
+      a._liveMatch = { score: `${hg}-${ag}`, myGoals: ag, oppGoals: hg };
+    }
+  }
+
+  const list = Object.values(teams).sort((a, b) => {
+    if (b.points !== a.points) return b.points - a.points;
+    // H2H between just these two teams (1v1 comparison)
+    let ptsA = 0, ptsB = 0, gdA = 0;
+    for (const f of groupFx) {
+      const flip = f.home === b.team && f.away === a.team;
+      const norm = f.home === a.team && f.away === b.team;
+      if (!flip && !norm) continue;
+      const hg = f.homeScore ?? 0, ag = f.awayScore ?? 0;
+      const ga = norm ? hg : ag, gb = norm ? ag : hg;
+      gdA += ga - gb;
+      if (ga > gb) ptsA += 3;
+      else if (gb > ga) ptsB += 3;
+      else { ptsA++; ptsB++; }
+    }
+    if (ptsA !== ptsB) return ptsB - ptsA;
+    if (gdA !== 0) return -gdA;
+    return b.gd - a.gd;
+  });
+
+  // Track position changes vs stored standings
+  const storedPos = {};
+  (groupData.standings || []).forEach((t, i) => { storedPos[t.team] = i; });
+  list.forEach((t, i) => {
+    const prev = storedPos[t.team] ?? i;
+    t._moved = i < prev ? 'up' : i > prev ? 'down' : 'same';
+  });
+
+  return { ...groupData, standings: list, isLive: true };
 }
 
 // ══ LIVE TAB ═══════════════════════════════════════════════════════════════
@@ -2641,30 +2717,40 @@ function renderLiveGroups(el,groups){
   const letters=groups.map(g=>g.name||g.group);
   if(!letters.includes(activeGroupPill)) activeGroupPill=letters[0]||"A";
   const idx=letters.indexOf(activeGroupPill);
-  const g=groups[idx]||groups[0];
+  const groupLetter=letters[idx]||letters[0];
   const canPrev=idx>0, canNext=idx<letters.length-1;
 
+  const fixtures=(tournamentData&&tournamentData.fixtures)||[];
+  const live=computeLiveGroupStandings(groupLetter,groups,fixtures);
+  const g=live||(groups[idx]||groups[0]);
+
   const btnStyle=(enabled)=>`background:var(--elevated);border:1px solid var(--border);border-radius:8px;color:${enabled?"var(--text)":"var(--border)"};width:36px;height:36px;font-size:18px;cursor:${enabled?"pointer":"default"};flex-shrink:0`;
+  const liveBadge=g.isLive?` <span style="font-size:10px;font-weight:700;background:var(--live);color:#000;padding:2px 5px;border-radius:4px;vertical-align:middle">LIVE</span>`:"";
 
   el.innerHTML=`
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:0 16px">
       <button onclick="shiftGroup(-1)" style="${btnStyle(canPrev)}">‹</button>
       <div style="flex:1;text-align:center">
-        <div style="font-size:15px;font-weight:700;color:var(--text)">Group ${g.name||g.group}</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text)">Group ${g.name||g.group||groupLetter}${liveBadge}</div>
         <div style="font-size:11px;color:var(--muted)">${idx+1} of ${letters.length}</div>
       </div>
       <button onclick="shiftGroup(1)" style="${btnStyle(canNext)}">›</button>
     </div>
     <div class="card" style="padding:0;overflow:hidden;margin:0 16px">
       <table class="group-table">
-        <thead><tr><th>#</th><th style="text-align:left;padding-left:0">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
-        <tbody>${(g.standings||[]).map((t,i)=>`<tr class="${i<2?"q":""}">
-          <td style="color:var(--muted);font-size:11px">${i+1}</td>
-          <td style="text-align:left;padding-left:0;font-weight:600">${t.flag||"🏳️"} ${esc(t.team)}</td>
-          <td>${t.played||0}</td><td>${t.won||0}</td><td>${t.drawn||0}</td><td>${t.lost||0}</td>
-          <td style="color:${(t.gd||0)>=0?"var(--live)":"var(--red)"}">${(t.gd||0)>=0?"+":""}${t.gd||0}</td>
-          <td><strong style="color:var(--text)">${t.points||0}</strong></td>
-        </tr>`).join("")}</tbody>
+        <thead><tr><th>#</th><th style="text-align:left;padding-left:0">Team</th><th style="padding:8px 2px">W</th><th style="padding:8px 2px">D</th><th style="padding:8px 2px">L</th><th style="padding:8px 2px">GD</th><th style="padding:8px 2px">Pts</th></tr></thead>
+        <tbody>${(g.standings||[]).map((t,i)=>{
+          const arrow=t._moved==="up"?`<span style="color:var(--live);font-size:10px;margin-left:2px">▲</span>`:t._moved==="down"?`<span style="color:var(--red);font-size:10px;margin-left:2px">▼</span>`:"";
+          const lm=t._liveMatch;
+          const badge=lm?`<span style="display:inline-block;font-size:11px;font-weight:700;background:${lm.myGoals>lm.oppGoals?"var(--live)":lm.myGoals<lm.oppGoals?"var(--red)":"#777"};color:#fff;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle">${lm.score}</span>`:"";
+          return`<tr class="${i<2?"q":""}">
+            <td style="color:var(--muted);font-size:11px">${i+1}${arrow}</td>
+            <td style="text-align:left;padding-left:0;font-weight:600">${t.flag||"🏳️"} ${esc(t.team)}${badge}</td>
+            <td style="padding:10px 2px;font-size:12px">${t.won||0}</td><td style="padding:10px 2px;font-size:12px">${t.drawn||0}</td><td style="padding:10px 2px;font-size:12px">${t.lost||0}</td>
+            <td style="padding:10px 2px;font-size:12px;color:${(t.gd||0)>=0?"var(--live)":"var(--red)"}">${(t.gd||0)>=0?"+":""}${t.gd||0}</td>
+            <td style="padding:10px 2px"><strong style="color:var(--text)">${t.points||0}</strong></td>
+          </tr>`;
+        }).join("")}</tbody>
       </table>
     </div>`;
 }
