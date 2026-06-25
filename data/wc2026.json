@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T20:05:21.695Z",
+  "lastUpdated": "2026-06-25T20:10:23.604Z",
   "groups": [
     {
       "group": "A",
@@ -2916,9 +2916,17 @@
       "away": "Ivory Coast",
       "awayFlag": "🇨🇮",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Nikvlas Ph Ph",
+          "minute": "7",
+          "tag": "",
+          "team": "Ivory Coast",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
