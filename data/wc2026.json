@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T23:05:55.369Z",
+  "lastUpdated": "2026-06-25T23:10:22.338Z",
   "groups": [
     {
       "group": "A",
@@ -3014,12 +3014,19 @@
       "away": "Netherlands",
       "awayFlag": "🇳🇱",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [],
       "awayGoals": [
         {
           "name": "Alis Skhiri",
           "minute": "3",
+          "tag": "",
+          "team": "Netherlands",
+          "og": false
+        },
+        {
+          "name": "Brian Brobbey",
+          "minute": "7",
           "tag": "",
           "team": "Netherlands",
           "og": false
@@ -4014,6 +4021,13 @@
       "assists": 0
     },
     {
+      "name": "Brian Brobbey",
+      "team": "Netherlands",
+      "flag": "🇳🇱",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "Julián Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -4080,13 +4094,6 @@
       "name": "Harry Kane",
       "team": "England",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Daniel Muñoz",
-      "team": "Colombia",
-      "flag": "🇨🇴",
       "goals": 2,
       "assists": 0
     }
