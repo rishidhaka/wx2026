@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T21:40:20.611Z",
+  "lastUpdated": "2026-06-25T21:45:26.105Z",
   "groups": [
     {
       "group": "A",
@@ -2950,7 +2950,7 @@
       "homeFlag": "🇪🇨",
       "away": "Germany",
       "awayFlag": "🇩🇪",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "homeGoals": [
         {
@@ -2962,7 +2962,7 @@
         },
         {
           "name": "Gvnzalv Plata",
-          "minute": "78",
+          "minute": "77",
           "tag": "",
           "team": "Ecuador",
           "og": false
