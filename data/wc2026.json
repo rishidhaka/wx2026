@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T21:35:24.566Z",
+  "lastUpdated": "2026-06-25T21:40:20.611Z",
   "groups": [
     {
       "group": "A",
@@ -2956,6 +2956,13 @@
         {
           "name": "Nilsvn Angvlv",
           "minute": "9",
+          "tag": "",
+          "team": "Ecuador",
+          "og": false
+        },
+        {
+          "name": "Gvnzalv Plata",
+          "minute": "78",
           "tag": "",
           "team": "Ecuador",
           "og": false
