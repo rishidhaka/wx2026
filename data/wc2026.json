@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T20:10:23.604Z",
+  "lastUpdated": "2026-06-25T20:15:24.783Z",
   "groups": [
     {
       "group": "A",
@@ -2943,9 +2943,17 @@
       "homeFlag": "🇪🇨",
       "away": "Germany",
       "awayFlag": "🇩🇪",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Nilsvn Angvlv",
+          "minute": "9",
+          "tag": "",
+          "team": "Ecuador",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Leroy Sané",
