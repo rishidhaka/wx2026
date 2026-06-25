@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T02:15:22.463Z",
+  "lastUpdated": "2026-06-25T02:20:21.154Z",
   "groups": [
     {
       "group": "A",
@@ -2846,9 +2846,17 @@
       "away": "Mexico",
       "awayFlag": "🇲🇽",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Mateo Chávez",
+          "minute": "55",
+          "tag": "",
+          "team": "Mexico",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
