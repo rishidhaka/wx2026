@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T23:00:24.837Z",
+  "lastUpdated": "2026-06-25T23:05:27.033Z",
   "groups": [
     {
       "group": "A",
@@ -2993,11 +2993,11 @@
       "homeFlag": "🇯🇵",
       "away": "Sweden",
       "awayFlag": "🇸🇪",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null
     },
     {
@@ -3013,11 +3013,19 @@
       "homeFlag": "🇹🇳",
       "away": "Netherlands",
       "awayFlag": "🇳🇱",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
+      "awayGoals": [
+        {
+          "name": "Alis Skhiri",
+          "minute": "3",
+          "tag": "",
+          "team": "Netherlands",
+          "og": false
+        }
+      ],
+      "status": "live",
       "winner": null
     },
     {
