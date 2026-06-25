@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T00:00:31.252Z",
+  "lastUpdated": "2026-06-25T00:05:20.917Z",
   "groups": [
     {
       "group": "A",
@@ -113,49 +113,49 @@
         {
           "team": "Brazil",
           "flag": "🇧🇷",
-          "played": 2,
-          "won": 1,
+          "played": 3,
+          "won": 2,
           "drawn": 1,
           "lost": 0,
-          "gf": 4,
+          "gf": 7,
           "ga": 1,
-          "gd": 3,
-          "points": 4
+          "gd": 6,
+          "points": 7
         },
         {
           "team": "Morocco",
           "flag": "🇲🇦",
-          "played": 2,
-          "won": 1,
+          "played": 3,
+          "won": 2,
           "drawn": 1,
           "lost": 0,
-          "gf": 2,
-          "ga": 1,
-          "gd": 1,
-          "points": 4
+          "gf": 6,
+          "ga": 3,
+          "gd": 3,
+          "points": 7
         },
         {
           "team": "Scotland",
           "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-          "played": 2,
+          "played": 3,
           "won": 1,
           "drawn": 0,
-          "lost": 1,
+          "lost": 2,
           "gf": 1,
-          "ga": 1,
-          "gd": 0,
+          "ga": 4,
+          "gd": -3,
           "points": 3
         },
         {
           "team": "Haiti",
           "flag": "🇭🇹",
-          "played": 2,
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 2,
-          "gf": 0,
-          "ga": 4,
-          "gd": -4,
+          "lost": 3,
+          "gf": 2,
+          "ga": 8,
+          "gd": -6,
           "points": 0
         }
       ]
@@ -2787,8 +2787,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Morocco"
     },
     {
       "id": 49,
@@ -2829,8 +2829,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Brazil"
     },
     {
       "id": 52,
