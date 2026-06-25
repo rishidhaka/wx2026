@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T02:55:25.575Z",
+  "lastUpdated": "2026-06-25T03:00:29.102Z",
   "groups": [
     {
       "group": "A",
@@ -7,49 +7,49 @@
         {
           "team": "Mexico",
           "flag": "🇲🇽",
-          "played": 2,
-          "won": 2,
+          "played": 3,
+          "won": 3,
           "drawn": 0,
           "lost": 0,
-          "gf": 3,
+          "gf": 6,
           "ga": 0,
-          "gd": 3,
-          "points": 6
+          "gd": 6,
+          "points": 9
         },
         {
-          "team": "South Korea",
-          "flag": "🇰🇷",
-          "played": 2,
+          "team": "South Africa",
+          "flag": "🇿🇦",
+          "played": 3,
           "won": 1,
-          "drawn": 0,
-          "lost": 1,
-          "gf": 2,
-          "ga": 2,
-          "gd": 0,
-          "points": 3
-        },
-        {
-          "team": "Czech Republic",
-          "flag": "🇨🇿",
-          "played": 2,
-          "won": 0,
           "drawn": 1,
           "lost": 1,
           "gf": 2,
           "ga": 3,
           "gd": -1,
-          "points": 1
+          "points": 4
         },
         {
-          "team": "South Africa",
-          "flag": "🇿🇦",
-          "played": 2,
+          "team": "South Korea",
+          "flag": "🇰🇷",
+          "played": 3,
+          "won": 1,
+          "drawn": 0,
+          "lost": 2,
+          "gf": 2,
+          "ga": 3,
+          "gd": -1,
+          "points": 3
+        },
+        {
+          "team": "Czech Republic",
+          "flag": "🇨🇿",
+          "played": 3,
           "won": 0,
           "drawn": 1,
-          "lost": 1,
-          "gf": 1,
-          "ga": 3,
-          "gd": -2,
+          "lost": 2,
+          "gf": 2,
+          "ga": 6,
+          "gd": -4,
           "points": 1
         }
       ]
@@ -2846,7 +2846,7 @@
       "away": "Mexico",
       "awayFlag": "🇲🇽",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 3,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -2862,10 +2862,17 @@
           "tag": "",
           "team": "Mexico",
           "og": false
+        },
+        {
+          "name": "Álvaro Fidalgo",
+          "minute": "90+4",
+          "tag": "",
+          "team": "Mexico",
+          "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Mexico"
     },
     {
       "id": 51,
@@ -2892,8 +2899,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "South Africa"
     },
     {
       "id": 55,
