@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T19:06:41.465Z",
+  "lastUpdated": "2026-06-26T19:10:26.158Z",
   "groups": [
     {
       "group": "A",
@@ -3156,9 +3156,17 @@
       "homeFlag": "🇸🇳",
       "away": "Iraq",
       "awayFlag": "🇮🇶",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Habib Diarra",
+          "minute": "4",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null
@@ -3177,9 +3185,17 @@
       "away": "France",
       "awayFlag": "🇫🇷",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Ousmane Dembélé",
+          "minute": "7",
+          "tag": "",
+          "team": "France",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
