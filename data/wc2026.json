@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T19:20:27.820Z",
+  "lastUpdated": "2026-06-26T19:25:20.181Z",
   "groups": [
     {
       "group": "A",
@@ -3184,13 +3184,28 @@
       "homeFlag": "🇳🇴",
       "away": "France",
       "awayFlag": "🇫🇷",
-      "homeScore": 0,
-      "awayScore": 1,
-      "homeGoals": [],
+      "homeScore": 1,
+      "awayScore": 2,
+      "homeGoals": [
+        {
+          "name": "Thelo Aasgaard",
+          "minute": "21",
+          "tag": "",
+          "team": "Norway",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Ousmane Dembélé",
           "minute": "7",
+          "tag": "",
+          "team": "France",
+          "og": false
+        },
+        {
+          "name": "Ousmane Dembélé",
+          "minute": "20",
           "tag": "",
           "team": "France",
           "og": false
@@ -4112,6 +4127,13 @@
       "assists": 0
     },
     {
+      "name": "Ousmane Dembélé",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 3,
+      "assists": 1
+    },
+    {
       "name": "Julián Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -4171,13 +4193,6 @@
       "name": "Elijah Just",
       "team": "New Zealand",
       "flag": "🇳🇿",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Harry Kane",
-      "team": "England",
-      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "goals": 2,
       "assists": 0
     }
