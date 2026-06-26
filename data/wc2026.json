@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T04:00:27.166Z",
+  "lastUpdated": "2026-06-26T04:05:19.968Z",
   "groups": [
     {
       "group": "A",
@@ -166,50 +166,50 @@
         {
           "team": "United States",
           "flag": "🇺🇸",
-          "played": 2,
+          "played": 3,
           "won": 2,
           "drawn": 0,
-          "lost": 0,
-          "gf": 6,
-          "ga": 1,
-          "gd": 5,
+          "lost": 1,
+          "gf": 8,
+          "ga": 4,
+          "gd": 4,
           "points": 6
         },
         {
           "team": "Australia",
           "flag": "🇦🇺",
-          "played": 2,
+          "played": 3,
           "won": 1,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 1,
           "gf": 2,
           "ga": 2,
           "gd": 0,
-          "points": 3
+          "points": 4
         },
         {
           "team": "Paraguay",
           "flag": "🇵🇾",
-          "played": 2,
+          "played": 3,
           "won": 1,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 1,
           "gf": 2,
           "ga": 4,
           "gd": -2,
-          "points": 3
+          "points": 4
         },
         {
           "team": "Turkey",
           "flag": "🇹🇷",
-          "played": 2,
-          "won": 0,
+          "played": 3,
+          "won": 1,
           "drawn": 0,
           "lost": 2,
-          "gf": 0,
-          "ga": 3,
-          "gd": -3,
-          "points": 0
+          "gf": 3,
+          "ga": 5,
+          "gd": -2,
+          "points": 3
         }
       ]
     },
@@ -3079,7 +3079,7 @@
       "homeFlag": "🇹🇷",
       "away": "United States",
       "awayFlag": "🇺🇸",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 2,
       "homeGoals": [
         {
@@ -3092,6 +3092,13 @@
         {
           "name": "Baris Alpr Ailmaz",
           "minute": "31",
+          "tag": "",
+          "team": "Turkey",
+          "og": false
+        },
+        {
+          "name": "Kan Aihan",
+          "minute": "90+8",
           "tag": "",
           "team": "Turkey",
           "og": false
@@ -3113,8 +3120,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Turkey"
     },
     {
       "id": 57,
@@ -3133,7 +3140,7 @@
       "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "live",
+      "status": "fin",
       "winner": null
     },
     {
