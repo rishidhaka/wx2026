@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T21:05:34.658Z",
+  "lastUpdated": "2026-06-26T21:10:31.786Z",
   "groups": [
     {
       "group": "A",
@@ -455,25 +455,25 @@
         {
           "team": "Senegal",
           "flag": "🇸🇳",
-          "played": 2,
-          "won": 0,
+          "played": 3,
+          "won": 1,
           "drawn": 0,
           "lost": 2,
-          "gf": 3,
+          "gf": 8,
           "ga": 6,
-          "gd": -3,
-          "points": 0
+          "gd": 2,
+          "points": 3
         },
         {
           "team": "Iraq",
           "flag": "🇮🇶",
-          "played": 2,
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 2,
+          "lost": 3,
           "gf": 1,
-          "ga": 7,
-          "gd": -6,
+          "ga": 12,
+          "gd": -11,
           "points": 0
         }
       ]
@@ -3032,8 +3032,8 @@
       "awayFlag": "🇮🇶",
       "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Senegal",
       "homeGoals": [
         {
           "name": "Habib Diarra",
