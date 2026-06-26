@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T02:10:29.394Z",
+  "lastUpdated": "2026-06-26T02:15:24.761Z",
   "groups": [
     {
       "group": "A",
@@ -3079,9 +3079,17 @@
       "homeFlag": "🇹🇷",
       "away": "United States",
       "awayFlag": "🇺🇸",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Arda Güler",
+          "minute": "10",
+          "tag": "",
+          "team": "Turkey",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Auston Trusty",
