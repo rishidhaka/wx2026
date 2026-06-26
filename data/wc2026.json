@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T00:10:23.275Z",
+  "lastUpdated": "2026-06-26T00:15:23.054Z",
   "groups": [
     {
       "group": "A",
@@ -3013,9 +3013,17 @@
       "homeFlag": "🇹🇳",
       "away": "Netherlands",
       "awayFlag": "🇳🇱",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 2,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Hazm Mstvri",
+          "minute": "54",
+          "tag": "",
+          "team": "Tunisia",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Alis Skhiri",
