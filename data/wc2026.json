@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T20:20:27.754Z",
+  "lastUpdated": "2026-06-26T20:25:24.818Z",
   "groups": [
     {
       "group": "A",
@@ -4141,6 +4141,13 @@
       "assists": 0
     },
     {
+      "name": "Ismaïla Sarr",
+      "team": "Senegal",
+      "flag": "🇸🇳",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "Julián Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -4195,13 +4202,6 @@
       "flag": "🇺🇾",
       "goals": 2,
       "assists": 1
-    },
-    {
-      "name": "Elijah Just",
-      "team": "New Zealand",
-      "flag": "🇳🇿",
-      "goals": 2,
-      "assists": 0
     }
   ]
 }
