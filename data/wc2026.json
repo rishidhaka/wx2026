@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T20:55:26.750Z",
+  "lastUpdated": "2026-06-26T21:00:30.237Z",
   "groups": [
     {
       "group": "A",
@@ -431,25 +431,25 @@
         {
           "team": "France",
           "flag": "🇫🇷",
-          "played": 2,
-          "won": 2,
+          "played": 3,
+          "won": 3,
           "drawn": 0,
           "lost": 0,
-          "gf": 6,
-          "ga": 1,
-          "gd": 5,
-          "points": 6
+          "gf": 10,
+          "ga": 2,
+          "gd": 8,
+          "points": 9
         },
         {
           "team": "Norway",
           "flag": "🇳🇴",
-          "played": 2,
+          "played": 3,
           "won": 2,
           "drawn": 0,
-          "lost": 0,
-          "gf": 7,
-          "ga": 3,
-          "gd": 4,
+          "lost": 1,
+          "gf": 8,
+          "ga": 7,
+          "gd": 1,
           "points": 6
         },
         {
@@ -3213,7 +3213,7 @@
       "away": "France",
       "awayFlag": "🇫🇷",
       "homeScore": 1,
-      "awayScore": 3,
+      "awayScore": 4,
       "homeGoals": [
         {
           "name": "Thelo Aasgaard",
@@ -3244,10 +3244,17 @@
           "tag": "",
           "team": "France",
           "og": false
+        },
+        {
+          "name": "Désiré Doué",
+          "minute": "90+4",
+          "tag": "",
+          "team": "France",
+          "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "France"
     },
     {
       "id": 65,
