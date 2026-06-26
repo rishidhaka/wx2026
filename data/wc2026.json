@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T20:40:21.597Z",
+  "lastUpdated": "2026-06-26T20:45:19.851Z",
   "groups": [
     {
       "group": "A",
@@ -3156,7 +3156,7 @@
       "homeFlag": "🇸🇳",
       "away": "Iraq",
       "awayFlag": "🇮🇶",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -3176,6 +3176,13 @@
         {
           "name": "Paph Gviih",
           "minute": "59",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        },
+        {
+          "name": "Paph Gviih",
+          "minute": "71",
           "tag": "",
           "team": "Senegal",
           "og": false
