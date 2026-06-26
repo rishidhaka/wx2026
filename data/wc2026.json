@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T03:10:19.660Z",
+  "lastUpdated": "2026-06-26T03:15:19.037Z",
   "groups": [
     {
       "group": "A",
@@ -3080,7 +3080,7 @@
       "away": "United States",
       "awayFlag": "🇺🇸",
       "homeScore": 2,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [
         {
           "name": "Arda Güler",
@@ -3101,6 +3101,13 @@
         {
           "name": "Auston Trusty",
           "minute": "3",
+          "tag": "",
+          "team": "United States",
+          "og": false
+        },
+        {
+          "name": "Sebastian Berhalter",
+          "minute": "49",
           "tag": "",
           "team": "United States",
           "og": false
