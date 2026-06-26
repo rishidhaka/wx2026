@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T20:25:24.818Z",
+  "lastUpdated": "2026-06-26T20:30:22.985Z",
   "groups": [
     {
       "group": "A",
@@ -3156,12 +3156,26 @@
       "homeFlag": "🇸🇳",
       "away": "Iraq",
       "awayFlag": "🇮🇶",
-      "homeScore": 1,
+      "homeScore": 3,
       "awayScore": 0,
       "homeGoals": [
         {
           "name": "Habib Diarra",
           "minute": "4",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        },
+        {
+          "name": "Ismaïla Sarr",
+          "minute": "56",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        },
+        {
+          "name": "Paph Gviih",
+          "minute": "59",
           "tag": "",
           "team": "Senegal",
           "og": false
