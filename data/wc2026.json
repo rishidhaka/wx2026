@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T02:30:27.657Z",
+  "lastUpdated": "2026-06-26T02:35:20.036Z",
   "groups": [
     {
       "group": "A",
@@ -3079,12 +3079,19 @@
       "homeFlag": "🇹🇷",
       "away": "United States",
       "awayFlag": "🇺🇸",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "homeGoals": [
         {
           "name": "Arda Güler",
           "minute": "10",
+          "tag": "",
+          "team": "Turkey",
+          "og": false
+        },
+        {
+          "name": "Avrkan Kvkv",
+          "minute": "31",
           "tag": "",
           "team": "Turkey",
           "og": false
