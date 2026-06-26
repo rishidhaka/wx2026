@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T00:15:23.054Z",
+  "lastUpdated": "2026-06-26T00:20:24.643Z",
   "groups": [
     {
       "group": "A",
@@ -2993,9 +2993,17 @@
       "homeFlag": "🇯🇵",
       "away": "Sweden",
       "awayFlag": "🇸🇪",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Daizen Maeda",
+          "minute": "56",
+          "tag": "",
+          "team": "Japan",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null
