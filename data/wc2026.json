@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T03:00:27.821Z",
+  "lastUpdated": "2026-06-27T03:05:27.759Z",
   "groups": [
     {
       "group": "A",
@@ -3317,11 +3317,11 @@
       "homeFlag": "🇪🇬",
       "away": "Iran",
       "awayFlag": "🇮🇷",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null
     },
     {
@@ -3337,11 +3337,11 @@
       "homeFlag": "🇳🇿",
       "away": "Belgium",
       "awayFlag": "🇧🇪",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null
     },
     {
