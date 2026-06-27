@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T03:15:28.289Z",
+  "lastUpdated": "2026-06-27T03:20:20.150Z",
   "groups": [
     {
       "group": "A",
@@ -3318,7 +3318,7 @@
       "away": "Iran",
       "awayFlag": "🇮🇷",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Mahmoud Saber",
@@ -3328,7 +3328,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Ramin Rezaeian",
+          "minute": "14",
+          "tag": "",
+          "team": "Iran",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
