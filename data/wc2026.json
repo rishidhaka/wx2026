@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T03:25:23.860Z",
+  "lastUpdated": "2026-06-27T03:30:29.166Z",
   "groups": [
     {
       "group": "A",
@@ -3354,9 +3354,17 @@
       "away": "Belgium",
       "awayFlag": "🇧🇪",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Leandro Trossard",
+          "minute": "28",
+          "tag": "",
+          "team": "Belgium",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
@@ -3771,8 +3779,8 @@
       "utcDate": "2026-07-03T22:00:00.000Z",
       "home": "Argentina",
       "homeFlag": "🇦🇷",
-      "away": "Runner-up Group H",
-      "awayFlag": "🏳️",
+      "away": "Cape Verde",
+      "awayFlag": "🇨🇻",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
