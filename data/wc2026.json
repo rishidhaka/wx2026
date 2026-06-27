@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T05:05:27.485Z",
+  "lastUpdated": "2026-06-27T20:45:20.062Z",
   "groups": [
     {
       "group": "A",
@@ -3673,8 +3673,8 @@
       "date": "Wed 1 Jul",
       "time": "12:00 PM ET",
       "utcDate": "2026-07-01T16:00:00.000Z",
-      "home": "Winner Group L",
-      "homeFlag": "🏳️",
+      "home": "Belgium",
+      "homeFlag": "🇧🇪",
       "away": "3rd Group E/H/I/J/K",
       "awayFlag": "🏳️",
       "homeScore": null,
@@ -3795,8 +3795,8 @@
       "utcDate": "2026-07-03T17:00:00.000Z",
       "home": "Australia",
       "homeFlag": "🇦🇺",
-      "away": "Runner-up Group G",
-      "awayFlag": "🏳️",
+      "away": "Egypt",
+      "awayFlag": "🇪🇬",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
