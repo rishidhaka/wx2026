@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T22:55:25.171Z",
+  "lastUpdated": "2026-06-27T23:00:30.479Z",
   "groups": [
     {
       "group": "A",
@@ -590,14 +590,14 @@
         {
           "team": "England",
           "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-          "played": 2,
-          "won": 1,
+          "played": 3,
+          "won": 2,
           "drawn": 1,
           "lost": 0,
-          "gf": 4,
+          "gf": 6,
           "ga": 2,
-          "gd": 2,
-          "points": 4
+          "gd": 4,
+          "points": 7
         },
         {
           "team": "Ghana",
@@ -626,13 +626,13 @@
         {
           "team": "Panama",
           "flag": "🇵🇦",
-          "played": 2,
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 2,
+          "lost": 3,
           "gf": 0,
-          "ga": 2,
-          "gd": -2,
+          "ga": 4,
+          "gd": -4,
           "points": 0
         }
       ]
@@ -3436,8 +3436,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "England"
     },
     {
       "id": 68,
