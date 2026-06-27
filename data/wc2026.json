@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T22:45:21.910Z",
+  "lastUpdated": "2026-06-27T22:50:21.077Z",
   "groups": [
     {
       "group": "A",
@@ -3452,12 +3452,19 @@
       "homeFlag": "🇭🇷",
       "away": "Ghana",
       "awayFlag": "🇬🇭",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "homeGoals": [
         {
           "name": "Petar Sučić",
           "minute": "31",
+          "tag": "",
+          "team": "Croatia",
+          "og": false
+        },
+        {
+          "name": "Nikola Vlašić",
+          "minute": "83",
           "tag": "",
           "team": "Croatia",
           "og": false
