@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T22:20:24.760Z",
+  "lastUpdated": "2026-06-27T22:25:22.959Z",
   "groups": [
     {
       "group": "A",
@@ -3418,9 +3418,17 @@
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Jvd Blingham",
+          "minute": "62",
+          "tag": "",
+          "team": "England",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
