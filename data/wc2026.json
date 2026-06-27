@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T00:40:20.580Z",
+  "lastUpdated": "2026-06-27T00:45:20.007Z",
   "groups": [
     {
       "group": "A",
@@ -3290,9 +3290,17 @@
       "away": "Spain",
       "awayFlag": "🇪🇸",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Álex Baena",
+          "minute": "42",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
