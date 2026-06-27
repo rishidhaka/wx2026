@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T23:40:23.349Z",
+  "lastUpdated": "2026-06-27T23:45:24.170Z",
   "groups": [
     {
       "group": "A",
@@ -3496,9 +3496,17 @@
       "away": "Uzbekistan",
       "awayFlag": "🇺🇿",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Aldvr Shvmvrvdvf",
+          "minute": "10",
+          "tag": "",
+          "team": "Uzbekistan",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
