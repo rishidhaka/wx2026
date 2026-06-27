@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T04:45:25.159Z",
+  "lastUpdated": "2026-06-27T04:50:25.939Z",
   "groups": [
     {
       "group": "A",
@@ -3353,9 +3353,17 @@
       "homeFlag": "🇳🇿",
       "away": "Belgium",
       "awayFlag": "🇧🇪",
-      "homeScore": 0,
-      "awayScore": 3,
-      "homeGoals": [],
+      "homeScore": 1,
+      "awayScore": 4,
+      "homeGoals": [
+        {
+          "name": "Ali Jast",
+          "minute": "84",
+          "tag": "",
+          "team": "New Zealand",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Leandro Trossard",
@@ -3374,6 +3382,13 @@
         {
           "name": "Kevin De Bruyne",
           "minute": "66",
+          "tag": "",
+          "team": "Belgium",
+          "og": false
+        },
+        {
+          "name": "Romelu Lukaku",
+          "minute": "86",
           "tag": "",
           "team": "Belgium",
           "og": false
@@ -4194,6 +4209,13 @@
       "assists": 2
     },
     {
+      "name": "Elijah Just",
+      "team": "New Zealand",
+      "flag": "🇳🇿",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "Johan Manzambi",
       "team": "Switzerland",
       "flag": "🇨🇭",
@@ -4276,13 +4298,6 @@
       "flag": "🇸🇪",
       "goals": 2,
       "assists": 0
-    },
-    {
-      "name": "Maximiliano Araújo",
-      "team": "Uruguay",
-      "flag": "🇺🇾",
-      "goals": 2,
-      "assists": 1
     }
   ]
 }
