@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T23:50:21.363Z",
+  "lastUpdated": "2026-06-27T23:55:24.507Z",
   "groups": [
     {
       "group": "A",
@@ -3495,17 +3495,9 @@
       "homeFlag": "🇨🇩",
       "away": "Uzbekistan",
       "awayFlag": "🇺🇿",
-      "homeScore": 1,
+      "homeScore": 0,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "Natanaiil Ambvkv",
-          "minute": "17",
-          "tag": "",
-          "team": "Democratic Republic of the Congo",
-          "og": false
-        }
-      ],
+      "homeGoals": [],
       "awayGoals": [
         {
           "name": "Aldvr Shvmvrvdvf",
