@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T22:25:22.959Z",
+  "lastUpdated": "2026-06-27T22:30:28.437Z",
   "groups": [
     {
       "group": "A",
@@ -3418,12 +3418,19 @@
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [],
       "awayGoals": [
         {
           "name": "Jvd Blingham",
           "minute": "62",
+          "tag": "",
+          "team": "England",
+          "og": false
+        },
+        {
+          "name": "Hri Kin",
+          "minute": "67",
           "tag": "",
           "team": "England",
           "og": false
@@ -4239,6 +4246,13 @@
       "assists": 0
     },
     {
+      "name": "Harry Kane",
+      "team": "England",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "Johan Manzambi",
       "team": "Switzerland",
       "flag": "🇨🇭",
@@ -4312,13 +4326,6 @@
       "name": "Daichi Kamada",
       "team": "Japan",
       "flag": "🇯🇵",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Yasin Ayari",
-      "team": "Sweden",
-      "flag": "🇸🇪",
       "goals": 2,
       "assists": 0
     }
