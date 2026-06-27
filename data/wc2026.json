@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T02:00:28.379Z",
+  "lastUpdated": "2026-06-27T02:05:23.819Z",
   "groups": [
     {
       "group": "A",
@@ -378,50 +378,50 @@
         {
           "team": "Spain",
           "flag": "🇪🇸",
-          "played": 2,
-          "won": 1,
+          "played": 3,
+          "won": 2,
           "drawn": 1,
           "lost": 0,
-          "gf": 4,
+          "gf": 5,
           "ga": 0,
-          "gd": 4,
-          "points": 4
-        },
-        {
-          "team": "Uruguay",
-          "flag": "🇺🇾",
-          "played": 2,
-          "won": 0,
-          "drawn": 2,
-          "lost": 0,
-          "gf": 3,
-          "ga": 3,
-          "gd": 0,
-          "points": 2
+          "gd": 5,
+          "points": 7
         },
         {
           "team": "Cape Verde",
           "flag": "🇨🇻",
-          "played": 2,
+          "played": 3,
           "won": 0,
-          "drawn": 2,
+          "drawn": 3,
           "lost": 0,
           "gf": 2,
           "ga": 2,
           "gd": 0,
+          "points": 3
+        },
+        {
+          "team": "Uruguay",
+          "flag": "🇺🇾",
+          "played": 3,
+          "won": 0,
+          "drawn": 2,
+          "lost": 1,
+          "gf": 3,
+          "ga": 4,
+          "gd": -1,
           "points": 2
         },
         {
           "team": "Saudi Arabia",
           "flag": "🇸🇦",
-          "played": 2,
+          "played": 3,
           "won": 0,
-          "drawn": 1,
+          "drawn": 2,
           "lost": 1,
           "gf": 1,
           "ga": 5,
           "gd": -4,
-          "points": 1
+          "points": 2
         }
       ]
     },
@@ -3273,7 +3273,7 @@
       "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "live",
+      "status": "fin",
       "winner": null
     },
     {
@@ -3301,8 +3301,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Spain"
     },
     {
       "id": 63,
