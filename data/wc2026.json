@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T22:35:25.678Z",
+  "lastUpdated": "2026-06-27T22:40:28.434Z",
   "groups": [
     {
       "group": "A",
@@ -3463,7 +3463,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Drik Lvkasn",
+          "minute": "73",
+          "tag": "",
+          "team": "Ghana",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
