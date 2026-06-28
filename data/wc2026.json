@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T20:50:23.362Z",
+  "lastUpdated": "2026-06-28T20:55:21.816Z",
   "groups": [
     {
       "group": "A",
@@ -3673,9 +3673,17 @@
       "away": "Canada",
       "awayFlag": "🇨🇦",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Astfan Avstakviv",
+          "minute": "90+2",
+          "tag": "",
+          "team": "Canada",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
