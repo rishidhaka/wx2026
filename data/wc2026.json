@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T02:30:26.397Z",
+  "lastUpdated": "2026-06-28T02:35:21.168Z",
   "groups": [
     {
       "group": "A",
@@ -3559,7 +3559,7 @@
       "away": "Argentina",
       "awayFlag": "🇦🇷",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -3587,9 +3587,17 @@
       "away": "Austria",
       "awayFlag": "🇦🇹",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Marko Arnautović",
+          "minute": "28",
+          "tag": "",
+          "team": "Austria",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
