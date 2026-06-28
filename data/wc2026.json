@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T02:45:19.205Z",
+  "lastUpdated": "2026-06-28T02:50:26.753Z",
   "groups": [
     {
       "group": "A",
@@ -3586,9 +3586,17 @@
       "homeFlag": "🇩🇿",
       "away": "Austria",
       "awayFlag": "🇦🇹",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Rafik Blghali",
+          "minute": "45",
+          "tag": "",
+          "team": "Algeria",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Marko Arnautović",
