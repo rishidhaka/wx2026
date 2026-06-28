@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T02:20:21.225Z",
+  "lastUpdated": "2026-06-28T02:25:26.844Z",
   "groups": [
     {
       "group": "A",
@@ -3559,9 +3559,17 @@
       "away": "Argentina",
       "awayFlag": "🇦🇷",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Jivani Lv Slsv",
+          "minute": "19",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
