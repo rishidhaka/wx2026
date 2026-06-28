@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T01:20:25.346Z",
+  "lastUpdated": "2026-06-28T01:25:25.015Z",
   "groups": [
     {
       "group": "A",
@@ -4277,6 +4277,13 @@
       "assists": 0
     },
     {
+      "name": "Yoane Wissa",
+      "team": "Congo DR",
+      "flag": "🇨🇩",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "Harry Kane",
       "team": "England",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
@@ -4352,13 +4359,6 @@
       "flag": "🇳🇱",
       "goals": 2,
       "assists": 1
-    },
-    {
-      "name": "Daichi Kamada",
-      "team": "Japan",
-      "flag": "🇯🇵",
-      "goals": 2,
-      "assists": 0
     }
   ]
 }
