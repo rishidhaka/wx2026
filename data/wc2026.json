@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T01:10:23.513Z",
+  "lastUpdated": "2026-06-28T01:15:22.721Z",
   "groups": [
     {
       "group": "A",
@@ -3495,9 +3495,17 @@
       "homeFlag": "🇨🇩",
       "away": "Uzbekistan",
       "awayFlag": "🇺🇿",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Fistvn Mail",
+          "minute": "78",
+          "tag": "",
+          "team": "Democratic Republic of the Congo",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Aldvr Shvmvrvdvf",
