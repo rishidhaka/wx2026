@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T01:25:25.015Z",
+  "lastUpdated": "2026-06-28T01:30:22.004Z",
   "groups": [
     {
       "group": "A",
@@ -3495,12 +3495,19 @@
       "homeFlag": "🇨🇩",
       "away": "Uzbekistan",
       "awayFlag": "🇺🇿",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 1,
       "homeGoals": [
         {
           "name": "Fistvn Mail",
           "minute": "78",
+          "tag": "",
+          "team": "Democratic Republic of the Congo",
+          "og": false
+        },
+        {
+          "name": "Yoane Wissa",
+          "minute": "90+1",
           "tag": "",
           "team": "Democratic Republic of the Congo",
           "og": false
