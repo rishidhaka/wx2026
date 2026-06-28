@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T03:15:23.899Z",
+  "lastUpdated": "2026-06-28T03:20:25.870Z",
   "groups": [
     {
       "group": "A",
@@ -3558,9 +3558,17 @@
       "homeFlag": "🇯🇴",
       "away": "Argentina",
       "awayFlag": "🇦🇷",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 2,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Mvsi Altmari",
+          "minute": "55",
+          "tag": "",
+          "team": "Jordan",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Jivani Lv Slsv",
@@ -3587,7 +3595,7 @@
       "away": "Austria",
       "awayFlag": "🇦🇹",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [
         {
           "name": "Rafik Blghali",
@@ -3601,6 +3609,13 @@
         {
           "name": "Marko Arnautović",
           "minute": "28",
+          "tag": "",
+          "team": "Austria",
+          "og": false
+        },
+        {
+          "name": "Marcel Sabitzer",
+          "minute": "55",
           "tag": "",
           "team": "Austria",
           "og": false
