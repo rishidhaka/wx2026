@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T03:40:24.180Z",
+  "lastUpdated": "2026-06-28T03:45:20.338Z",
   "groups": [
     {
       "group": "A",
@@ -3559,7 +3559,7 @@
       "away": "Argentina",
       "awayFlag": "🇦🇷",
       "homeScore": 1,
-      "awayScore": 2,
+      "awayScore": 3,
       "homeGoals": [
         {
           "name": "Mvsi Altmari",
@@ -3573,6 +3573,13 @@
         {
           "name": "Jivani Lv Slsv",
           "minute": "19",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        },
+        {
+          "name": "Lionel Messi",
+          "minute": "80",
           "tag": "",
           "team": "Argentina",
           "og": false
@@ -4277,7 +4284,7 @@
       "name": "Lionel Messi",
       "team": "Argentina",
       "flag": "🇦🇷",
-      "goals": 5,
+      "goals": 6,
       "assists": 0
     },
     {
