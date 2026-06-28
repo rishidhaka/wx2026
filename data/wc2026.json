@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T03:20:25.870Z",
+  "lastUpdated": "2026-06-28T03:25:25.253Z",
   "groups": [
     {
       "group": "A",
@@ -3594,12 +3594,19 @@
       "homeFlag": "🇩🇿",
       "away": "Austria",
       "awayFlag": "🇦🇹",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 2,
       "homeGoals": [
         {
           "name": "Rafik Blghali",
           "minute": "45",
+          "tag": "",
+          "team": "Algeria",
+          "og": false
+        },
+        {
+          "name": "Riyad Mahrez",
+          "minute": "60",
           "tag": "",
           "team": "Algeria",
           "og": false
