@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T19:05:25.730Z",
+  "lastUpdated": "2026-06-29T19:10:26.347Z",
   "groups": [
     {
       "group": "A",
@@ -3727,8 +3727,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null
+      "status": "fin",
+      "winner": "Brazil"
     },
     {
       "id": 74,
@@ -4059,8 +4059,8 @@
       "date": "Sun 5 Jul",
       "time": "4:00 PM ET",
       "utcDate": "2026-07-05T20:00:00.000Z",
-      "home": "Winner Match 76",
-      "homeFlag": "🏳️",
+      "home": "Brazil",
+      "homeFlag": "🇧🇷",
       "away": "Winner Match 78",
       "awayFlag": "🏳️",
       "homeScore": null,
