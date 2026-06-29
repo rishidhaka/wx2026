@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T23:30:26.854Z",
+  "lastUpdated": "2026-06-29T23:35:21.214Z",
   "groups": [
     {
       "group": "A",
@@ -3763,7 +3763,7 @@
           "og": false
         }
       ],
-      "status": "live",
+      "status": "fin",
       "winner": null
     },
     {
@@ -4055,8 +4055,8 @@
       "date": "Sat 4 Jul",
       "time": "5:00 PM ET",
       "utcDate": "2026-07-04T21:00:00.000Z",
-      "home": "Winner Match 74",
-      "homeFlag": "🏳️",
+      "home": "Paraguay",
+      "homeFlag": "🇵🇾",
       "away": "Winner Match 77",
       "awayFlag": "🏳️",
       "homeScore": null,
