@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T21:10:25.596Z",
+  "lastUpdated": "2026-06-29T21:15:34.624Z",
   "groups": [
     {
       "group": "A",
@@ -3744,9 +3744,17 @@
       "away": "Paraguay",
       "awayFlag": "🇵🇾",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Khvliv Ansisv",
+          "minute": "42",
+          "tag": "",
+          "team": "Paraguay",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
