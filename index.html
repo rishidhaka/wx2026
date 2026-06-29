@@ -972,12 +972,10 @@ function renderHomeHeader(){
   const greeting=hr<12?"Good morning":hr<17?"Good afternoon":"Good evening";
 
   // Compute rank — only count users who have actually submitted (phase1SubmittedAt set)
-  const mySv=storedScores[currentUser?.uid];
-  const mySvObj=mySv&&typeof mySv==='object'?mySv:null;
-  const myScore=mySvObj?.total??calcScore(myPicks).total;
+  const myScore=calcScore(myPicks).total;
   const hasSubmitted=!!myPicks.phase1SubmittedAt||!!(currentUser&&allPlayers[currentUser.uid]);
   const ranked=Object.entries(allPlayers||{})
-    .map(([uid,p])=>{const rv=storedScores[uid];const rvObj=rv&&typeof rv==='object'?rv:null;return{uid,score:rvObj?.total??calcScore(p).total,submitted:!!(p.phase1SubmittedAt)};})
+    .map(([uid,p])=>({uid,score:calcScore(p).total,submitted:!!(p.phase1SubmittedAt)}))
 
     .filter(p=>p.submitted)
     .sort((a,b)=>b.score-a.score);
@@ -1426,16 +1424,8 @@ function renderLeaderboard(elId,players,mode){
       const hasP2=p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0;
       const hasPicks=hasP1||hasP2;
       const podium=getPredictedPodiumText(p);
-      // Use server-computed scores when available — single authoritative write from
-      // fetch-data.js after a full consistent read, so these never jitter mid-render.
-      // Handles both old format (bare number = total) and new format ({p1,p2,total}).
-      const sv=storedScores[uid];
-      const svObj=sv&&typeof sv==='object'?sv:null;
-      const p1Total=svObj?.p1??s.p1Total;
-      const p2Total=svObj?.p2??s.p2Total;
-      const total=svObj?.total??s.total;
-      const displayScore=mode==="p2"?p2Total:mode==="total"?total:p1Total;
-      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:displayScore,p1Total,p2Total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:p2Total,hasPicks,hasP1,hasP2,podium};
+      const displayScore=mode==="p2"?s.p2Total:mode==="total"?s.total:s.p1Total;
+      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:displayScore,p1Total:s.p1Total,p2Total:s.p2Total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:s.p2Total,hasPicks,hasP1,hasP2,podium};
     })
     .filter(p=>p.hasPicks)
     .sort((a,b)=>b.score-a.score);
@@ -2645,11 +2635,7 @@ function renderHomeTab(){
     .map(([uid,p])=>{
       const s=calcScore(p);
       const hasPicks=!!(p.phase1?.groups&&Object.keys(p.phase1.groups).length>0)||(p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0);
-      const sv=storedScores[uid];
-      const svObj=sv&&typeof sv==='object'?sv:null;
-      const p1Total=svObj?.p1??s.p1Total;
-      const p2Total=svObj?.p2??s.p2Total;
-      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",p1Total,p2Total,hasPicks};
+      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",p1Total:s.p1Total,p2Total:s.p2Total,hasPicks};
     })
     .filter(p=>p.hasPicks);
   const scored=allScored
@@ -2663,19 +2649,14 @@ function renderHomeTab(){
   const medals=["🥇","🥈","🥉"];
   const medalColors=["var(--gold)","var(--silver)","var(--bronze)"];
 
-  // My picks card — prefer storedScores (server-computed, available from localStorage cache)
-  // so the score is visible immediately without waiting for myPicks .get() to resolve.
-  const _mySv=storedScores[currentUser?.uid];
-  const _mySvObj=_mySv&&typeof _mySv==='object'?_mySv:null;
+  // My picks card
   const myScoreObj=calcScore(myPicks);
-  const myScore=_mySvObj?.total??myScoreObj.total;
-  const myP1=_mySvObj?.p1??myScoreObj.p1Total;
-  const myP2=_mySvObj?.p2??myScoreObj.p2Total;
+  const myScore=myScoreObj.total;
+  const myP1=myScoreObj.p1Total;
+  const myP2=myScoreObj.p2Total;
   const hasPicks=!!myPicks.phase1SubmittedAt||!!(currentUser&&allPlayers[currentUser.uid]);
   const ranked=Object.entries(allPlayers||{})
-    .map(([uid,p])=>{
-      const rv=storedScores[uid];const rvObj=rv&&typeof rv==='object'?rv:null;const cs=calcScore(p);
-      return{uid,p1Total:rvObj?.p1??cs.p1Total,p2Total:rvObj?.p2??cs.p2Total,hasPicks:!!(p.phase1?.groups&&Object.keys(p.phase1.groups).length>0)||!!(p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0)};})
+    .map(([uid,p])=>{const s=calcScore(p);return{uid,p1Total:s.p1Total,p2Total:s.p2Total,hasPicks:!!(p.phase1?.groups&&Object.keys(p.phase1.groups).length>0)||!!(p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0)};})
     .filter(p=>p.hasPicks);
   const myP1Rank=ranked.slice().sort((a,b)=>b.p1Total-a.p1Total).findIndex(p=>p.uid===currentUser?.uid)+1||0;
   const myP2Rank=ranked.slice().sort((a,b)=>b.p2Total-a.p2Total).findIndex(p=>p.uid===currentUser?.uid)+1||0;
