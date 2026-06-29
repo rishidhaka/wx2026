@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T17:26:14.987Z",
+  "lastUpdated": "2026-06-29T17:30:32.674Z",
   "groups": [
     {
       "group": "A",
@@ -3703,7 +3703,15 @@
       "homeScore": 0,
       "awayScore": 0,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Kaishū Sano",
+          "minute": "29",
+          "tag": "",
+          "team": "Japan",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null
     },
