@@ -827,7 +827,7 @@ const THIRD_PLACE_SLOT_COLUMNS = [
 // ══ STATE ══════════════════════════════════════════════════════════════════
 let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={}, lastKnownGoodData=null, activeFixtureDate=null;
 let fixtureMap={}; // id → fixture object, populated by applyTournamentData for modal lookup
-let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""},phase1SubmittedAt:null};
+let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""},phase1SubmittedAt:null,phase2SubmittedAt:null};
 let activeLeague=null, leagueView="my", liveTab="groups";
 let adminUnlocked=false, resState={};
 let wizardStep="groups"; // groups | thirdplace | bracket | phase2
@@ -1047,7 +1047,8 @@ function startListeners(){
       myPicks.phase2=d.phase2||{bracket:{},goldenBoot:""};
       myPicks.phase1.bracket=normalizeBracketData(myPicks.phase1.bracket,false);
       myPicks.phase2.bracket=normalizeBracketData(myPicks.phase2.bracket,true);
-      myPicks.phase1SubmittedAt=d.phase1SubmittedAt||null; // Track when Phase 1 was first submitted
+      myPicks.phase1SubmittedAt=d.phase1SubmittedAt||null;
+      myPicks.phase2SubmittedAt=d.phase2SubmittedAt||null;
       if(!myPicks.phase1.groups||!Object.keys(myPicks.phase1.groups).length)myPicks.phase1.groups=defaultGroups();
       if(!myPicks.phase1.thirdPlaceQualifiers)myPicks.phase1.thirdPlaceQualifiers=[];
       if(!myPicks.phase1.thirdPlaceRanking)myPicks.phase1.thirdPlaceRanking=[];
@@ -1057,6 +1058,11 @@ function startListeners(){
       if(myPicks.phase1SubmittedAt&&!isPhase1PredictionComplete(myPicks.phase1)){
         myPicks.phase1SubmittedAt=null;
         db.collection("wc2026picks").doc(currentUser.uid).set({phase1SubmittedAt:null},{merge:true});
+      }
+      // Self-heal: Phase 2 picks saved before phase2SubmittedAt was tracked — backfill the timestamp.
+      if(!myPicks.phase2SubmittedAt&&isPhase2PredictionComplete(myPicks.phase2)){
+        myPicks.phase2SubmittedAt=d.updatedAt||d.draftUpdatedAt||new Date().toISOString();
+        db.collection("wc2026picks").doc(currentUser.uid).set({phase2SubmittedAt:myPicks.phase2SubmittedAt},{merge:true});
       }
     } else {
       // First-time user - show How to Play modal
@@ -1069,6 +1075,7 @@ function startListeners(){
     }
     updatePicksTabLabel();
     if(document.getElementById("view-picks").classList.contains("active"))renderPicksView();
+    if(document.getElementById("view-phase2")?.classList.contains("active"))renderPhase2View();
   });
 }
 
@@ -1117,8 +1124,8 @@ function applyTournamentData(raw) {
 
   if (groups.length > 0) {
     lastKnownGoodData = JSON.parse(JSON.stringify(tournamentData));
-    // Pass normalized data to results updater (both field names set above)
-    updateResultsFromLiveData({ groups, topScorers: scorers }).catch(console.error);
+    // Pass normalized data (including fixtures for KO bracket winner derivation)
+    updateResultsFromLiveData({ groups, topScorers: scorers, fixtures: tournamentData.fixtures }).catch(console.error);
   }
 
   if (document.getElementById("view-live")?.classList.contains("active")) renderLiveTab();
@@ -1147,9 +1154,7 @@ async function loadTournamentData() {
 // ══ AUTO-UPDATE RESULTS FROM LIVE DATA ════════════════════════════════════
 async function updateResultsFromLiveData(data) {
   try {
-    // Derive group standings: all 4 teams from each group
-    // Standings arrive pre-sorted from both the Cloud Function and fetch-data.js,
-    // so we just preserve the order (don't re-sort with wrong field name).
+    // Derive group standings
     const derivedGroups = {};
     const derivedStartedGroups = [];
     data.groups.forEach(g => {
@@ -1158,46 +1163,65 @@ async function updateResultsFromLiveData(data) {
       derivedGroups[groupLetter] = standings.slice(0, 4).map(t => t.team);
       if (standings.some(t => (t.played || 0) > 0)) derivedStartedGroups.push(groupLetter);
     });
-    
-    // Get current results
+
+    // Derive KO bracket winners from fixtures using PHASE2_R32_TEAMS pair order so
+    // results.bracket.r32[i] = winner of match i (positional, needed for Phase 2 scoring).
+    // Empty string = match not yet played; Phase 1 set-based scoring ignores empties via filter(Boolean).
+    const fixtures = data.fixtures || [];
+    const r32Pairs = [];
+    for(let i=0;i<PHASE2_R32_TEAMS.length;i+=2) r32Pairs.push([PHASE2_R32_TEAMS[i],PHASE2_R32_TEAMS[i+1]]);
+    const r32Arr = new Array(16).fill('');
+    fixtures.filter(f=>f.stage==='LAST_32'&&f.winner).forEach(f=>{
+      const idx=r32Pairs.findIndex(([h,a])=>
+        (teamsMatch(f.home,h)&&teamsMatch(f.away,a))||(teamsMatch(f.home,a)&&teamsMatch(f.away,h)));
+      if(idx>=0) r32Arr[idx]=f.winner;
+    });
+    const derivedBracket = { r32: r32Arr };
+    [['LAST_16','r16',8],['QUARTER_FINALS','qf',4],['SEMI_FINALS','sf',2],['FINAL','final',1]].forEach(([stage,key,n])=>{
+      const done=fixtures.filter(f=>f.stage===stage&&f.winner).sort((a,b)=>(a.utcDate||'').localeCompare(b.utcDate||''));
+      const arr=new Array(n).fill('');
+      done.forEach((f,i)=>{ if(i<n) arr[i]=f.winner; });
+      derivedBracket[key]=arr;
+      if(key==='final'&&done[0]?.winner) derivedBracket.winner=[done[0].winner];
+    });
+
+    // Get current Firestore results to merge into (read is allowed for all users)
     const snapshot = await db.collection("wc2026").doc("results").get();
     const currentResults = snapshot.exists ? snapshot.data() : {};
-    
-    // Derive top scorer if we have data
+
     let derivedTopScorer = currentResults.goldenBoot || "";
-    if (data.topScorers && data.topScorers.length > 0) {
-      derivedTopScorer = data.topScorers[0].name;
-    }
-    
-    // Merge with existing results (preserve manual overrides and knockout data)
+    if (data.topScorers && data.topScorers.length > 0) derivedTopScorer = data.topScorers[0].name;
+
+    // Only override bracket keys that have actual data (non-empty arrays)
+    const bracketUpdate = {};
+    Object.entries(derivedBracket).forEach(([k,v])=>{ if(Array.isArray(v)&&v.some(Boolean)) bracketUpdate[k]=v; });
+
     const updatedResults = {
       ...currentResults,
-      groups: {
-        ...currentResults.groups,
-        ...derivedGroups
-      },
+      groups: { ...currentResults.groups, ...derivedGroups },
       startedGroups: derivedStartedGroups,
       goldenBoot: derivedTopScorer,
-      lastAutoUpdate: new Date().toISOString()
+      bracket: { ...(currentResults.bracket||{}), ...bracketUpdate },
+      lastAutoUpdate: new Date().toISOString(),
     };
-    
-    // Update Firestore
-    await db.collection("wc2026").doc("results").set(updatedResults, { merge: true });
-    
-    // Update local results object to trigger score recalculation
+
+    // Update local results FIRST so scoring is immediate for the current user
     results = updatedResults;
-    
-    // Re-render leaderboards if viewing them
-    if (document.getElementById("view-live")?.classList.contains("active")) {
-      renderLiveTab();
+
+    // Re-render active views
+    if(document.getElementById("view-live")?.classList.contains("active")) renderLiveTab();
+    if(document.getElementById("view-global")?.classList.contains("active")) renderGlobal();
+    if(document.getElementById("view-home")?.classList.contains("active")) renderHomeTab();
+
+    // Try to persist to Firestore — succeeds for admin (fetch-data.js also writes via admin SDK)
+    try {
+      await db.collection("wc2026").doc("results").set(updatedResults, { merge: true });
+      console.log('✅ Results synced to Firestore from live data');
+    } catch(e2) {
+      // Expected for non-admin users; local scoring is already updated above
     }
-    if (document.getElementById("view-global")?.classList.contains("active")) {
-      renderGlobal();
-    }
-    
-    console.log('✅ Results auto-updated from live data');
   } catch (err) {
-    console.error('Failed to auto-update results:', err);
+    console.error('Failed to process live data:', err);
   }
 }
 
@@ -1479,6 +1503,7 @@ function renderPicksView(){
   if(wizardStep==="phase2") content=renderPhase2Step();
 
   el.innerHTML=content;
+  el.inert=phase1Locked;
   if(wizardStep==="groups"&&!phase1Locked) initDragDrop();
   if(wizardStep==="thirdplace"&&!phase1Locked) initThirdPlaceDrag();
 }
@@ -1961,7 +1986,7 @@ function renderBracketStep(isPhase2){
   const picks=isPhase2?myPicks.phase2:myPicks.phase1;
   const bracket=picks.bracket||{};
   const rounds=buildRoundsData(isPhase2);
-  const locked=!isPhase2&&!!myPicks.phase1SubmittedAt;
+  const locked=isPhase2?!!myPicks.phase2SubmittedAt:!!myPicks.phase1SubmittedAt;
   const detail=locked?calcScore(myPicks).detail:null;
 
   const stateKey=isPhase2?"phase2":"phase1";
@@ -1974,6 +1999,7 @@ function renderBracketStep(isPhase2){
     :locked?`<span class="phase-label p1">Phase 1</span> Your submitted knockout picks.`
     :`<span class="phase-label p1">Phase 1</span> Based on your group predictions — pick match winners all the way to the Final.`}
   </div>
+  <div${locked?' style="pointer-events:none;user-select:none"':''}>
   <div class="bracket-round-nav">
     <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},-1)" ${bracketRoundStep[stateKey]===0?"disabled":""}>← Prev</button>
     <div class="bracket-round-indicator">${activeRound.label} (${bracketRoundStep[stateKey]+1}/${rounds.length})</div>
@@ -1986,13 +2012,14 @@ function renderBracketStep(isPhase2){
     <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},1)" ${bracketRoundStep[stateKey]===maxIndex?"disabled":""}>Next →</button>
   </div>
   </div>
+  </div>
   <div style="margin-top:12px">
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
     ${locked
-      ?`<div class="drag-item${detail.gb.p1==="hit"?" pick-correct":""}" style="margin-top:6px;border-radius:8px;cursor:default"><span class="drag-name">${esc(picks.goldenBoot||"—")}</span></div>`
+      ?`<div class="drag-item${(isPhase2?detail.gb.p2:detail.gb.p1)==="hit"?" pick-correct":""}" style="margin-top:6px;border-radius:8px;cursor:default"><span class="drag-name">${esc(picks.goldenBoot||"—")}</span></div>`
       :`<input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border='';${isPhase2?"myPicks.phase2.goldenBoot=this.value.trim();":"myPicks.phase1.goldenBoot=this.value.trim();"}scheduleDraftAutoSave('golden-boot');updateSubmitBtn(${isPhase2})" autocomplete="off">`}
   </div>
-  ${locked?"":(()=>{
+  ${locked?`<div class="deadline-banner closed" style="margin-top:8px">${isPhase2?"⚡ Phase 2 picks locked — scores update as matches complete.":"🔒 Phase 1 picks submitted — view only."}</div>`:(()=>{
     const complete=isPhase2?isPhase2PredictionComplete(myPicks.phase2):isPhase1PredictionComplete(myPicks.phase1);
     return`<button id="save-picks-btn-${isPhase2?"p2":"p1"}" type="button" class="btn btn-primary" style="margin-top:8px;opacity:${complete?1:0.45};cursor:${complete?"pointer":"not-allowed"}" onclick="savePicks(${isPhase2},event)">Submit Picks ✓</button>
     ${!complete?`<div style="font-size:11px;color:var(--muted);margin-top:5px;text-align:center">Select all winners and a top scorer to submit</div>`:""}`;
@@ -2040,18 +2067,6 @@ function changeBracketRound(isPhase2,delta){
   const rounds=buildRoundsData(isPhase2);
   const stateKey=isPhase2?"phase2":"phase1";
   const currentIdx=bracketRoundStep[stateKey]||0;
-
-  if(delta>0){
-    const round=rounds[currentIdx];
-    const bracket=isPhase2?myPicks.phase2.bracket:myPicks.phase1.bracket;
-    const required=Math.floor(round.teams.length/2);
-    const filled=(bracket[round.key]||[]).filter(isFilledTeamSlot).length;
-    if(filled<required){
-      showToast(`Please pick all ${required} winner${required!==1?"s":""} in ${round.label} before proceeding`);
-      return;
-    }
-  }
-
   bracketRoundStep[stateKey]=Math.max(0,Math.min(rounds.length-1,currentIdx+delta));
   if(isPhase2)renderPhase2View();
   else renderPicksView();
@@ -2060,6 +2075,8 @@ function changeBracketRound(isPhase2,delta){
 function renderBracketGrid(rounds, bracket, isPhase2, locked, detail){
   const grid=document.getElementById("bracket-grid");
   if(!grid)return;
+  // Always recompute lock from state — callers (e.g. pickBracket) may omit the param
+  locked=isPhase2?!!myPicks.phase2SubmittedAt:!!myPicks.phase1SubmittedAt;
 
   // Phase 1: build sets of teams actually in each round for accurate highlighting.
   // "in this round" = team correctly predicted to reach here.
@@ -2163,7 +2180,10 @@ function pickBracket(round, idx, team, isPhase2){
     showToast("🔒 Phase 1 picks are locked");
     return;
   }
-  // Prevent editing if deadline passed (allow editing until deadline even if submitted)
+  if(isPhase2&&myPicks.phase2SubmittedAt){
+    showToast("🔒 Phase 2 picks are locked");
+    return;
+  }
   if(isPhase2&&!isPhase2Open()){
     showToast("🔒 Phase 2 deadline passed");
     return;
@@ -2290,6 +2310,7 @@ function renderPhase2View(){
   }
   timerEl.innerHTML=deadlineWarning;
   el.innerHTML=renderPhase2Step();
+  el.inert=!!myPicks.phase2SubmittedAt;
 }
 
 // ── VALIDATE PLAYER NAME ──────────────────────────────────────────────────
@@ -2348,6 +2369,11 @@ async function savePicks(isPhase2,ev){
   // Prevent editing Phase 1 picks if already submitted (only allow first-time submission)
   if(!isPhase2&&myPicks.phase1SubmittedAt){
     showToast("⚠️ Phase 1 picks already submitted and locked!");
+    return;
+  }
+  // Prevent editing Phase 2 picks once submitted
+  if(isPhase2&&myPicks.phase2SubmittedAt){
+    showToast("⚠️ Phase 2 picks already submitted and locked!");
     return;
   }
   const gbInput=document.getElementById(isPhase2?"gb-input-p2":"gb-input-p1");
@@ -2421,6 +2447,12 @@ async function savePicks(isPhase2,ev){
     }else if(myPicks.phase1SubmittedAt){
       saveData.phase1SubmittedAt=myPicks.phase1SubmittedAt;
     }
+    if(isPhase2&&!myPicks.phase2SubmittedAt){
+      saveData.phase2SubmittedAt=new Date().toISOString();
+      myPicks.phase2SubmittedAt=saveData.phase2SubmittedAt;
+    }else if(myPicks.phase2SubmittedAt){
+      saveData.phase2SubmittedAt=myPicks.phase2SubmittedAt;
+    }
     
     // JSON round-trip strips all undefined values before sending to Firestore
     const sanitized=JSON.parse(JSON.stringify(saveData));
@@ -2443,14 +2475,12 @@ async function savePicks(isPhase2,ev){
     }
     showToast("Picks saved! ✓");
     updatePicksTabLabel();
-    setTimeout(()=>{
-      // Switch to leaderboard view
-      document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-      document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
-      document.querySelector('[data-tab="global"]').classList.add("active");
-      document.getElementById("view-global").classList.add("active");
-      renderGlobal();
-    },100);
+    if(isPhase2){
+      renderPhase2View();
+    }else{
+      // Phase 1 — show locked bracket (myPicks.phase1SubmittedAt now set)
+      setWizardStep('bracket');
+    }
   }catch(e){
     console.error("Save picks failed",e?.code,e?.message,e);
     showToast("Save failed: "+(e?.code||e?.message||"check connection"));
@@ -2546,6 +2576,7 @@ async function saveDraftPicks(reason){
       phase1:cleanData(myPicks.phase1)||{},
       phase2:cleanData(myPicks.phase2)||{},
       phase1SubmittedAt:myPicks.phase1SubmittedAt||null,
+      phase2SubmittedAt:myPicks.phase2SubmittedAt||null,
       name:currentUser.displayName||"Anonymous",
       photoURL:currentUser.photoURL||"",
       email:currentUser.email||"",

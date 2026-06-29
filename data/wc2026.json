@@ -1,55 +1,55 @@
 {
-  "lastUpdated": "2026-06-24T23:40:22.107Z",
+  "lastUpdated": "2026-06-28T17:28:31.980Z",
   "groups": [
     {
       "group": "A",
       "standings": [
         {
           "team": "Mexico",
-          "flag": "🇲🇽",
-          "played": 2,
-          "won": 2,
+          "flag": "\ud83c\uddf2\ud83c\uddfd",
+          "played": 3,
+          "won": 3,
           "drawn": 0,
           "lost": 0,
-          "gf": 3,
+          "gf": 6,
           "ga": 0,
-          "gd": 3,
-          "points": 6
+          "gd": 6,
+          "points": 9
         },
         {
-          "team": "South Korea",
-          "flag": "🇰🇷",
-          "played": 2,
+          "team": "South Africa",
+          "flag": "\ud83c\uddff\ud83c\udde6",
+          "played": 3,
           "won": 1,
-          "drawn": 0,
-          "lost": 1,
-          "gf": 2,
-          "ga": 2,
-          "gd": 0,
-          "points": 3
-        },
-        {
-          "team": "Czech Republic",
-          "flag": "🇨🇿",
-          "played": 2,
-          "won": 0,
           "drawn": 1,
           "lost": 1,
           "gf": 2,
           "ga": 3,
           "gd": -1,
-          "points": 1
+          "points": 4
         },
         {
-          "team": "South Africa",
-          "flag": "🇿🇦",
-          "played": 2,
+          "team": "South Korea",
+          "flag": "\ud83c\uddf0\ud83c\uddf7",
+          "played": 3,
+          "won": 1,
+          "drawn": 0,
+          "lost": 2,
+          "gf": 2,
+          "ga": 3,
+          "gd": -1,
+          "points": 3
+        },
+        {
+          "team": "Czechia",
+          "flag": "\ud83c\udde8\ud83c\uddff",
+          "played": 3,
           "won": 0,
           "drawn": 1,
-          "lost": 1,
-          "gf": 1,
-          "ga": 3,
-          "gd": -2,
+          "lost": 2,
+          "gf": 2,
+          "ga": 6,
+          "gd": -4,
           "points": 1
         }
       ]
@@ -59,7 +59,7 @@
       "standings": [
         {
           "team": "Switzerland",
-          "flag": "🇨🇭",
+          "flag": "\ud83c\udde8\ud83c\udded",
           "played": 3,
           "won": 2,
           "drawn": 1,
@@ -71,7 +71,7 @@
         },
         {
           "team": "Canada",
-          "flag": "🇨🇦",
+          "flag": "\ud83c\udde8\ud83c\udde6",
           "played": 3,
           "won": 1,
           "drawn": 1,
@@ -82,8 +82,8 @@
           "points": 4
         },
         {
-          "team": "Bosnia and Herzegovina",
-          "flag": "🇧🇦",
+          "team": "Bosnia-Herzegovina",
+          "flag": "\ud83c\udde7\ud83c\udde6",
           "played": 3,
           "won": 1,
           "drawn": 1,
@@ -95,7 +95,7 @@
         },
         {
           "team": "Qatar",
-          "flag": "🇶🇦",
+          "flag": "\ud83c\uddf6\ud83c\udde6",
           "played": 3,
           "won": 0,
           "drawn": 1,
@@ -112,50 +112,50 @@
       "standings": [
         {
           "team": "Brazil",
-          "flag": "🇧🇷",
-          "played": 2,
-          "won": 1,
+          "flag": "\ud83c\udde7\ud83c\uddf7",
+          "played": 3,
+          "won": 2,
           "drawn": 1,
           "lost": 0,
-          "gf": 4,
+          "gf": 7,
           "ga": 1,
-          "gd": 3,
-          "points": 4
+          "gd": 6,
+          "points": 7
         },
         {
           "team": "Morocco",
-          "flag": "🇲🇦",
-          "played": 2,
-          "won": 1,
+          "flag": "\ud83c\uddf2\ud83c\udde6",
+          "played": 3,
+          "won": 2,
           "drawn": 1,
           "lost": 0,
-          "gf": 2,
-          "ga": 1,
-          "gd": 1,
-          "points": 4
+          "gf": 6,
+          "ga": 3,
+          "gd": 3,
+          "points": 7
         },
         {
           "team": "Scotland",
-          "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-          "played": 2,
+          "flag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc73\udb40\udc63\udb40\udc74\udb40\udc7f",
+          "played": 3,
           "won": 1,
           "drawn": 0,
-          "lost": 1,
+          "lost": 2,
           "gf": 1,
-          "ga": 1,
-          "gd": 0,
+          "ga": 4,
+          "gd": -3,
           "points": 3
         },
         {
           "team": "Haiti",
-          "flag": "🇭🇹",
-          "played": 2,
+          "flag": "\ud83c\udded\ud83c\uddf9",
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 2,
-          "gf": 0,
-          "ga": 4,
-          "gd": -4,
+          "lost": 3,
+          "gf": 2,
+          "ga": 8,
+          "gd": -6,
           "points": 0
         }
       ]
@@ -165,51 +165,51 @@
       "standings": [
         {
           "team": "United States",
-          "flag": "🇺🇸",
-          "played": 2,
+          "flag": "\ud83c\uddfa\ud83c\uddf8",
+          "played": 3,
           "won": 2,
           "drawn": 0,
-          "lost": 0,
-          "gf": 6,
-          "ga": 1,
-          "gd": 5,
+          "lost": 1,
+          "gf": 8,
+          "ga": 4,
+          "gd": 4,
           "points": 6
         },
         {
           "team": "Australia",
-          "flag": "🇦🇺",
-          "played": 2,
+          "flag": "\ud83c\udde6\ud83c\uddfa",
+          "played": 3,
           "won": 1,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 1,
           "gf": 2,
           "ga": 2,
           "gd": 0,
-          "points": 3
+          "points": 4
         },
         {
           "team": "Paraguay",
-          "flag": "🇵🇾",
-          "played": 2,
+          "flag": "\ud83c\uddf5\ud83c\uddfe",
+          "played": 3,
           "won": 1,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 1,
           "gf": 2,
           "ga": 4,
           "gd": -2,
-          "points": 3
+          "points": 4
         },
         {
           "team": "Turkey",
-          "flag": "🇹🇷",
-          "played": 2,
-          "won": 0,
+          "flag": "\ud83c\uddf9\ud83c\uddf7",
+          "played": 3,
+          "won": 1,
           "drawn": 0,
           "lost": 2,
-          "gf": 0,
-          "ga": 3,
-          "gd": -3,
-          "points": 0
+          "gf": 3,
+          "ga": 5,
+          "gd": -2,
+          "points": 3
         }
       ]
     },
@@ -218,50 +218,50 @@
       "standings": [
         {
           "team": "Germany",
-          "flag": "🇩🇪",
-          "played": 2,
+          "flag": "\ud83c\udde9\ud83c\uddea",
+          "played": 3,
           "won": 2,
           "drawn": 0,
-          "lost": 0,
-          "gf": 9,
-          "ga": 2,
-          "gd": 7,
+          "lost": 1,
+          "gf": 10,
+          "ga": 4,
+          "gd": 6,
           "points": 6
         },
         {
           "team": "Ivory Coast",
-          "flag": "🇨🇮",
-          "played": 2,
-          "won": 1,
+          "flag": "\ud83c\udde8\ud83c\uddee",
+          "played": 3,
+          "won": 2,
           "drawn": 0,
+          "lost": 1,
+          "gf": 4,
+          "ga": 2,
+          "gd": 2,
+          "points": 6
+        },
+        {
+          "team": "Ecuador",
+          "flag": "\ud83c\uddea\ud83c\udde8",
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
           "lost": 1,
           "gf": 2,
           "ga": 2,
           "gd": 0,
-          "points": 3
+          "points": 4
         },
         {
-          "team": "Ecuador",
-          "flag": "🇪🇨",
-          "played": 2,
+          "team": "Cura\u00e7ao",
+          "flag": "\ud83c\udde8\ud83c\uddfc",
+          "played": 3,
           "won": 0,
           "drawn": 1,
-          "lost": 1,
-          "gf": 0,
-          "ga": 1,
-          "gd": -1,
-          "points": 1
-        },
-        {
-          "team": "Curaçao",
-          "flag": "🇨🇼",
-          "played": 2,
-          "won": 0,
-          "drawn": 1,
-          "lost": 1,
+          "lost": 2,
           "gf": 1,
-          "ga": 7,
-          "gd": -6,
+          "ga": 9,
+          "gd": -8,
           "points": 1
         }
       ]
@@ -271,50 +271,50 @@
       "standings": [
         {
           "team": "Netherlands",
-          "flag": "🇳🇱",
-          "played": 2,
-          "won": 1,
+          "flag": "\ud83c\uddf3\ud83c\uddf1",
+          "played": 3,
+          "won": 2,
           "drawn": 1,
+          "lost": 0,
+          "gf": 10,
+          "ga": 4,
+          "gd": 6,
+          "points": 7
+        },
+        {
+          "team": "Japan",
+          "flag": "\ud83c\uddef\ud83c\uddf5",
+          "played": 3,
+          "won": 1,
+          "drawn": 2,
           "lost": 0,
           "gf": 7,
           "ga": 3,
           "gd": 4,
-          "points": 4
-        },
-        {
-          "team": "Japan",
-          "flag": "🇯🇵",
-          "played": 2,
-          "won": 1,
-          "drawn": 1,
-          "lost": 0,
-          "gf": 6,
-          "ga": 2,
-          "gd": 4,
-          "points": 4
+          "points": 5
         },
         {
           "team": "Sweden",
-          "flag": "🇸🇪",
-          "played": 2,
+          "flag": "\ud83c\uddf8\ud83c\uddea",
+          "played": 3,
           "won": 1,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 1,
-          "gf": 6,
-          "ga": 6,
+          "gf": 7,
+          "ga": 7,
           "gd": 0,
-          "points": 3
+          "points": 4
         },
         {
           "team": "Tunisia",
-          "flag": "🇹🇳",
-          "played": 2,
+          "flag": "\ud83c\uddf9\ud83c\uddf3",
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 2,
-          "gf": 1,
-          "ga": 9,
-          "gd": -8,
+          "lost": 3,
+          "gf": 2,
+          "ga": 12,
+          "gd": -10,
           "points": 0
         }
       ]
@@ -323,51 +323,51 @@
       "group": "G",
       "standings": [
         {
-          "team": "Egypt",
-          "flag": "🇪🇬",
-          "played": 2,
+          "team": "Belgium",
+          "flag": "\ud83c\udde7\ud83c\uddea",
+          "played": 3,
           "won": 1,
-          "drawn": 1,
+          "drawn": 2,
           "lost": 0,
-          "gf": 4,
+          "gf": 6,
           "ga": 2,
+          "gd": 4,
+          "points": 5
+        },
+        {
+          "team": "Egypt",
+          "flag": "\ud83c\uddea\ud83c\uddec",
+          "played": 3,
+          "won": 1,
+          "drawn": 2,
+          "lost": 0,
+          "gf": 5,
+          "ga": 3,
           "gd": 2,
-          "points": 4
+          "points": 5
         },
         {
           "team": "Iran",
-          "flag": "🇮🇷",
-          "played": 2,
+          "flag": "\ud83c\uddee\ud83c\uddf7",
+          "played": 3,
           "won": 0,
-          "drawn": 2,
+          "drawn": 3,
           "lost": 0,
-          "gf": 2,
-          "ga": 2,
+          "gf": 3,
+          "ga": 3,
           "gd": 0,
-          "points": 2
-        },
-        {
-          "team": "Belgium",
-          "flag": "🇧🇪",
-          "played": 2,
-          "won": 0,
-          "drawn": 2,
-          "lost": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
-          "points": 2
+          "points": 3
         },
         {
           "team": "New Zealand",
-          "flag": "🇳🇿",
-          "played": 2,
+          "flag": "\ud83c\uddf3\ud83c\uddff",
+          "played": 3,
           "won": 0,
           "drawn": 1,
-          "lost": 1,
-          "gf": 3,
-          "ga": 5,
-          "gd": -2,
+          "lost": 2,
+          "gf": 4,
+          "ga": 10,
+          "gd": -6,
           "points": 1
         }
       ]
@@ -377,51 +377,51 @@
       "standings": [
         {
           "team": "Spain",
-          "flag": "🇪🇸",
-          "played": 2,
-          "won": 1,
+          "flag": "\ud83c\uddea\ud83c\uddf8",
+          "played": 3,
+          "won": 2,
           "drawn": 1,
           "lost": 0,
-          "gf": 4,
+          "gf": 5,
           "ga": 0,
-          "gd": 4,
-          "points": 4
+          "gd": 5,
+          "points": 7
         },
         {
-          "team": "Uruguay",
-          "flag": "🇺🇾",
-          "played": 2,
+          "team": "Cape Verde Islands",
+          "flag": "\ud83c\udde8\ud83c\uddfb",
+          "played": 3,
           "won": 0,
-          "drawn": 2,
-          "lost": 0,
-          "gf": 3,
-          "ga": 3,
-          "gd": 0,
-          "points": 2
-        },
-        {
-          "team": "Cape Verde",
-          "flag": "🇨🇻",
-          "played": 2,
-          "won": 0,
-          "drawn": 2,
+          "drawn": 3,
           "lost": 0,
           "gf": 2,
           "ga": 2,
           "gd": 0,
+          "points": 3
+        },
+        {
+          "team": "Uruguay",
+          "flag": "\ud83c\uddfa\ud83c\uddfe",
+          "played": 3,
+          "won": 0,
+          "drawn": 2,
+          "lost": 1,
+          "gf": 3,
+          "ga": 4,
+          "gd": -1,
           "points": 2
         },
         {
           "team": "Saudi Arabia",
-          "flag": "🇸🇦",
-          "played": 2,
+          "flag": "\ud83c\uddf8\ud83c\udde6",
+          "played": 3,
           "won": 0,
-          "drawn": 1,
+          "drawn": 2,
           "lost": 1,
           "gf": 1,
           "ga": 5,
           "gd": -4,
-          "points": 1
+          "points": 2
         }
       ]
     },
@@ -430,50 +430,50 @@
       "standings": [
         {
           "team": "France",
-          "flag": "🇫🇷",
-          "played": 2,
-          "won": 2,
+          "flag": "\ud83c\uddeb\ud83c\uddf7",
+          "played": 3,
+          "won": 3,
           "drawn": 0,
           "lost": 0,
-          "gf": 6,
-          "ga": 1,
-          "gd": 5,
-          "points": 6
+          "gf": 10,
+          "ga": 2,
+          "gd": 8,
+          "points": 9
         },
         {
           "team": "Norway",
-          "flag": "🇳🇴",
-          "played": 2,
+          "flag": "\ud83c\uddf3\ud83c\uddf4",
+          "played": 3,
           "won": 2,
           "drawn": 0,
-          "lost": 0,
-          "gf": 7,
-          "ga": 3,
-          "gd": 4,
+          "lost": 1,
+          "gf": 8,
+          "ga": 7,
+          "gd": 1,
           "points": 6
         },
         {
           "team": "Senegal",
-          "flag": "🇸🇳",
-          "played": 2,
-          "won": 0,
+          "flag": "\ud83c\uddf8\ud83c\uddf3",
+          "played": 3,
+          "won": 1,
           "drawn": 0,
           "lost": 2,
-          "gf": 3,
+          "gf": 8,
           "ga": 6,
-          "gd": -3,
-          "points": 0
+          "gd": 2,
+          "points": 3
         },
         {
           "team": "Iraq",
-          "flag": "🇮🇶",
-          "played": 2,
+          "flag": "\ud83c\uddee\ud83c\uddf6",
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 2,
+          "lost": 3,
           "gf": 1,
-          "ga": 7,
-          "gd": -6,
+          "ga": 12,
+          "gd": -11,
           "points": 0
         }
       ]
@@ -483,50 +483,50 @@
       "standings": [
         {
           "team": "Argentina",
-          "flag": "🇦🇷",
-          "played": 2,
-          "won": 2,
+          "flag": "\ud83c\udde6\ud83c\uddf7",
+          "played": 3,
+          "won": 3,
           "drawn": 0,
           "lost": 0,
-          "gf": 5,
-          "ga": 0,
-          "gd": 5,
-          "points": 6
+          "gf": 8,
+          "ga": 1,
+          "gd": 7,
+          "points": 9
         },
         {
           "team": "Austria",
-          "flag": "🇦🇹",
-          "played": 2,
+          "flag": "\ud83c\udde6\ud83c\uddf9",
+          "played": 3,
           "won": 1,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 1,
-          "gf": 3,
-          "ga": 3,
+          "gf": 6,
+          "ga": 6,
           "gd": 0,
-          "points": 3
+          "points": 4
         },
         {
           "team": "Algeria",
-          "flag": "🇩🇿",
-          "played": 2,
+          "flag": "\ud83c\udde9\ud83c\uddff",
+          "played": 3,
           "won": 1,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 1,
-          "gf": 2,
-          "ga": 4,
+          "gf": 5,
+          "ga": 7,
           "gd": -2,
-          "points": 3
+          "points": 4
         },
         {
           "team": "Jordan",
-          "flag": "🇯🇴",
-          "played": 2,
+          "flag": "\ud83c\uddef\ud83c\uddf4",
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 2,
-          "gf": 2,
-          "ga": 5,
-          "gd": -3,
+          "lost": 3,
+          "gf": 3,
+          "ga": 8,
+          "gd": -5,
           "points": 0
         }
       ]
@@ -536,50 +536,50 @@
       "standings": [
         {
           "team": "Colombia",
-          "flag": "🇨🇴",
-          "played": 2,
+          "flag": "\ud83c\udde8\ud83c\uddf4",
+          "played": 3,
           "won": 2,
-          "drawn": 0,
+          "drawn": 1,
           "lost": 0,
           "gf": 4,
           "ga": 1,
           "gd": 3,
-          "points": 6
+          "points": 7
         },
         {
           "team": "Portugal",
-          "flag": "🇵🇹",
-          "played": 2,
+          "flag": "\ud83c\uddf5\ud83c\uddf9",
+          "played": 3,
           "won": 1,
-          "drawn": 1,
+          "drawn": 2,
           "lost": 0,
           "gf": 6,
           "ga": 1,
           "gd": 5,
+          "points": 5
+        },
+        {
+          "team": "Congo DR",
+          "flag": "\ud83c\udde8\ud83c\udde9",
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "gf": 4,
+          "ga": 3,
+          "gd": 1,
           "points": 4
         },
         {
-          "team": "Democratic Republic of the Congo",
-          "flag": "🇨🇩",
-          "played": 2,
-          "won": 0,
-          "drawn": 1,
-          "lost": 1,
-          "gf": 1,
-          "ga": 2,
-          "gd": -1,
-          "points": 1
-        },
-        {
           "team": "Uzbekistan",
-          "flag": "🇺🇿",
-          "played": 2,
+          "flag": "\ud83c\uddfa\ud83c\uddff",
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 2,
-          "gf": 1,
-          "ga": 8,
-          "gd": -7,
+          "lost": 3,
+          "gf": 2,
+          "ga": 11,
+          "gd": -9,
           "points": 0
         }
       ]
@@ -589,50 +589,50 @@
       "standings": [
         {
           "team": "England",
-          "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-          "played": 2,
-          "won": 1,
+          "flag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f",
+          "played": 3,
+          "won": 2,
           "drawn": 1,
           "lost": 0,
-          "gf": 4,
+          "gf": 6,
           "ga": 2,
-          "gd": 2,
-          "points": 4
-        },
-        {
-          "team": "Ghana",
-          "flag": "🇬🇭",
-          "played": 2,
-          "won": 1,
-          "drawn": 1,
-          "lost": 0,
-          "gf": 1,
-          "ga": 0,
-          "gd": 1,
-          "points": 4
+          "gd": 4,
+          "points": 7
         },
         {
           "team": "Croatia",
-          "flag": "🇭🇷",
-          "played": 2,
-          "won": 1,
+          "flag": "\ud83c\udded\ud83c\uddf7",
+          "played": 3,
+          "won": 2,
           "drawn": 0,
           "lost": 1,
-          "gf": 3,
-          "ga": 4,
-          "gd": -1,
-          "points": 3
+          "gf": 5,
+          "ga": 5,
+          "gd": 0,
+          "points": 6
+        },
+        {
+          "team": "Ghana",
+          "flag": "\ud83c\uddec\ud83c\udded",
+          "played": 3,
+          "won": 1,
+          "drawn": 1,
+          "lost": 1,
+          "gf": 2,
+          "ga": 2,
+          "gd": 0,
+          "points": 4
         },
         {
           "team": "Panama",
-          "flag": "🇵🇦",
-          "played": 2,
+          "flag": "\ud83c\uddf5\ud83c\udde6",
+          "played": 3,
           "won": 0,
           "drawn": 0,
-          "lost": 2,
+          "lost": 3,
           "gf": 0,
-          "ga": 2,
-          "gd": -2,
+          "ga": 4,
+          "gd": -4,
           "points": 0
         }
       ]
@@ -640,7 +640,7 @@
   ],
   "fixtures": [
     {
-      "id": 1,
+      "id": 537327,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -649,33 +649,33 @@
       "time": "3:00 PM ET",
       "utcDate": "2026-06-11T19:00:00Z",
       "home": "Mexico",
-      "homeFlag": "🇲🇽",
+      "homeFlag": "\ud83c\uddf2\ud83c\uddfd",
       "away": "South Africa",
-      "awayFlag": "🇿🇦",
+      "awayFlag": "\ud83c\uddff\ud83c\udde6",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Mexico",
       "homeGoals": [
         {
-          "name": "J. Quiñones",
+          "name": "J. Qui\u00f1ones",
           "minute": "9",
           "tag": "",
           "team": "Mexico",
           "og": false
         },
         {
-          "name": "R. Jiménez",
+          "name": "R. Jim\u00e9nez",
           "minute": "67",
           "tag": "",
           "team": "Mexico",
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Mexico"
+      "awayGoals": []
     },
     {
-      "id": 2,
+      "id": 537328,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -684,41 +684,18 @@
       "time": "10:00 PM ET",
       "utcDate": "2026-06-12T02:00:00Z",
       "home": "South Korea",
-      "homeFlag": "🇰🇷",
-      "away": "Czech Republic",
-      "awayFlag": "🇨🇿",
+      "homeFlag": "\ud83c\uddf0\ud83c\uddf7",
+      "away": "Czechia",
+      "awayFlag": "\ud83c\udde8\ud83c\uddff",
       "homeScore": 2,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "I.B. Hwang",
-          "minute": "67",
-          "tag": "",
-          "team": "South Korea",
-          "og": false
-        },
-        {
-          "name": "H.G. Oh",
-          "minute": "80",
-          "tag": "",
-          "team": "South Korea",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "L. Krejčí",
-          "minute": "59",
-          "tag": "",
-          "team": "Czech Republic",
-          "og": false
-        }
-      ],
       "status": "fin",
-      "winner": "South Korea"
+      "winner": "South Korea",
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 3,
+      "id": 537333,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -727,34 +704,18 @@
       "time": "3:00 PM ET",
       "utcDate": "2026-06-12T19:00:00Z",
       "home": "Canada",
-      "homeFlag": "🇨🇦",
-      "away": "Bosnia and Herzegovina",
-      "awayFlag": "🇧🇦",
+      "homeFlag": "\ud83c\udde8\ud83c\udde6",
+      "away": "Bosnia-Herzegovina",
+      "awayFlag": "\ud83c\udde7\ud83c\udde6",
       "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "C. Larin",
-          "minute": "11",
-          "tag": "",
-          "team": "Canada",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Jovo Lukić",
-          "minute": "21",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        }
-      ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 4,
+      "id": 537345,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -763,11 +724,13 @@
       "time": "9:00 PM ET",
       "utcDate": "2026-06-13T01:00:00Z",
       "home": "United States",
-      "homeFlag": "🇺🇸",
+      "homeFlag": "\ud83c\uddfa\ud83c\uddf8",
       "away": "Paraguay",
-      "awayFlag": "🇵🇾",
+      "awayFlag": "\ud83c\uddf5\ud83c\uddfe",
       "homeScore": 4,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "United States",
       "homeGoals": [
         {
           "name": "D. Bobadilla",
@@ -800,18 +763,16 @@
       ],
       "awayGoals": [
         {
-          "name": "Maurício",
+          "name": "Maur\u00edcio",
           "minute": "73",
           "tag": "",
           "team": "Paraguay",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "United States"
+      ]
     },
     {
-      "id": 8,
+      "id": 537334,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -820,11 +781,13 @@
       "time": "3:00 PM ET",
       "utcDate": "2026-06-13T19:00:00Z",
       "home": "Qatar",
-      "homeFlag": "🇶🇦",
+      "homeFlag": "\ud83c\uddf6\ud83c\udde6",
       "away": "Switzerland",
-      "awayFlag": "🇨🇭",
+      "awayFlag": "\ud83c\udde8\ud83c\udded",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "B. Khoukhi",
@@ -842,12 +805,10 @@
           "team": "Switzerland",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 7,
+      "id": 537339,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -856,14 +817,16 @@
       "time": "6:00 PM ET",
       "utcDate": "2026-06-13T22:00:00Z",
       "home": "Brazil",
-      "homeFlag": "🇧🇷",
+      "homeFlag": "\ud83c\udde7\ud83c\uddf7",
       "away": "Morocco",
-      "awayFlag": "🇲🇦",
+      "awayFlag": "\ud83c\uddf2\ud83c\udde6",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
-          "name": "V. Júnior",
+          "name": "V. J\u00fanior",
           "minute": "32",
           "tag": "",
           "team": "Brazil",
@@ -878,12 +841,10 @@
           "team": "Morocco",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 5,
+      "id": 537340,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -892,11 +853,13 @@
       "time": "9:00 PM ET",
       "utcDate": "2026-06-14T01:00:00Z",
       "home": "Haiti",
-      "homeFlag": "🇭🇹",
+      "homeFlag": "\ud83c\udded\ud83c\uddf9",
       "away": "Scotland",
-      "awayFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "awayFlag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc73\udb40\udc63\udb40\udc74\udb40\udc7f",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Scotland",
       "homeGoals": [],
       "awayGoals": [
         {
@@ -906,12 +869,10 @@
           "team": "Scotland",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Scotland"
+      ]
     },
     {
-      "id": 6,
+      "id": 537346,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -920,11 +881,13 @@
       "time": "12:00 AM ET",
       "utcDate": "2026-06-14T04:00:00Z",
       "home": "Australia",
-      "homeFlag": "🇦🇺",
+      "homeFlag": "\ud83c\udde6\ud83c\uddfa",
       "away": "Turkey",
-      "awayFlag": "🇹🇷",
+      "awayFlag": "\ud83c\uddf9\ud83c\uddf7",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Australia",
       "homeGoals": [
         {
           "name": "Nestory Irankunda",
@@ -941,12 +904,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Australia"
+      "awayGoals": []
     },
     {
-      "id": 10,
+      "id": 537351,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -955,11 +916,13 @@
       "time": "1:00 PM ET",
       "utcDate": "2026-06-14T17:00:00Z",
       "home": "Germany",
-      "homeFlag": "🇩🇪",
-      "away": "Curaçao",
-      "awayFlag": "🇨🇼",
+      "homeFlag": "\ud83c\udde9\ud83c\uddea",
+      "away": "Cura\u00e7ao",
+      "awayFlag": "\ud83c\udde8\ud83c\uddfc",
       "homeScore": 7,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Germany",
       "homeGoals": [
         {
           "name": "Felix Nmecha",
@@ -1016,15 +979,13 @@
           "name": "L. Comenencia",
           "minute": "21",
           "tag": "",
-          "team": "Curaçao",
+          "team": "Cura\u00e7ao",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Germany"
+      ]
     },
     {
-      "id": 11,
+      "id": 537357,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -1033,11 +994,13 @@
       "time": "4:00 PM ET",
       "utcDate": "2026-06-14T20:00:00Z",
       "home": "Netherlands",
-      "homeFlag": "🇳🇱",
+      "homeFlag": "\ud83c\uddf3\ud83c\uddf1",
       "away": "Japan",
-      "awayFlag": "🇯🇵",
+      "awayFlag": "\ud83c\uddef\ud83c\uddf5",
       "homeScore": 2,
       "awayScore": 2,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "Virgil van Dijk",
@@ -1069,12 +1032,10 @@
           "team": "Japan",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 9,
+      "id": 537352,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -1083,11 +1044,13 @@
       "time": "7:00 PM ET",
       "utcDate": "2026-06-14T23:00:00Z",
       "home": "Ivory Coast",
-      "homeFlag": "🇨🇮",
+      "homeFlag": "\ud83c\udde8\ud83c\uddee",
       "away": "Ecuador",
-      "awayFlag": "🇪🇨",
+      "awayFlag": "\ud83c\uddea\ud83c\udde8",
       "homeScore": 1,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Ivory Coast",
       "homeGoals": [
         {
           "name": "A. Diallo",
@@ -1097,12 +1060,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Ivory Coast"
+      "awayGoals": []
     },
     {
-      "id": 12,
+      "id": 537358,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -1111,11 +1072,13 @@
       "time": "10:00 PM ET",
       "utcDate": "2026-06-15T02:00:00Z",
       "home": "Sweden",
-      "homeFlag": "🇸🇪",
+      "homeFlag": "\ud83c\uddf8\ud83c\uddea",
       "away": "Tunisia",
-      "awayFlag": "🇹🇳",
+      "awayFlag": "\ud83c\uddf9\ud83c\uddf3",
       "homeScore": 5,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Sweden",
       "homeGoals": [
         {
           "name": "Y.Ayari",
@@ -1132,7 +1095,7 @@
           "og": false
         },
         {
-          "name": "V. Gyökeres",
+          "name": "V. Gy\u00f6keres",
           "minute": "59",
           "tag": "",
           "team": "Sweden",
@@ -1161,12 +1124,10 @@
           "team": "Tunisia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Sweden"
+      ]
     },
     {
-      "id": 14,
+      "id": 537369,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -1175,18 +1136,18 @@
       "time": "12:00 PM ET",
       "utcDate": "2026-06-15T16:00:00Z",
       "home": "Spain",
-      "homeFlag": "🇪🇸",
-      "away": "Cape Verde",
-      "awayFlag": "🇨🇻",
+      "homeFlag": "\ud83c\uddea\ud83c\uddf8",
+      "away": "Cape Verde Islands",
+      "awayFlag": "\ud83c\udde8\ud83c\uddfb",
       "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 15,
+      "id": 537363,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -1195,11 +1156,13 @@
       "time": "3:00 PM ET",
       "utcDate": "2026-06-15T19:00:00Z",
       "home": "Belgium",
-      "homeFlag": "🇧🇪",
+      "homeFlag": "\ud83c\udde7\ud83c\uddea",
       "away": "Egypt",
-      "awayFlag": "🇪🇬",
+      "awayFlag": "\ud83c\uddea\ud83c\uddec",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "Mohamed Hany",
@@ -1217,12 +1180,10 @@
           "team": "Egypt",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 16,
+      "id": 537370,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -1231,11 +1192,13 @@
       "time": "6:00 PM ET",
       "utcDate": "2026-06-15T22:00:00Z",
       "home": "Saudi Arabia",
-      "homeFlag": "🇸🇦",
+      "homeFlag": "\ud83c\uddf8\ud83c\udde6",
       "away": "Uruguay",
-      "awayFlag": "🇺🇾",
+      "awayFlag": "\ud83c\uddfa\ud83c\uddfe",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "Abdulelah Al-Amri",
@@ -1247,18 +1210,16 @@
       ],
       "awayGoals": [
         {
-          "name": "Maximiliano Araújo",
+          "name": "Maximiliano Ara\u00fajo",
           "minute": "80",
           "tag": "",
           "team": "Uruguay",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 13,
+      "id": 537364,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -1267,11 +1228,13 @@
       "time": "9:00 PM ET",
       "utcDate": "2026-06-16T01:00:00Z",
       "home": "Iran",
-      "homeFlag": "🇮🇷",
+      "homeFlag": "\ud83c\uddee\ud83c\uddf7",
       "away": "New Zealand",
-      "awayFlag": "🇳🇿",
+      "awayFlag": "\ud83c\uddf3\ud83c\uddff",
       "homeScore": 2,
       "awayScore": 2,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [
         {
           "name": "Ramin Rezaiian",
@@ -1303,12 +1266,10 @@
           "team": "New Zealand",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null
+      ]
     },
     {
-      "id": 17,
+      "id": 537391,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -1317,14 +1278,16 @@
       "time": "3:00 PM ET",
       "utcDate": "2026-06-16T19:00:00Z",
       "home": "France",
-      "homeFlag": "🇫🇷",
+      "homeFlag": "\ud83c\uddeb\ud83c\uddf7",
       "away": "Senegal",
-      "awayFlag": "🇸🇳",
+      "awayFlag": "\ud83c\uddf8\ud83c\uddf3",
       "homeScore": 3,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "France",
       "homeGoals": [
         {
-          "name": "K. Mbappé",
+          "name": "K. Mbapp\u00e9",
           "minute": "66",
           "tag": "",
           "team": "France",
@@ -1338,7 +1301,7 @@
           "og": false
         },
         {
-          "name": "K. Mbappé",
+          "name": "K. Mbapp\u00e9",
           "minute": "90+6",
           "tag": "",
           "team": "France",
@@ -1353,12 +1316,10 @@
           "team": "Senegal",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "France"
+      ]
     },
     {
-      "id": 18,
+      "id": 537392,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -1367,11 +1328,13 @@
       "time": "6:00 PM ET",
       "utcDate": "2026-06-16T22:00:00Z",
       "home": "Iraq",
-      "homeFlag": "🇮🇶",
+      "homeFlag": "\ud83c\uddee\ud83c\uddf6",
       "away": "Norway",
-      "awayFlag": "🇳🇴",
+      "awayFlag": "\ud83c\uddf3\ud83c\uddf4",
       "homeScore": 1,
       "awayScore": 4,
+      "status": "fin",
+      "winner": "Norway",
       "homeGoals": [
         {
           "name": "Aymen Hussein",
@@ -1397,7 +1360,7 @@
           "og": false
         },
         {
-          "name": "Leo Østigård",
+          "name": "Leo \u00d8stig\u00e5rd",
           "minute": "76",
           "tag": "",
           "team": "Norway",
@@ -1410,12 +1373,10 @@
           "team": "Norway",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Norway"
+      ]
     },
     {
-      "id": 19,
+      "id": 537397,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -1424,11 +1385,13 @@
       "time": "9:00 PM ET",
       "utcDate": "2026-06-17T01:00:00Z",
       "home": "Argentina",
-      "homeFlag": "🇦🇷",
+      "homeFlag": "\ud83c\udde6\ud83c\uddf7",
       "away": "Algeria",
-      "awayFlag": "🇩🇿",
+      "awayFlag": "\ud83c\udde9\ud83c\uddff",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Argentina",
       "homeGoals": [
         {
           "name": "Lionel Messi",
@@ -1452,12 +1415,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Argentina"
+      "awayGoals": []
     },
     {
-      "id": 20,
+      "id": 537398,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -1466,11 +1427,13 @@
       "time": "12:00 AM ET",
       "utcDate": "2026-06-17T04:00:00Z",
       "home": "Austria",
-      "homeFlag": "🇦🇹",
+      "homeFlag": "\ud83c\udde6\ud83c\uddf9",
       "away": "Jordan",
-      "awayFlag": "🇯🇴",
+      "awayFlag": "\ud83c\uddef\ud83c\uddf4",
       "homeScore": 3,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Austria",
       "homeGoals": [
         {
           "name": "Rvmanv Ashmid",
@@ -1495,12 +1458,10 @@
           "team": "Jordan",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Austria"
+      ]
     },
     {
-      "id": 21,
+      "id": 537403,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -1509,34 +1470,18 @@
       "time": "1:00 PM ET",
       "utcDate": "2026-06-17T17:00:00Z",
       "home": "Portugal",
-      "homeFlag": "🇵🇹",
-      "away": "Democratic Republic of the Congo",
-      "awayFlag": "🇨🇩",
+      "homeFlag": "\ud83c\uddf5\ud83c\uddf9",
+      "away": "Congo DR",
+      "awayFlag": "\ud83c\udde8\ud83c\udde9",
       "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "J. Neves",
-          "minute": "6",
-          "tag": "",
-          "team": "Portugal",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Y. Wissa",
-          "minute": "45+5",
-          "tag": "",
-          "team": "Democratic Republic of the Congo",
-          "og": false
-        }
-      ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 22,
+      "id": 537409,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -1545,11 +1490,13 @@
       "time": "4:00 PM ET",
       "utcDate": "2026-06-17T20:00:00Z",
       "home": "England",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeFlag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f",
       "away": "Croatia",
-      "awayFlag": "🇭🇷",
+      "awayFlag": "\ud83c\udded\ud83c\uddf7",
       "homeScore": 4,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "England",
       "homeGoals": [
         {
           "name": "H. Kane",
@@ -1595,12 +1542,10 @@
           "team": "Croatia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "England"
+      ]
     },
     {
-      "id": 24,
+      "id": 537410,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -1609,11 +1554,13 @@
       "time": "7:00 PM ET",
       "utcDate": "2026-06-17T23:00:00Z",
       "home": "Ghana",
-      "homeFlag": "🇬🇭",
+      "homeFlag": "\ud83c\uddec\ud83c\udded",
       "away": "Panama",
-      "awayFlag": "🇵🇦",
+      "awayFlag": "\ud83c\uddf5\ud83c\udde6",
       "homeScore": 1,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Ghana",
       "homeGoals": [
         {
           "name": "Kalb Iirnki",
@@ -1623,12 +1570,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Ghana"
+      "awayGoals": []
     },
     {
-      "id": 23,
+      "id": 537404,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -1637,11 +1582,13 @@
       "time": "10:00 PM ET",
       "utcDate": "2026-06-18T02:00:00Z",
       "home": "Uzbekistan",
-      "homeFlag": "🇺🇿",
+      "homeFlag": "\ud83c\uddfa\ud83c\uddff",
       "away": "Colombia",
-      "awayFlag": "🇨🇴",
+      "awayFlag": "\ud83c\udde8\ud83c\uddf4",
       "homeScore": 1,
       "awayScore": 3,
+      "status": "fin",
+      "winner": "Colombia",
       "homeGoals": [
         {
           "name": "Abas Bk Fiz Allh Af",
@@ -1673,12 +1620,10 @@
           "team": "Colombia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Colombia"
+      ]
     },
     {
-      "id": 28,
+      "id": 537329,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -1686,27 +1631,19 @@
       "date": "Thu 18 Jun",
       "time": "12:00 PM ET",
       "utcDate": "2026-06-18T16:00:00Z",
-      "home": "Czech Republic",
-      "homeFlag": "🇨🇿",
+      "home": "Czechia",
+      "homeFlag": "\ud83c\udde8\ud83c\uddff",
       "away": "South Africa",
-      "awayFlag": "🇿🇦",
+      "awayFlag": "\ud83c\uddff\ud83c\udde6",
       "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "‫mikhal Sadilk",
-          "minute": "6",
-          "tag": "",
-          "team": "Czech Republic",
-          "og": false
-        }
-      ],
-      "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 26,
+      "id": 537335,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -1715,48 +1652,18 @@
       "time": "3:00 PM ET",
       "utcDate": "2026-06-18T19:00:00Z",
       "home": "Switzerland",
-      "homeFlag": "🇨🇭",
-      "away": "Bosnia and Herzegovina",
-      "awayFlag": "🇧🇦",
+      "homeFlag": "\ud83c\udde8\ud83c\udded",
+      "away": "Bosnia-Herzegovina",
+      "awayFlag": "\ud83c\udde7\ud83c\udde6",
       "homeScore": 4,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "Jvhan Mnzambi",
-          "minute": "74",
-          "tag": "",
-          "team": "Switzerland",
-          "og": false
-        },
-        {
-          "name": "Rvbn Vargas",
-          "minute": "84",
-          "tag": "",
-          "team": "Switzerland",
-          "og": false
-        },
-        {
-          "name": "Jvhan Mnzambi",
-          "minute": "90",
-          "tag": "",
-          "team": "Switzerland",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Armin Mhmich",
-          "minute": "90+3",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        }
-      ],
       "status": "fin",
-      "winner": "Switzerland"
+      "winner": "Switzerland",
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 27,
+      "id": 537336,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -1765,11 +1672,13 @@
       "time": "6:00 PM ET",
       "utcDate": "2026-06-18T22:00:00Z",
       "home": "Canada",
-      "homeFlag": "🇨🇦",
+      "homeFlag": "\ud83c\udde8\ud83c\udde6",
       "away": "Qatar",
-      "awayFlag": "🇶🇦",
+      "awayFlag": "\ud83c\uddf6\ud83c\udde6",
       "homeScore": 6,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Canada",
       "homeGoals": [
         {
           "name": "Kail Larin",
@@ -1814,12 +1723,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Canada"
+      "awayGoals": []
     },
     {
-      "id": 25,
+      "id": 537330,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -1828,11 +1735,13 @@
       "time": "9:00 PM ET",
       "utcDate": "2026-06-19T01:00:00Z",
       "home": "Mexico",
-      "homeFlag": "🇲🇽",
+      "homeFlag": "\ud83c\uddf2\ud83c\uddfd",
       "away": "South Korea",
-      "awayFlag": "🇰🇷",
+      "awayFlag": "\ud83c\uddf0\ud83c\uddf7",
       "homeScore": 1,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Mexico",
       "homeGoals": [
         {
           "name": "Luis Romo",
@@ -1842,12 +1751,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Mexico"
+      "awayGoals": []
     },
     {
-      "id": 31,
+      "id": 537348,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -1856,11 +1763,13 @@
       "time": "3:00 PM ET",
       "utcDate": "2026-06-19T19:00:00Z",
       "home": "United States",
-      "homeFlag": "🇺🇸",
+      "homeFlag": "\ud83c\uddfa\ud83c\uddf8",
       "away": "Australia",
-      "awayFlag": "🇦🇺",
+      "awayFlag": "\ud83c\udde6\ud83c\uddfa",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "United States",
       "homeGoals": [
         {
           "name": "Kamrvn Bargs",
@@ -1877,12 +1786,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "United States"
+      "awayGoals": []
     },
     {
-      "id": 30,
+      "id": 537342,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -1891,11 +1798,13 @@
       "time": "6:00 PM ET",
       "utcDate": "2026-06-19T22:00:00Z",
       "home": "Scotland",
-      "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "homeFlag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc73\udb40\udc63\udb40\udc74\udb40\udc7f",
       "away": "Morocco",
-      "awayFlag": "🇲🇦",
+      "awayFlag": "\ud83c\uddf2\ud83c\udde6",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Morocco",
       "homeGoals": [],
       "awayGoals": [
         {
@@ -1905,12 +1814,10 @@
           "team": "Morocco",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Morocco"
+      ]
     },
     {
-      "id": 29,
+      "id": 537341,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -1919,11 +1826,13 @@
       "time": "8:30 PM ET",
       "utcDate": "2026-06-20T00:30:00Z",
       "home": "Brazil",
-      "homeFlag": "🇧🇷",
+      "homeFlag": "\ud83c\udde7\ud83c\uddf7",
       "away": "Haiti",
-      "awayFlag": "🇭🇹",
+      "awayFlag": "\ud83c\udded\ud83c\uddf9",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Brazil",
       "homeGoals": [
         {
           "name": "Matheus Cunha",
@@ -1940,19 +1849,17 @@
           "og": false
         },
         {
-          "name": "Vinícius Júnior",
+          "name": "Vin\u00edcius J\u00fanior",
           "minute": "45+3",
           "tag": "",
           "team": "Brazil",
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Brazil"
+      "awayGoals": []
     },
     {
-      "id": 32,
+      "id": 537347,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -1961,26 +1868,26 @@
       "time": "11:00 PM ET",
       "utcDate": "2026-06-20T03:00:00Z",
       "home": "Turkey",
-      "homeFlag": "🇹🇷",
+      "homeFlag": "\ud83c\uddf9\ud83c\uddf7",
       "away": "Paraguay",
-      "awayFlag": "🇵🇾",
+      "awayFlag": "\ud83c\uddf5\ud83c\uddfe",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Paraguay",
       "homeGoals": [],
       "awayGoals": [
         {
-          "name": "Matías Galarza",
+          "name": "Mat\u00edas Galarza",
           "minute": "2",
           "tag": "",
           "team": "Paraguay",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Paraguay"
+      ]
     },
     {
-      "id": 35,
+      "id": 537359,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -1989,11 +1896,13 @@
       "time": "1:00 PM ET",
       "utcDate": "2026-06-20T17:00:00Z",
       "home": "Netherlands",
-      "homeFlag": "🇳🇱",
+      "homeFlag": "\ud83c\uddf3\ud83c\uddf1",
       "away": "Sweden",
-      "awayFlag": "🇸🇪",
+      "awayFlag": "\ud83c\uddf8\ud83c\uddea",
       "homeScore": 5,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Netherlands",
       "homeGoals": [
         {
           "name": "Brian Brobbey",
@@ -2039,12 +1948,10 @@
           "team": "Sweden",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Netherlands"
+      ]
     },
     {
-      "id": 33,
+      "id": 537353,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -2053,11 +1960,13 @@
       "time": "4:00 PM ET",
       "utcDate": "2026-06-20T20:00:00Z",
       "home": "Germany",
-      "homeFlag": "🇩🇪",
+      "homeFlag": "\ud83c\udde9\ud83c\uddea",
       "away": "Ivory Coast",
-      "awayFlag": "🇨🇮",
+      "awayFlag": "\ud83c\udde8\ud83c\uddee",
       "homeScore": 2,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Germany",
       "homeGoals": [
         {
           "name": "Dniz Avndav",
@@ -2076,18 +1985,16 @@
       ],
       "awayGoals": [
         {
-          "name": "Franck Kessié",
+          "name": "Franck Kessi\u00e9",
           "minute": "30",
           "tag": "",
           "team": "Ivory Coast",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Germany"
+      ]
     },
     {
-      "id": 34,
+      "id": 537354,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -2096,18 +2003,18 @@
       "time": "8:00 PM ET",
       "utcDate": "2026-06-21T00:00:00Z",
       "home": "Ecuador",
-      "homeFlag": "🇪🇨",
-      "away": "Curaçao",
-      "awayFlag": "🇨🇼",
+      "homeFlag": "\ud83c\uddea\ud83c\udde8",
+      "away": "Cura\u00e7ao",
+      "awayFlag": "\ud83c\udde8\ud83c\uddfc",
       "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 36,
+      "id": 537360,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -2116,11 +2023,13 @@
       "time": "12:00 AM ET",
       "utcDate": "2026-06-21T04:00:00Z",
       "home": "Tunisia",
-      "homeFlag": "🇹🇳",
+      "homeFlag": "\ud83c\uddf9\ud83c\uddf3",
       "away": "Japan",
-      "awayFlag": "🇯🇵",
+      "awayFlag": "\ud83c\uddef\ud83c\uddf5",
       "homeScore": 0,
       "awayScore": 4,
+      "status": "fin",
+      "winner": "Japan",
       "homeGoals": [],
       "awayGoals": [
         {
@@ -2138,7 +2047,7 @@
           "og": false
         },
         {
-          "name": "Junya Itō",
+          "name": "Junya It\u014d",
           "minute": "69",
           "tag": "",
           "team": "Japan",
@@ -2151,12 +2060,10 @@
           "team": "Japan",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Japan"
+      ]
     },
     {
-      "id": 39,
+      "id": 537371,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -2165,11 +2072,13 @@
       "time": "12:00 PM ET",
       "utcDate": "2026-06-21T16:00:00Z",
       "home": "Spain",
-      "homeFlag": "🇪🇸",
+      "homeFlag": "\ud83c\uddea\ud83c\uddf8",
       "away": "Saudi Arabia",
-      "awayFlag": "🇸🇦",
+      "awayFlag": "\ud83c\uddf8\ud83c\udde6",
       "homeScore": 4,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Spain",
       "homeGoals": [
         {
           "name": "Lamine Yamal",
@@ -2200,12 +2109,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Spain"
+      "awayGoals": []
     },
     {
-      "id": 37,
+      "id": 537365,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -2214,18 +2121,18 @@
       "time": "3:00 PM ET",
       "utcDate": "2026-06-21T19:00:00Z",
       "home": "Belgium",
-      "homeFlag": "🇧🇪",
+      "homeFlag": "\ud83c\udde7\ud83c\uddea",
       "away": "Iran",
-      "awayFlag": "🇮🇷",
+      "awayFlag": "\ud83c\uddee\ud83c\uddf7",
       "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 40,
+      "id": 537372,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -2234,48 +2141,18 @@
       "time": "6:00 PM ET",
       "utcDate": "2026-06-21T22:00:00Z",
       "home": "Uruguay",
-      "homeFlag": "🇺🇾",
-      "away": "Cape Verde",
-      "awayFlag": "🇨🇻",
+      "homeFlag": "\ud83c\uddfa\ud83c\uddfe",
+      "away": "Cape Verde Islands",
+      "awayFlag": "\ud83c\udde8\ud83c\uddfb",
       "homeScore": 2,
       "awayScore": 2,
-      "homeGoals": [
-        {
-          "name": "Maximiliano Araújo",
-          "minute": "44",
-          "tag": "",
-          "team": "Uruguay",
-          "og": false
-        },
-        {
-          "name": "Agustín Canobbio",
-          "minute": "45+6",
-          "tag": "",
-          "team": "Uruguay",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Kevin Pina",
-          "minute": "21",
-          "tag": "",
-          "team": "Cape Verde",
-          "og": false
-        },
-        {
-          "name": "Hliv Varla",
-          "minute": "61",
-          "tag": "",
-          "team": "Cape Verde",
-          "og": false
-        }
-      ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 38,
+      "id": 537366,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -2284,11 +2161,13 @@
       "time": "9:00 PM ET",
       "utcDate": "2026-06-22T01:00:00Z",
       "home": "New Zealand",
-      "homeFlag": "🇳🇿",
+      "homeFlag": "\ud83c\uddf3\ud83c\uddff",
       "away": "Egypt",
-      "awayFlag": "🇪🇬",
+      "awayFlag": "\ud83c\uddea\ud83c\uddec",
       "homeScore": 1,
       "awayScore": 3,
+      "status": "fin",
+      "winner": "Egypt",
       "homeGoals": [
         {
           "name": "Fin Svrman",
@@ -2320,12 +2199,10 @@
           "team": "Egypt",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Egypt"
+      ]
     },
     {
-      "id": 43,
+      "id": 537399,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -2334,11 +2211,13 @@
       "time": "1:00 PM ET",
       "utcDate": "2026-06-22T17:00:00Z",
       "home": "Argentina",
-      "homeFlag": "🇦🇷",
+      "homeFlag": "\ud83c\udde6\ud83c\uddf7",
       "away": "Austria",
-      "awayFlag": "🇦🇹",
+      "awayFlag": "\ud83c\udde6\ud83c\uddf9",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Argentina",
       "homeGoals": [
         {
           "name": "Lionel Messi",
@@ -2355,12 +2234,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Argentina"
+      "awayGoals": []
     },
     {
-      "id": 41,
+      "id": 537393,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -2369,40 +2246,40 @@
       "time": "5:00 PM ET",
       "utcDate": "2026-06-22T21:00:00Z",
       "home": "France",
-      "homeFlag": "🇫🇷",
+      "homeFlag": "\ud83c\uddeb\ud83c\uddf7",
       "away": "Iraq",
-      "awayFlag": "🇮🇶",
+      "awayFlag": "\ud83c\uddee\ud83c\uddf6",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "France",
       "homeGoals": [
         {
-          "name": "Kylian Mbappé",
+          "name": "Kylian Mbapp\u00e9",
           "minute": "14",
           "tag": "",
           "team": "France",
           "og": false
         },
         {
-          "name": "Kylian Mbappé",
+          "name": "Kylian Mbapp\u00e9",
           "minute": "54",
           "tag": "",
           "team": "France",
           "og": false
         },
         {
-          "name": "Ousmane Dembélé",
+          "name": "Ousmane Demb\u00e9l\u00e9",
           "minute": "66",
           "tag": "",
           "team": "France",
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "France"
+      "awayGoals": []
     },
     {
-      "id": 42,
+      "id": 537394,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -2411,11 +2288,13 @@
       "time": "8:00 PM ET",
       "utcDate": "2026-06-23T00:00:00Z",
       "home": "Norway",
-      "homeFlag": "🇳🇴",
+      "homeFlag": "\ud83c\uddf3\ud83c\uddf4",
       "away": "Senegal",
-      "awayFlag": "🇸🇳",
+      "awayFlag": "\ud83c\uddf8\ud83c\uddf3",
       "homeScore": 3,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "Norway",
       "homeGoals": [
         {
           "name": "Markvs Hlmgrn Pdrsn",
@@ -2441,25 +2320,23 @@
       ],
       "awayGoals": [
         {
-          "name": "Ismaïla Sarr",
+          "name": "Isma\u00efla Sarr",
           "minute": "53",
           "tag": "",
           "team": "Senegal",
           "og": false
         },
         {
-          "name": "Ismaïla Sarr",
+          "name": "Isma\u00efla Sarr",
           "minute": "90+3",
           "tag": "",
           "team": "Senegal",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Norway"
+      ]
     },
     {
-      "id": 44,
+      "id": 537400,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -2468,11 +2345,13 @@
       "time": "11:00 PM ET",
       "utcDate": "2026-06-23T03:00:00Z",
       "home": "Jordan",
-      "homeFlag": "🇯🇴",
+      "homeFlag": "\ud83c\uddef\ud83c\uddf4",
       "away": "Algeria",
-      "awayFlag": "🇩🇿",
+      "awayFlag": "\ud83c\udde9\ud83c\uddff",
       "homeScore": 1,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "Algeria",
       "homeGoals": [
         {
           "name": "Al Rashdan",
@@ -2497,12 +2376,10 @@
           "team": "Algeria",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Algeria"
+      ]
     },
     {
-      "id": 45,
+      "id": 537405,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -2511,11 +2388,13 @@
       "time": "1:00 PM ET",
       "utcDate": "2026-06-23T17:00:00Z",
       "home": "Portugal",
-      "homeFlag": "🇵🇹",
+      "homeFlag": "\ud83c\uddf5\ud83c\uddf9",
       "away": "Uzbekistan",
-      "awayFlag": "🇺🇿",
+      "awayFlag": "\ud83c\uddfa\ud83c\uddff",
       "homeScore": 5,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Portugal",
       "homeGoals": [
         {
           "name": "Cristiano Ronaldo",
@@ -2546,19 +2425,17 @@
           "og": false
         },
         {
-          "name": "Rafael Leão",
+          "name": "Rafael Le\u00e3o",
           "minute": "87",
           "tag": "",
           "team": "Portugal",
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Portugal"
+      "awayGoals": []
     },
     {
-      "id": 48,
+      "id": 537411,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -2567,18 +2444,18 @@
       "time": "4:00 PM ET",
       "utcDate": "2026-06-23T20:00:00Z",
       "home": "England",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeFlag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f",
       "away": "Ghana",
-      "awayFlag": "🇬🇭",
+      "awayFlag": "\ud83c\uddec\ud83c\udded",
       "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 46,
+      "id": 537412,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -2587,11 +2464,13 @@
       "time": "7:00 PM ET",
       "utcDate": "2026-06-23T23:00:00Z",
       "home": "Panama",
-      "homeFlag": "🇵🇦",
+      "homeFlag": "\ud83c\uddf5\ud83c\udde6",
       "away": "Croatia",
-      "awayFlag": "🇭🇷",
+      "awayFlag": "\ud83c\udded\ud83c\uddf7",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Croatia",
       "homeGoals": [],
       "awayGoals": [
         {
@@ -2601,12 +2480,10 @@
           "team": "Croatia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Croatia"
+      ]
     },
     {
-      "id": 47,
+      "id": 537406,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -2615,76 +2492,18 @@
       "time": "10:00 PM ET",
       "utcDate": "2026-06-24T02:00:00Z",
       "home": "Colombia",
-      "homeFlag": "🇨🇴",
-      "away": "Democratic Republic of the Congo",
-      "awayFlag": "🇨🇩",
+      "homeFlag": "\ud83c\udde8\ud83c\uddf4",
+      "away": "Congo DR",
+      "awayFlag": "\ud83c\udde8\ud83c\udde9",
       "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [
-        {
-          "name": "Dnil Mvnvz",
-          "minute": "76",
-          "tag": "",
-          "team": "Colombia",
-          "og": false
-        }
-      ],
-      "awayGoals": [],
       "status": "fin",
-      "winner": "Colombia"
+      "winner": "Colombia",
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 53,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_B",
-      "matchday": 3,
-      "date": "Wed 24 Jun",
-      "time": "3:00 PM ET",
-      "utcDate": "2026-06-24T19:00:00Z",
-      "home": "Bosnia and Herzegovina",
-      "homeFlag": "🇧🇦",
-      "away": "Qatar",
-      "awayFlag": "🇶🇦",
-      "homeScore": 3,
-      "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "Karim Alaibgvvich",
-          "minute": "29",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        },
-        {
-          "name": "Abvnad",
-          "minute": "34",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        },
-        {
-          "name": "Armin Mhmich",
-          "minute": "80",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Hassan Al-Haydos",
-          "minute": "42",
-          "tag": "",
-          "team": "Qatar",
-          "og": false
-        }
-      ],
-      "status": "fin",
-      "winner": "Bosnia and Herzegovina"
-    },
-    {
-      "id": 54,
+      "id": 537337,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -2693,14 +2512,16 @@
       "time": "3:00 PM ET",
       "utcDate": "2026-06-24T19:00:00Z",
       "home": "Switzerland",
-      "homeFlag": "🇨🇭",
+      "homeFlag": "\ud83c\udde8\ud83c\udded",
       "away": "Canada",
-      "awayFlag": "🇨🇦",
+      "awayFlag": "\ud83c\udde8\ud83c\udde6",
       "homeScore": 2,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Switzerland",
       "homeGoals": [
         {
-          "name": "Rubén Vargas",
+          "name": "Rub\u00e9n Vargas",
           "minute": "46",
           "tag": "",
           "team": "Switzerland",
@@ -2722,12 +2543,30 @@
           "team": "Canada",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Switzerland"
+      ]
     },
     {
-      "id": 50,
+      "id": 537338,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_B",
+      "matchday": 3,
+      "date": "Wed 24 Jun",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-06-24T19:00:00Z",
+      "home": "Bosnia-Herzegovina",
+      "homeFlag": "\ud83c\udde7\ud83c\udde6",
+      "away": "Qatar",
+      "awayFlag": "\ud83c\uddf6\ud83c\udde6",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "fin",
+      "winner": "Bosnia-Herzegovina",
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537344,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -2736,11 +2575,13 @@
       "time": "6:00 PM ET",
       "utcDate": "2026-06-24T22:00:00Z",
       "home": "Morocco",
-      "homeFlag": "🇲🇦",
+      "homeFlag": "\ud83c\uddf2\ud83c\udde6",
       "away": "Haiti",
-      "awayFlag": "🇭🇹",
-      "homeScore": 2,
+      "awayFlag": "\ud83c\udded\ud83c\uddf9",
+      "homeScore": 4,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "Morocco",
       "homeGoals": [
         {
           "name": "Achraf Hakimi",
@@ -2772,12 +2613,10 @@
           "team": "Haiti",
           "og": false
         }
-      ],
-      "status": "live",
-      "winner": null
+      ]
     },
     {
-      "id": 49,
+      "id": 537343,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -2786,22 +2625,24 @@
       "time": "6:00 PM ET",
       "utcDate": "2026-06-24T22:00:00Z",
       "home": "Scotland",
-      "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "homeFlag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc73\udb40\udc63\udb40\udc74\udb40\udc7f",
       "away": "Brazil",
-      "awayFlag": "🇧🇷",
+      "awayFlag": "\ud83c\udde7\ud83c\uddf7",
       "homeScore": 0,
       "awayScore": 3,
+      "status": "fin",
+      "winner": "Brazil",
       "homeGoals": [],
       "awayGoals": [
         {
-          "name": "Vinícius Júnior",
+          "name": "Vin\u00edcius J\u00fanior",
           "minute": "7",
           "tag": "",
           "team": "Brazil",
           "og": false
         },
         {
-          "name": "Vinícius Júnior",
+          "name": "Vin\u00edcius J\u00fanior",
           "minute": "45+3",
           "tag": "",
           "team": "Brazil",
@@ -2814,12 +2655,10 @@
           "team": "Brazil",
           "og": false
         }
-      ],
-      "status": "live",
-      "winner": null
+      ]
     },
     {
-      "id": 52,
+      "id": 537331,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -2827,19 +2666,19 @@
       "date": "Wed 24 Jun",
       "time": "9:00 PM ET",
       "utcDate": "2026-06-25T01:00:00Z",
-      "home": "Czech Republic",
-      "homeFlag": "🇨🇿",
+      "home": "Czechia",
+      "homeFlag": "\ud83c\udde8\ud83c\uddff",
       "away": "Mexico",
-      "awayFlag": "🇲🇽",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\uddf2\ud83c\uddfd",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "fin",
+      "winner": "Mexico",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 51,
+      "id": 537332,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -2848,38 +2687,18 @@
       "time": "9:00 PM ET",
       "utcDate": "2026-06-25T01:00:00Z",
       "home": "South Africa",
-      "homeFlag": "🇿🇦",
+      "homeFlag": "\ud83c\uddff\ud83c\udde6",
       "away": "South Korea",
-      "awayFlag": "🇰🇷",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\uddf0\ud83c\uddf7",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "fin",
+      "winner": "South Africa",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 55,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_E",
-      "matchday": 3,
-      "date": "Thu 25 Jun",
-      "time": "4:00 PM ET",
-      "utcDate": "2026-06-25T20:00:00Z",
-      "home": "Curaçao",
-      "homeFlag": "🇨🇼",
-      "away": "Ivory Coast",
-      "awayFlag": "🇨🇮",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
-      "id": 56,
+      "id": 537355,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -2888,38 +2707,38 @@
       "time": "4:00 PM ET",
       "utcDate": "2026-06-25T20:00:00Z",
       "home": "Ecuador",
-      "homeFlag": "🇪🇨",
+      "homeFlag": "\ud83c\uddea\ud83c\udde8",
       "away": "Germany",
-      "awayFlag": "🇩🇪",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\udde9\ud83c\uddea",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "fin",
+      "winner": "Ecuador",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 59,
+      "id": 537356,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_F",
+      "group": "GROUP_E",
       "matchday": 3,
       "date": "Thu 25 Jun",
-      "time": "7:00 PM ET",
-      "utcDate": "2026-06-25T23:00:00Z",
-      "home": "Japan",
-      "homeFlag": "🇯🇵",
-      "away": "Sweden",
-      "awayFlag": "🇸🇪",
-      "homeScore": null,
-      "awayScore": null,
+      "time": "4:00 PM ET",
+      "utcDate": "2026-06-25T20:00:00Z",
+      "home": "Cura\u00e7ao",
+      "homeFlag": "\ud83c\udde8\ud83c\uddfc",
+      "away": "Ivory Coast",
+      "awayFlag": "\ud83c\udde8\ud83c\uddee",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "fin",
+      "winner": "Ivory Coast",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 60,
+      "id": 537361,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -2928,18 +2747,38 @@
       "time": "7:00 PM ET",
       "utcDate": "2026-06-25T23:00:00Z",
       "home": "Tunisia",
-      "homeFlag": "🇹🇳",
+      "homeFlag": "\ud83c\uddf9\ud83c\uddf3",
       "away": "Netherlands",
-      "awayFlag": "🇳🇱",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\uddf3\ud83c\uddf1",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "fin",
+      "winner": "Netherlands",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 58,
+      "id": 537362,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_F",
+      "matchday": 3,
+      "date": "Thu 25 Jun",
+      "time": "7:00 PM ET",
+      "utcDate": "2026-06-25T23:00:00Z",
+      "home": "Japan",
+      "homeFlag": "\ud83c\uddef\ud83c\uddf5",
+      "away": "Sweden",
+      "awayFlag": "\ud83c\uddf8\ud83c\uddea",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "fin",
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537349,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -2948,18 +2787,18 @@
       "time": "10:00 PM ET",
       "utcDate": "2026-06-26T02:00:00Z",
       "home": "Turkey",
-      "homeFlag": "🇹🇷",
+      "homeFlag": "\ud83c\uddf9\ud83c\uddf7",
       "away": "United States",
-      "awayFlag": "🇺🇸",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\uddfa\ud83c\uddf8",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "fin",
+      "winner": "Turkey",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 57,
+      "id": 537350,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -2968,38 +2807,18 @@
       "time": "10:00 PM ET",
       "utcDate": "2026-06-26T02:00:00Z",
       "home": "Paraguay",
-      "homeFlag": "🇵🇾",
+      "homeFlag": "\ud83c\uddf5\ud83c\uddfe",
       "away": "Australia",
-      "awayFlag": "🇦🇺",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\udde6\ud83c\uddfa",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 61,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_I",
-      "matchday": 3,
-      "date": "Fri 26 Jun",
-      "time": "3:00 PM ET",
-      "utcDate": "2026-06-26T19:00:00Z",
-      "home": "Senegal",
-      "homeFlag": "🇸🇳",
-      "away": "Iraq",
-      "awayFlag": "🇮🇶",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
-      "id": 62,
+      "id": 537395,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -3008,38 +2827,38 @@
       "time": "3:00 PM ET",
       "utcDate": "2026-06-26T19:00:00Z",
       "home": "Norway",
-      "homeFlag": "🇳🇴",
+      "homeFlag": "\ud83c\uddf3\ud83c\uddf4",
       "away": "France",
-      "awayFlag": "🇫🇷",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\uddeb\ud83c\uddf7",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "fin",
+      "winner": "France",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 65,
+      "id": 537396,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_H",
+      "group": "GROUP_I",
       "matchday": 3,
       "date": "Fri 26 Jun",
-      "time": "8:00 PM ET",
-      "utcDate": "2026-06-27T00:00:00Z",
-      "home": "Cape Verde",
-      "homeFlag": "🇨🇻",
-      "away": "Saudi Arabia",
-      "awayFlag": "🇸🇦",
-      "homeScore": null,
-      "awayScore": null,
+      "time": "3:00 PM ET",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "home": "Senegal",
+      "homeFlag": "\ud83c\uddf8\ud83c\uddf3",
+      "away": "Iraq",
+      "awayFlag": "\ud83c\uddee\ud83c\uddf6",
+      "homeScore": 5,
+      "awayScore": 0,
+      "status": "fin",
+      "winner": "Senegal",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 66,
+      "id": 537373,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -3048,38 +2867,38 @@
       "time": "8:00 PM ET",
       "utcDate": "2026-06-27T00:00:00Z",
       "home": "Uruguay",
-      "homeFlag": "🇺🇾",
+      "homeFlag": "\ud83c\uddfa\ud83c\uddfe",
       "away": "Spain",
-      "awayFlag": "🇪🇸",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\uddea\ud83c\uddf8",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "fin",
+      "winner": "Spain",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 63,
+      "id": 537374,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_G",
+      "group": "GROUP_H",
       "matchday": 3,
       "date": "Fri 26 Jun",
-      "time": "11:00 PM ET",
-      "utcDate": "2026-06-27T03:00:00Z",
-      "home": "Egypt",
-      "homeFlag": "🇪🇬",
-      "away": "Iran",
-      "awayFlag": "🇮🇷",
-      "homeScore": null,
-      "awayScore": null,
+      "time": "8:00 PM ET",
+      "utcDate": "2026-06-27T00:00:00Z",
+      "home": "Cape Verde Islands",
+      "homeFlag": "\ud83c\udde8\ud83c\uddfb",
+      "away": "Saudi Arabia",
+      "awayFlag": "\ud83c\uddf8\ud83c\udde6",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 64,
+      "id": 537367,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -3088,18 +2907,38 @@
       "time": "11:00 PM ET",
       "utcDate": "2026-06-27T03:00:00Z",
       "home": "New Zealand",
-      "homeFlag": "🇳🇿",
+      "homeFlag": "\ud83c\uddf3\ud83c\uddff",
       "away": "Belgium",
-      "awayFlag": "🇧🇪",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\udde7\ud83c\uddea",
+      "homeScore": 1,
+      "awayScore": 5,
+      "status": "fin",
+      "winner": "Belgium",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 67,
+      "id": 537368,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_G",
+      "matchday": 3,
+      "date": "Fri 26 Jun",
+      "time": "11:00 PM ET",
+      "utcDate": "2026-06-27T03:00:00Z",
+      "home": "Egypt",
+      "homeFlag": "\ud83c\uddea\ud83c\uddec",
+      "away": "Iran",
+      "awayFlag": "\ud83c\uddee\ud83c\uddf7",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "fin",
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537413,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -3108,18 +2947,18 @@
       "time": "5:00 PM ET",
       "utcDate": "2026-06-27T21:00:00Z",
       "home": "Panama",
-      "homeFlag": "🇵🇦",
+      "homeFlag": "\ud83c\uddf5\ud83c\udde6",
       "away": "England",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "fin",
+      "winner": "England",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 68,
+      "id": 537414,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -3128,38 +2967,18 @@
       "time": "5:00 PM ET",
       "utcDate": "2026-06-27T21:00:00Z",
       "home": "Croatia",
-      "homeFlag": "🇭🇷",
+      "homeFlag": "\ud83c\udded\ud83c\uddf7",
       "away": "Ghana",
-      "awayFlag": "🇬🇭",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\uddec\ud83c\udded",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "fin",
+      "winner": "Croatia",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 72,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_K",
-      "matchday": 3,
-      "date": "Sat 27 Jun",
-      "time": "7:30 PM ET",
-      "utcDate": "2026-06-27T23:30:00Z",
-      "home": "Democratic Republic of the Congo",
-      "homeFlag": "🇨🇩",
-      "away": "Uzbekistan",
-      "awayFlag": "🇺🇿",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
-    },
-    {
-      "id": 71,
+      "id": 537407,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -3168,18 +2987,38 @@
       "time": "7:30 PM ET",
       "utcDate": "2026-06-27T23:30:00Z",
       "home": "Colombia",
-      "homeFlag": "🇨🇴",
+      "homeFlag": "\ud83c\udde8\ud83c\uddf4",
       "away": "Portugal",
-      "awayFlag": "🇵🇹",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\uddf5\ud83c\uddf9",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 70,
+      "id": 537408,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_K",
+      "matchday": 3,
+      "date": "Sat 27 Jun",
+      "time": "7:30 PM ET",
+      "utcDate": "2026-06-27T23:30:00Z",
+      "home": "Congo DR",
+      "homeFlag": "\ud83c\udde8\ud83c\udde9",
+      "away": "Uzbekistan",
+      "awayFlag": "\ud83c\uddfa\ud83c\uddff",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "fin",
+      "winner": "Congo DR",
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537401,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -3188,18 +3027,18 @@
       "time": "10:00 PM ET",
       "utcDate": "2026-06-28T02:00:00Z",
       "home": "Jordan",
-      "homeFlag": "🇯🇴",
+      "homeFlag": "\ud83c\uddef\ud83c\uddf4",
       "away": "Argentina",
-      "awayFlag": "🇦🇷",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\udde6\ud83c\uddf7",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "fin",
+      "winner": "Argentina",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 69,
+      "id": 537402,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -3208,795 +3047,795 @@
       "time": "10:00 PM ET",
       "utcDate": "2026-06-28T02:00:00Z",
       "home": "Algeria",
-      "homeFlag": "🇩🇿",
+      "homeFlag": "\ud83c\udde9\ud83c\uddff",
       "away": "Austria",
-      "awayFlag": "🇦🇹",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\udde6\ud83c\uddf9",
+      "homeScore": 3,
+      "awayScore": 3,
+      "status": "fin",
+      "winner": null,
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 73,
+      "id": 537417,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Sun 28 Jun",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-06-28T16:00:00.000Z",
-      "home": "Runner-up Group A",
-      "homeFlag": "🏳️",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-06-28T19:00:00Z",
+      "home": "South Africa",
+      "homeFlag": "\ud83c\uddff\ud83c\udde6",
       "away": "Canada",
-      "awayFlag": "🇨🇦",
-      "homeScore": null,
-      "awayScore": null,
+      "awayFlag": "\ud83c\udde8\ud83c\udde6",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "fin",
+      "winner": "Canada",
       "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null
+      "awayGoals": []
     },
     {
-      "id": 76,
+      "id": 537423,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Mon 29 Jun",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-06-29T16:00:00.000Z",
-      "home": "Winner Group C",
-      "homeFlag": "🏳️",
-      "away": "Runner-up Group F",
-      "awayFlag": "🏳️",
+      "time": "1:00 PM ET",
+      "utcDate": "2026-06-29T17:00:00Z",
+      "home": "Brazil",
+      "homeFlag": "\ud83c\udde7\ud83c\uddf7",
+      "away": "Japan",
+      "awayFlag": "\ud83c\uddef\ud83c\uddf5",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 74,
+      "id": 537415,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Mon 29 Jun",
       "time": "4:30 PM ET",
-      "utcDate": "2026-06-29T20:30:00.000Z",
+      "utcDate": "2026-06-29T20:30:00Z",
       "home": "Germany",
-      "homeFlag": "🇩🇪",
-      "away": "3rd Group A/B/C/D/F",
-      "awayFlag": "🏳️",
+      "homeFlag": "\ud83c\udde9\ud83c\uddea",
+      "away": "Paraguay",
+      "awayFlag": "\ud83c\uddf5\ud83c\uddfe",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 75,
+      "id": 537418,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Mon 29 Jun",
-      "time": "7:00 PM ET",
-      "utcDate": "2026-06-29T23:00:00.000Z",
-      "home": "Winner Group F",
-      "homeFlag": "🏳️",
-      "away": "Runner-up Group C",
-      "awayFlag": "🏳️",
+      "time": "9:00 PM ET",
+      "utcDate": "2026-06-30T01:00:00Z",
+      "home": "Netherlands",
+      "homeFlag": "\ud83c\uddf3\ud83c\uddf1",
+      "away": "Morocco",
+      "awayFlag": "\ud83c\uddf2\ud83c\udde6",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 78,
+      "id": 537424,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Tue 30 Jun",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-06-30T16:00:00.000Z",
-      "home": "Runner-up Group E",
-      "homeFlag": "🏳️",
-      "away": "Runner-up Group I",
-      "awayFlag": "🏳️",
+      "time": "1:00 PM ET",
+      "utcDate": "2026-06-30T17:00:00Z",
+      "home": "Ivory Coast",
+      "homeFlag": "\ud83c\udde8\ud83c\uddee",
+      "away": "Norway",
+      "awayFlag": "\ud83c\uddf3\ud83c\uddf4",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 77,
+      "id": 537416,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Tue 30 Jun",
       "time": "5:00 PM ET",
-      "utcDate": "2026-06-30T21:00:00.000Z",
-      "home": "Winner Group I",
-      "homeFlag": "🏳️",
-      "away": "3rd Group C/D/F/G/H",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-06-30T21:00:00Z",
+      "home": "France",
+      "homeFlag": "\ud83c\uddeb\ud83c\uddf7",
+      "away": "Sweden",
+      "awayFlag": "\ud83c\uddf8\ud83c\uddea",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 79,
+      "id": 537425,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Tue 30 Jun",
-      "time": "7:00 PM ET",
-      "utcDate": "2026-06-30T23:00:00.000Z",
+      "time": "9:00 PM ET",
+      "utcDate": "2026-07-01T01:00:00Z",
       "home": "Mexico",
-      "homeFlag": "🇲🇽",
-      "away": "3rd Group C/E/F/H/I",
-      "awayFlag": "🏳️",
+      "homeFlag": "\ud83c\uddf2\ud83c\uddfd",
+      "away": "Ecuador",
+      "awayFlag": "\ud83c\uddea\ud83c\udde8",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 80,
+      "id": 537426,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Wed 1 Jul",
       "time": "12:00 PM ET",
-      "utcDate": "2026-07-01T16:00:00.000Z",
-      "home": "Winner Group L",
-      "homeFlag": "🏳️",
-      "away": "3rd Group E/H/I/J/K",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-07-01T16:00:00Z",
+      "home": "England",
+      "homeFlag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f",
+      "away": "Congo DR",
+      "awayFlag": "\ud83c\udde8\ud83c\udde9",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 82,
+      "id": 537422,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Wed 1 Jul",
-      "time": "1:00 PM ET",
-      "utcDate": "2026-07-01T17:00:00.000Z",
-      "home": "Winner Group G",
-      "homeFlag": "🏳️",
-      "away": "3rd Group A/E/H/I/J",
-      "awayFlag": "🏳️",
+      "time": "4:00 PM ET",
+      "utcDate": "2026-07-01T20:00:00Z",
+      "home": "Belgium",
+      "homeFlag": "\ud83c\udde7\ud83c\uddea",
+      "away": "Senegal",
+      "awayFlag": "\ud83c\uddf8\ud83c\uddf3",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 81,
+      "id": 537421,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Wed 1 Jul",
-      "time": "5:00 PM ET",
-      "utcDate": "2026-07-01T21:00:00.000Z",
+      "time": "8:00 PM ET",
+      "utcDate": "2026-07-02T00:00:00Z",
       "home": "United States",
-      "homeFlag": "🇺🇸",
-      "away": "3rd Group B/E/F/I/J",
-      "awayFlag": "🏳️",
+      "homeFlag": "\ud83c\uddfa\ud83c\uddf8",
+      "away": "Bosnia-Herzegovina",
+      "awayFlag": "\ud83c\udde7\ud83c\udde6",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 84,
+      "id": 537420,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Thu 2 Jul",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-07-02T16:00:00.000Z",
-      "home": "Winner Group H",
-      "homeFlag": "🏳️",
-      "away": "Runner-up Group J",
-      "awayFlag": "🏳️",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-02T19:00:00Z",
+      "home": "Spain",
+      "homeFlag": "\ud83c\uddea\ud83c\uddf8",
+      "away": "Austria",
+      "awayFlag": "\ud83c\udde6\ud83c\uddf9",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 83,
+      "id": 537419,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Thu 2 Jul",
       "time": "7:00 PM ET",
-      "utcDate": "2026-07-02T23:00:00.000Z",
-      "home": "Runner-up Group K",
-      "homeFlag": "🏳️",
-      "away": "Runner-up Group L",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-07-02T23:00:00Z",
+      "home": "Portugal",
+      "homeFlag": "\ud83c\uddf5\ud83c\uddf9",
+      "away": "Croatia",
+      "awayFlag": "\ud83c\udded\ud83c\uddf7",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 85,
+      "id": 537429,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Thu 2 Jul",
-      "time": "8:00 PM ET",
-      "utcDate": "2026-07-03T00:00:00.000Z",
+      "time": "11:00 PM ET",
+      "utcDate": "2026-07-03T03:00:00Z",
       "home": "Switzerland",
-      "homeFlag": "🇨🇭",
-      "away": "3rd Group E/F/G/I/J",
-      "awayFlag": "🏳️",
+      "homeFlag": "\ud83c\udde8\ud83c\udded",
+      "away": "Algeria",
+      "awayFlag": "\ud83c\udde9\ud83c\uddff",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 88,
+      "id": 537428,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Fri 3 Jul",
-      "time": "1:00 PM ET",
-      "utcDate": "2026-07-03T17:00:00.000Z",
-      "home": "Runner-up Group D",
-      "homeFlag": "🏳️",
-      "away": "Runner-up Group G",
-      "awayFlag": "🏳️",
+      "time": "2:00 PM ET",
+      "utcDate": "2026-07-03T18:00:00Z",
+      "home": "Australia",
+      "homeFlag": "\ud83c\udde6\ud83c\uddfa",
+      "away": "Egypt",
+      "awayFlag": "\ud83c\uddea\ud83c\uddec",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 86,
+      "id": 537427,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Fri 3 Jul",
       "time": "6:00 PM ET",
-      "utcDate": "2026-07-03T22:00:00.000Z",
+      "utcDate": "2026-07-03T22:00:00Z",
       "home": "Argentina",
-      "homeFlag": "🇦🇷",
-      "away": "Runner-up Group H",
-      "awayFlag": "🏳️",
+      "homeFlag": "\ud83c\udde6\ud83c\uddf7",
+      "away": "Cape Verde Islands",
+      "awayFlag": "\ud83c\udde8\ud83c\uddfb",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 87,
+      "id": 537430,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Fri 3 Jul",
-      "time": "8:30 PM ET",
-      "utcDate": "2026-07-04T00:30:00.000Z",
-      "home": "Winner Group K",
-      "homeFlag": "🏳️",
-      "away": "3rd Group D/E/I/J/L",
-      "awayFlag": "🏳️",
+      "time": "9:30 PM ET",
+      "utcDate": "2026-07-04T01:30:00Z",
+      "home": "Colombia",
+      "homeFlag": "\ud83c\udde8\ud83c\uddf4",
+      "away": "Ghana",
+      "awayFlag": "\ud83c\uddec\ud83c\udded",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 90,
+      "id": 537376,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sat 4 Jul",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-07-04T16:00:00.000Z",
-      "home": "Winner Match 73",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 75",
-      "awayFlag": "🏳️",
+      "time": "1:00 PM ET",
+      "utcDate": "2026-07-04T17:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 89,
+      "id": 537375,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sat 4 Jul",
       "time": "5:00 PM ET",
-      "utcDate": "2026-07-04T21:00:00.000Z",
-      "home": "Winner Match 74",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 77",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-07-04T21:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 91,
+      "id": 537377,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sun 5 Jul",
       "time": "4:00 PM ET",
-      "utcDate": "2026-07-05T20:00:00.000Z",
-      "home": "Winner Match 76",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 78",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-07-05T20:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 92,
+      "id": 537378,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sun 5 Jul",
-      "time": "6:00 PM ET",
-      "utcDate": "2026-07-05T22:00:00.000Z",
-      "home": "Winner Match 79",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 80",
-      "awayFlag": "🏳️",
+      "time": "8:00 PM ET",
+      "utcDate": "2026-07-06T00:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 93,
+      "id": 537379,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Mon 6 Jul",
-      "time": "2:00 PM ET",
-      "utcDate": "2026-07-06T18:00:00.000Z",
-      "home": "Winner Match 83",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 84",
-      "awayFlag": "🏳️",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-06T19:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 94,
+      "id": 537380,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Mon 6 Jul",
-      "time": "5:00 PM ET",
-      "utcDate": "2026-07-06T21:00:00.000Z",
-      "home": "Winner Match 81",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 82",
-      "awayFlag": "🏳️",
+      "time": "8:00 PM ET",
+      "utcDate": "2026-07-07T00:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 95,
+      "id": 537381,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Tue 7 Jul",
       "time": "12:00 PM ET",
-      "utcDate": "2026-07-07T16:00:00.000Z",
-      "home": "Winner Match 86",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 88",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-07-07T16:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 96,
+      "id": 537382,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Tue 7 Jul",
-      "time": "1:00 PM ET",
-      "utcDate": "2026-07-07T17:00:00.000Z",
-      "home": "Winner Match 85",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 87",
-      "awayFlag": "🏳️",
+      "time": "4:00 PM ET",
+      "utcDate": "2026-07-07T20:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 97,
+      "id": 537383,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Thu 9 Jul",
       "time": "4:00 PM ET",
-      "utcDate": "2026-07-09T20:00:00.000Z",
-      "home": "Winner Match 89",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 90",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-07-09T20:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 98,
+      "id": 537384,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Fri 10 Jul",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-07-10T16:00:00.000Z",
-      "home": "Winner Match 93",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 94",
-      "awayFlag": "🏳️",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-10T19:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 99,
+      "id": 537385,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Sat 11 Jul",
       "time": "5:00 PM ET",
-      "utcDate": "2026-07-11T21:00:00.000Z",
-      "home": "Winner Match 91",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 92",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-07-11T21:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 100,
+      "id": 537386,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Sat 11 Jul",
-      "time": "8:00 PM ET",
-      "utcDate": "2026-07-12T00:00:00.000Z",
-      "home": "Winner Match 95",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 96",
-      "awayFlag": "🏳️",
+      "time": "9:00 PM ET",
+      "utcDate": "2026-07-12T01:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 101,
+      "id": 537387,
       "round": "Semi-finals",
       "stage": "SEMI_FINALS",
       "group": null,
-      "matchday": 7,
+      "matchday": null,
       "date": "Tue 14 Jul",
-      "time": "2:00 PM ET",
-      "utcDate": "2026-07-14T18:00:00.000Z",
-      "home": "Winner Match 97",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 98",
-      "awayFlag": "🏳️",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-14T19:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 102,
+      "id": 537388,
       "round": "Semi-finals",
       "stage": "SEMI_FINALS",
       "group": null,
-      "matchday": 7,
+      "matchday": null,
       "date": "Wed 15 Jul",
       "time": "3:00 PM ET",
-      "utcDate": "2026-07-15T19:00:00.000Z",
-      "home": "Winner Match 99",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 100",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-07-15T19:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 103,
+      "id": 537389,
       "round": "3rd Place Playoff",
       "stage": "THIRD_PLACE",
       "group": null,
-      "matchday": 8,
+      "matchday": null,
       "date": "Sat 18 Jul",
       "time": "5:00 PM ET",
-      "utcDate": "2026-07-18T21:00:00.000Z",
-      "home": "Loser Match 101",
-      "homeFlag": "🏳️",
-      "away": "Loser Match 102",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-07-18T21:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 104,
+      "id": 537390,
       "round": "Final",
       "stage": "FINAL",
       "group": null,
-      "matchday": 9,
+      "matchday": null,
       "date": "Sun 19 Jul",
       "time": "3:00 PM ET",
-      "utcDate": "2026-07-19T19:00:00.000Z",
-      "home": "Winner Match 101",
-      "homeFlag": "🏳️",
-      "away": "Winner Match 102",
-      "awayFlag": "🏳️",
+      "utcDate": "2026-07-19T19:00:00Z",
+      "home": null,
+      "homeFlag": "\ud83c\udff3\ufe0f",
+      "away": null,
+      "awayFlag": "\ud83c\udff3\ufe0f",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "homeGoals": [],
+      "awayGoals": []
     }
   ],
   "topScorers": [
     {
       "name": "Lionel Messi",
       "team": "Argentina",
-      "flag": "🇦🇷",
-      "goals": 5,
+      "flag": "\ud83c\udde6\ud83c\uddf7",
+      "goals": 6,
       "assists": 0
     },
     {
       "name": "Vinicius Junior",
       "team": "Brazil",
-      "flag": "🇧🇷",
+      "flag": "\ud83c\udde7\ud83c\uddf7",
       "goals": 4,
       "assists": 1
     },
     {
-      "name": "Kylian Mbappé",
+      "name": "Kylian Mbapp\u00e9",
       "team": "France",
-      "flag": "🇫🇷",
+      "flag": "\ud83c\uddeb\ud83c\uddf7",
       "goals": 4,
-      "assists": 0
+      "assists": 2
     },
     {
       "name": "Erling Haaland",
       "team": "Norway",
-      "flag": "🇳🇴",
+      "flag": "\ud83c\uddf3\ud83c\uddf4",
       "goals": 4,
       "assists": 0
     },
     {
+      "name": "Ousmane Demb\u00e9l\u00e9",
+      "team": "France",
+      "flag": "\ud83c\uddeb\ud83c\uddf7",
+      "goals": 4,
+      "assists": 1
+    },
+    {
       "name": "Ismael Saibari",
       "team": "Morocco",
-      "flag": "🇲🇦",
+      "flag": "\ud83c\uddf2\ud83c\udde6",
       "goals": 3,
       "assists": 0
     },
     {
       "name": "Deniz Undav",
       "team": "Germany",
-      "flag": "🇩🇪",
+      "flag": "\ud83c\udde9\ud83c\uddea",
       "goals": 3,
       "assists": 2
     },
     {
+      "name": "Elijah Just",
+      "team": "New Zealand",
+      "flag": "\ud83c\uddf3\ud83c\uddff",
+      "goals": 3,
+      "assists": 0
+    },
+    {
+      "name": "Yoane Wissa",
+      "team": "Congo DR",
+      "flag": "\ud83c\udde8\ud83c\udde9",
+      "goals": 3,
+      "assists": 0
+    },
+    {
+      "name": "Harry Kane",
+      "team": "England",
+      "flag": "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "Johan Manzambi",
       "team": "Switzerland",
-      "flag": "🇨🇭",
+      "flag": "\ud83c\udde8\ud83c\udded",
       "goals": 3,
       "assists": 1
     },
     {
       "name": "Jonathan David",
       "team": "Canada",
-      "flag": "🇨🇦",
+      "flag": "\ud83c\udde8\ud83c\udde6",
       "goals": 3,
       "assists": 0
     },
     {
       "name": "Matheus Cunha",
       "team": "Brazil",
-      "flag": "🇧🇷",
+      "flag": "\ud83c\udde7\ud83c\uddf7",
       "goals": 3,
+      "assists": 0
+    },
+    {
+      "name": "Brian Brobbey",
+      "team": "Netherlands",
+      "flag": "\ud83c\uddf3\ud83c\uddf1",
+      "goals": 3,
+      "assists": 0
+    },
+    {
+      "name": "Isma\u00efla Sarr",
+      "team": "Senegal",
+      "flag": "\ud83c\uddf8\ud83c\uddf3",
+      "goals": 3,
+      "assists": 1
+    },
+    {
+      "name": "Juli\u00e1n Qui\u00f1ones",
+      "team": "Mexico",
+      "flag": "\ud83c\uddf2\ud83c\uddfd",
+      "goals": 2,
       "assists": 0
     },
     {
       "name": "Cyle Larin",
       "team": "Canada",
-      "flag": "🇨🇦",
+      "flag": "\ud83c\udde8\ud83c\udde6",
       "goals": 2,
       "assists": 0
     },
     {
       "name": "Folarin Balogun",
       "team": "United States",
-      "flag": "🇺🇸",
+      "flag": "\ud83c\uddfa\ud83c\uddf8",
       "goals": 2,
       "assists": 0
     },
     {
       "name": "Kai Havertz",
       "team": "Germany",
-      "flag": "🇩🇪",
+      "flag": "\ud83c\udde9\ud83c\uddea",
       "goals": 2,
       "assists": 0
     },
     {
       "name": "Crysencio Summerville",
       "team": "Netherlands",
-      "flag": "🇳🇱",
-      "goals": 2,
-      "assists": 1
-    },
-    {
-      "name": "Daichi Kamada",
-      "team": "Japan",
-      "flag": "🇯🇵",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Yasin Ayari",
-      "team": "Sweden",
-      "flag": "🇸🇪",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Maximiliano Araújo",
-      "team": "Uruguay",
-      "flag": "🇺🇾",
-      "goals": 2,
-      "assists": 1
-    },
-    {
-      "name": "Elijah Just",
-      "team": "New Zealand",
-      "flag": "🇳🇿",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Harry Kane",
-      "team": "England",
-      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Daniel Muñoz",
-      "team": "Colombia",
-      "flag": "🇨🇴",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Ruben Vargas",
-      "team": "Switzerland",
-      "flag": "🇨🇭",
+      "flag": "\ud83c\uddf3\ud83c\uddf1",
       "goals": 2,
       "assists": 1
     }
