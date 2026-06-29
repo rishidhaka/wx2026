@@ -826,7 +826,20 @@ const THIRD_PLACE_SLOT_COLUMNS = [
 
 // ══ STATE ══════════════════════════════════════════════════════════════════
 let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={}, lastKnownGoodData=null, activeFixtureDate=null;
+let storedScores=(()=>{try{return JSON.parse(localStorage.getItem('wx26_scores')||'{}')}catch(e){return{}}})();
 let derivedBracket={}; // bracket derived from wc2026.json fixtures; re-merged after every Firestore results update
+
+// Collapse rapid multi-snapshot fires (players + results + tournament all fire on load)
+// into a single render 250ms after the last one settles.
+let _renderTimer;
+function scheduleRender(){
+  clearTimeout(_renderTimer);
+  _renderTimer=setTimeout(()=>{
+    renderGlobal();
+    renderLeagueBoard();
+    if(document.getElementById("view-home")?.classList.contains("active")) renderHomeTab();
+  },250);
+}
 let fixtureMap={}; // id → fixture object, populated by applyTournamentData for modal lookup
 let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""},phase1SubmittedAt:null,phase2SubmittedAt:null};
 let activeLeague=null, leagueView="my", liveTab="groups";
@@ -907,6 +920,7 @@ auth.onAuthStateChanged(user=>{
   if(user){
     document.getElementById("signin-screen").style.display="none";
     document.getElementById("main-app").style.display="block";
+    try{localStorage.setItem('wx26_uid',user.uid);}catch(e){}
     renderUserBar(); startListeners(); renderHomeTab();
     
     // Show/hide admin tab based on user UID
@@ -958,10 +972,13 @@ function renderHomeHeader(){
   const greeting=hr<12?"Good morning":hr<17?"Good afternoon":"Good evening";
 
   // Compute rank — only count users who have actually submitted (phase1SubmittedAt set)
-  const myScore=calcScore(myPicks).total;
+  const mySv=storedScores[currentUser?.uid];
+  const mySvObj=mySv&&typeof mySv==='object'?mySv:null;
+  const myScore=mySvObj?.total??calcScore(myPicks).total;
   const hasSubmitted=!!myPicks.phase1SubmittedAt||!!(currentUser&&allPlayers[currentUser.uid]);
   const ranked=Object.entries(allPlayers||{})
-    .map(([uid,p])=>({uid,score:calcScore(p).total,submitted:!!(p.phase1SubmittedAt)}))
+    .map(([uid,p])=>{const rv=storedScores[uid];const rvObj=rv&&typeof rv==='object'?rv:null;return{uid,score:rvObj?.total??calcScore(p).total,submitted:!!(p.phase1SubmittedAt)};})
+
     .filter(p=>p.submitted)
     .sort((a,b)=>b.score-a.score);
   const myRank=hasSubmitted?(ranked.findIndex(p=>p.uid===currentUser.uid)+1||"—"):"—";
@@ -1006,9 +1023,10 @@ function startListeners(){
   unsubs.push(
     db.collection("wc2026").doc("players").onSnapshot(s=>{
       allPlayers=s.exists?s.data():{};
-      renderGlobal(); renderLeagueBoard(); updatePicksTabLabel();
+      updatePicksTabLabel();
       if(document.getElementById("view-home")?.classList.contains("active"))renderHomeTab();
       document.getElementById("last-updated").textContent=new Date().toLocaleTimeString();
+      scheduleRender();
     }),
     db.collection("wc2026").doc("results").onSnapshot(s=>{
       results=s.exists?s.data():{};
@@ -1024,8 +1042,13 @@ function startListeners(){
       if(!results.phase2Unlocked&&isGroupStageComplete()){
         db.collection("wc2026").doc("results").set({phase2Unlocked:true},{merge:true});
       }
-      renderGlobal(); renderLeagueBoard();
       if(document.getElementById("view-home")?.classList.contains("active"))renderHomeTab();
+      scheduleRender();
+    }),
+    db.collection("wc2026").doc("scores").onSnapshot(s=>{
+      storedScores=s.exists?s.data():{};
+      try{localStorage.setItem('wx26_scores',JSON.stringify(storedScores));}catch(e){}
+      scheduleRender();
     }),
     db.collection("wc2026").doc("leagues").onSnapshot(s=>{
       leagues=s.exists?s.data():{};
@@ -1085,6 +1108,7 @@ function startListeners(){
     updatePicksTabLabel();
     if(document.getElementById("view-picks").classList.contains("active"))renderPicksView();
     if(document.getElementById("view-phase2")?.classList.contains("active"))renderPhase2View();
+    scheduleRender();
   });
 }
 
@@ -1196,41 +1220,11 @@ async function updateResultsFromLiveData(data) {
     // Cache in global so onSnapshot can re-merge after Firestore overwrites results
     derivedBracket = localBracket;
 
-    // Get current Firestore results to merge into (read is allowed for all users)
-    const snapshot = await db.collection("wc2026").doc("results").get();
-    const currentResults = snapshot.exists ? snapshot.data() : {};
-
-    let derivedTopScorer = currentResults.goldenBoot || "";
-    if (data.topScorers && data.topScorers.length > 0) derivedTopScorer = data.topScorers[0].name;
-
-    // Only override bracket keys that have actual data (non-empty arrays)
-    const bracketUpdate = {};
-    Object.entries(localBracket).forEach(([k,v])=>{ if(Array.isArray(v)&&v.some(Boolean)) bracketUpdate[k]=v; });
-
-    const updatedResults = {
-      ...currentResults,
-      groups: { ...currentResults.groups, ...derivedGroups },
-      startedGroups: derivedStartedGroups,
-      goldenBoot: derivedTopScorer,
-      bracket: { ...(currentResults.bracket||{}), ...bracketUpdate },
-      lastAutoUpdate: new Date().toISOString(),
-    };
-
-    // Update local results FIRST so scoring is immediate for the current user
-    results = updatedResults;
-
-    // Re-render active views
+    // Only re-render the Live tab here — global `results` is owned by the wc2026/results
+    // onSnapshot handler. Setting it here from local JSON caused score jitter because
+    // the locally-derived bracket differs from what fetch-data.js has written to Firestore.
     if(document.getElementById("view-live")?.classList.contains("active")) renderLiveTab();
-    if(document.getElementById("view-global")?.classList.contains("active")) renderGlobal();
     if(document.getElementById("view-home")?.classList.contains("active")) renderHomeTab();
-
-    // Try to persist to Firestore — succeeds for admin (fetch-data.js also writes via admin SDK)
-    try {
-      await db.collection("wc2026").doc("results").set(updatedResults, { merge: true });
-      console.log('✅ Results synced to Firestore from live data');
-    } catch(e2) {
-      // Expected for non-admin users; local scoring is already updated above
-    }
   } catch (err) {
     console.error('Failed to process live data:', err);
   }
@@ -1432,8 +1426,16 @@ function renderLeaderboard(elId,players,mode){
       const hasP2=p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0;
       const hasPicks=hasP1||hasP2;
       const podium=getPredictedPodiumText(p);
-      const displayScore=mode==="p2"?s.p2Total:mode==="total"?s.total:s.p1Total;
-      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:displayScore,p1Total:s.p1Total,p2Total:s.p2Total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:s.p2,hasPicks,hasP1,hasP2,podium};
+      // Use server-computed scores when available — single authoritative write from
+      // fetch-data.js after a full consistent read, so these never jitter mid-render.
+      // Handles both old format (bare number = total) and new format ({p1,p2,total}).
+      const sv=storedScores[uid];
+      const svObj=sv&&typeof sv==='object'?sv:null;
+      const p1Total=svObj?.p1??s.p1Total;
+      const p2Total=svObj?.p2??s.p2Total;
+      const total=svObj?.total??s.total;
+      const displayScore=mode==="p2"?p2Total:mode==="total"?total:p1Total;
+      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:displayScore,p1Total,p2Total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:p2Total,hasPicks,hasP1,hasP2,podium};
     })
     .filter(p=>p.hasPicks)
     .sort((a,b)=>b.score-a.score);
@@ -2643,7 +2645,11 @@ function renderHomeTab(){
     .map(([uid,p])=>{
       const s=calcScore(p);
       const hasPicks=!!(p.phase1?.groups&&Object.keys(p.phase1.groups).length>0)||(p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0);
-      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",p1Total:s.p1Total,p2Total:s.p2Total,hasPicks};
+      const sv=storedScores[uid];
+      const svObj=sv&&typeof sv==='object'?sv:null;
+      const p1Total=svObj?.p1??s.p1Total;
+      const p2Total=svObj?.p2??s.p2Total;
+      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",p1Total,p2Total,hasPicks};
     })
     .filter(p=>p.hasPicks);
   const scored=allScored
@@ -2657,14 +2663,19 @@ function renderHomeTab(){
   const medals=["🥇","🥈","🥉"];
   const medalColors=["var(--gold)","var(--silver)","var(--bronze)"];
 
-  // My picks card
+  // My picks card — prefer storedScores (server-computed, available from localStorage cache)
+  // so the score is visible immediately without waiting for myPicks .get() to resolve.
+  const _mySv=storedScores[currentUser?.uid];
+  const _mySvObj=_mySv&&typeof _mySv==='object'?_mySv:null;
   const myScoreObj=calcScore(myPicks);
-  const myScore=myScoreObj.total;
-  const myP1=myScoreObj.p1Total;
-  const myP2=myScoreObj.p2Total;
+  const myScore=_mySvObj?.total??myScoreObj.total;
+  const myP1=_mySvObj?.p1??myScoreObj.p1Total;
+  const myP2=_mySvObj?.p2??myScoreObj.p2Total;
   const hasPicks=!!myPicks.phase1SubmittedAt||!!(currentUser&&allPlayers[currentUser.uid]);
   const ranked=Object.entries(allPlayers||{})
-    .map(([uid,p])=>{const s=calcScore(p);return{uid,p1Total:s.p1Total,p2Total:s.p2Total,hasPicks:!!(p.phase1?.groups&&Object.keys(p.phase1.groups).length>0)||!!(p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0)};})
+    .map(([uid,p])=>{
+      const rv=storedScores[uid];const rvObj=rv&&typeof rv==='object'?rv:null;const cs=calcScore(p);
+      return{uid,p1Total:rvObj?.p1??cs.p1Total,p2Total:rvObj?.p2??cs.p2Total,hasPicks:!!(p.phase1?.groups&&Object.keys(p.phase1.groups).length>0)||!!(p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0)};})
     .filter(p=>p.hasPicks);
   const myP1Rank=ranked.slice().sort((a,b)=>b.p1Total-a.p1Total).findIndex(p=>p.uid===currentUser?.uid)+1||0;
   const myP2Rank=ranked.slice().sort((a,b)=>b.p2Total-a.p2Total).findIndex(p=>p.uid===currentUser?.uid)+1||0;

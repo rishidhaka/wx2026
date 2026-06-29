@@ -551,31 +551,31 @@ async function recalculateScores(results, scorers) {
   const scores = {};
   playersSnap.forEach(doc => {
     const { phase1={}, phase2={} } = doc.data();
-    let score = 0;
+    let p1 = 0, p2 = 0;
     const actualGroups = results.groups || {};
     const startedGroups = new Set(results.startedGroups || []);
     if (phase1.groups) {
       for (const [grp, order] of Object.entries(phase1.groups)) {
         if (!startedGroups.has(grp)) continue;
         const actual = actualGroups[grp] || [];
-        if (actual[0] && order[0] === actual[0]) score++;
-        if (actual[1] && order[1] === actual[1]) score++;
-        if (actual[2] && order[2] === actual[2]) score++;
+        if (actual[0] && order[0] === actual[0]) p1++;
+        if (actual[1] && order[1] === actual[1]) p1++;
+        if (actual[2] && order[2] === actual[2]) p1++;
       }
     }
     const actualTPQ = results.thirdPlaceQualifiers || [];
-    (phase1.thirdPlaceQualifiers || []).forEach(t => { if (actualTPQ.includes(t)) score += 2; });
+    (phase1.thirdPlaceQualifiers || []).forEach(t => { if (actualTPQ.includes(t)) p1 += 2; });
     const P1_PTS = { r32:2, r16:3, qf:5, sf:10, final:20 };
     const actualBracket = results.bracket || {};
     for (const [round, pts] of Object.entries(P1_PTS)) {
-      (phase1.bracket?.[round] || []).forEach(t => { if (t && (actualBracket[round]||[]).includes(t)) score += pts; });
+      (phase1.bracket?.[round] || []).forEach(t => { if (t && (actualBracket[round]||[]).includes(t)) p1 += pts; });
     }
-    if (phase1.goldenBoot && topScorer && phase1.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) score += 10;
+    if (phase1.goldenBoot && topScorer && phase1.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) p1 += 10;
     for (const round of ['r16','qf','sf','final']) {
-      (phase2.bracket?.[round] || []).forEach(t => { if (t && (actualBracket[round]||[]).includes(t)) score += 5; });
+      (phase2.bracket?.[round] || []).forEach(t => { if (t && (actualBracket[round]||[]).includes(t)) p2 += 5; });
     }
-    if (phase2.goldenBoot && topScorer && phase2.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) score += 5;
-    scores[doc.id] = score;
+    if (phase2.goldenBoot && topScorer && phase2.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) p2 += 5;
+    scores[doc.id] = { p1, p2, total: p1 + p2 };
   });
   await db.collection('wc2026').doc('scores').set(scores);
   console.log(`   Scores recalculated for ${Object.keys(scores).length} players`);
