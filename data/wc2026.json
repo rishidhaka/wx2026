@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T21:45:24.648Z",
+  "lastUpdated": "2026-06-29T21:50:26.266Z",
   "groups": [
     {
       "group": "A",
@@ -3743,9 +3743,17 @@
       "homeFlag": "🇩🇪",
       "away": "Paraguay",
       "awayFlag": "🇵🇾",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Kai Havertz",
+          "minute": "54",
+          "tag": "",
+          "team": "Germany",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Khvliv Ansisv",
@@ -4383,6 +4391,13 @@
       "assists": 0
     },
     {
+      "name": "Kai Havertz",
+      "team": "Germany",
+      "flag": "🇩🇪",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "Deniz Undav",
       "team": "Germany",
       "flag": "🇩🇪",
@@ -4463,13 +4478,6 @@
       "name": "Folarin Balogun",
       "team": "United States",
       "flag": "🇺🇸",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Kai Havertz",
-      "team": "Germany",
-      "flag": "🇩🇪",
       "goals": 2,
       "assists": 0
     },
