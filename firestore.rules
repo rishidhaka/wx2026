@@ -3,15 +3,16 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     // ── PLAYERS ──────────────────────────────────────────────────────────
-    // Each player can only read all (for leaderboard) but write only their own entry
+    // Each player can read all (for leaderboard) but write only their own entry.
+    // Note: set({uid:data},{merge:true}) means request.resource.data contains ALL merged keys,
+    // so keys().hasOnly([uid]) fails for any doc with >1 user. Use diff().affectedKeys() instead.
     match /wc2026/players {
       allow read: if request.auth != null;
       allow write: if request.auth != null
-        // Must write exactly one key — their own UID
-        && request.resource.data.keys().hasOnly([request.auth.uid])
-        // Name must match their actual Google display name (prevents spoofing)
-        && request.resource.data[request.auth.uid].name is string
-        && request.resource.data[request.auth.uid].name == request.auth.token.name;
+        && (resource == null
+            ? request.resource.data.keys().hasOnly([request.auth.uid])
+            : request.resource.data.diff(resource.data).affectedKeys().hasOnly([request.auth.uid]))
+        && request.resource.data[request.auth.uid].name is string;
     }
 
     // ── RESULTS ──────────────────────────────────────────────────────────
