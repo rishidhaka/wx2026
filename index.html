@@ -1992,9 +1992,17 @@ function renderBracketStep(isPhase2){
   const detail=locked?calcScore(myPicks).detail:null;
 
   const stateKey=isPhase2?"phase2":"phase1";
-  const maxIndex=Math.max(0,rounds.length-1);
+  // Phase 2 steps: R32(0)…SF(3) → Final Week(thirdIdx) → Top Scorer(thirdIdx+1)
+  const thirdIdx=rounds.findIndex(r=>r.key==='third');
+  const topScorerStep=(isPhase2&&thirdIdx>=0)?thirdIdx+1:-1;
+  const maxIndex=topScorerStep>=0?topScorerStep:Math.max(0,rounds.length-1);
+  const totalSteps=maxIndex+1;
   bracketRoundStep[stateKey]=Math.max(0,Math.min(bracketRoundStep[stateKey]||0,maxIndex));
-  const activeRound=rounds[bracketRoundStep[stateKey]];
+  const activeStep=bracketRoundStep[stateKey];
+  const activeRound=rounds[Math.min(activeStep,rounds.length-1)];
+  const isFinalWeek=isPhase2&&activeStep===thirdIdx;
+  const isTopScorer=isPhase2&&activeStep===topScorerStep;
+  const stepLabel=isTopScorer?'Top Scorer':isFinalWeek?'Final Week':activeRound.label;
 
   let html=`<div style="font-size:12px;color:var(--muted);margin-bottom:10px">
     ${isPhase2?`<span class="phase-label p2">Phase 2</span> Real bracket — 5pts R16/QF, 10pts SF, 15pts Champion.`
@@ -2002,32 +2010,64 @@ function renderBracketStep(isPhase2){
     :`<span class="phase-label p1">Phase 1</span> Based on your group predictions — pick match winners all the way to the Final.`}
   </div>
   <div class="bracket-round-nav">
-    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},-1)" ${bracketRoundStep[stateKey]===0?"disabled":""}>← Prev</button>
-    <div class="bracket-round-indicator">${activeRound.label} (${bracketRoundStep[stateKey]+1}/${rounds.length})</div>
-    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},1)" ${bracketRoundStep[stateKey]===maxIndex?"disabled":""}>Next →</button>
-  </div>
-  <div class="bracket-single-container"><div class="bracket-grid" id="bracket-grid"></div></div>
-  <div class="bracket-round-nav" style="margin-top:10px">
-    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},-1)" ${bracketRoundStep[stateKey]===0?"disabled":""}>← Prev</button>
-    <div class="bracket-round-indicator">${activeRound.label} (${bracketRoundStep[stateKey]+1}/${rounds.length})</div>
-    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},1)" ${bracketRoundStep[stateKey]===maxIndex?"disabled":""}>Next →</button>
-  </div>
-  <div style="margin-top:12px">
-    <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
+    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},-1)" ${activeStep===0?"disabled":""}>← Prev</button>
+    <div class="bracket-round-indicator">${stepLabel} (${activeStep+1}/${totalSteps})</div>
+    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},1)" ${activeStep===maxIndex?"disabled":""}>Next →</button>
+  </div>`;
+
+  if(isTopScorer){
+    // Top Scorer step — full card in place of the bracket grid
+    const complete=isPhase2PredictionComplete(picks);
+    html+=`
+  <div style="padding:20px 0 4px">
+    <div style="font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">🥾 Top Scorer</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Pick the player who scores the most goals in the tournament — 5 pts</div>
     ${locked
-      ?`<div class="drag-item${(isPhase2?detail.gb.p2:detail.gb.p1)==="hit"?" pick-correct":""}" style="margin-top:6px;border-radius:8px;cursor:default"><span class="drag-name">${esc(picks.goldenBoot||"—")}</span></div>`
-      :`<input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border='';${isPhase2?"myPicks.phase2.goldenBoot=this.value.trim();":"myPicks.phase1.goldenBoot=this.value.trim();"}scheduleDraftAutoSave('golden-boot');updateSubmitBtn(${isPhase2})" autocomplete="off">`}
+      ?`<div class="drag-item${detail?.gb?.p2==="hit"?" pick-correct":""}" style="border-radius:8px;cursor:default"><span class="drag-name">${esc(picks.goldenBoot||"—")}</span></div>`
+      :`<input id="gb-input-p2" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="width:100%;box-sizing:border-box" oninput="this.style.border='';myPicks.phase2.goldenBoot=this.value.trim();scheduleDraftAutoSave('golden-boot');updateSubmitBtn(true)" autocomplete="off">`}
   </div>
-  ${locked?`<div class="deadline-banner closed" style="margin-top:8px">${isPhase2?"⚡ Phase 2 picks locked — scores update as matches complete.":"🔒 Phase 1 picks submitted — view only."}</div>`:(()=>{
-    const complete=isPhase2?isPhase2PredictionComplete(myPicks.phase2):isPhase1PredictionComplete(myPicks.phase1);
-    return`<button id="save-picks-btn-${isPhase2?"p2":"p1"}" type="button" class="btn btn-primary" style="margin-top:8px;opacity:${complete?1:0.45};cursor:${complete?"pointer":"not-allowed"}" onclick="savePicks(${isPhase2},event)">Submit Picks ✓</button>
+  ${locked
+    ?`<div class="deadline-banner closed" style="margin-top:10px">⚡ Phase 2 picks locked — scores update as matches complete.</div>`
+    :`<button id="save-picks-btn-p2" type="button" class="btn btn-primary" style="margin-top:12px;opacity:${complete?1:0.45};cursor:${complete?"pointer":"not-allowed"}" onclick="savePicks(true,event)">Submit Picks ✓</button>
+    ${!complete?`<div style="font-size:11px;color:var(--muted);margin-top:5px;text-align:center">Select all bracket winners and a top scorer to submit</div>`:""}`}
+  ${renderPredictedPodiumBanner(true)}`;
+  } else {
+    html+=`<div class="bracket-single-container"><div class="bracket-grid" id="bracket-grid"></div></div>`;
+  }
+
+  html+=`
+  <div class="bracket-round-nav" style="margin-top:10px">
+    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},-1)" ${activeStep===0?"disabled":""}>← Prev</button>
+    <div class="bracket-round-indicator">${stepLabel} (${activeStep+1}/${totalSteps})</div>
+    <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},1)" ${activeStep===maxIndex?"disabled":""}>Next →</button>
+  </div>`;
+
+  if(!isPhase2){
+    // Phase 1 only: golden boot, submit, back button, podium, spacer
+    html+=`
+  <div style="margin-top:12px">
+    <div class="picks-label">Golden Boot 🥾 — 10pts</div>
+    ${locked
+      ?`<div class="drag-item${detail?.gb?.p1==="hit"?" pick-correct":""}" style="margin-top:6px;border-radius:8px;cursor:default"><span class="drag-name">${esc(picks.goldenBoot||"—")}</span></div>`
+      :`<input id="gb-input-p1" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border='';myPicks.phase1.goldenBoot=this.value.trim();scheduleDraftAutoSave('golden-boot');updateSubmitBtn(false)" autocomplete="off">`}
+  </div>
+  ${locked?`<div class="deadline-banner closed" style="margin-top:8px">🔒 Phase 1 picks submitted — view only.</div>`:(()=>{
+    const complete=isPhase1PredictionComplete(myPicks.phase1);
+    return`<button id="save-picks-btn-p1" type="button" class="btn btn-primary" style="margin-top:8px;opacity:${complete?1:0.45};cursor:${complete?"pointer":"not-allowed"}" onclick="savePicks(false,event)">Submit Picks ✓</button>
     ${!complete?`<div style="font-size:11px;color:var(--muted);margin-top:5px;text-align:center">Select all winners and a top scorer to submit</div>`:""}`;
   })()}
-  ${(!isPhase2&&!locked)?`<button class="btn btn-secondary" style="margin-top:8px" onclick="setWizardStep('groups')">← Back to Groups</button>`:""}
-  ${renderPredictedPodiumBanner(isPhase2)}
-  <div style="height:60px"></div>`;
+  <button class="btn btn-secondary" style="margin-top:8px" onclick="setWizardStep('groups')">← Back to Groups</button>
+  ${renderPredictedPodiumBanner(false)}`;
+  }
 
-  setTimeout(()=>renderBracketGrid([activeRound], bracket, isPhase2, locked, detail), 0);
+  html+=`<div style="height:60px"></div>`;
+
+  if(!isTopScorer){
+    const roundsToDisplay=isFinalWeek
+      ?rounds.filter(r=>r.key==='third'||r.key==='final')
+      :[activeRound];
+    setTimeout(()=>renderBracketGrid(roundsToDisplay,bracket,isPhase2,locked,detail),0);
+  }
   return html;
 }
 
@@ -2065,8 +2105,10 @@ function updateSubmitBtn(isPhase2){
 function changeBracketRound(isPhase2,delta){
   const rounds=buildRoundsData(isPhase2);
   const stateKey=isPhase2?"phase2":"phase1";
+  const thirdIdx=isPhase2?rounds.findIndex(r=>r.key==='third'):-1;
+  const maxStep=(isPhase2&&thirdIdx>=0)?thirdIdx+1:rounds.length-1;
   const currentIdx=bracketRoundStep[stateKey]||0;
-  bracketRoundStep[stateKey]=Math.max(0,Math.min(rounds.length-1,currentIdx+delta));
+  bracketRoundStep[stateKey]=Math.max(0,Math.min(maxStep,currentIdx+delta));
   if(isPhase2)renderPhase2View();
   else renderPicksView();
 }
@@ -2096,7 +2138,7 @@ function renderBracketGrid(rounds, bracket, isPhase2, locked, detail){
     p1InRound.champion=new Set([(res.bracket?.final||[])[0]].filter(Boolean).map(canonicalTeam));
   }
 
-  grid.innerHTML=rounds.map(round=>{
+  grid.innerHTML=rounds.map((round,roundIdx)=>{
     const picks=bracket[round.key]||[];
     const teams=round.teams;
 
@@ -2165,8 +2207,11 @@ function renderBracketGrid(rounds, bracket, isPhase2, locked, detail){
       matches.push(`<div style="font-size:11px;color:var(--muted);text-align:center;padding:12px">Pick winners from the previous round first</div>`);
     }
 
-    return`<div class="bracket-round-col">
-      <div class="bracket-round-label">${round.label}</div>
+    const multiRound=rounds.length>1;
+    return`<div class="bracket-round-col" ${roundIdx>0?'style="margin-top:18px;padding-top:14px;border-top:1px solid var(--navy-border)"':''}>
+      ${multiRound
+        ?`<div style="font-size:13px;font-weight:800;color:var(--white);letter-spacing:.02em;text-align:center;margin-bottom:8px">${round.label}</div>`
+        :`<div class="bracket-round-label">${round.label}</div>`}
       ${matches.join("")}
     </div>`;
   }).join("");
@@ -2288,7 +2333,8 @@ function renderPhase2Step(){
   return`<div class="phase2-banner">
     <div class="phase2-title">⚡ Second Chance Unlocked</div>
     <div class="phase2-sub">The real bracket is set. Predict from R16 to the Final — 5pts R16/QF, 10pts SF, 15pts Champion. Game's not over!</div>
-  </div>`+renderBracketStep(true);
+  </div>
+  ${renderBracketStep(true)}`;
 }
 
 function renderPhase2View(){
