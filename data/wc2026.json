@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T22:45:25.021Z",
+  "lastUpdated": "2026-06-29T22:50:20.811Z",
   "groups": [
     {
       "group": "A",
@@ -3743,12 +3743,19 @@
       "homeFlag": "🇩🇪",
       "away": "Paraguay",
       "awayFlag": "🇵🇾",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "homeGoals": [
         {
           "name": "Kai Havertz",
           "minute": "54",
+          "tag": "",
+          "team": "Germany",
+          "og": false
+        },
+        {
+          "name": "Jonathan Tah",
+          "minute": "103",
           "tag": "",
           "team": "Germany",
           "og": false
