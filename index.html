@@ -75,6 +75,7 @@ body{display:flex;justify-content:center;background:var(--bg);color:var(--text);
 .tab.active{color:var(--gold)}
 .tab.active .tab-icon{transform:scale(1.1)}
 .tab.admin-only{display:none}
+.tab[data-tab="phase2"].active{color:var(--phase2-light)}
 
 /* ── HOME HEADER ── */
 .home-header{padding:20px 16px 14px;background:linear-gradient(160deg,#2D333B 60%,rgba(245,166,35,0.10) 100%);border-bottom:1px solid var(--gold-border)}
@@ -231,6 +232,9 @@ input::placeholder{color:var(--muted)}
 /* ── READ-ONLY PICK RESULT HIGHLIGHTING (submitted Phase 1 picks) ── */
 .pick-correct{background:rgba(34,197,94,0.10);box-shadow:inset 3px 0 0 var(--green)}
 .pick-wrong{background:rgba(248,81,73,0.10);box-shadow:inset 3px 0 0 var(--red)}
+/* Team is correctly / incorrectly predicted to be in this round (non-picked teams) */
+.in-round{background:rgba(34,197,94,0.07);box-shadow:inset 3px 0 0 rgba(34,197,94,0.4)}
+.not-in-round{background:rgba(248,81,73,0.07);box-shadow:inset 3px 0 0 rgba(248,81,73,0.4);opacity:0.75}
 .bracket-winner-display{background:linear-gradient(135deg,#1a3a0a,#0f2a1a);border:2px solid var(--gold);border-radius:10px;padding:14px;text-align:center;margin-top:8px}
 .bracket-winner-flag{font-size:36px;margin-bottom:6px}
 .bracket-winner-name{font-weight:900;font-size:16px;color:var(--gold);letter-spacing:1px}
@@ -449,7 +453,8 @@ input::placeholder{color:var(--muted)}
     <div class="user-bar" id="user-bar"></div>
     <div class="tabs">
       <div class="tab active" data-tab="home"><span class="tab-icon">🏠</span>Home</div>
-      <div class="tab" data-tab="picks"><span class="tab-icon">✏️</span><span id="picks-tab-label">My Picks</span></div>
+      <div class="tab" data-tab="picks"><span class="tab-icon">✏️</span>Phase 1</div>
+      <div class="tab" data-tab="phase2"><span class="tab-icon">⚡</span>Phase 2</div>
       <div class="tab" data-tab="live"><span class="tab-icon">⚽</span>World Cup</div>
       <div class="tab" data-tab="global"><span class="tab-icon">🏆</span>Standings</div>
       <div class="tab" data-tab="leagues"><span class="tab-icon">👥</span>Leagues</div>
@@ -479,6 +484,10 @@ input::placeholder{color:var(--muted)}
             <div style="font-size:11px;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:6px">
               <span class="live-dot"></span>Updates as matches finish
               <span style="margin-left:auto" id="last-updated"></span>
+            </div>
+            <div class="lb-toggle" style="margin-top:10px">
+              <button class="lb-toggle-btn active" id="gbl-btn-p1" onclick="setGlobalMode('p1')">Phase 1</button>
+              <button class="lb-toggle-btn" id="gbl-btn-p2" onclick="setGlobalMode('p2')">Phase 2</button>
             </div>
           </div>
           <div class="view-content" style="padding-top:12px">
@@ -520,12 +529,22 @@ input::placeholder{color:var(--muted)}
 
         <div id="view-picks" class="view">
           <div class="lb-header">
-            <div class="lb-header-title">My Picks</div>
+            <div class="lb-header-title">Phase 1 Picks</div>
           </div>
           <div style="padding:0 16px" id="picks-timer"></div>
           <div style="padding:0 16px" id="picks-steps"></div>
           <div class="view-content" style="padding-top:12px">
             <div id="picks-content"><div class="spinner">Loading…</div></div>
+          </div>
+        </div>
+
+        <div id="view-phase2" class="view">
+          <div class="lb-header">
+            <div class="lb-header-title" style="color:var(--phase2-light)">Phase 2 Picks</div>
+          </div>
+          <div style="padding:0 16px" id="phase2-timer"></div>
+          <div class="view-content" style="padding-top:12px">
+            <div id="phase2-content"><div class="spinner">Loading…</div></div>
           </div>
         </div>
 
@@ -561,11 +580,12 @@ input::placeholder{color:var(--muted)}
             <tr><td>Group 2nd place correct (×12)</td><td>1 each</td></tr>
             <tr><td>Group 3rd place correct (×12)</td><td>1 each</td></tr>
             <tr><td>Third-place qualifier correct (×8)</td><td>2 each</td></tr>
-            <tr><td>Round of 32 winner correct</td><td>2</td></tr>
-            <tr><td>Round of 16 winner correct</td><td>3</td></tr>
-            <tr><td>Quarter-final winner correct</td><td>5</td></tr>
-            <tr><td>Semi-final winner correct</td><td>10</td></tr>
-            <tr><td>Final winner (Champion)</td><td>20</td></tr>
+            <tr><td>Teams correctly in R32 (×32)</td><td>1 each</td></tr>
+            <tr><td>Teams correctly in R16 (×16)</td><td>2 each</td></tr>
+            <tr><td>Teams correctly in QF (×8)</td><td>3 each</td></tr>
+            <tr><td>Teams correctly in SF (×4)</td><td>4 each</td></tr>
+            <tr><td>Teams correctly in Final (×2)</td><td>5 each</td></tr>
+            <tr><td>Champion correct</td><td>6</td></tr>
             <tr><td>🥾 Golden Boot</td><td>10</td></tr>
           </tbody>
         </table>
@@ -579,9 +599,11 @@ input::placeholder{color:var(--muted)}
         <table class="rules-table">
           <thead><tr><th>Pick</th><th>Points</th></tr></thead>
           <tbody>
-            <tr><td>Round of 16 / Quarter-final winner</td><td>5</td></tr>
-            <tr><td>Semi-final winner (×2)</td><td>10 each</td></tr>
-            <tr><td>Champion correct</td><td>15</td></tr>
+            <tr><td>Correct R32 fixture winner (×16)</td><td>1 each</td></tr>
+            <tr><td>Correct R16 fixture winner (×8)</td><td>2 each</td></tr>
+            <tr><td>Correct QF fixture winner (×4)</td><td>3 each</td></tr>
+            <tr><td>Correct SF fixture winner (×2)</td><td>4 each</td></tr>
+            <tr><td>Champion correct</td><td>5</td></tr>
             <tr><td>🥾 Golden Boot (update)</td><td>5</td></tr>
           </tbody>
         </table>
@@ -707,8 +729,11 @@ input::placeholder{color:var(--muted)}
 const PHASE1_DEADLINE=new Date('2026-06-17T23:59:59-06:00');
 // Phase 2 unlocks after group stage ends (June 27, 2026 23:59:59 UTC-6)
 const GROUP_STAGE_END=new Date('2026-06-27T23:59:59-06:00');
+// Phase 2 picks lock before the first Round of 16 game (July 4, 2026 noon ET)
+const PHASE2_DEADLINE=new Date('2026-07-04T12:00:00-04:00');
 
 function isPhase1Open(){return new Date()<PHASE1_DEADLINE;}
+function isPhase2Open(){return new Date()<PHASE2_DEADLINE;}
 function isGroupStageComplete(){return new Date()>=GROUP_STAGE_END;}
 function getPhase1TimeRemaining(){
   const diff=PHASE1_DEADLINE-new Date();
@@ -843,6 +868,7 @@ function normalizeBracketData(bracket,isPhase2){
   if(!bracket||typeof bracket!=="object")return {};
   const normalized={...bracket};
   if(isPhase2){
+    normalized.r32=normalizeRoundWinners(bracket.r32,32);
     normalized.r16=normalizeRoundWinners(bracket.r16,16);
     normalized.qf=normalizeRoundWinners(bracket.qf,8);
     normalized.sf=normalizeRoundWinners(bracket.sf,4);
@@ -915,10 +941,7 @@ function renderUserBar(){
   // Renders into the home-header-block (rebuilt each time renderHomeTab runs)
 }
 function updatePicksTabLabel(){
-  const el=document.getElementById("picks-tab-label");
-  if(!el)return;
-  const hasPicks=!!myPicks.phase1SubmittedAt||(currentUser&&!!allPlayers[currentUser.uid]);
-  el.textContent=hasPicks?"My Picks":"Predict";
+  // Tab labels are now static ("Phase 1" / "Phase 2") — no-op retained for call-site compatibility
 }
 function renderHomeHeader(){
   const el=document.getElementById("home-header-block");
@@ -1198,8 +1221,31 @@ function getFlagEmojiForTeam(teamName) {
 }
 
 // ══ SCORING ════════════════════════════════════════════════════════════════
-const P1_KO_PTS = {r32:2, r16:3, qf:5, sf:10, final:20};
-const P2_PTS = {r16:5, qf:5, sf:10, final:15};
+// bracket.r32 = R32 winners (=R16 entrants, 2pt), .r16 = R16 winners (=QF entrants, 3pt),
+// .qf = QF winners (=SF entrants, 4pt), .sf = SF winners (=Finalists, 5pt); champion scored separately at 6pt
+const P1_KO_PTS = {r32:2, r16:3, qf:4, sf:5};
+const P2_PTS = {r32:1, r16:2, qf:3, sf:4, final:5};
+
+// Phase 2 R32 bracket — fixed bracket order matching the actual tournament draw.
+// Pairs: [slot 0,1] share an R16 match, [2,3] share an R16 match, etc.
+const PHASE2_R32_TEAMS = [
+  "Germany","Paraguay",         // → R16 match 1 (Jul 4)
+  "France","Sweden",
+  "South Africa","Canada",      // → R16 match 2 (Jul 4)
+  "Netherlands","Morocco",
+  "Portugal","Croatia",         // → R16 match 3 (Jul 6)
+  "Spain","Austria",
+  "United States","Bosnia-Herzegovina", // → R16 match 4 (Jul 6)
+  "Belgium","Senegal",
+  "Brazil","Japan",             // → R16 match 5 (Jul 5)
+  "Ivory Coast","Norway",
+  "Mexico","Ecuador",           // → R16 match 6 (Jul 5)
+  "England","Congo DR",
+  "Argentina","Cape Verde Islands", // → R16 match 7 (Jul 7)
+  "Australia","Egypt",
+  "Switzerland","Algeria",      // → R16 match 8 (Jul 7)
+  "Colombia","Ghana",
+];
 
 // Some teams are stored under different spellings depending on source (the picks wizard's
 // static WC_GROUPS list vs. the live API feeding `results`). Canonicalize before comparing
@@ -1250,19 +1296,49 @@ function calcScore(playerData){
     else if(actualQual.length) detail.p1ThirdQual["q"+i]="miss";
   });
 
-  // Phase 1 KO picks
+  // Phase 1 KO picks — set-based, scored by teams per round (not per fixture winner)
+  // R32 entrants (32 teams): group 1st+2nd (24) + 3rd-place qualifiers (8), 1pt each
+  const predictedR32=[];
+  Object.values(p1.groups||{}).forEach(order=>{
+    [order[0],order[1]].filter(isFilledTeamSlot).forEach(t=>predictedR32.push(t));
+  });
+  (p1.thirdPlaceQualifiers||[]).filter(isFilledTeamSlot).forEach(t=>predictedR32.push(t));
+  const actualR32Set=new Set();
+  Object.values(res.groups||{}).forEach(g=>{[g[0],g[1]].filter(Boolean).forEach(t=>actualR32Set.add(canonicalTeam(t)));});
+  (res.thirdPlaceQualifiers||[]).filter(Boolean).forEach(t=>actualR32Set.add(canonicalTeam(t)));
+  if(actualR32Set.size>0){
+    predictedR32.forEach((team,i)=>{
+      if(actualR32Set.has(canonicalTeam(team))){p1KO+=1;detail.p1KO["r32e_"+i]="hit";}
+      else detail.p1KO["r32e_"+i]="miss";
+    });
+  }
+  // R16–Final: bracket picks scored against actual advancers for that round
+  // bracket.r32 = R32 winners = teams entering R16 (2pts), bracket.r16 = R16 winners = QF entrants (3pts), etc.
   Object.entries(P1_KO_PTS).forEach(([round,pts])=>{
     const picks=(p1.bracket||{})[round]||[];
     const actual=(res.bracket||{})[round]||[];
+    if(!actual.length) return;
+    const actualSet=new Set(actual.map(canonicalTeam).filter(Boolean));
     picks.forEach((team,i)=>{
-      if(actual[i]&&teamsMatch(team,actual[i])){p1KO+=pts;detail.p1KO[round+"_"+i]="hit";}
-      else if(actual[i]) detail.p1KO[round+"_"+i]="miss";
+      if(!isFilledTeamSlot(team)) return;
+      if(actualSet.has(canonicalTeam(team))){p1KO+=pts;detail.p1KO[round+"_"+i]="hit";}
+      else detail.p1KO[round+"_"+i]="miss";
     });
   });
+  // Champion (bracket.final[0] vs results.bracket.final[0]): 6pts
+  const champPick=(p1.bracket||{}).final;
+  const champActual=(res.bracket||{}).final;
+  if(champActual&&champActual.length){
+    const pick=Array.isArray(champPick)?champPick[0]:champPick;
+    if(isFilledTeamSlot(pick)){
+      if(teamsMatch(pick,champActual[0])){p1KO+=6;detail.p1KO["champion"]="hit";}
+      else detail.p1KO["champion"]="miss";
+    }
+  }
 
   // Phase 2 picks
   if(res.phase2Unlocked){
-    const rounds=["r16","qf","sf","final"];
+    const rounds=["r32","r16","qf","sf","final"];
     rounds.forEach(round=>{
       const picks=(p2.bracket||{})[round]||[];
       const actual=(res.bracket||{})[round]||[];
@@ -1283,11 +1359,21 @@ function calcScore(playerData){
   const gbR=(res.goldenBoot||"").toLowerCase().trim();
   if(gb1&&gbR&&gb1===gbR){gbScore=10;detail.gb.p1="hit";}
 
-  return{total:p1Group+p1ThirdQual+p1KO+p2Score+gbScore,p1Group,p1ThirdQual,p1KO,p2:p2Score,gb:gbScore,detail};
+  const p1Total=p1Group+p1ThirdQual+p1KO+gbScore;
+  return{total:p1Total+p2Score,p1Total,p2Total:p2Score,p1Group,p1ThirdQual,p1KO,p2:p2Score,gb:gbScore,detail};
 }
 
 // ══ GLOBAL LEADERBOARD ════════════════════════════════════════════════════
-function renderGlobal(){renderLeaderboard("global-list",allPlayers);}
+let globalLbMode="p1";
+function setGlobalMode(mode){
+  globalLbMode=mode;
+  ["p1","p2"].forEach(m=>{
+    const btn=document.getElementById("gbl-btn-"+m);
+    if(btn)btn.className="lb-toggle-btn"+(m===mode?" active":"");
+  });
+  renderGlobal();
+}
+function renderGlobal(){renderLeaderboard("global-list",allPlayers,globalLbMode);}
 
 function getPredictedPodiumText(player){
   const pickSource=(player?.phase1&&player.phase1.bracket)?player.phase1:player?.phase2;
@@ -1300,30 +1386,36 @@ function getPredictedPodiumText(player){
   return `${champ} / ${second} / ${third}`;
 }
 
-function renderLeaderboard(elId,players){
+// mode: "p1" | "p2" | "total"
+function renderLeaderboard(elId,players,mode){
+  mode=mode||"p1";
   const el=document.getElementById(elId);if(!el)return;
   const scored=Object.entries(players||{})
     .map(([uid,p])=>{
       const s=calcScore(p);
-      const hasPicksPhase1=p.phase1?.groups&&Object.keys(p.phase1.groups).length>0;
-      const hasPicksPhase2=p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0;
-      const hasPicks=hasPicksPhase1||hasPicksPhase2;
+      const hasP1=p.phase1?.groups&&Object.keys(p.phase1.groups).length>0;
+      const hasP2=p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0;
+      const hasPicks=hasP1||hasP2;
       const podium=getPredictedPodiumText(p);
-      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:s.total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:s.p2,hasPicks,podium};
+      const displayScore=mode==="p2"?s.p2Total:mode==="total"?s.total:s.p1Total;
+      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:displayScore,p1Total:s.p1Total,p2Total:s.p2Total,p1Group:s.p1Group,p1ThirdQual:s.p1ThirdQual,p1KO:s.p1KO,p2:s.p2,hasPicks,hasP1,hasP2,podium};
     })
-    .filter(p=>p.hasPicks) // Only show players who have submitted picks
+    .filter(p=>p.hasPicks)
     .sort((a,b)=>b.score-a.score);
   if(!scored.length){el.innerHTML='<div class="lb-empty">No picks yet — be the first!</div>';return;}
   const medals=["🥇","🥈","🥉"],rc=["var(--gold)","var(--silver)","var(--bronze)"],meUid=currentUser?.uid;
   el.innerHTML=scored.map((p,i)=>{
     const isMe=p.uid===meUid;
     const av=p.photoURL?`<img class="lb-avatar" src="${esc(p.photoURL)}" referrerpolicy="no-referrer">`:`<div class="lb-avatar-ph">👤</div>`;
+    const breakdown=mode==="p2"
+      ?`Phase 2: ${p.p2}pt`
+      :`Groups: ${p.p1Group}pt${p.p1ThirdQual?" · Quals: "+p.p1ThirdQual+"pt":""} · KO: ${p.p1KO}pt`;
     return`<div class="lb-row${isMe?" me":""}" onclick="showDetail('${esc(p.uid)}')">
       <div class="rank" style="color:${rc[i]||"var(--muted)"}">${medals[i]||i+1}</div>${av}
       <div style="flex:1;overflow:hidden">
         <div class="lb-name">${esc(p.name)}</div>
-        <div class="lb-breakdown">Groups: ${p.p1Group}pt${p.p1ThirdQual?" · Quals: "+p.p1ThirdQual+"pt":""} · KO: ${p.p1KO}pt${p.p2?" · 2nd: "+p.p2+"pt":""}</div>
-        ${p.podium?`<div class="lb-breakdown">Podium: ${esc(p.podium)}</div>`:""}
+        <div class="lb-breakdown">${breakdown}</div>
+        ${p.podium&&mode!=="p2"?`<div class="lb-breakdown">Podium: ${esc(p.podium)}</div>`:""}
       </div>
       <div class="lb-pts">${p.score}<small> pts</small></div>
     </div>`;
@@ -1346,6 +1438,7 @@ document.querySelectorAll(".tab").forEach(tab=>{
     if(tab.dataset.tab==="home")renderHomeTab();
     if(tab.dataset.tab==="leagues")renderLeaguePanel();
     if(tab.dataset.tab==="picks")renderPicksView();
+    if(tab.dataset.tab==="phase2")renderPhase2View();
     if(tab.dataset.tab==="live")renderLiveTab();
     if(tab.dataset.tab==="admin"&&adminUnlocked)renderAdminPanel();
   });
@@ -1374,7 +1467,6 @@ function renderPicksView(){
     <div class="wizard-step${wizardStep==="groups"?" active":""}" onclick="setWizardStep('groups')">Groups</div>
     <div class="wizard-step${wizardStep==="thirdplace"?" active":""}" onclick="setWizardStep('thirdplace')">Thirds</div>
     <div class="wizard-step${wizardStep==="bracket"?" active":""}" onclick="setWizardStep('bracket')">Knockouts</div>
-    <div class="wizard-step phase2${wizardStep==="phase2"?" active":""}" onclick="setWizardStep('phase2')">Phase 2</div>
   </div>`;
 
   timerEl.innerHTML=deadlineWarning;
@@ -1898,9 +1990,13 @@ function renderBracketStep(isPhase2){
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
     ${locked
       ?`<div class="drag-item${detail.gb.p1==="hit"?" pick-correct":""}" style="margin-top:6px;border-radius:8px;cursor:default"><span class="drag-name">${esc(picks.goldenBoot||"—")}</span></div>`
-      :`<input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border='';${isPhase2?"myPicks.phase2.goldenBoot=this.value.trim();":"myPicks.phase1.goldenBoot=this.value.trim();"}scheduleDraftAutoSave('golden-boot')" autocomplete="off">`}
+      :`<input id="gb-input-${isPhase2?"p2":"p1"}" list="player-list" placeholder="Type to search from 1,242 official squad players..." value="${esc(picks.goldenBoot||"")}" maxlength="50" style="margin-top:6px" oninput="this.style.border='';${isPhase2?"myPicks.phase2.goldenBoot=this.value.trim();":"myPicks.phase1.goldenBoot=this.value.trim();"}scheduleDraftAutoSave('golden-boot');updateSubmitBtn(${isPhase2})" autocomplete="off">`}
   </div>
-  ${locked?"":`<button id="save-picks-btn-${isPhase2?"p2":"p1"}" type="button" class="btn btn-primary" style="margin-top:8px" onclick="savePicks(${isPhase2},event)">Save ${isPhase2?"Second Chance ":""}Picks ✓</button>`}
+  ${locked?"":(()=>{
+    const complete=isPhase2?isPhase2PredictionComplete(myPicks.phase2):isPhase1PredictionComplete(myPicks.phase1);
+    return`<button id="save-picks-btn-${isPhase2?"p2":"p1"}" type="button" class="btn btn-primary" style="margin-top:8px;opacity:${complete?1:0.45};cursor:${complete?"pointer":"not-allowed"}" onclick="savePicks(${isPhase2},event)">Submit Picks ✓</button>
+    ${!complete?`<div style="font-size:11px;color:var(--muted);margin-top:5px;text-align:center">Select all winners and a top scorer to submit</div>`:""}`;
+  })()}
   ${(!isPhase2&&!locked)?`<button class="btn btn-secondary" style="margin-top:8px" onclick="setWizardStep('groups')">← Back to Groups</button>`:""}
   ${renderPredictedPodiumBanner(isPhase2)}
   <div style="height:60px"></div>`;
@@ -1929,17 +2025,60 @@ function renderPredictedPodiumBanner(isPhase2){
   </div>`;
 }
 
+function updateSubmitBtn(isPhase2){
+  const id=isPhase2?"save-picks-btn-p2":"save-picks-btn-p1";
+  const btn=document.getElementById(id);
+  if(!btn)return;
+  const complete=isPhase2?isPhase2PredictionComplete(myPicks.phase2):isPhase1PredictionComplete(myPicks.phase1);
+  btn.style.opacity=complete?1:0.45;
+  btn.style.cursor=complete?"pointer":"not-allowed";
+  const hint=btn.nextElementSibling;
+  if(hint&&hint.tagName==="DIV")hint.style.display=complete?"none":"block";
+}
+
 function changeBracketRound(isPhase2,delta){
   const rounds=buildRoundsData(isPhase2);
   const stateKey=isPhase2?"phase2":"phase1";
-  const next=(bracketRoundStep[stateKey]||0)+delta;
-  bracketRoundStep[stateKey]=Math.max(0,Math.min(rounds.length-1,next));
-  renderPicksView();
+  const currentIdx=bracketRoundStep[stateKey]||0;
+
+  if(delta>0){
+    const round=rounds[currentIdx];
+    const bracket=isPhase2?myPicks.phase2.bracket:myPicks.phase1.bracket;
+    const required=Math.floor(round.teams.length/2);
+    const filled=(bracket[round.key]||[]).filter(isFilledTeamSlot).length;
+    if(filled<required){
+      showToast(`Please pick all ${required} winner${required!==1?"s":""} in ${round.label} before proceeding`);
+      return;
+    }
+  }
+
+  bracketRoundStep[stateKey]=Math.max(0,Math.min(rounds.length-1,currentIdx+delta));
+  if(isPhase2)renderPhase2View();
+  else renderPicksView();
 }
 
 function renderBracketGrid(rounds, bracket, isPhase2, locked, detail){
   const grid=document.getElementById("bracket-grid");
   if(!grid)return;
+
+  // Phase 1: build sets of teams actually in each round for accurate highlighting.
+  // "in this round" = team correctly predicted to reach here.
+  // "advanced" (picked winner) = team correctly predicted to reach the NEXT round.
+  const p1InRound={};
+  const p1NextOf={r32:'r16',r16:'qf',qf:'sf',sf:'final',final:'champion'};
+  const p1Expected={r32:32,r16:16,qf:8,sf:4,final:2,champion:1};
+  if(!isPhase2){
+    const res=results||{};
+    const r32Set=new Set();
+    Object.values(res.groups||{}).forEach(g=>{[g[0],g[1]].filter(Boolean).forEach(t=>r32Set.add(canonicalTeam(t)));});
+    (res.thirdPlaceQualifiers||[]).filter(Boolean).forEach(t=>r32Set.add(canonicalTeam(t)));
+    p1InRound.r32=r32Set;
+    p1InRound.r16=new Set((res.bracket?.r32||[]).map(canonicalTeam).filter(Boolean));
+    p1InRound.qf=new Set((res.bracket?.r16||[]).map(canonicalTeam).filter(Boolean));
+    p1InRound.sf=new Set((res.bracket?.qf||[]).map(canonicalTeam).filter(Boolean));
+    p1InRound.final=new Set((res.bracket?.sf||[]).map(canonicalTeam).filter(Boolean));
+    p1InRound.champion=new Set([(res.bracket?.final||[])[0]].filter(Boolean).map(canonicalTeam));
+  }
 
   grid.innerHTML=rounds.map(round=>{
     const picks=bracket[round.key]||[];
@@ -1956,6 +2095,12 @@ function renderBracketGrid(rounds, bracket, isPhase2, locked, detail){
       </div>`;
     }
 
+    // Sets for this round's coloring
+    const inRoundSet=p1InRound[round.key]||new Set();
+    const inRoundComplete=inRoundSet.size>=(p1Expected[round.key]||0);
+    const nextKey=p1NextOf[round.key];
+    const nextSet=nextKey?(p1InRound[nextKey]||new Set()):new Set();
+
     const matches=[];
     for(let i=0;i<teams.length;i+=2){
       const h=teams[i]||"TBD", a=teams[i+1]||"TBD";
@@ -1963,18 +2108,38 @@ function renderBracketGrid(rounds, bracket, isPhase2, locked, detail){
       const matchIdx=Math.floor(i/2);
       const pickedWinner=(picks&&picks.length>matchIdx&&picks[matchIdx])?picks[matchIdx]:"";
       const hSel=pickedWinner&&pickedWinner===h, aSel=pickedWinner&&pickedWinner===a;
-      const outcome=detail?detail.p1KO[round.key+"_"+matchIdx]:null;
-      const outcomeClass=outcome==="hit"?" pick-correct":outcome==="miss"?" pick-wrong":"";
-      const matchNum=Math.floor(i/2)+1;
+      const matchNum=matchIdx+1;
       const hAttr=locked?`disabled style="cursor:default"`:`onclick="pickBracket('${round.key}',${i},'${escA(h)}',${isPhase2})"`;
       const aAttr=locked?`disabled style="cursor:default"`:`onclick="pickBracket('${round.key}',${i+1},'${escA(a)}',${isPhase2})"`;
+
+      let hClass="", aClass="";
+      if(!isPhase2 && locked){
+        const hC=canonicalTeam(h), aC=canonicalTeam(a);
+        const hInRound=inRoundSet.size>0&&inRoundSet.has(hC);
+        const aInRound=inRoundSet.size>0&&inRoundSet.has(aC);
+        const hAdvanced=nextSet.has(hC);
+        const aAdvanced=nextSet.has(aC);
+        // Match is resolved when at least one team's result is confirmed
+        const matchResolved=nextSet.has(hC)||nextSet.has(aC)||(inRoundComplete&&(!hInRound||!aInRound));
+
+        // Step 1: base in-round colour for ALL teams (picked or not)
+        if(hInRound) hClass=" in-round";
+        else if(inRoundComplete) hClass=" not-in-round";
+        if(aInRound) aClass=" in-round";
+        else if(inRoundComplete) aClass=" not-in-round";
+
+        // Step 2: override picked winner once match result is known
+        if(hSel&&matchResolved) hClass=hAdvanced?" pick-correct":" pick-wrong";
+        if(aSel&&matchResolved) aClass=aAdvanced?" pick-correct":" pick-wrong";
+      }
+
       matches.push(`<div class="bracket-match">
         <div class="bracket-match-num">Match ${matchNum}</div>
-        <button class="bracket-team-btn${hSel?" selected":""}${hSel?outcomeClass:""}" ${hAttr}>
+        <button class="bracket-team-btn${hSel?" selected":""}${hClass}" ${hAttr}>
           <span class="bf">${hf}</span><span class="bn">${esc(h)}</span>
         </button>
         <div class="bracket-vs">vs</div>
-        <button class="bracket-team-btn${aSel?" selected":""}${aSel?outcomeClass:""}" ${aAttr}>
+        <button class="bracket-team-btn${aSel?" selected":""}${aClass}" ${aAttr}>
           <span class="bf">${af}</span><span class="bn">${esc(a)}</span>
         </button>
       </div>`);
@@ -2031,7 +2196,7 @@ function pickBracket(round, idx, team, isPhase2){
   // Find which match this is (idx/2) and clear dependent downstream picks.
   // Teams for the next round are derived from prior-round winners in buildRoundsData,
   // so we should not prefill winner selections for later rounds here.
-  const rounds=isPhase2?["r16","qf","sf","third","final"]:["r32","r16","qf","sf","third","final"];
+  const rounds=["r32","r16","qf","sf","third","final"];
   const ri=rounds.indexOf(round);
   if(ri<rounds.length-1)clearDownstream(bracket,rounds,ri,matchIdx,isPhase2);
 
@@ -2044,6 +2209,7 @@ function pickBracket(round, idx, team, isPhase2){
   const stateKey=isPhase2?"phase2":"phase1";
   const roundIdx=Math.max(0,Math.min(roundsData.length-1,bracketRoundStep[stateKey]||0));
   renderBracketGrid([roundsData[roundIdx]],bracket,isPhase2);
+  updateSubmitBtn(isPhase2);
   scheduleDraftAutoSave("knockout-pick");
 }
 
@@ -2062,9 +2228,7 @@ function buildRoundsData(isPhase2){
   const r32matches=seedBracketFromGroups(myPicks.phase1.groups,myPicks.phase1.thirdPlaceQualifiers);
 
   const r32Winners=normalizeRoundWinners(bracket.r32,32);
-  const r16Teams=isPhase2
-    ?normalizeRoundWinners(results.bracket?.r16||[],32)
-    :r32Winners;
+  const r16Teams=r32Winners;
   const r16Winners=normalizeRoundWinners(bracket.r16,16);
   const qfTeams=r16Winners;
   const qfWinners=normalizeRoundWinners(bracket.qf,8);
@@ -2082,7 +2246,7 @@ function buildRoundsData(isPhase2){
   })();
 
   return [
-    ...(isPhase2?[]:[{key:"r32",label:"Round of 32",teams:r32matches.flatMap(m=>[m.home,m.away])}]),
+    {key:"r32",label:"Round of 32",teams:isPhase2?PHASE2_R32_TEAMS:r32matches.flatMap(m=>[m.home,m.away])},
     {key:"r16",label:"Round of 16",teams:r16Teams},
     {key:"qf",label:"Quarter-Finals",teams:qfTeams},
     {key:"sf",label:"Semi-Finals",teams:sfTeams},
@@ -2106,6 +2270,26 @@ function renderPhase2Step(){
     <div class="phase2-title">⚡ Second Chance Unlocked</div>
     <div class="phase2-sub">The real bracket is set. Predict from R16 to the Final — 5pts R16/QF, 10pts SF, 15pts Champion. Game's not over!</div>
   </div>`+renderBracketStep(true);
+}
+
+function renderPhase2View(){
+  const el=document.getElementById("phase2-content");
+  const timerEl=document.getElementById("phase2-timer");
+  if(!el)return;
+  let deadlineWarning="";
+  if(!results.phase2Unlocked){
+    deadlineWarning=`<div class="deadline-banner closed">🔒 Phase 2 unlocks after the group stage ends.</div>`;
+  }else if(isPhase2Open()){
+    const diff=PHASE2_DEADLINE-new Date();
+    const days=Math.floor(diff/86400000);
+    const hrs=Math.floor((diff%86400000)/3600000);
+    const left=days>0?`${days}d ${hrs}h left`:hrs>0?`${hrs}h left`:"Closing soon";
+    deadlineWarning=`<div class="deadline-banner">⏰ Phase 2 closes: <strong>${left}</strong> (Jul 4, noon ET)</div>`;
+  }else{
+    deadlineWarning=`<div class="deadline-banner closed">🔒 Phase 2 picks closed.</div>`;
+  }
+  timerEl.innerHTML=deadlineWarning;
+  el.innerHTML=renderPhase2Step();
 }
 
 // ── VALIDATE PLAYER NAME ──────────────────────────────────────────────────
@@ -2202,7 +2386,14 @@ async function savePicks(isPhase2,ev){
     return;
   }
   if(isPhase2&&!isPhase2PredictionComplete(myPicks.phase2)){
-    showToast("⚠️ Complete all Phase 2 picks first: full knockout path and top scorer.");
+    const b=myPicks.phase2.bracket||{};
+    const missing=[];
+    [{key:"r32",n:16},{key:"r16",n:8},{key:"qf",n:4},{key:"sf",n:2},{key:"final",n:1}].forEach(({key,n})=>{
+      const filled=(b[key]||[]).filter(isFilledTeamSlot).length;
+      if(filled<n)missing.push(`${key.toUpperCase()} (${filled}/${n})`);
+    });
+    if(!isFilledTeamSlot(myPicks.phase2.goldenBoot||""))missing.push("Top Scorer");
+    showToast("⚠️ Please complete: "+missing.join(", "));
     return;
   }
 
@@ -2309,9 +2500,7 @@ function hasCompleteBracketPath(bracket,isPhase2){
   // pickBracket stores match winners in dense arrays: bracket[round][matchIdx]=winner
   // where matchIdx=Math.floor(teamIdx/2). So each position is a match winner.
   // Required match counts: r32=16, r16=8, qf=4, sf=2, final=1
-  const required=isPhase2
-    ?[{key:"r16",matches:8},{key:"qf",matches:4},{key:"sf",matches:2},{key:"final",matches:1}]
-    :[{key:"r32",matches:16},{key:"r16",matches:8},{key:"qf",matches:4},{key:"sf",matches:2},{key:"final",matches:1}];
+  const required=[{key:"r32",matches:16},{key:"r16",matches:8},{key:"qf",matches:4},{key:"sf",matches:2},{key:"final",matches:1}];
   return required.every(({key,matches})=>{
     const arr=(bracket||{})[key]||[];
     if(arr.length<matches)return false;
@@ -2381,9 +2570,15 @@ function navTo(tab, liveSub){
   if(tab==="live"){ renderLiveTab(); if(liveSub) setLiveTab(liveSub); }
   if(tab==="global") renderGlobal();
   if(tab==="picks") renderPicksView();
+  if(tab==="phase2") renderPhase2View();
 }
 
 // ══ HOME TAB ══════════════════════════════════════════════════════════════
+function setHomeLbMode(mode){
+  window._homeLbMode=mode;
+  renderHomeTab();
+}
+
 function renderHomeTab(){
   renderHomeHeader();
   const el=document.getElementById("home-content");
@@ -2401,34 +2596,19 @@ function renderHomeTab(){
   if(!todayFixtures.length&&hasData) todayFixtures=(td.fixtures||[]).filter(f=>f.status==="upcoming").slice(0,5);
   todayFixtures=todayFixtures.slice(0,6);
 
-  // Top 3 leaderboard
-  const scored=Object.entries(allPlayers||{})
+  // Top 3 leaderboard — built for both phases
+  const homeLbMode=window._homeLbMode||"p1";
+  const allScored=Object.entries(allPlayers||{})
     .map(([uid,p])=>{
       const s=calcScore(p);
-      const hasPicks=p.phase1?.groups&&Object.keys(p.phase1.groups).length>0;
-      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",score:s.total,hasPicks};
+      const hasPicks=!!(p.phase1?.groups&&Object.keys(p.phase1.groups).length>0)||(p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0);
+      return{uid,name:p.name||"Unknown",photoURL:p.photoURL||"",p1Total:s.p1Total,p2Total:s.p2Total,hasPicks};
     })
-    .filter(p=>p.hasPicks)
+    .filter(p=>p.hasPicks);
+  const scored=allScored
+    .map(p=>({...p,score:homeLbMode==="p2"?p.p2Total:p.p1Total}))
     .sort((a,b)=>b.score-a.score)
     .slice(0,3);
-
-  // Featured group: live match > next upcoming group stage match > fallback "A"
-  let featuredGroupLetter="A";
-  if(hasData){
-    const allFx=td.fixtures||[];
-    const liveFx=allFx.find(f=>f.status==="live"&&f.group);
-    if(liveFx){
-      featuredGroupLetter=liveFx.group.replace("GROUP_","");
-    } else {
-      const nextFx=allFx
-        .filter(f=>f.status==="upcoming"&&f.group&&f.utcDate)
-        .sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate))[0];
-      if(nextFx) featuredGroupLetter=nextFx.group.replace("GROUP_","");
-    }
-  }
-  const featuredGroup=hasData?(td.groups||[]).find(g=>(g.name||g.group)===featuredGroupLetter):null;
-  const featuredGroupLive=featuredGroup?computeLiveGroupStandings(featuredGroupLetter,td.groups||[],td.fixtures||[]):null;
-  const displayGroup=featuredGroupLive||featuredGroup;
 
   // Top 3 scorers
   const scorers=hasData?(td.scorers||[]).slice(0,3):[];
@@ -2437,12 +2617,16 @@ function renderHomeTab(){
   const medalColors=["var(--gold)","var(--silver)","var(--bronze)"];
 
   // My picks card
-  const myScore=calcScore(myPicks).total;
+  const myScoreObj=calcScore(myPicks);
+  const myScore=myScoreObj.total;
+  const myP1=myScoreObj.p1Total;
+  const myP2=myScoreObj.p2Total;
   const hasPicks=!!myPicks.phase1SubmittedAt||!!(currentUser&&allPlayers[currentUser.uid]);
   const ranked=Object.entries(allPlayers||{})
-    .map(([uid,p])=>({uid,score:calcScore(p).total,hasPicks:!!(p.phase1?.groups&&Object.keys(p.phase1.groups).length>0)}))
-    .filter(p=>p.hasPicks).sort((a,b)=>b.score-a.score);
-  const myRankNum=ranked.findIndex(p=>p.uid===currentUser?.uid)+1||0;
+    .map(([uid,p])=>{const s=calcScore(p);return{uid,p1Total:s.p1Total,p2Total:s.p2Total,hasPicks:!!(p.phase1?.groups&&Object.keys(p.phase1.groups).length>0)||!!(p.phase2?.bracket&&Object.keys(p.phase2.bracket).length>0)};})
+    .filter(p=>p.hasPicks);
+  const myP1Rank=ranked.slice().sort((a,b)=>b.p1Total-a.p1Total).findIndex(p=>p.uid===currentUser?.uid)+1||0;
+  const myP2Rank=ranked.slice().sort((a,b)=>b.p2Total-a.p2Total).findIndex(p=>p.uid===currentUser?.uid)+1||0;
 
   const groupsSettled=results?Object.values(results.groups||{}).filter(g=>g&&g.length>0).length:0;
   const totalGroups=12;
@@ -2458,18 +2642,26 @@ function renderHomeTab(){
           <div class="picks-card-pts">${myScore}</div>
           <div class="picks-card-pts-label">pts</div>
         </div>
+        <div style="display:flex;gap:10px;margin-top:4px;margin-bottom:2px">
+          <span style="font-size:11px;color:var(--muted)">Phase 1: <strong style="color:var(--text)">${myP1}</strong></span>
+          ${myP2||results?.phase2Unlocked?`<span style="font-size:11px;color:var(--muted)">Phase 2: <strong style="color:var(--phase2-light)">${myP2}</strong></span>`:""}
+        </div>
         <div style="display:flex;align-items:center;gap:8px">
           <div class="picks-card-rank">
-            <div class="picks-card-rank-label">Rank</div>
-            <div class="picks-card-rank-num">${myRankNum?"#"+myRankNum:"—"}</div>
+            <div class="picks-card-rank-label">P1 Rank</div>
+            <div class="picks-card-rank-num">${myP1Rank?"#"+myP1Rank:"—"}</div>
           </div>
+          ${results?.phase2Unlocked?`<div class="picks-card-rank" style="border-color:var(--phase2)">
+            <div class="picks-card-rank-label" style="color:var(--phase2-light)">P2 Rank</div>
+            <div class="picks-card-rank-num" style="color:var(--phase2-light)">${myP2Rank?"#"+myP2Rank:"—"}</div>
+          </div>`:""}
           <div style="font-size:12px;color:var(--muted)">${groupsSettled}/${totalGroups} groups settled</div>
         </div>
       </div>
       <div class="picks-card-deadline">
         <span class="picks-card-deadline-icon">⏰</span>
         <span style="flex:1">${deadlineTxt}</span>
-        <button class="picks-card-btn" onclick="navTo('picks')">View Picks</button>
+        <button class="picks-card-btn" onclick="navTo(results.phase2Unlocked?'phase2':'picks')">${results.phase2Unlocked?"Phase 2 Picks":"View Picks"}</button>
       </div>`:`
       <div class="picks-card-body" style="text-align:center;padding:20px 14px">
         <div style="font-size:28px;margin-bottom:10px">🔮</div>
@@ -2520,6 +2712,10 @@ function renderHomeTab(){
         <div class="home-section-title">Leaderboard</div>
         <button class="home-see-more" onclick="navTo('global')">See all →</button>
       </div>
+      <div class="lb-toggle" style="margin-bottom:10px">
+        <button class="lb-toggle-btn${homeLbMode==="p1"?" active":""}" onclick="setHomeLbMode('p1')">Phase 1</button>
+        <button class="lb-toggle-btn${homeLbMode==="p2"?" active":""}" onclick="setHomeLbMode('p2')">Phase 2</button>
+      </div>
       ${!scored.length?`<div style="font-size:13px;color:var(--muted)">No picks submitted yet</div>`:
         scored.map((p,i)=>{
           const av=p.photoURL?`<img class="lb-avatar" src="${esc(p.photoURL)}" referrerpolicy="no-referrer">`:`<div class="lb-avatar-ph">👤</div>`;
@@ -2531,32 +2727,6 @@ function renderHomeTab(){
             <div class="lb-pts">${p.score}<small> pts</small></div>
           </div>`;
         }).join("")
-      }
-    </div>
-
-    <!-- FEATURED GROUP STANDINGS -->
-    <div class="home-section">
-      <div class="home-section-header">
-        <div class="home-section-title">🏟️ Group ${featuredGroupLetter} Standings${displayGroup?.isLive?` <span style="font-size:10px;font-weight:700;background:var(--live);color:#000;padding:2px 5px;border-radius:4px;vertical-align:middle">LIVE</span>`:""}
-        </div>
-        <button class="home-see-more" onclick="navTo('live','groups')">All groups →</button>
-      </div>
-      ${!displayGroup?`<div style="font-size:13px;color:var(--muted)">Standings loading…</div>`:`
-        <table class="group-table">
-          <thead><tr><th>#</th><th style="text-align:left;padding-left:0">Team</th><th style="padding:8px 2px">W</th><th style="padding:8px 2px">D</th><th style="padding:8px 2px">L</th><th style="padding:8px 2px">GD</th><th style="padding:8px 2px">Pts</th></tr></thead>
-          <tbody>${(displayGroup.standings||[]).map((t,i)=>{
-            const arrow=t._moved==="up"?`<span style="color:var(--live);font-size:10px;margin-left:3px">▲</span>`:t._moved==="down"?`<span style="color:var(--red);font-size:10px;margin-left:3px">▼</span>`:"";
-            const lm=t._liveMatch;
-            const badge=lm?`<span style="display:inline-block;font-size:11px;font-weight:700;background:${lm.myGoals>lm.oppGoals?"var(--live)":lm.myGoals<lm.oppGoals?"var(--red)":"#777"};color:#fff;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle">${lm.score}</span>`:"";
-            return`<tr class="${i<2?"q":""}">
-              <td style="color:var(--muted);font-size:11px">${i+1}${arrow}</td>
-              <td style="text-align:left;padding-left:0">${t.flag||"🏳️"} ${esc(t.team)}${badge}</td>
-              <td style="padding:10px 2px;font-size:12px">${t.won||0}</td><td style="padding:10px 2px;font-size:12px">${t.drawn||0}</td><td style="padding:10px 2px;font-size:12px">${t.lost||0}</td>
-              <td style="padding:10px 2px;font-size:12px;color:${(t.gd||0)>=0?"var(--live)":"var(--red)"}">${(t.gd||0)>=0?"+":""}${t.gd||0}</td>
-              <td style="padding:10px 2px"><strong>${t.points||0}</strong></td>
-            </tr>`;
-          }).join("")}</tbody>
-        </table>`
       }
     </div>
 
