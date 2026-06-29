@@ -826,6 +826,7 @@ const THIRD_PLACE_SLOT_COLUMNS = [
 
 // ══ STATE ══════════════════════════════════════════════════════════════════
 let currentUser=null, allPlayers={}, results={}, leagues={}, tournamentData={}, lastKnownGoodData=null, activeFixtureDate=null;
+let derivedBracket={}; // bracket derived from wc2026.json fixtures; re-merged after every Firestore results update
 let fixtureMap={}; // id → fixture object, populated by applyTournamentData for modal lookup
 let myPicks={phase1:{groups:{},thirdPlaceQualifiers:[],bracket:{},goldenBoot:""},phase2:{bracket:{},goldenBoot:""},phase1SubmittedAt:null,phase2SubmittedAt:null};
 let activeLeague=null, leagueView="my", liveTab="groups";
@@ -1011,6 +1012,14 @@ function startListeners(){
     }),
     db.collection("wc2026").doc("results").onSnapshot(s=>{
       results=s.exists?s.data():{};
+      // Re-merge locally-derived bracket so Firestore gaps don't wipe fixture-based scores
+      if(Object.keys(derivedBracket).length){
+        results.bracket=results.bracket||{};
+        Object.entries(derivedBracket).forEach(([k,v])=>{
+          if(Array.isArray(v)&&v.some(Boolean)&&!(results.bracket[k]||[]).some(Boolean))
+            results.bracket[k]=v;
+        });
+      }
       // Auto-unlock Phase 2 if group stage is complete
       if(!results.phase2Unlocked&&isGroupStageComplete()){
         db.collection("wc2026").doc("results").set({phase2Unlocked:true},{merge:true});
@@ -1176,14 +1185,16 @@ async function updateResultsFromLiveData(data) {
         (teamsMatch(f.home,h)&&teamsMatch(f.away,a))||(teamsMatch(f.home,a)&&teamsMatch(f.away,h)));
       if(idx>=0) r32Arr[idx]=f.winner;
     });
-    const derivedBracket = { r32: r32Arr };
+    const localBracket = { r32: r32Arr };
     [['LAST_16','r16',8],['QUARTER_FINALS','qf',4],['SEMI_FINALS','sf',2],['FINAL','final',1]].forEach(([stage,key,n])=>{
       const done=fixtures.filter(f=>f.stage===stage&&f.winner).sort((a,b)=>(a.utcDate||'').localeCompare(b.utcDate||''));
       const arr=new Array(n).fill('');
       done.forEach((f,i)=>{ if(i<n) arr[i]=f.winner; });
-      derivedBracket[key]=arr;
-      if(key==='final'&&done[0]?.winner) derivedBracket.winner=[done[0].winner];
+      localBracket[key]=arr;
+      if(key==='final'&&done[0]?.winner) localBracket.winner=[done[0].winner];
     });
+    // Cache in global so onSnapshot can re-merge after Firestore overwrites results
+    derivedBracket = localBracket;
 
     // Get current Firestore results to merge into (read is allowed for all users)
     const snapshot = await db.collection("wc2026").doc("results").get();
@@ -1194,7 +1205,7 @@ async function updateResultsFromLiveData(data) {
 
     // Only override bracket keys that have actual data (non-empty arrays)
     const bracketUpdate = {};
-    Object.entries(derivedBracket).forEach(([k,v])=>{ if(Array.isArray(v)&&v.some(Boolean)) bracketUpdate[k]=v; });
+    Object.entries(localBracket).forEach(([k,v])=>{ if(Array.isArray(v)&&v.some(Boolean)) bracketUpdate[k]=v; });
 
     const updatedResults = {
       ...currentResults,
@@ -1503,7 +1514,6 @@ function renderPicksView(){
   if(wizardStep==="phase2") content=renderPhase2Step();
 
   el.innerHTML=content;
-  el.inert=phase1Locked;
   if(wizardStep==="groups"&&!phase1Locked) initDragDrop();
   if(wizardStep==="thirdplace"&&!phase1Locked) initThirdPlaceDrag();
 }
@@ -1999,7 +2009,6 @@ function renderBracketStep(isPhase2){
     :locked?`<span class="phase-label p1">Phase 1</span> Your submitted knockout picks.`
     :`<span class="phase-label p1">Phase 1</span> Based on your group predictions — pick match winners all the way to the Final.`}
   </div>
-  <div${locked?' style="pointer-events:none;user-select:none"':''}>
   <div class="bracket-round-nav">
     <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},-1)" ${bracketRoundStep[stateKey]===0?"disabled":""}>← Prev</button>
     <div class="bracket-round-indicator">${activeRound.label} (${bracketRoundStep[stateKey]+1}/${rounds.length})</div>
@@ -2010,8 +2019,6 @@ function renderBracketStep(isPhase2){
     <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},-1)" ${bracketRoundStep[stateKey]===0?"disabled":""}>← Prev</button>
     <div class="bracket-round-indicator">${activeRound.label} (${bracketRoundStep[stateKey]+1}/${rounds.length})</div>
     <button class="btn btn-secondary" onclick="changeBracketRound(${isPhase2},1)" ${bracketRoundStep[stateKey]===maxIndex?"disabled":""}>Next →</button>
-  </div>
-  </div>
   </div>
   <div style="margin-top:12px">
     <div class="picks-label">Golden Boot 🥾 — ${isPhase2?5:10}pts</div>
@@ -2310,7 +2317,6 @@ function renderPhase2View(){
   }
   timerEl.innerHTML=deadlineWarning;
   el.innerHTML=renderPhase2Step();
-  el.inert=!!myPicks.phase2SubmittedAt;
 }
 
 // ── VALIDATE PLAYER NAME ──────────────────────────────────────────────────
