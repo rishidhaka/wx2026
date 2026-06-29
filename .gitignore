@@ -67,3 +67,7 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Local reference documents — not for upstream
+KUBERNETES_WRITEUP.md
+data/wc2026.json
