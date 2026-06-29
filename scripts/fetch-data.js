@@ -468,6 +468,29 @@ async function fetchFromFootballData() {
 }
 
 // ══ FIRESTORE ══════════════════════════════════════════════════════════════
+
+// R32 fixture pairs in bracket order — must mirror PHASE2_R32_TEAMS in index.html
+const PHASE2_R32_PAIRS = [
+  ['Germany','Paraguay'],        ['France','Sweden'],
+  ['South Africa','Canada'],     ['Netherlands','Morocco'],
+  ['Portugal','Croatia'],        ['Spain','Austria'],
+  ['United States','Bosnia-Herzegovina'], ['Belgium','Senegal'],
+  ['Brazil','Japan'],            ['Ivory Coast','Norway'],
+  ['Mexico','Ecuador'],          ['England','Congo DR'],
+  ['Argentina','Cape Verde Islands'], ['Australia','Egypt'],
+  ['Switzerland','Algeria'],     ['Colombia','Ghana'],
+];
+
+// Normalise API team names to match PHASE2_R32_PAIRS (mirrors TEAM_NAME_ALIASES in index.html)
+const CANON_NAMES = {
+  'USA':'United States','Türkiye':'Turkey',"Côte d'Ivoire":'Ivory Coast',
+  'IR Iran':'Iran','Cabo Verde':'Cape Verde Islands','Cape Verde':'Cape Verde Islands',
+  'DR Congo':'Congo DR','Congo DR':'Congo DR',
+  'Bosnia and Herzegovina':'Bosnia-Herzegovina',
+  'Korea Republic':'South Korea','Czechia':'Czech Republic',
+};
+function canonTeam(n) { return CANON_NAMES[n] || n; }
+
 function deriveBracket(fixtures) {
   const bracket = { r32:[], r16:[], qf:[], sf:[], final:[], winner:[] };
   const stageMap = { 'LAST_32':'r32', 'LAST_16':'r16', 'QUARTER_FINALS':'qf', 'SEMI_FINALS':'sf', 'FINAL':'final' };
@@ -490,13 +513,31 @@ function deriveResults(fixtures, groups) {
     results.groups[g.group] = g.standings.map(t => t.team);
   }
   results.startedGroups = groups.filter(g => g.standings.some(t => t.played > 0)).map(g => g.group);
-  const stageMap = { 'LAST_32':'r32', 'LAST_16':'r16', 'QUARTER_FINALS':'qf', 'SEMI_FINALS':'sf', 'FINAL':'final' };
-  for (const f of fixtures) {
-    const key = stageMap[f.stage];
-    if (!key || f.status !== 'fin') continue;
-    if (f.home && f.away) results.bracket[key].push(f.home, f.away);
-    if (key === 'final' && f.winner) results.bracket.winner = [f.winner];
+
+  // R32: store winners at the position matching PHASE2_R32_PAIRS so Phase 2
+  // positional scoring (actual[i] === pick[i]) lines up with what users predicted.
+  // Empty string = match not yet played; filter(Boolean) still works for Phase 1 set scoring.
+  const r32Arr = new Array(16).fill('');
+  for (const f of fixtures.filter(f2 => f2.stage === 'LAST_32' && f2.status === 'fin' && f2.winner)) {
+    const ch = canonTeam(f.home), ca = canonTeam(f.away);
+    const idx = PHASE2_R32_PAIRS.findIndex(([h,a]) =>
+      (canonTeam(h)===ch && canonTeam(a)===ca) || (canonTeam(h)===ca && canonTeam(a)===ch));
+    if (idx >= 0) r32Arr[idx] = f.winner;
   }
+  results.bracket.r32 = r32Arr;
+
+  // R16–Final: sort by kick-off time so index 0 = earliest fixture (consistent positional order)
+  const koStages = [['LAST_16','r16',8],['QUARTER_FINALS','qf',4],['SEMI_FINALS','sf',2],['FINAL','final',1]];
+  for (const [stage, key, n] of koStages) {
+    const done = fixtures
+      .filter(f => f.stage === stage && f.status === 'fin' && f.winner)
+      .sort((a, b) => (a.utcDate||'').localeCompare(b.utcDate||''));
+    const arr = new Array(n).fill('');
+    done.forEach((f, i) => { if (i < n) arr[i] = f.winner; });
+    results.bracket[key] = arr;
+    if (key === 'final' && done[0]?.winner) results.bracket.winner = [done[0].winner];
+  }
+
   const groupFixtures = fixtures.filter(f => f.stage === 'GROUP_STAGE');
   results.phase2Unlocked = groupFixtures.length > 0 && groupFixtures.every(f => f.status === 'fin');
   return results;
