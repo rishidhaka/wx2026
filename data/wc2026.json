@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T18:45:27.059Z",
+  "lastUpdated": "2026-06-30T18:50:23.534Z",
   "groups": [
     {
       "group": "A",
@@ -3892,7 +3892,7 @@
       "away": "Norway",
       "awayFlag": "🇳🇴",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [
         {
           "name": "Amad Diallo",
@@ -3906,6 +3906,13 @@
         {
           "name": "Antonio Nusa",
           "minute": "39",
+          "tag": "",
+          "team": "Norway",
+          "og": false
+        },
+        {
+          "name": "Erling Haaland",
+          "minute": "86",
           "tag": "",
           "team": "Norway",
           "og": false
@@ -4492,6 +4499,13 @@
       "assists": 0
     },
     {
+      "name": "Erling Haaland",
+      "team": "Norway",
+      "flag": "🇳🇴",
+      "goals": 5,
+      "assists": 0
+    },
+    {
       "name": "Vinicius Junior",
       "team": "Brazil",
       "flag": "🇧🇷",
@@ -4504,13 +4518,6 @@
       "flag": "🇫🇷",
       "goals": 4,
       "assists": 2
-    },
-    {
-      "name": "Erling Haaland",
-      "team": "Norway",
-      "flag": "🇳🇴",
-      "goals": 4,
-      "assists": 0
     },
     {
       "name": "Ousmane Dembélé",
