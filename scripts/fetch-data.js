@@ -365,7 +365,19 @@ async function fetchFromWC26(fdUtcDates = {}) {
       homeGoals: (isFin || isLive) ? parseGoalScorers(game.home_scorers, homeName, parseInt(game.id)) : [],
       awayGoals: (isFin || isLive) ? parseGoalScorers(game.away_scorers, awayName, parseInt(game.id)) : [],
       status,
-      winner: isFin ? (homeScore > awayScore ? game.home_team_name_en : awayScore > homeScore ? game.away_team_name_en : null) : null,
+      winner: isFin ? (
+        homeScore > awayScore ? game.home_team_name_en :
+        awayScore > homeScore ? game.away_team_name_en :
+        (parseInt(game.away_penalty_score) > parseInt(game.home_penalty_score) ? game.away_team_name_en :
+         parseInt(game.home_penalty_score) > parseInt(game.away_penalty_score) ? game.home_team_name_en : null)
+      ) : null,
+      penaltyWin: isFin && homeScore === awayScore && (game.home_penalty_score || game.away_penalty_score)
+        ? (parseInt(game.away_penalty_score) > parseInt(game.home_penalty_score)
+            ? `${game.away_team_name_en} wins on penalties`
+            : parseInt(game.home_penalty_score) > parseInt(game.away_penalty_score)
+              ? `${game.home_team_name_en} wins on penalties`
+              : null)
+        : null,
     };
   });
 
@@ -391,9 +403,17 @@ function humanRound(stage) {
 }
 
 function winnerName(m) {
-  if (!m.score?.winner) return null;
-  if (m.score.winner === 'HOME_TEAM') return m.homeTeam.name;
-  if (m.score.winner === 'AWAY_TEAM') return m.awayTeam.name;
+  if (m.score?.winner === 'HOME_TEAM') return m.homeTeam.name;
+  if (m.score?.winner === 'AWAY_TEAM') return m.awayTeam.name;
+  // football-data.org returns winner:null for some penalty shootouts;
+  // fullTime includes penalty goals so it correctly reflects the overall winner
+  if (m.score?.duration === 'PENALTY_SHOOTOUT') {
+    const h = m.score.fullTime?.home, a = m.score.fullTime?.away;
+    if (h != null && a != null) {
+      if (h > a) return m.homeTeam.name;
+      if (a > h) return m.awayTeam.name;
+    }
+  }
   return null;
 }
 
@@ -450,10 +470,11 @@ async function fetchFromFootballData() {
       utcDate: m.utcDate,
       home: m.homeTeam.name, homeFlag: flagFor(m.homeTeam.name),
       away: m.awayTeam.name, awayFlag: flagFor(m.awayTeam.name),
-      homeScore: live ? (ft.home ?? 0) : fin ? ft.home : null,
-      awayScore: live ? (ft.away ?? 0) : fin ? ft.away : null,
+      homeScore: fin ? (m.score?.duration === 'PENALTY_SHOOTOUT' ? (m.score?.regularTime?.home ?? ft.home) : ft.home) : live ? (ft.home ?? 0) : null,
+      awayScore: fin ? (m.score?.duration === 'PENALTY_SHOOTOUT' ? (m.score?.regularTime?.away ?? ft.away) : ft.away) : live ? (ft.away ?? 0) : null,
       status: live ? 'live' : fin ? 'fin' : 'upcoming',
       winner: fin ? winnerName(m) : null,
+      penaltyWin: fin && m.score?.duration === 'PENALTY_SHOOTOUT' ? `${winnerName(m)} wins on penalties` : null,
     };
   });
 
