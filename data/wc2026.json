@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T21:50:23.198Z",
+  "lastUpdated": "2026-06-30T21:55:26.275Z",
   "groups": [
     {
       "group": "A",
@@ -4507,6 +4507,13 @@
       "assists": 0
     },
     {
+      "name": "Kylian Mbappé",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 5,
+      "assists": 2
+    },
+    {
       "name": "Erling Haaland",
       "team": "Norway",
       "flag": "🇳🇴",
@@ -4521,18 +4528,11 @@
       "assists": 1
     },
     {
-      "name": "Kylian Mbappé",
-      "team": "France",
-      "flag": "🇫🇷",
-      "goals": 4,
-      "assists": 2
-    },
-    {
       "name": "Ousmane Dembélé",
       "team": "France",
       "flag": "🇫🇷",
       "goals": 4,
-      "assists": 1
+      "assists": 2
     },
     {
       "name": "Ismael Saibari",
