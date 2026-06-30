@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T22:50:27.649Z",
+  "lastUpdated": "2026-06-30T22:55:25.087Z",
   "groups": [
     {
       "group": "A",
@@ -3961,8 +3961,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "France",
       "penaltyWin": null
     },
     {
@@ -4207,8 +4207,8 @@
       "utcDate": "2026-07-04T21:00:00.000Z",
       "home": "Paraguay",
       "homeFlag": "🇵🇾",
-      "away": "Winner Match 77",
-      "awayFlag": "🏳️",
+      "away": "France",
+      "awayFlag": "🇫🇷",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
@@ -4514,10 +4514,24 @@
   ],
   "topScorers": [
     {
+      "name": "Kylian Mbappé",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 6,
+      "assists": 2
+    },
+    {
       "name": "Lionel Messi",
       "team": "Argentina",
       "flag": "🇦🇷",
       "goals": 6,
+      "assists": 0
+    },
+    {
+      "name": "Erling Haaland",
+      "team": "Norway",
+      "flag": "🇳🇴",
+      "goals": 5,
       "assists": 0
     },
     {
@@ -4528,25 +4542,11 @@
       "assists": 1
     },
     {
-      "name": "Kylian Mbappé",
-      "team": "France",
-      "flag": "🇫🇷",
-      "goals": 4,
-      "assists": 2
-    },
-    {
-      "name": "Erling Haaland",
-      "team": "Norway",
-      "flag": "🇳🇴",
-      "goals": 4,
-      "assists": 0
-    },
-    {
       "name": "Ousmane Dembélé",
       "team": "France",
       "flag": "🇫🇷",
       "goals": 4,
-      "assists": 1
+      "assists": 2
     },
     {
       "name": "Ismael Saibari",
