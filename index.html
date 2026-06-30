@@ -2769,15 +2769,18 @@ function renderHomeTab(){
           const meta=live?`<div class="home-match-pill-meta live">● LIVE</div>`
             :fin?`<div class="home-match-pill-meta">Full time</div>`
             :`<div class="home-match-pill-meta">${timeStr}</div>`;
+          const pBadge=`<span style="font-size:9px;font-weight:700;color:var(--gold);background:rgba(245,166,35,.15);border:1px solid var(--gold);border-radius:3px;padding:1px 3px;margin-left:4px;vertical-align:middle">P</span>`;
+          const homePenWin=f.penaltyWin&&f.winner===(f.home||f.homeTeam);
+          const awayPenWin=f.penaltyWin&&f.winner===(f.away||f.awayTeam);
           return`<div class="home-match-pill${live?" live":""}" style="cursor:pointer" onclick="showMatchModal(${f.id})">
             <div class="home-match-pill-team">
               <span style="font-size:16px">${f.homeFlag||"🏳️"}</span>
-              <span class="home-match-pill-name">${esc(f.home||f.homeTeam||"")}</span>
+              <span class="home-match-pill-name">${esc(f.home||f.homeTeam||"")}${homePenWin?pBadge:""}</span>
             </div>
             ${vsBlock}
             <div class="home-match-pill-team">
               <span style="font-size:16px">${f.awayFlag||"🏳️"}</span>
-              <span class="home-match-pill-name">${esc(f.away||f.awayTeam||"")}</span>
+              <span class="home-match-pill-name">${esc(f.away||f.awayTeam||"")}${awayPenWin?pBadge:""}</span>
             </div>
             ${meta}
           </div>`;
@@ -3100,16 +3103,19 @@ function renderLiveFixtures(el,fixtures){
       const metaContent=live
         ?`<span class="live-dot-inline"></span><span style="color:var(--live);font-weight:600">Live</span>`
         :fin?'Full time':timeStr;
+      const homePenWin=f.penaltyWin&&f.winner===f.home;
+      const awayPenWin=f.penaltyWin&&f.winner===f.away;
+      const pBadge=`<span style="font-size:10px;font-weight:700;color:var(--gold);background:rgba(212,175,55,.15);border:1px solid var(--gold);border-radius:3px;padding:1px 4px;margin-left:5px;vertical-align:middle">P</span>`;
       return`<div class="fixture${live?" live-card":fin?" fin-card":""}" style="cursor:pointer" onclick="showMatchModal(${f.id})">
         <div class="fixture-row">
           <span class="fixture-flag">${f.homeFlag||"🏳️"}</span>
           <span class="fixture-name">${esc(f.home||f.homeTeam||"")}</span>
-          <span class="fixture-score-cell${live?" live-score":""}">${hScore}</span>
+          <span class="fixture-score-cell${live?" live-score":""}">${hScore}${homePenWin?pBadge:""}</span>
         </div>
         <div class="fixture-row">
           <span class="fixture-flag">${f.awayFlag||"🏳️"}</span>
           <span class="fixture-name">${esc(f.away||f.awayTeam||"")}</span>
-          <span class="fixture-score-cell${live?" live-score":""}">${aScore}</span>
+          <span class="fixture-score-cell${live?" live-score":""}">${aScore}${awayPenWin?pBadge:""}</span>
         </div>
         <div class="fixture-meta">${metaContent}<span style="margin:0 4px;color:var(--border)">·</span>${esc(f.round||"")}</div>
       </div>`;
@@ -3544,7 +3550,9 @@ function showMatchModal(id){
       <div class="match-modal-goals-col">${goalsCol(homeGoals)}</div>
       <div class="match-modal-goals-col">${goalsCol(awayGoals)}</div>
     </div>`:hasScore?`<div style="text-align:center;font-size:12px;color:var(--muted);padding:12px 0">Goal details updating…</div>`:""}
-    <div class="match-modal-status">${live?"● Live now":fin?"Full time":`Kick-off: ${f.time||"TBD"}`}</div>`;
+    <div class="match-modal-status">${live?"● Live now":fin?"Full time":`Kick-off: ${f.time||"TBD"}`}</div>
+    ${fin&&f.penaltyWin?`<div style="text-align:center;font-size:12px;color:var(--muted);font-style:italic;margin-top:4px">${esc(f.penaltyWin)}</div>`:""}
+    `;
   document.getElementById("match-modal").classList.add("open");
 }
 function closeMatchModal(){document.getElementById("match-modal").classList.remove("open");}
