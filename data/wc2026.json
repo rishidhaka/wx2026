@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T22:30:26.291Z",
+  "lastUpdated": "2026-06-30T22:35:25.505Z",
   "groups": [
     {
       "group": "A",
@@ -3935,7 +3935,7 @@
       "homeFlag": "🇫🇷",
       "away": "Sweden",
       "awayFlag": "🇸🇪",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -3948,6 +3948,13 @@
         {
           "name": "Bradley Barcola",
           "minute": "53",
+          "tag": "",
+          "team": "France",
+          "og": false
+        },
+        {
+          "name": "Kylian Mbappé",
+          "minute": "74",
           "tag": "",
           "team": "France",
           "og": false
@@ -4507,18 +4514,18 @@
   ],
   "topScorers": [
     {
+      "name": "Kylian Mbappé",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 6,
+      "assists": 2
+    },
+    {
       "name": "Lionel Messi",
       "team": "Argentina",
       "flag": "🇦🇷",
       "goals": 6,
       "assists": 0
-    },
-    {
-      "name": "Kylian Mbappé",
-      "team": "France",
-      "flag": "🇫🇷",
-      "goals": 5,
-      "assists": 2
     },
     {
       "name": "Erling Haaland",
