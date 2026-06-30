@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T22:10:26.819Z",
+  "lastUpdated": "2026-06-30T22:15:22.201Z",
   "groups": [
     {
       "group": "A",
@@ -3935,12 +3935,19 @@
       "homeFlag": "🇫🇷",
       "away": "Sweden",
       "awayFlag": "🇸🇪",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "homeGoals": [
         {
           "name": "Kylian Mbappé",
           "minute": "45",
+          "tag": "",
+          "team": "France",
+          "og": false
+        },
+        {
+          "name": "Bradley Barcola",
+          "minute": "53",
           "tag": "",
           "team": "France",
           "og": false
