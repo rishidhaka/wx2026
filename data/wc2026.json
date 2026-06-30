@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T17:40:26.629Z",
+  "lastUpdated": "2026-06-30T17:45:26.824Z",
   "groups": [
     {
       "group": "A",
@@ -3892,9 +3892,17 @@
       "away": "Norway",
       "awayFlag": "🇳🇴",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Antonio Nusa",
+          "minute": "39",
+          "tag": "",
+          "team": "Norway",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
