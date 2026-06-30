@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T02:50:22.033Z",
+  "lastUpdated": "2026-06-30T02:55:22.159Z",
   "groups": [
     {
       "group": "A",
@@ -3855,7 +3855,7 @@
       "away": "Morocco",
       "awayFlag": "🇲🇦",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Kvdi Khakpv",
@@ -3865,7 +3865,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Issa Diop",
+          "minute": "90+1",
+          "tag": "",
+          "team": "Morocco",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
