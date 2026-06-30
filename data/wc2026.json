@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T18:35:20.478Z",
+  "lastUpdated": "2026-06-30T18:40:27.507Z",
   "groups": [
     {
       "group": "A",
@@ -3891,9 +3891,17 @@
       "homeFlag": "🇨🇮",
       "away": "Norway",
       "awayFlag": "🇳🇴",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Amad Diallo",
+          "minute": "74",
+          "tag": "",
+          "team": "Ivory Coast",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Antonio Nusa",
