@@ -1021,6 +1021,19 @@ function startListeners(){
   unsubs.push(
     db.collection("wc2026").doc("players").onSnapshot(s=>{
       allPlayers=s.exists?s.data():{};
+      // Self-heal: if this user submitted picks but is missing from the leaderboard,
+      // the players doc write failed silently during submission — repair it now.
+      if(currentUser&&myPicks.phase1SubmittedAt&&!allPlayers[currentUser.uid]){
+        const repair={[currentUser.uid]:{
+          name:currentUser.displayName||"Anonymous",
+          photoURL:currentUser.photoURL||"",
+          email:currentUser.email||"",
+          phase1:cleanData(myPicks.phase1)||{},
+          phase2:cleanData(myPicks.phase2)||{},
+        }};
+        db.collection("wc2026").doc("players").set(repair,{merge:true})
+          .catch(e=>console.warn("Leaderboard repair failed:",e?.message));
+      }
       updatePicksTabLabel();
       if(document.getElementById("view-home")?.classList.contains("active"))renderHomeTab();
       document.getElementById("last-updated").textContent=new Date().toLocaleTimeString();
@@ -1089,10 +1102,28 @@ function startListeners(){
         myPicks.phase1SubmittedAt=null;
         db.collection("wc2026picks").doc(currentUser.uid).set({phase1SubmittedAt:null},{merge:true});
       }
+      // Self-heal: if older/bad save locked Phase 2 without complete picks, unlock it.
+      if(myPicks.phase2SubmittedAt&&!isPhase2PredictionComplete(myPicks.phase2)){
+        myPicks.phase2SubmittedAt=null;
+        db.collection("wc2026picks").doc(currentUser.uid).set({phase2SubmittedAt:null},{merge:true});
+      }
       // Self-heal: Phase 2 picks saved before phase2SubmittedAt was tracked — backfill the timestamp.
       if(!myPicks.phase2SubmittedAt&&isPhase2PredictionComplete(myPicks.phase2)){
         myPicks.phase2SubmittedAt=d.updatedAt||d.draftUpdatedAt||new Date().toISOString();
         db.collection("wc2026picks").doc(currentUser.uid).set({phase2SubmittedAt:myPicks.phase2SubmittedAt},{merge:true});
+      }
+      // Self-heal: picks are submitted but user is missing from the leaderboard —
+      // the wc2026/players write failed silently during submission. Re-attempt it now.
+      if(myPicks.phase1SubmittedAt&&!allPlayers[currentUser.uid]){
+        const repair={[currentUser.uid]:{
+          name:currentUser.displayName||"Anonymous",
+          photoURL:currentUser.photoURL||"",
+          email:currentUser.email||"",
+          phase1:cleanData(myPicks.phase1)||{},
+          phase2:cleanData(myPicks.phase2)||{},
+        }};
+        db.collection("wc2026").doc("players").set(repair,{merge:true})
+          .catch(e=>console.warn("Leaderboard repair failed:",e?.message));
       }
     } else {
       // First-time user - show How to Play modal
