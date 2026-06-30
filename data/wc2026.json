@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T02:35:19.991Z",
+  "lastUpdated": "2026-06-30T02:40:25.221Z",
   "groups": [
     {
       "group": "A",
@@ -672,7 +672,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Mexico"
+      "winner": "Mexico",
+      "penaltyWin": null
     },
     {
       "id": 2,
@@ -715,7 +716,8 @@
         }
       ],
       "status": "fin",
-      "winner": "South Korea"
+      "winner": "South Korea",
+      "penaltyWin": null
     },
     {
       "id": 3,
@@ -751,7 +753,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 4,
@@ -808,7 +811,8 @@
         }
       ],
       "status": "fin",
-      "winner": "United States"
+      "winner": "United States",
+      "penaltyWin": null
     },
     {
       "id": 8,
@@ -844,7 +848,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 7,
@@ -880,7 +885,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 5,
@@ -908,7 +914,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Scotland"
+      "winner": "Scotland",
+      "penaltyWin": null
     },
     {
       "id": 6,
@@ -943,7 +950,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Australia"
+      "winner": "Australia",
+      "penaltyWin": null
     },
     {
       "id": 10,
@@ -1021,7 +1029,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Germany"
+      "winner": "Germany",
+      "penaltyWin": null
     },
     {
       "id": 11,
@@ -1071,7 +1080,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 9,
@@ -1099,7 +1109,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Ivory Coast"
+      "winner": "Ivory Coast",
+      "penaltyWin": null
     },
     {
       "id": 12,
@@ -1163,7 +1174,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Sweden"
+      "winner": "Sweden",
+      "penaltyWin": null
     },
     {
       "id": 14,
@@ -1183,7 +1195,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 15,
@@ -1219,7 +1232,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 16,
@@ -1255,7 +1269,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 13,
@@ -1305,7 +1320,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 17,
@@ -1355,7 +1371,8 @@
         }
       ],
       "status": "fin",
-      "winner": "France"
+      "winner": "France",
+      "penaltyWin": null
     },
     {
       "id": 18,
@@ -1412,7 +1429,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Norway"
+      "winner": "Norway",
+      "penaltyWin": null
     },
     {
       "id": 19,
@@ -1454,7 +1472,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Argentina"
+      "winner": "Argentina",
+      "penaltyWin": null
     },
     {
       "id": 20,
@@ -1497,7 +1516,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Austria"
+      "winner": "Austria",
+      "penaltyWin": null
     },
     {
       "id": 21,
@@ -1533,7 +1553,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 22,
@@ -1597,7 +1618,8 @@
         }
       ],
       "status": "fin",
-      "winner": "England"
+      "winner": "England",
+      "penaltyWin": null
     },
     {
       "id": 24,
@@ -1625,7 +1647,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Ghana"
+      "winner": "Ghana",
+      "penaltyWin": null
     },
     {
       "id": 23,
@@ -1675,7 +1698,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Colombia"
+      "winner": "Colombia",
+      "penaltyWin": null
     },
     {
       "id": 28,
@@ -1703,7 +1727,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 26,
@@ -1753,7 +1778,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Switzerland"
+      "winner": "Switzerland",
+      "penaltyWin": null
     },
     {
       "id": 27,
@@ -1816,7 +1842,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Canada"
+      "winner": "Canada",
+      "penaltyWin": null
     },
     {
       "id": 25,
@@ -1844,7 +1871,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Mexico"
+      "winner": "Mexico",
+      "penaltyWin": null
     },
     {
       "id": 31,
@@ -1879,7 +1907,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "United States"
+      "winner": "United States",
+      "penaltyWin": null
     },
     {
       "id": 30,
@@ -1907,7 +1936,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Morocco"
+      "winner": "Morocco",
+      "penaltyWin": null
     },
     {
       "id": 29,
@@ -1949,7 +1979,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Brazil"
+      "winner": "Brazil",
+      "penaltyWin": null
     },
     {
       "id": 32,
@@ -1977,7 +2008,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Paraguay"
+      "winner": "Paraguay",
+      "penaltyWin": null
     },
     {
       "id": 35,
@@ -2041,7 +2073,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Netherlands"
+      "winner": "Netherlands",
+      "penaltyWin": null
     },
     {
       "id": 33,
@@ -2084,7 +2117,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Germany"
+      "winner": "Germany",
+      "penaltyWin": null
     },
     {
       "id": 34,
@@ -2104,7 +2138,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 36,
@@ -2153,7 +2188,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Japan"
+      "winner": "Japan",
+      "penaltyWin": null
     },
     {
       "id": 39,
@@ -2202,7 +2238,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Spain"
+      "winner": "Spain",
+      "penaltyWin": null
     },
     {
       "id": 37,
@@ -2222,7 +2259,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 40,
@@ -2272,7 +2310,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 38,
@@ -2322,7 +2361,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Egypt"
+      "winner": "Egypt",
+      "penaltyWin": null
     },
     {
       "id": 43,
@@ -2357,7 +2397,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Argentina"
+      "winner": "Argentina",
+      "penaltyWin": null
     },
     {
       "id": 41,
@@ -2399,7 +2440,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "France"
+      "winner": "France",
+      "penaltyWin": null
     },
     {
       "id": 42,
@@ -2456,7 +2498,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Norway"
+      "winner": "Norway",
+      "penaltyWin": null
     },
     {
       "id": 44,
@@ -2499,7 +2542,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Algeria"
+      "winner": "Algeria",
+      "penaltyWin": null
     },
     {
       "id": 45,
@@ -2555,7 +2599,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Portugal"
+      "winner": "Portugal",
+      "penaltyWin": null
     },
     {
       "id": 48,
@@ -2575,7 +2620,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 46,
@@ -2603,7 +2649,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Croatia"
+      "winner": "Croatia",
+      "penaltyWin": null
     },
     {
       "id": 47,
@@ -2631,7 +2678,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Colombia"
+      "winner": "Colombia",
+      "penaltyWin": null
     },
     {
       "id": 53,
@@ -2681,7 +2729,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Bosnia and Herzegovina"
+      "winner": "Bosnia and Herzegovina",
+      "penaltyWin": null
     },
     {
       "id": 54,
@@ -2724,7 +2773,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Switzerland"
+      "winner": "Switzerland",
+      "penaltyWin": null
     },
     {
       "id": 50,
@@ -2788,7 +2838,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Morocco"
+      "winner": "Morocco",
+      "penaltyWin": null
     },
     {
       "id": 49,
@@ -2830,7 +2881,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Brazil"
+      "winner": "Brazil",
+      "penaltyWin": null
     },
     {
       "id": 52,
@@ -2872,7 +2924,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Mexico"
+      "winner": "Mexico",
+      "penaltyWin": null
     },
     {
       "id": 51,
@@ -2900,7 +2953,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "South Africa"
+      "winner": "South Africa",
+      "penaltyWin": null
     },
     {
       "id": 55,
@@ -2935,7 +2989,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Ivory Coast"
+      "winner": "Ivory Coast",
+      "penaltyWin": null
     },
     {
       "id": 56,
@@ -2978,7 +3033,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Ecuador"
+      "winner": "Ecuador",
+      "penaltyWin": null
     },
     {
       "id": 59,
@@ -3014,7 +3070,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 60,
@@ -3064,7 +3121,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Netherlands"
+      "winner": "Netherlands",
+      "penaltyWin": null
     },
     {
       "id": 58,
@@ -3121,7 +3179,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Turkey"
+      "winner": "Turkey",
+      "penaltyWin": null
     },
     {
       "id": 57,
@@ -3141,7 +3200,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 61,
@@ -3197,7 +3257,8 @@
       ],
       "awayGoals": [],
       "status": "fin",
-      "winner": "Senegal"
+      "winner": "Senegal",
+      "penaltyWin": null
     },
     {
       "id": 62,
@@ -3254,7 +3315,8 @@
         }
       ],
       "status": "fin",
-      "winner": "France"
+      "winner": "France",
+      "penaltyWin": null
     },
     {
       "id": 65,
@@ -3274,7 +3336,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 66,
@@ -3302,7 +3365,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Spain"
+      "winner": "Spain",
+      "penaltyWin": null
     },
     {
       "id": 63,
@@ -3338,7 +3402,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 64,
@@ -3402,7 +3467,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Belgium"
+      "winner": "Belgium",
+      "penaltyWin": null
     },
     {
       "id": 67,
@@ -3437,7 +3503,8 @@
         }
       ],
       "status": "fin",
-      "winner": "England"
+      "winner": "England",
+      "penaltyWin": null
     },
     {
       "id": 68,
@@ -3480,7 +3547,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Croatia"
+      "winner": "Croatia",
+      "penaltyWin": null
     },
     {
       "id": 72,
@@ -3523,7 +3591,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Democratic Republic of the Congo"
+      "winner": "Democratic Republic of the Congo",
+      "penaltyWin": null
     },
     {
       "id": 71,
@@ -3543,7 +3612,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 70,
@@ -3593,7 +3663,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Argentina"
+      "winner": "Argentina",
+      "penaltyWin": null
     },
     {
       "id": 69,
@@ -3657,7 +3728,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 73,
@@ -3685,7 +3757,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Canada"
+      "winner": "Canada",
+      "penaltyWin": null
     },
     {
       "id": 76,
@@ -3728,7 +3801,8 @@
         }
       ],
       "status": "fin",
-      "winner": "Brazil"
+      "winner": "Brazil",
+      "penaltyWin": null
     },
     {
       "id": 74,
@@ -3764,7 +3838,8 @@
         }
       ],
       "status": "fin",
-      "winner": null
+      "winner": "Paraguay",
+      "penaltyWin": "Paraguay wins on penalties"
     },
     {
       "id": 75,
@@ -3792,7 +3867,8 @@
       ],
       "awayGoals": [],
       "status": "live",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 78,
@@ -3812,7 +3888,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 77,
@@ -3832,7 +3909,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 79,
@@ -3852,7 +3930,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 80,
@@ -3872,7 +3951,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 82,
@@ -3892,7 +3972,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 81,
@@ -3912,7 +3993,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 84,
@@ -3932,7 +4014,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 83,
@@ -3952,7 +4035,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 85,
@@ -3972,7 +4056,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 88,
@@ -3992,7 +4077,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 86,
@@ -4012,7 +4098,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 87,
@@ -4032,7 +4119,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 90,
@@ -4052,7 +4140,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 89,
@@ -4072,7 +4161,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 91,
@@ -4092,7 +4182,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 92,
@@ -4112,7 +4203,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 93,
@@ -4132,7 +4224,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 94,
@@ -4152,7 +4245,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 95,
@@ -4172,7 +4266,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 96,
@@ -4192,7 +4287,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 97,
@@ -4212,7 +4308,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 98,
@@ -4232,7 +4329,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 99,
@@ -4252,7 +4350,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 100,
@@ -4272,7 +4371,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 101,
@@ -4292,7 +4392,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 102,
@@ -4312,7 +4413,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 103,
@@ -4332,7 +4434,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     },
     {
       "id": 104,
@@ -4352,7 +4455,8 @@
       "homeGoals": [],
       "awayGoals": [],
       "status": "upcoming",
-      "winner": null
+      "winner": null,
+      "penaltyWin": null
     }
   ],
   "topScorers": [
@@ -4462,6 +4566,13 @@
       "assists": 0
     },
     {
+      "name": "Cody Gakpo",
+      "team": "Netherlands",
+      "flag": "🇳🇱",
+      "goals": 3,
+      "assists": 1
+    },
+    {
       "name": "Ismaïla Sarr",
       "team": "Senegal",
       "flag": "🇸🇳",
@@ -4488,13 +4599,6 @@
       "flag": "🇺🇸",
       "goals": 2,
       "assists": 0
-    },
-    {
-      "name": "Crysencio Summerville",
-      "team": "Netherlands",
-      "flag": "🇳🇱",
-      "goals": 2,
-      "assists": 1
     }
   ]
 }
