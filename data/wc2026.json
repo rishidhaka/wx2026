@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T18:55:30.767Z",
+  "lastUpdated": "2026-06-30T19:00:39.587Z",
   "groups": [
     {
       "group": "A",
@@ -3918,8 +3918,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Norway",
       "penaltyWin": null
     },
     {
@@ -4206,8 +4206,8 @@
       "utcDate": "2026-07-05T20:00:00.000Z",
       "home": "Brazil",
       "homeFlag": "🇧🇷",
-      "away": "Winner Match 78",
-      "awayFlag": "🏳️",
+      "away": "Norway",
+      "awayFlag": "🇳🇴",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
