@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T02:30:29.564Z",
+  "lastUpdated": "2026-07-01T02:35:19.565Z",
   "groups": [
     {
       "group": "A",
@@ -3978,12 +3978,19 @@
       "homeFlag": "🇲🇽",
       "away": "Ecuador",
       "awayFlag": "🇪🇨",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "homeGoals": [
         {
           "name": "Jvlian Kviinvnz",
           "minute": "22",
+          "tag": "",
+          "team": "Mexico",
+          "og": false
+        },
+        {
+          "name": "Raúl Jiménez",
+          "minute": "31",
           "tag": "",
           "team": "Mexico",
           "og": false
@@ -4561,7 +4568,7 @@
       "team": "Mexico",
       "flag": "🇲🇽",
       "goals": 3,
-      "assists": 0
+      "assists": 1
     },
     {
       "name": "Ismael Saibari",
@@ -4648,16 +4655,16 @@
       "assists": 1
     },
     {
-      "name": "Cyle Larin",
-      "team": "Canada",
-      "flag": "🇨🇦",
+      "name": "Raúl Jiménez",
+      "team": "Mexico",
+      "flag": "🇲🇽",
       "goals": 2,
       "assists": 0
     },
     {
-      "name": "Folarin Balogun",
-      "team": "United States",
-      "flag": "🇺🇸",
+      "name": "Cyle Larin",
+      "team": "Canada",
+      "flag": "🇨🇦",
       "goals": 2,
       "assists": 0
     }
