@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T16:00:31.153Z",
+  "lastUpdated": "2026-07-01T16:05:24.934Z",
   "groups": [
     {
       "group": "A",
@@ -4014,11 +4014,11 @@
       "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "away": "Democratic Republic of the Congo",
       "awayFlag": "🇨🇩",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null,
       "penaltyWin": null
     },
