@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T17:50:24.536Z",
+  "lastUpdated": "2026-07-01T17:55:20.292Z",
   "groups": [
     {
       "group": "A",
@@ -4014,12 +4014,19 @@
       "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "away": "Democratic Republic of the Congo",
       "awayFlag": "🇨🇩",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "homeGoals": [
         {
           "name": "Hri Kin",
           "minute": "75",
+          "tag": "",
+          "team": "England",
+          "og": false
+        },
+        {
+          "name": "Hri Kin",
+          "minute": "86",
           "tag": "",
           "team": "England",
           "og": false
