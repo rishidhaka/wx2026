@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T18:00:34.339Z",
+  "lastUpdated": "2026-07-01T18:05:21.878Z",
   "groups": [
     {
       "group": "A",
@@ -4041,8 +4041,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "England",
       "penaltyWin": null
     },
     {
@@ -4287,8 +4287,8 @@
       "utcDate": "2026-07-05T22:00:00.000Z",
       "home": "Mexico",
       "homeFlag": "🇲🇽",
-      "away": "Winner Match 80",
-      "awayFlag": "🏳️",
+      "away": "England",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
