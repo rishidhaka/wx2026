@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T04:00:33.005Z",
+  "lastUpdated": "2026-07-01T04:05:23.382Z",
   "groups": [
     {
       "group": "A",
@@ -3997,8 +3997,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Mexico",
       "penaltyWin": null
     },
     {
@@ -4262,8 +4262,8 @@
       "date": "Sun 5 Jul",
       "time": "6:00 PM ET",
       "utcDate": "2026-07-05T22:00:00.000Z",
-      "home": "Winner Match 79",
-      "homeFlag": "🏳️",
+      "home": "Mexico",
+      "homeFlag": "🇲🇽",
       "away": "Winner Match 80",
       "awayFlag": "🏳️",
       "homeScore": null,
