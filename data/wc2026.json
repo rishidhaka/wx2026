@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T21:50:24.309Z",
+  "lastUpdated": "2026-07-01T21:55:22.519Z",
   "groups": [
     {
       "group": "A",
@@ -4058,9 +4058,24 @@
       "homeFlag": "🇧🇪",
       "away": "Senegal",
       "awayFlag": "🇸🇳",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 2,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Romelu Lukaku",
+          "minute": "86",
+          "tag": "",
+          "team": "Belgium",
+          "og": false
+        },
+        {
+          "name": "Youri Tielemans",
+          "minute": "89",
+          "tag": "",
+          "team": "Belgium",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Habib Diarra",
