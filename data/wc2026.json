@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T20:25:24.929Z",
+  "lastUpdated": "2026-07-01T20:30:33.578Z",
   "groups": [
     {
       "group": "A",
@@ -4059,9 +4059,17 @@
       "away": "Senegal",
       "awayFlag": "🇸🇳",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Habib Diarra",
+          "minute": "25",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
