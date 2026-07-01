@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T22:50:26.779Z",
+  "lastUpdated": "2026-07-01T22:55:19.266Z",
   "groups": [
     {
       "group": "A",
@@ -4092,8 +4092,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Belgium",
       "penaltyWin": null
     },
     {
@@ -4359,8 +4359,8 @@
       "utcDate": "2026-07-06T21:00:00.000Z",
       "home": "Winner Match 81",
       "homeFlag": "🏳️",
-      "away": "Winner Match 82",
-      "awayFlag": "🏳️",
+      "away": "Belgium",
+      "awayFlag": "🇧🇪",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
