@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T20:00:34.636Z",
+  "lastUpdated": "2026-07-01T20:05:25.425Z",
   "groups": [
     {
       "group": "A",
@@ -4058,11 +4058,11 @@
       "homeFlag": "🇧🇪",
       "away": "Senegal",
       "awayFlag": "🇸🇳",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null,
       "penaltyWin": null
     },
