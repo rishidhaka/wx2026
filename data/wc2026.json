@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T16:05:24.934Z",
+  "lastUpdated": "2026-07-01T16:10:30.235Z",
   "groups": [
     {
       "group": "A",
@@ -4015,9 +4015,17 @@
       "away": "Democratic Republic of the Congo",
       "awayFlag": "🇨🇩",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Braian Sipnga",
+          "minute": "7",
+          "tag": "",
+          "team": "Democratic Republic of the Congo",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
