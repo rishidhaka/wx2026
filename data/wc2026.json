@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T00:55:19.230Z",
+  "lastUpdated": "2026-07-01T01:00:27.805Z",
   "groups": [
     {
       "group": "A",
@@ -3978,11 +3978,11 @@
       "homeFlag": "🇲🇽",
       "away": "Ecuador",
       "awayFlag": "🇪🇨",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null,
       "penaltyWin": null
     },
