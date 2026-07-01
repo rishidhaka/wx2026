@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-01T21:10:23.705Z",
+  "lastUpdated": "2026-07-01T21:15:24.798Z",
   "groups": [
     {
       "group": "A",
@@ -4068,6 +4068,13 @@
           "tag": "",
           "team": "Senegal",
           "og": false
+        },
+        {
+          "name": "Ismaïla Sarr",
+          "minute": "51",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
         }
       ],
       "status": "live",
@@ -4602,6 +4609,13 @@
       "assists": 2
     },
     {
+      "name": "Ismaïla Sarr",
+      "team": "Senegal",
+      "flag": "🇸🇳",
+      "goals": 4,
+      "assists": 1
+    },
+    {
       "name": "Julián Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -4675,13 +4689,6 @@
       "name": "Cody Gakpo",
       "team": "Netherlands",
       "flag": "🇳🇱",
-      "goals": 3,
-      "assists": 1
-    },
-    {
-      "name": "Ismaïla Sarr",
-      "team": "Senegal",
-      "flag": "🇸🇳",
       "goals": 3,
       "assists": 1
     },
