@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T02:05:21.631Z",
+  "lastUpdated": "2026-07-02T02:10:26.846Z",
   "groups": [
     {
       "group": "A",
@@ -4128,8 +4128,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "United States",
       "penaltyWin": null
     },
     {
@@ -4372,8 +4372,8 @@
       "date": "Mon 6 Jul",
       "time": "5:00 PM ET",
       "utcDate": "2026-07-06T21:00:00.000Z",
-      "home": "Winner Match 81",
-      "homeFlag": "🏳️",
+      "home": "United States",
+      "homeFlag": "🇺🇸",
       "away": "Belgium",
       "awayFlag": "🇧🇪",
       "homeScore": null,
