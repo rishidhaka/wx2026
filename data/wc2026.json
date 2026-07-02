@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T20:55:29.225Z",
+  "lastUpdated": "2026-07-02T21:00:28.703Z",
   "groups": [
     {
       "group": "A",
@@ -4178,8 +4178,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Spain",
       "penaltyWin": null
     },
     {
@@ -4382,8 +4382,8 @@
       "utcDate": "2026-07-06T18:00:00.000Z",
       "home": "Winner Match 83",
       "homeFlag": "🏳️",
-      "away": "Winner Match 84",
-      "awayFlag": "🏳️",
+      "away": "Spain",
+      "awayFlag": "🇪🇸",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
