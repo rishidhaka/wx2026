@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T00:45:25.281Z",
+  "lastUpdated": "2026-07-02T00:50:28.042Z",
   "groups": [
     {
       "group": "A",
@@ -4109,9 +4109,17 @@
       "homeFlag": "🇺🇸",
       "away": "Bosnia and Herzegovina",
       "awayFlag": "🇧🇦",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Flvrin Balvgan",
+          "minute": "45",
+          "tag": "",
+          "team": "United States",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null,
@@ -4638,6 +4646,13 @@
       "assists": 1
     },
     {
+      "name": "Folarin Balogun",
+      "team": "United States",
+      "flag": "🇺🇸",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "Ismael Saibari",
       "team": "Morocco",
       "flag": "🇲🇦",
@@ -4711,13 +4726,6 @@
       "name": "Raúl Jiménez",
       "team": "Mexico",
       "flag": "🇲🇽",
-      "goals": 2,
-      "assists": 0
-    },
-    {
-      "name": "Cyle Larin",
-      "team": "Canada",
-      "flag": "🇨🇦",
       "goals": 2,
       "assists": 0
     }
