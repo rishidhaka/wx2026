@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T23:00:28.780Z",
+  "lastUpdated": "2026-07-02T23:05:22.903Z",
   "groups": [
     {
       "group": "A",
@@ -4195,11 +4195,11 @@
       "homeFlag": "🇵🇹",
       "away": "Croatia",
       "awayFlag": "🇭🇷",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null,
       "penaltyWin": null
     },
