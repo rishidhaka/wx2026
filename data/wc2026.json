@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T20:50:28.787Z",
+  "lastUpdated": "2026-07-02T20:55:29.225Z",
   "groups": [
     {
       "group": "A",
@@ -4152,7 +4152,7 @@
       "homeFlag": "🇪🇸",
       "away": "Austria",
       "awayFlag": "🇦🇹",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
       "homeGoals": [
         {
@@ -4165,6 +4165,13 @@
         {
           "name": "Pedro Porro",
           "minute": "66",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        },
+        {
+          "name": "Mikel Oyarzabal",
+          "minute": "89",
           "tag": "",
           "team": "Spain",
           "og": false
@@ -4654,6 +4661,13 @@
       "assists": 1
     },
     {
+      "name": "Mikel Oyarzabal",
+      "team": "Spain",
+      "flag": "🇪🇸",
+      "goals": 4,
+      "assists": 1
+    },
+    {
       "name": "Ousmane Dembélé",
       "team": "France",
       "flag": "🇫🇷",
@@ -4748,13 +4762,6 @@
       "name": "Cody Gakpo",
       "team": "Netherlands",
       "flag": "🇳🇱",
-      "goals": 3,
-      "assists": 1
-    },
-    {
-      "name": "Mikel Oyarzabal",
-      "team": "Spain",
-      "flag": "🇪🇸",
       "goals": 3,
       "assists": 1
     }
