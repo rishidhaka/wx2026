@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T01:45:20.278Z",
+  "lastUpdated": "2026-07-02T01:50:26.916Z",
   "groups": [
     {
       "group": "A",
@@ -4109,12 +4109,19 @@
       "homeFlag": "🇺🇸",
       "away": "Bosnia and Herzegovina",
       "awayFlag": "🇧🇦",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "homeGoals": [
         {
           "name": "Flvrin Balvgan",
           "minute": "45",
+          "tag": "",
+          "team": "United States",
+          "og": false
+        },
+        {
+          "name": "Malik Tillman",
+          "minute": "82",
           "tag": "",
           "team": "United States",
           "og": false
