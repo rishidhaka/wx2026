@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T19:35:29.408Z",
+  "lastUpdated": "2026-07-02T19:40:24.569Z",
   "groups": [
     {
       "group": "A",
@@ -4152,9 +4152,17 @@
       "homeFlag": "🇪🇸",
       "away": "Austria",
       "awayFlag": "🇦🇹",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Mikel Oyarzabal",
+          "minute": "36",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null,
@@ -4737,11 +4745,11 @@
       "assists": 1
     },
     {
-      "name": "Raúl Jiménez",
-      "team": "Mexico",
-      "flag": "🇲🇽",
-      "goals": 2,
-      "assists": 0
+      "name": "Mikel Oyarzabal",
+      "team": "Spain",
+      "flag": "🇪🇸",
+      "goals": 3,
+      "assists": 1
     }
   ]
 }
