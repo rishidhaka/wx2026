@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T20:25:25.183Z",
+  "lastUpdated": "2026-07-02T20:30:30.696Z",
   "groups": [
     {
       "group": "A",
@@ -4152,12 +4152,19 @@
       "homeFlag": "🇪🇸",
       "away": "Austria",
       "awayFlag": "🇦🇹",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "homeGoals": [
         {
           "name": "Mikel Oyarzabal",
           "minute": "36",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        },
+        {
+          "name": "Pedro Porro",
+          "minute": "66",
           "tag": "",
           "team": "Spain",
           "og": false
