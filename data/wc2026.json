@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T23:20:26.555Z",
+  "lastUpdated": "2026-07-03T23:25:24.915Z",
   "groups": [
     {
       "group": "A",
@@ -4306,7 +4306,7 @@
       "away": "Cape Verde",
       "awayFlag": "🇨🇻",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Lionel Messi",
@@ -4316,7 +4316,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Drvi Dviart",
+          "minute": "59",
+          "tag": "",
+          "team": "Cape Verde",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
