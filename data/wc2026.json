@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T04:05:25.968Z",
+  "lastUpdated": "2026-07-03T04:10:28.504Z",
   "groups": [
     {
       "group": "A",
@@ -4232,12 +4232,19 @@
       "homeFlag": "🇨🇭",
       "away": "Algeria",
       "awayFlag": "🇩🇿",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "homeGoals": [
         {
           "name": "Breel Embolo",
           "minute": "10",
+          "tag": "",
+          "team": "Switzerland",
+          "og": false
+        },
+        {
+          "name": "Dan Ndoye",
+          "minute": "46",
           "tag": "",
           "team": "Switzerland",
           "og": false
