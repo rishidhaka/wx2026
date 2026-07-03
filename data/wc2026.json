@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T04:56:41.951Z",
+  "lastUpdated": "2026-07-03T05:00:29.603Z",
   "groups": [
     {
       "group": "A",
@@ -4251,8 +4251,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Switzerland",
       "penaltyWin": null
     },
     {
@@ -4474,8 +4474,8 @@
       "date": "Tue 7 Jul",
       "time": "1:00 PM ET",
       "utcDate": "2026-07-07T17:00:00.000Z",
-      "home": "Winner Match 85",
-      "homeFlag": "🏳️",
+      "home": "Switzerland",
+      "homeFlag": "🇨🇭",
       "away": "Winner Match 87",
       "awayFlag": "🏳️",
       "homeScore": null,
