@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T01:10:23.179Z",
+  "lastUpdated": "2026-07-03T01:14:03.016Z",
   "groups": [
     {
       "group": "A",
@@ -4215,8 +4215,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Portugal",
       "penaltyWin": null
     },
     {
@@ -4396,8 +4396,8 @@
       "date": "Mon 6 Jul",
       "time": "2:00 PM ET",
       "utcDate": "2026-07-06T18:00:00.000Z",
-      "home": "Winner Match 83",
-      "homeFlag": "🏳️",
+      "home": "Portugal",
+      "homeFlag": "🇵🇹",
       "away": "Spain",
       "awayFlag": "🇪🇸",
       "homeScore": null,
