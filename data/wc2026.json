@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T00:55:23.572Z",
+  "lastUpdated": "2026-07-03T01:00:30.443Z",
   "groups": [
     {
       "group": "A",
@@ -4195,9 +4195,17 @@
       "homeFlag": "🇵🇹",
       "away": "Croatia",
       "awayFlag": "🇭🇷",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Gvnchalv Ramvs",
+          "minute": "90+4",
+          "tag": "",
+          "team": "Portugal",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Ivan Perišić",
