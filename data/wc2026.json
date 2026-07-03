@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T22:25:28.732Z",
+  "lastUpdated": "2026-07-03T22:30:36.947Z",
   "groups": [
     {
       "group": "A",
@@ -4305,9 +4305,17 @@
       "homeFlag": "🇦🇷",
       "away": "Cape Verde",
       "awayFlag": "🇨🇻",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Lionel Messi",
+          "minute": "29",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null,
