@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T03:10:28.429Z",
+  "lastUpdated": "2026-07-03T03:15:24.403Z",
   "groups": [
     {
       "group": "A",
@@ -4232,9 +4232,17 @@
       "homeFlag": "🇨🇭",
       "away": "Algeria",
       "awayFlag": "🇩🇿",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Breel Embolo",
+          "minute": "11",
+          "tag": "",
+          "team": "Switzerland",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null,
@@ -4751,7 +4759,7 @@
       "team": "Switzerland",
       "flag": "🇨🇭",
       "goals": 3,
-      "assists": 1
+      "assists": 2
     },
     {
       "name": "Jonathan David",
