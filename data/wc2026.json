@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T20:50:30.018Z",
+  "lastUpdated": "2026-07-03T20:55:20.237Z",
   "groups": [
     {
       "group": "A",
@@ -4288,9 +4288,9 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
-      "penaltyWin": null
+      "status": "fin",
+      "winner": "Egypt",
+      "penaltyWin": "Egypt wins on penalties"
     },
     {
       "id": 86,
@@ -4471,8 +4471,8 @@
       "utcDate": "2026-07-07T16:00:00.000Z",
       "home": "Winner Match 86",
       "homeFlag": "🏳️",
-      "away": "Winner Match 88",
-      "awayFlag": "🏳️",
+      "away": "Egypt",
+      "awayFlag": "🇪🇬",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
