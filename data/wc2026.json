@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T00:10:22.670Z",
+  "lastUpdated": "2026-07-03T00:15:32.515Z",
   "groups": [
     {
       "group": "A",
@@ -4196,9 +4196,17 @@
       "away": "Croatia",
       "awayFlag": "🇭🇷",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Ivan Perišić",
+          "minute": "53",
+          "tag": "",
+          "team": "Croatia",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
