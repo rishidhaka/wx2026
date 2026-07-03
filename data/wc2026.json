@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T19:15:25.868Z",
+  "lastUpdated": "2026-07-03T19:20:31.583Z",
   "groups": [
     {
       "group": "A",
@@ -4268,9 +4268,17 @@
       "homeFlag": "🇦🇺",
       "away": "Egypt",
       "awayFlag": "🇪🇬",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Mohamed Hany",
+          "minute": "55",
+          "tag": "",
+          "team": "Australia",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Emam Ashour",
