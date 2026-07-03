@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T22:00:40.747Z",
+  "lastUpdated": "2026-07-03T22:05:25.845Z",
   "groups": [
     {
       "group": "A",
@@ -4305,11 +4305,11 @@
       "homeFlag": "🇦🇷",
       "away": "Cape Verde",
       "awayFlag": "🇨🇻",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null,
       "penaltyWin": null
     },
