@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T18:10:29.002Z",
+  "lastUpdated": "2026-07-03T18:15:22.048Z",
   "groups": [
     {
       "group": "A",
@@ -4269,9 +4269,17 @@
       "away": "Egypt",
       "awayFlag": "🇪🇬",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Emam Ashour",
+          "minute": "13",
+          "tag": "",
+          "team": "Egypt",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
