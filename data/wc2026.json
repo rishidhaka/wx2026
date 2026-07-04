@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T23:05:27.958Z",
+  "lastUpdated": "2026-07-04T23:10:28.820Z",
   "groups": [
     {
       "group": "A",
@@ -4439,8 +4439,8 @@
       "awayScore": 1,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "France",
       "penaltyWin": null
     },
     {
@@ -4578,8 +4578,8 @@
       "date": "Thu 9 Jul",
       "time": "4:00 PM ET",
       "utcDate": "2026-07-09T20:00:00.000Z",
-      "home": "Winner Match 89",
-      "homeFlag": "🏳️",
+      "home": "France",
+      "homeFlag": "🇫🇷",
       "away": "Morocco",
       "awayFlag": "🇲🇦",
       "homeScore": null,
