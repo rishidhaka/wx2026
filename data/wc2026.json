@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T00:30:36.502Z",
+  "lastUpdated": "2026-07-04T00:35:22.524Z",
   "groups": [
     {
       "group": "A",
@@ -4305,7 +4305,7 @@
       "homeFlag": "🇦🇷",
       "away": "Cape Verde",
       "awayFlag": "🇨🇻",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 2,
       "homeGoals": [
         {
@@ -4318,6 +4318,13 @@
         {
           "name": "Lisandro Martínez",
           "minute": "92",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        },
+        {
+          "name": "Cristian Romero",
+          "minute": "111",
           "tag": "",
           "team": "Argentina",
           "og": false
@@ -4707,7 +4714,7 @@
       "team": "Argentina",
       "flag": "🇦🇷",
       "goals": 7,
-      "assists": 0
+      "assists": 1
     },
     {
       "name": "Kylian Mbappé",
