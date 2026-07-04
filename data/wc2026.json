@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T18:45:26.583Z",
+  "lastUpdated": "2026-07-04T18:50:37.424Z",
   "groups": [
     {
       "group": "A",
@@ -4393,12 +4393,19 @@
       "away": "Morocco",
       "awayFlag": "🇲🇦",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [],
       "awayGoals": [
         {
           "name": "Azdin Avnahi",
           "minute": "50",
+          "tag": "",
+          "team": "Morocco",
+          "og": false
+        },
+        {
+          "name": "Azdin Avnahi",
+          "minute": "82",
           "tag": "",
           "team": "Morocco",
           "og": false
