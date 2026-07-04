@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T00:45:26.262Z",
+  "lastUpdated": "2026-07-04T00:50:32.955Z",
   "groups": [
     {
       "group": "A",
@@ -4346,8 +4346,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Argentina",
       "penaltyWin": null
     },
     {
@@ -4506,8 +4506,8 @@
       "date": "Tue 7 Jul",
       "time": "12:00 PM ET",
       "utcDate": "2026-07-07T16:00:00.000Z",
-      "home": "Winner Match 86",
-      "homeFlag": "🏳️",
+      "home": "Argentina",
+      "homeFlag": "🇦🇷",
       "away": "Egypt",
       "awayFlag": "🇪🇬",
       "homeScore": null,
