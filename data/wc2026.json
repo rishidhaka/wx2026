@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T19:00:32.803Z",
+  "lastUpdated": "2026-07-04T19:05:19.985Z",
   "groups": [
     {
       "group": "A",
@@ -4393,7 +4393,7 @@
       "away": "Morocco",
       "awayFlag": "🇲🇦",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 3,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -4409,10 +4409,17 @@
           "tag": "",
           "team": "Morocco",
           "og": false
+        },
+        {
+          "name": "Svfian Rhimi",
+          "minute": "90+8",
+          "tag": "",
+          "team": "Morocco",
+          "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Morocco",
       "penaltyWin": null
     },
     {
