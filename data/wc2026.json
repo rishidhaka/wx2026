@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T03:30:31.882Z",
+  "lastUpdated": "2026-07-04T03:35:25.184Z",
   "groups": [
     {
       "group": "A",
@@ -4375,8 +4375,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Colombia",
       "penaltyWin": null
     },
     {
@@ -4537,8 +4537,8 @@
       "utcDate": "2026-07-07T17:00:00.000Z",
       "home": "Switzerland",
       "homeFlag": "🇨🇭",
-      "away": "Winner Match 87",
-      "awayFlag": "🏳️",
+      "away": "Colombia",
+      "awayFlag": "🇨🇴",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
