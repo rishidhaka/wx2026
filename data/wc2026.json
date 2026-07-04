@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T22:30:35.552Z",
+  "lastUpdated": "2026-07-04T22:35:23.089Z",
   "groups": [
     {
       "group": "A",
@@ -4436,7 +4436,7 @@
       "away": "France",
       "awayFlag": "🇫🇷",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
       "awayGoals": [],
       "status": "live",
@@ -4580,8 +4580,8 @@
       "utcDate": "2026-07-09T20:00:00.000Z",
       "home": "Winner Match 89",
       "homeFlag": "🏳️",
-      "away": "Winner Match 90",
-      "awayFlag": "🏳️",
+      "away": "Morocco",
+      "awayFlag": "🇲🇦",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
@@ -4740,18 +4740,18 @@
   ],
   "topScorers": [
     {
+      "name": "Kylian Mbappé",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 7,
+      "assists": 2
+    },
+    {
       "name": "Lionel Messi",
       "team": "Argentina",
       "flag": "🇦🇷",
       "goals": 7,
       "assists": 0
-    },
-    {
-      "name": "Kylian Mbappé",
-      "team": "France",
-      "flag": "🇫🇷",
-      "goals": 6,
-      "assists": 2
     },
     {
       "name": "Erling Haaland",
