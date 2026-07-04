@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T17:00:30.889Z",
+  "lastUpdated": "2026-07-04T17:05:24.005Z",
   "groups": [
     {
       "group": "A",
@@ -4392,11 +4392,11 @@
       "homeFlag": "🇨🇦",
       "away": "Morocco",
       "awayFlag": "🇲🇦",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null,
       "penaltyWin": null
     },
