@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T01:45:21.243Z",
+  "lastUpdated": "2026-07-04T01:50:25.655Z",
   "groups": [
     {
       "group": "A",
@@ -4363,9 +4363,17 @@
       "homeFlag": "🇨🇴",
       "away": "Ghana",
       "awayFlag": "🇬🇭",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Jan Arias",
+          "minute": "14",
+          "tag": "",
+          "team": "Colombia",
+          "og": false
+        }
+      ],
       "awayGoals": [],
       "status": "live",
       "winner": null,
