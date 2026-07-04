@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T00:15:25.070Z",
+  "lastUpdated": "2026-07-04T00:20:30.986Z",
   "groups": [
     {
       "group": "A",
@@ -4306,7 +4306,7 @@
       "away": "Cape Verde",
       "awayFlag": "🇨🇻",
       "homeScore": 2,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [
         {
           "name": "Lionel Messi",
@@ -4327,6 +4327,13 @@
         {
           "name": "Drvi Dviart",
           "minute": "59",
+          "tag": "",
+          "team": "Cape Verde",
+          "og": false
+        },
+        {
+          "name": "Lvpz Kabral",
+          "minute": "103",
           "tag": "",
           "team": "Cape Verde",
           "og": false
