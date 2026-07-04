@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T03:35:25.184Z",
+  "lastUpdated": "2026-07-04T16:45:25.961Z",
   "groups": [
     {
       "group": "A",
@@ -4470,8 +4470,8 @@
       "group": null,
       "matchday": 5,
       "date": "Mon 6 Jul",
-      "time": "2:00 PM ET",
-      "utcDate": "2026-07-06T18:00:00.000Z",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-06T19:00:00Z",
       "home": "Portugal",
       "homeFlag": "🇵🇹",
       "away": "Spain",
@@ -4513,7 +4513,7 @@
       "matchday": 5,
       "date": "Tue 7 Jul",
       "time": "12:00 PM ET",
-      "utcDate": "2026-07-07T16:00:00.000Z",
+      "utcDate": "2026-07-07T16:00:00Z",
       "home": "Argentina",
       "homeFlag": "🇦🇷",
       "away": "Egypt",
@@ -4533,8 +4533,8 @@
       "group": null,
       "matchday": 5,
       "date": "Tue 7 Jul",
-      "time": "1:00 PM ET",
-      "utcDate": "2026-07-07T17:00:00.000Z",
+      "time": "4:00 PM ET",
+      "utcDate": "2026-07-07T20:00:00Z",
       "home": "Switzerland",
       "homeFlag": "🇨🇭",
       "away": "Colombia",
@@ -4722,7 +4722,7 @@
       "team": "Argentina",
       "flag": "🇦🇷",
       "goals": 7,
-      "assists": 1
+      "assists": 0
     },
     {
       "name": "Kylian Mbappé",
