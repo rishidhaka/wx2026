@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T21:40:28.884Z",
+  "lastUpdated": "2026-07-05T21:45:20.856Z",
   "groups": [
     {
       "group": "A",
@@ -4457,9 +4457,17 @@
       "away": "Norway",
       "awayFlag": "🇳🇴",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Erling Haaland",
+          "minute": "79",
+          "tag": "",
+          "team": "Norway",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
@@ -4757,7 +4765,7 @@
       "name": "Erling Haaland",
       "team": "Norway",
       "flag": "🇳🇴",
-      "goals": 5,
+      "goals": 6,
       "assists": 0
     },
     {
