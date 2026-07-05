@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T22:05:24.842Z",
+  "lastUpdated": "2026-07-05T22:10:33.464Z",
   "groups": [
     {
       "group": "A",
@@ -4475,8 +4475,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Norway",
       "penaltyWin": null
     },
     {
@@ -4635,8 +4635,8 @@
       "date": "Sat 11 Jul",
       "time": "5:00 PM ET",
       "utcDate": "2026-07-11T21:00:00.000Z",
-      "home": "Winner Match 91",
-      "homeFlag": "🏳️",
+      "home": "Norway",
+      "homeFlag": "🇳🇴",
       "away": "Winner Match 92",
       "awayFlag": "🏳️",
       "homeScore": null,
