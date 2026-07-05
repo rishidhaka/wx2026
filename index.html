@@ -729,8 +729,8 @@ input::placeholder{color:var(--muted)}
 const PHASE1_DEADLINE=new Date('2026-06-17T23:59:59-06:00');
 // Phase 2 unlocks after group stage ends (June 27, 2026 23:59:59 UTC-6)
 const GROUP_STAGE_END=new Date('2026-06-27T23:59:59-06:00');
-// Phase 2 picks lock before the first Round of 16 game (July 4, 2026 noon ET)
-const PHASE2_DEADLINE=new Date('2026-07-04T12:00:00-04:00');
+// Phase 2 picks closed early by admin (Jun 30, 2026)
+const PHASE2_DEADLINE=new Date('2026-06-30T00:00:00-04:00');
 
 function isPhase1Open(){return new Date()<PHASE1_DEADLINE;}
 function isPhase2Open(){return new Date()<PHASE2_DEADLINE;}
@@ -2380,7 +2380,7 @@ function renderPhase2View(){
     const days=Math.floor(diff/86400000);
     const hrs=Math.floor((diff%86400000)/3600000);
     const left=days>0?`${days}d ${hrs}h left`:hrs>0?`${hrs}h left`:"Closing soon";
-    deadlineWarning=`<div class="deadline-banner">⏰ Phase 2 closes: <strong>${left}</strong> (Jul 4, noon ET)</div>`;
+    deadlineWarning=`<div class="deadline-banner">⏰ Phase 2 closes: <strong>${left}</strong></div>`;
   }else{
     deadlineWarning=`<div class="deadline-banner closed">🔒 Phase 2 picks closed.</div>`;
   }
