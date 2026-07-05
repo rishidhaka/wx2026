@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T21:50:35.037Z",
+  "lastUpdated": "2026-07-05T21:55:25.705Z",
   "groups": [
     {
       "group": "A",
@@ -4457,12 +4457,19 @@
       "away": "Norway",
       "awayFlag": "🇳🇴",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [],
       "awayGoals": [
         {
           "name": "Erling Haaland",
           "minute": "79",
+          "tag": "",
+          "team": "Norway",
+          "og": false
+        },
+        {
+          "name": "Erling Haaland",
+          "minute": "90",
           "tag": "",
           "team": "Norway",
           "og": false
@@ -4755,17 +4762,17 @@
       "assists": 2
     },
     {
-      "name": "Lionel Messi",
-      "team": "Argentina",
-      "flag": "🇦🇷",
+      "name": "Erling Haaland",
+      "team": "Norway",
+      "flag": "🇳🇴",
       "goals": 7,
       "assists": 0
     },
     {
-      "name": "Erling Haaland",
-      "team": "Norway",
-      "flag": "🇳🇴",
-      "goals": 6,
+      "name": "Lionel Messi",
+      "team": "Argentina",
+      "flag": "🇦🇷",
+      "goals": 7,
       "assists": 0
     },
     {
