@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T02:30:34.748Z",
+  "lastUpdated": "2026-07-06T02:35:24.541Z",
   "groups": [
     {
       "group": "A",
@@ -4492,7 +4492,7 @@
       "homeFlag": "🇲🇽",
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 3,
       "homeGoals": [
         {
@@ -4848,6 +4848,13 @@
       "assists": 1
     },
     {
+      "name": "Raúl Jiménez",
+      "team": "Mexico",
+      "flag": "🇲🇽",
+      "goals": 3,
+      "assists": 0
+    },
+    {
       "name": "Folarin Balogun",
       "team": "United States",
       "flag": "🇺🇸",
@@ -4907,13 +4914,6 @@
       "name": "Matheus Cunha",
       "team": "Brazil",
       "flag": "🇧🇷",
-      "goals": 3,
-      "assists": 0
-    },
-    {
-      "name": "Brian Brobbey",
-      "team": "Netherlands",
-      "flag": "🇳🇱",
       "goals": 3,
       "assists": 0
     }
