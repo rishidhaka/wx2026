@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T03:05:24.627Z",
+  "lastUpdated": "2026-07-06T03:10:30.343Z",
   "groups": [
     {
       "group": "A",
@@ -4519,8 +4519,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "England",
       "penaltyWin": null
     },
     {
@@ -4660,8 +4660,8 @@
       "utcDate": "2026-07-11T21:00:00.000Z",
       "home": "Norway",
       "homeFlag": "🇳🇴",
-      "away": "Winner Match 92",
-      "awayFlag": "🏳️",
+      "away": "England",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
