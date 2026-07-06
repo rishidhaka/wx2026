@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T02:20:28.189Z",
+  "lastUpdated": "2026-07-06T02:25:24.289Z",
   "groups": [
     {
       "group": "A",
@@ -4493,7 +4493,7 @@
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": 1,
-      "awayScore": 2,
+      "awayScore": 3,
       "homeGoals": [
         {
           "name": "Jvlian Kviinvnz",
@@ -4802,7 +4802,7 @@
       "name": "Harry Kane",
       "team": "England",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "goals": 5,
+      "goals": 6,
       "assists": 1
     },
     {
