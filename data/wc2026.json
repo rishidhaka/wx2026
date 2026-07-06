@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T01:35:22.040Z",
+  "lastUpdated": "2026-07-06T01:40:33.620Z",
   "groups": [
     {
       "group": "A",
@@ -4493,9 +4493,24 @@
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 2,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Jvd Blingham",
+          "minute": "36",
+          "tag": "",
+          "team": "England",
+          "og": false
+        },
+        {
+          "name": "Jvd Blingham",
+          "minute": "38",
+          "tag": "",
+          "team": "England",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
@@ -4790,6 +4805,13 @@
       "assists": 1
     },
     {
+      "name": "Jude Bellingham",
+      "team": "England",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "goals": 4,
+      "assists": 1
+    },
+    {
       "name": "Mikel Oyarzabal",
       "team": "Spain",
       "flag": "🇪🇸",
@@ -4886,13 +4908,6 @@
       "flag": "🇳🇱",
       "goals": 3,
       "assists": 0
-    },
-    {
-      "name": "Cody Gakpo",
-      "team": "Netherlands",
-      "flag": "🇳🇱",
-      "goals": 3,
-      "assists": 1
     }
   ]
 }
