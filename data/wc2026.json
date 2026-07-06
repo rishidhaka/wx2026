@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T21:00:37.365Z",
+  "lastUpdated": "2026-07-06T21:05:22.277Z",
   "groups": [
     {
       "group": "A",
@@ -4548,8 +4548,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Spain",
       "penaltyWin": null
     },
     {
@@ -4645,8 +4645,8 @@
       "date": "Fri 10 Jul",
       "time": "12:00 PM ET",
       "utcDate": "2026-07-10T16:00:00.000Z",
-      "home": "Winner Match 93",
-      "homeFlag": "🏳️",
+      "home": "Spain",
+      "homeFlag": "🇪🇸",
       "away": "Winner Match 94",
       "awayFlag": "🏳️",
       "homeScore": null,
