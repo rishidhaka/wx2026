@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T20:50:37.779Z",
+  "lastUpdated": "2026-07-06T20:55:27.529Z",
   "groups": [
     {
       "group": "A",
@@ -4537,9 +4537,17 @@
       "away": "Spain",
       "awayFlag": "🇪🇸",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Mikel Merino",
+          "minute": "90+1",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
