@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T01:20:42.462Z",
+  "lastUpdated": "2026-07-07T01:25:22.754Z",
   "groups": [
     {
       "group": "A",
@@ -4566,7 +4566,7 @@
       "away": "Belgium",
       "awayFlag": "🇧🇪",
       "homeScore": 1,
-      "awayScore": 2,
+      "awayScore": 3,
       "homeGoals": [
         {
           "name": "Malik Tillman",
@@ -4587,6 +4587,13 @@
         {
           "name": "Sharl D Ktlar",
           "minute": "33",
+          "tag": "",
+          "team": "Belgium",
+          "og": false
+        },
+        {
+          "name": "Hans Vanaken",
+          "minute": "57",
           "tag": "",
           "team": "Belgium",
           "og": false
