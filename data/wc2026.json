@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T17:55:26.197Z",
+  "lastUpdated": "2026-07-07T18:01:08.711Z",
   "groups": [
     {
       "group": "A",
@@ -41,7 +41,7 @@
           "points": 3
         },
         {
-          "team": "Czech Republic",
+          "team": "Czechia",
           "flag": "🇨🇿",
           "played": 3,
           "won": 0,
@@ -82,7 +82,7 @@
           "points": 4
         },
         {
-          "team": "Bosnia and Herzegovina",
+          "team": "Bosnia-Herzegovina",
           "flag": "🇧🇦",
           "played": 3,
           "won": 1,
@@ -388,7 +388,7 @@
           "points": 7
         },
         {
-          "team": "Cape Verde",
+          "team": "Cape Verde Islands",
           "flag": "🇨🇻",
           "played": 3,
           "won": 0,
@@ -559,7 +559,7 @@
           "points": 5
         },
         {
-          "team": "Democratic Republic of the Congo",
+          "team": "Congo DR",
           "flag": "🇨🇩",
           "played": 3,
           "won": 1,
@@ -640,7 +640,7 @@
   ],
   "fixtures": [
     {
-      "id": 1,
+      "id": 537327,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -654,6 +654,9 @@
       "awayFlag": "🇿🇦",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Mexico",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "J. Quiñones",
@@ -670,13 +673,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Mexico",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 2,
+      "id": 537328,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -686,41 +686,18 @@
       "utcDate": "2026-06-12T02:00:00Z",
       "home": "South Korea",
       "homeFlag": "🇰🇷",
-      "away": "Czech Republic",
+      "away": "Czechia",
       "awayFlag": "🇨🇿",
       "homeScore": 2,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "I.B. Hwang",
-          "minute": "67",
-          "tag": "",
-          "team": "South Korea",
-          "og": false
-        },
-        {
-          "name": "H.G. Oh",
-          "minute": "80",
-          "tag": "",
-          "team": "South Korea",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "L. Krejčí",
-          "minute": "59",
-          "tag": "",
-          "team": "Czech Republic",
-          "og": false
-        }
-      ],
       "status": "fin",
       "winner": "South Korea",
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 3,
+      "id": 537333,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -730,34 +707,18 @@
       "utcDate": "2026-06-12T19:00:00Z",
       "home": "Canada",
       "homeFlag": "🇨🇦",
-      "away": "Bosnia and Herzegovina",
+      "away": "Bosnia-Herzegovina",
       "awayFlag": "🇧🇦",
       "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "C. Larin",
-          "minute": "11",
-          "tag": "",
-          "team": "Canada",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Jovo Lukić",
-          "minute": "21",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        }
-      ],
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 4,
+      "id": 537345,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -771,6 +732,9 @@
       "awayFlag": "🇵🇾",
       "homeScore": 4,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "United States",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "D. Bobadilla",
@@ -809,13 +773,10 @@
           "team": "Paraguay",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "United States",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 8,
+      "id": 537334,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -829,6 +790,9 @@
       "awayFlag": "🇨🇭",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "B. Khoukhi",
@@ -846,13 +810,10 @@
           "team": "Switzerland",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null,
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 7,
+      "id": 537339,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -866,6 +827,9 @@
       "awayFlag": "🇲🇦",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "V. Júnior",
@@ -883,13 +847,10 @@
           "team": "Morocco",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null,
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 5,
+      "id": 537340,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -903,6 +864,9 @@
       "awayFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Scotland",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -912,13 +876,10 @@
           "team": "Scotland",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Scotland",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 6,
+      "id": 537346,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -932,6 +893,9 @@
       "awayFlag": "🇹🇷",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Australia",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Nestory Irankunda",
@@ -948,13 +912,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Australia",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 10,
+      "id": 537351,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -968,6 +929,9 @@
       "awayFlag": "🇨🇼",
       "homeScore": 7,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Germany",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Felix Nmecha",
@@ -1027,13 +991,10 @@
           "team": "Curaçao",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Germany",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 11,
+      "id": 537357,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -1047,6 +1008,9 @@
       "awayFlag": "🇯🇵",
       "homeScore": 2,
       "awayScore": 2,
+      "status": "fin",
+      "winner": null,
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Virgil van Dijk",
@@ -1078,13 +1042,10 @@
           "team": "Japan",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null,
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 9,
+      "id": 537352,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -1098,6 +1059,9 @@
       "awayFlag": "🇪🇨",
       "homeScore": 1,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Ivory Coast",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "A. Diallo",
@@ -1107,13 +1071,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Ivory Coast",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 12,
+      "id": 537358,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -1127,6 +1088,9 @@
       "awayFlag": "🇹🇳",
       "homeScore": 5,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Sweden",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Y.Ayari",
@@ -1172,13 +1136,10 @@
           "team": "Tunisia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Sweden",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 14,
+      "id": 537369,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -1188,18 +1149,18 @@
       "utcDate": "2026-06-15T16:00:00Z",
       "home": "Spain",
       "homeFlag": "🇪🇸",
-      "away": "Cape Verde",
+      "away": "Cape Verde Islands",
       "awayFlag": "🇨🇻",
       "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 15,
+      "id": 537363,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -1213,6 +1174,9 @@
       "awayFlag": "🇪🇬",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Mohamed Hany",
@@ -1230,13 +1194,10 @@
           "team": "Egypt",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null,
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 16,
+      "id": 537370,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -1250,6 +1211,9 @@
       "awayFlag": "🇺🇾",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": null,
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Abdulelah Al-Amri",
@@ -1267,13 +1231,10 @@
           "team": "Uruguay",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null,
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 13,
+      "id": 537364,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -1287,6 +1248,9 @@
       "awayFlag": "🇳🇿",
       "homeScore": 2,
       "awayScore": 2,
+      "status": "fin",
+      "winner": null,
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Ramin Rezaiian",
@@ -1318,13 +1282,10 @@
           "team": "New Zealand",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null,
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 17,
+      "id": 537391,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -1338,6 +1299,9 @@
       "awayFlag": "🇸🇳",
       "homeScore": 3,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "France",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "K. Mbappé",
@@ -1369,13 +1333,10 @@
           "team": "Senegal",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "France",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 18,
+      "id": 537392,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -1389,6 +1350,9 @@
       "awayFlag": "🇳🇴",
       "homeScore": 1,
       "awayScore": 4,
+      "status": "fin",
+      "winner": "Norway",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Aymen Hussein",
@@ -1427,13 +1391,10 @@
           "team": "Norway",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Norway",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 19,
+      "id": 537397,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -1447,6 +1408,9 @@
       "awayFlag": "🇩🇿",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Argentina",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Lionel Messi",
@@ -1470,13 +1434,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Argentina",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 20,
+      "id": 537398,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -1490,6 +1451,9 @@
       "awayFlag": "🇯🇴",
       "homeScore": 3,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Austria",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Rvmanv Ashmid",
@@ -1514,13 +1478,10 @@
           "team": "Jordan",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Austria",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 21,
+      "id": 537403,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -1530,34 +1491,18 @@
       "utcDate": "2026-06-17T17:00:00Z",
       "home": "Portugal",
       "homeFlag": "🇵🇹",
-      "away": "Democratic Republic of the Congo",
+      "away": "Congo DR",
       "awayFlag": "🇨🇩",
       "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "J. Neves",
-          "minute": "6",
-          "tag": "",
-          "team": "Portugal",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Y. Wissa",
-          "minute": "45+5",
-          "tag": "",
-          "team": "Democratic Republic of the Congo",
-          "og": false
-        }
-      ],
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 22,
+      "id": 537409,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -1571,6 +1516,9 @@
       "awayFlag": "🇭🇷",
       "homeScore": 4,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "England",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "H. Kane",
@@ -1616,13 +1564,10 @@
           "team": "Croatia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "England",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 24,
+      "id": 537410,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -1636,6 +1581,9 @@
       "awayFlag": "🇵🇦",
       "homeScore": 1,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Ghana",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Kalb Iirnki",
@@ -1645,13 +1593,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Ghana",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 23,
+      "id": 537404,
       "round": "Group Stage - Matchday 1",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -1665,6 +1610,9 @@
       "awayFlag": "🇨🇴",
       "homeScore": 1,
       "awayScore": 3,
+      "status": "fin",
+      "winner": "Colombia",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Abas Bk Fiz Allh Af",
@@ -1696,13 +1644,10 @@
           "team": "Colombia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Colombia",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 28,
+      "id": 537329,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -1710,28 +1655,20 @@
       "date": "Thu 18 Jun",
       "time": "12:00 PM ET",
       "utcDate": "2026-06-18T16:00:00Z",
-      "home": "Czech Republic",
+      "home": "Czechia",
       "homeFlag": "🇨🇿",
       "away": "South Africa",
       "awayFlag": "🇿🇦",
       "homeScore": 1,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "‫mikhal Sadilk",
-          "minute": "6",
-          "tag": "",
-          "team": "Czech Republic",
-          "og": false
-        }
-      ],
-      "awayGoals": [],
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 26,
+      "id": 537335,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -1741,48 +1678,18 @@
       "utcDate": "2026-06-18T19:00:00Z",
       "home": "Switzerland",
       "homeFlag": "🇨🇭",
-      "away": "Bosnia and Herzegovina",
+      "away": "Bosnia-Herzegovina",
       "awayFlag": "🇧🇦",
       "homeScore": 4,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "Jvhan Mnzambi",
-          "minute": "74",
-          "tag": "",
-          "team": "Switzerland",
-          "og": false
-        },
-        {
-          "name": "Rvbn Vargas",
-          "minute": "84",
-          "tag": "",
-          "team": "Switzerland",
-          "og": false
-        },
-        {
-          "name": "Jvhan Mnzambi",
-          "minute": "90",
-          "tag": "",
-          "team": "Switzerland",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Armin Mhmich",
-          "minute": "90+3",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        }
-      ],
       "status": "fin",
       "winner": "Switzerland",
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 27,
+      "id": 537336,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -1796,6 +1703,9 @@
       "awayFlag": "🇶🇦",
       "homeScore": 6,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Canada",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Kail Larin",
@@ -1840,13 +1750,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Canada",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 25,
+      "id": 537330,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -1860,6 +1767,9 @@
       "awayFlag": "🇰🇷",
       "homeScore": 1,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Mexico",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Luis Romo",
@@ -1869,13 +1779,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Mexico",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 31,
+      "id": 537348,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -1889,6 +1796,9 @@
       "awayFlag": "🇦🇺",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "United States",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Kamrvn Bargs",
@@ -1905,13 +1815,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "United States",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 30,
+      "id": 537342,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -1925,6 +1832,9 @@
       "awayFlag": "🇲🇦",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Morocco",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -1934,13 +1844,10 @@
           "team": "Morocco",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Morocco",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 29,
+      "id": 537341,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -1954,6 +1861,9 @@
       "awayFlag": "🇭🇹",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Brazil",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Matheus Cunha",
@@ -1977,13 +1887,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Brazil",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 32,
+      "id": 537347,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -1997,6 +1904,9 @@
       "awayFlag": "🇵🇾",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Paraguay",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -2006,13 +1916,10 @@
           "team": "Paraguay",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Paraguay",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 35,
+      "id": 537359,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -2026,6 +1933,9 @@
       "awayFlag": "🇸🇪",
       "homeScore": 5,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Netherlands",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Brian Brobbey",
@@ -2071,13 +1981,10 @@
           "team": "Sweden",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Netherlands",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 33,
+      "id": 537353,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -2091,6 +1998,9 @@
       "awayFlag": "🇨🇮",
       "homeScore": 2,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Germany",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Dniz Avndav",
@@ -2115,13 +2025,10 @@
           "team": "Ivory Coast",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Germany",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 34,
+      "id": 537354,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -2135,14 +2042,14 @@
       "awayFlag": "🇨🇼",
       "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 36,
+      "id": 537360,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -2156,6 +2063,9 @@
       "awayFlag": "🇯🇵",
       "homeScore": 0,
       "awayScore": 4,
+      "status": "fin",
+      "winner": "Japan",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -2186,13 +2096,10 @@
           "team": "Japan",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Japan",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 39,
+      "id": 537371,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -2206,6 +2113,9 @@
       "awayFlag": "🇸🇦",
       "homeScore": 4,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Spain",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Lamine Yamal",
@@ -2236,13 +2146,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Spain",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 37,
+      "id": 537365,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -2256,14 +2163,14 @@
       "awayFlag": "🇮🇷",
       "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 40,
+      "id": 537372,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -2273,48 +2180,18 @@
       "utcDate": "2026-06-21T22:00:00Z",
       "home": "Uruguay",
       "homeFlag": "🇺🇾",
-      "away": "Cape Verde",
+      "away": "Cape Verde Islands",
       "awayFlag": "🇨🇻",
       "homeScore": 2,
       "awayScore": 2,
-      "homeGoals": [
-        {
-          "name": "Maximiliano Araújo",
-          "minute": "44",
-          "tag": "",
-          "team": "Uruguay",
-          "og": false
-        },
-        {
-          "name": "Agustín Canobbio",
-          "minute": "45+6",
-          "tag": "",
-          "team": "Uruguay",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Kevin Pina",
-          "minute": "21",
-          "tag": "",
-          "team": "Cape Verde",
-          "og": false
-        },
-        {
-          "name": "Hliv Varla",
-          "minute": "61",
-          "tag": "",
-          "team": "Cape Verde",
-          "og": false
-        }
-      ],
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 38,
+      "id": 537366,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -2328,6 +2205,9 @@
       "awayFlag": "🇪🇬",
       "homeScore": 1,
       "awayScore": 3,
+      "status": "fin",
+      "winner": "Egypt",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Fin Svrman",
@@ -2359,13 +2239,10 @@
           "team": "Egypt",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Egypt",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 43,
+      "id": 537399,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -2379,6 +2256,9 @@
       "awayFlag": "🇦🇹",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Argentina",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Lionel Messi",
@@ -2395,13 +2275,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Argentina",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 41,
+      "id": 537393,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -2415,6 +2292,9 @@
       "awayFlag": "🇮🇶",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "France",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Kylian Mbappé",
@@ -2438,13 +2318,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "France",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 42,
+      "id": 537394,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -2458,6 +2335,9 @@
       "awayFlag": "🇸🇳",
       "homeScore": 3,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "Norway",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Markvs Hlmgrn Pdrsn",
@@ -2496,13 +2376,10 @@
           "team": "Senegal",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Norway",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 44,
+      "id": 537400,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -2516,6 +2393,9 @@
       "awayFlag": "🇩🇿",
       "homeScore": 1,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "Algeria",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Al Rashdan",
@@ -2540,13 +2420,10 @@
           "team": "Algeria",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Algeria",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 45,
+      "id": 537405,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -2560,6 +2437,9 @@
       "awayFlag": "🇺🇿",
       "homeScore": 5,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Portugal",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Cristiano Ronaldo",
@@ -2597,13 +2477,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Portugal",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 48,
+      "id": 537411,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -2617,14 +2494,14 @@
       "awayFlag": "🇬🇭",
       "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 46,
+      "id": 537412,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -2638,6 +2515,9 @@
       "awayFlag": "🇭🇷",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Croatia",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -2647,13 +2527,10 @@
           "team": "Croatia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Croatia",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 47,
+      "id": 537406,
       "round": "Group Stage - Matchday 2",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -2663,77 +2540,18 @@
       "utcDate": "2026-06-24T02:00:00Z",
       "home": "Colombia",
       "homeFlag": "🇨🇴",
-      "away": "Democratic Republic of the Congo",
+      "away": "Congo DR",
       "awayFlag": "🇨🇩",
       "homeScore": 1,
       "awayScore": 0,
-      "homeGoals": [
-        {
-          "name": "Dnil Mvnvz",
-          "minute": "76",
-          "tag": "",
-          "team": "Colombia",
-          "og": false
-        }
-      ],
-      "awayGoals": [],
       "status": "fin",
       "winner": "Colombia",
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 53,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_B",
-      "matchday": 3,
-      "date": "Wed 24 Jun",
-      "time": "3:00 PM ET",
-      "utcDate": "2026-06-24T19:00:00Z",
-      "home": "Bosnia and Herzegovina",
-      "homeFlag": "🇧🇦",
-      "away": "Qatar",
-      "awayFlag": "🇶🇦",
-      "homeScore": 3,
-      "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "Karim Alaibgvvich",
-          "minute": "29",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        },
-        {
-          "name": "Abvnad",
-          "minute": "34",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        },
-        {
-          "name": "Armin Mhmich",
-          "minute": "80",
-          "tag": "",
-          "team": "Bosnia and Herzegovina",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Hassan Al-Haydos",
-          "minute": "42",
-          "tag": "",
-          "team": "Qatar",
-          "og": false
-        }
-      ],
-      "status": "fin",
-      "winner": "Bosnia and Herzegovina",
-      "penaltyWin": null
-    },
-    {
-      "id": 54,
+      "id": 537337,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
@@ -2747,6 +2565,9 @@
       "awayFlag": "🇨🇦",
       "homeScore": 2,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Switzerland",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Rubén Vargas",
@@ -2771,56 +2592,31 @@
           "team": "Canada",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Switzerland",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 49,
+      "id": 537338,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_C",
+      "group": "GROUP_B",
       "matchday": 3,
       "date": "Wed 24 Jun",
-      "time": "6:00 PM ET",
-      "utcDate": "2026-06-24T22:00:00Z",
-      "home": "Scotland",
-      "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-      "away": "Brazil",
-      "awayFlag": "🇧🇷",
-      "homeScore": 0,
-      "awayScore": 3,
-      "homeGoals": [],
-      "awayGoals": [
-        {
-          "name": "Vinícius Júnior",
-          "minute": "7",
-          "tag": "",
-          "team": "Brazil",
-          "og": false
-        },
-        {
-          "name": "Vinícius Júnior",
-          "minute": "45+3",
-          "tag": "",
-          "team": "Brazil",
-          "og": false
-        },
-        {
-          "name": "Matheus Cunha",
-          "minute": "60",
-          "tag": "",
-          "team": "Brazil",
-          "og": false
-        }
-      ],
+      "time": "3:00 PM ET",
+      "utcDate": "2026-06-24T19:00:00Z",
+      "home": "Bosnia-Herzegovina",
+      "homeFlag": "🇧🇦",
+      "away": "Qatar",
+      "awayFlag": "🇶🇦",
+      "homeScore": 3,
+      "awayScore": 1,
       "status": "fin",
-      "winner": "Brazil",
-      "penaltyWin": null
+      "winner": "Bosnia-Herzegovina",
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 50,
+      "id": 537344,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
@@ -2834,6 +2630,9 @@
       "awayFlag": "🇭🇹",
       "homeScore": 4,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "Morocco",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Achraf Hakimi",
@@ -2879,13 +2678,74 @@
           "team": "Haiti",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Morocco",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 51,
+      "id": 537343,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_C",
+      "matchday": 3,
+      "date": "Wed 24 Jun",
+      "time": "6:00 PM ET",
+      "utcDate": "2026-06-24T22:00:00Z",
+      "home": "Scotland",
+      "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "away": "Brazil",
+      "awayFlag": "🇧🇷",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "fin",
+      "winner": "Brazil",
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "name": "Vinícius Júnior",
+          "minute": "7",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        },
+        {
+          "name": "Vinícius Júnior",
+          "minute": "45+3",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        },
+        {
+          "name": "Matheus Cunha",
+          "minute": "60",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        }
+      ]
+    },
+    {
+      "id": 537331,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_A",
+      "matchday": 3,
+      "date": "Wed 24 Jun",
+      "time": "9:00 PM ET",
+      "utcDate": "2026-06-25T01:00:00Z",
+      "home": "Czechia",
+      "homeFlag": "🇨🇿",
+      "away": "Mexico",
+      "awayFlag": "🇲🇽",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "fin",
+      "winner": "Mexico",
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537332,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
@@ -2899,6 +2759,9 @@
       "awayFlag": "🇰🇷",
       "homeScore": 1,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "South Africa",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Taplv Maskv",
@@ -2908,92 +2771,10 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "South Africa",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 52,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_A",
-      "matchday": 3,
-      "date": "Wed 24 Jun",
-      "time": "9:00 PM ET",
-      "utcDate": "2026-06-25T01:00:00Z",
-      "home": "Czech Republic",
-      "homeFlag": "🇨🇿",
-      "away": "Mexico",
-      "awayFlag": "🇲🇽",
-      "homeScore": 0,
-      "awayScore": 3,
-      "homeGoals": [],
-      "awayGoals": [
-        {
-          "name": "Mateo Chávez",
-          "minute": "55",
-          "tag": "",
-          "team": "Mexico",
-          "og": false
-        },
-        {
-          "name": "Jvlian Kviinvnz",
-          "minute": "61",
-          "tag": "",
-          "team": "Mexico",
-          "og": false
-        },
-        {
-          "name": "Álvaro Fidalgo",
-          "minute": "90+4",
-          "tag": "",
-          "team": "Mexico",
-          "og": false
-        }
-      ],
-      "status": "fin",
-      "winner": "Mexico",
-      "penaltyWin": null
-    },
-    {
-      "id": 55,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_E",
-      "matchday": 3,
-      "date": "Thu 25 Jun",
-      "time": "4:00 PM ET",
-      "utcDate": "2026-06-25T20:00:00Z",
-      "home": "Curaçao",
-      "homeFlag": "🇨🇼",
-      "away": "Ivory Coast",
-      "awayFlag": "🇨🇮",
-      "homeScore": 0,
-      "awayScore": 2,
-      "homeGoals": [],
-      "awayGoals": [
-        {
-          "name": "Nikvlas Ph Ph",
-          "minute": "7",
-          "tag": "",
-          "team": "Ivory Coast",
-          "og": false
-        },
-        {
-          "name": "Nikvlas Ph Ph",
-          "minute": "64",
-          "tag": "",
-          "team": "Ivory Coast",
-          "og": false
-        }
-      ],
-      "status": "fin",
-      "winner": "Ivory Coast",
-      "penaltyWin": null
-    },
-    {
-      "id": 56,
+      "id": 537355,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
@@ -3007,6 +2788,9 @@
       "awayFlag": "🇩🇪",
       "homeScore": 2,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Ecuador",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Nilsvn Angvlv",
@@ -3031,50 +2815,46 @@
           "team": "Germany",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Ecuador",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 59,
+      "id": 537356,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_F",
+      "group": "GROUP_E",
       "matchday": 3,
       "date": "Thu 25 Jun",
-      "time": "7:00 PM ET",
-      "utcDate": "2026-06-25T23:00:00Z",
-      "home": "Japan",
-      "homeFlag": "🇯🇵",
-      "away": "Sweden",
-      "awayFlag": "🇸🇪",
-      "homeScore": 1,
-      "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "Daizen Maeda",
-          "minute": "56",
-          "tag": "",
-          "team": "Japan",
-          "og": false
-        }
-      ],
+      "time": "4:00 PM ET",
+      "utcDate": "2026-06-25T20:00:00Z",
+      "home": "Curaçao",
+      "homeFlag": "🇨🇼",
+      "away": "Ivory Coast",
+      "awayFlag": "🇨🇮",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "fin",
+      "winner": "Ivory Coast",
+      "penaltyWin": null,
+      "homeGoals": [],
       "awayGoals": [
         {
-          "name": "Anthony Elanga",
-          "minute": "62",
+          "name": "Nikvlas Ph Ph",
+          "minute": "7",
           "tag": "",
-          "team": "Sweden",
+          "team": "Ivory Coast",
+          "og": false
+        },
+        {
+          "name": "Nikvlas Ph Ph",
+          "minute": "64",
+          "tag": "",
+          "team": "Ivory Coast",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null,
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 60,
+      "id": 537361,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
@@ -3088,6 +2868,9 @@
       "awayFlag": "🇳🇱",
       "homeScore": 1,
       "awayScore": 3,
+      "status": "fin",
+      "winner": "Netherlands",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Hazm Mstvri",
@@ -3119,34 +2902,47 @@
           "team": "Netherlands",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Netherlands",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 57,
+      "id": 537362,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_D",
+      "group": "GROUP_F",
       "matchday": 3,
       "date": "Thu 25 Jun",
-      "time": "10:00 PM ET",
-      "utcDate": "2026-06-26T02:00:00Z",
-      "home": "Paraguay",
-      "homeFlag": "🇵🇾",
-      "away": "Australia",
-      "awayFlag": "🇦🇺",
-      "homeScore": 0,
-      "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
+      "time": "7:00 PM ET",
+      "utcDate": "2026-06-25T23:00:00Z",
+      "home": "Japan",
+      "homeFlag": "🇯🇵",
+      "away": "Sweden",
+      "awayFlag": "🇸🇪",
+      "homeScore": 1,
+      "awayScore": 1,
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [
+        {
+          "name": "Daizen Maeda",
+          "minute": "56",
+          "tag": "",
+          "team": "Japan",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Anthony Elanga",
+          "minute": "62",
+          "tag": "",
+          "team": "Sweden",
+          "og": false
+        }
+      ]
     },
     {
-      "id": 58,
+      "id": 537349,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
@@ -3160,6 +2956,9 @@
       "awayFlag": "🇺🇸",
       "homeScore": 3,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "Turkey",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Arda Güler",
@@ -3198,70 +2997,31 @@
           "team": "United States",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Turkey",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 61,
+      "id": 537350,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_I",
+      "group": "GROUP_D",
       "matchday": 3,
-      "date": "Fri 26 Jun",
-      "time": "3:00 PM ET",
-      "utcDate": "2026-06-26T19:00:00Z",
-      "home": "Senegal",
-      "homeFlag": "🇸🇳",
-      "away": "Iraq",
-      "awayFlag": "🇮🇶",
-      "homeScore": 5,
+      "date": "Thu 25 Jun",
+      "time": "10:00 PM ET",
+      "utcDate": "2026-06-26T02:00:00Z",
+      "home": "Paraguay",
+      "homeFlag": "🇵🇾",
+      "away": "Australia",
+      "awayFlag": "🇦🇺",
+      "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [
-        {
-          "name": "Habib Diarra",
-          "minute": "4",
-          "tag": "",
-          "team": "Senegal",
-          "og": false
-        },
-        {
-          "name": "Ismaïla Sarr",
-          "minute": "56",
-          "tag": "",
-          "team": "Senegal",
-          "og": false
-        },
-        {
-          "name": "Paph Gviih",
-          "minute": "59",
-          "tag": "",
-          "team": "Senegal",
-          "og": false
-        },
-        {
-          "name": "Paph Gviih",
-          "minute": "71",
-          "tag": "",
-          "team": "Senegal",
-          "og": false
-        },
-        {
-          "name": "Ailman Andiaih",
-          "minute": "82",
-          "tag": "",
-          "team": "Senegal",
-          "og": false
-        }
-      ],
-      "awayGoals": [],
       "status": "fin",
-      "winner": "Senegal",
-      "penaltyWin": null
+      "winner": null,
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 62,
+      "id": 537395,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
@@ -3275,6 +3035,9 @@
       "awayFlag": "🇫🇷",
       "homeScore": 1,
       "awayScore": 4,
+      "status": "fin",
+      "winner": "France",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Thelo Aasgaard",
@@ -3313,34 +3076,67 @@
           "team": "France",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "France",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 65,
+      "id": 537396,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_H",
+      "group": "GROUP_I",
       "matchday": 3,
       "date": "Fri 26 Jun",
-      "time": "8:00 PM ET",
-      "utcDate": "2026-06-27T00:00:00Z",
-      "home": "Cape Verde",
-      "homeFlag": "🇨🇻",
-      "away": "Saudi Arabia",
-      "awayFlag": "🇸🇦",
-      "homeScore": 0,
+      "time": "3:00 PM ET",
+      "utcDate": "2026-06-26T19:00:00Z",
+      "home": "Senegal",
+      "homeFlag": "🇸🇳",
+      "away": "Iraq",
+      "awayFlag": "🇮🇶",
+      "homeScore": 5,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
-      "winner": null,
-      "penaltyWin": null
+      "winner": "Senegal",
+      "penaltyWin": null,
+      "homeGoals": [
+        {
+          "name": "Habib Diarra",
+          "minute": "4",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        },
+        {
+          "name": "Ismaïla Sarr",
+          "minute": "56",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        },
+        {
+          "name": "Paph Gviih",
+          "minute": "59",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        },
+        {
+          "name": "Paph Gviih",
+          "minute": "71",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        },
+        {
+          "name": "Ailman Andiaih",
+          "minute": "82",
+          "tag": "",
+          "team": "Senegal",
+          "og": false
+        }
+      ],
+      "awayGoals": []
     },
     {
-      "id": 66,
+      "id": 537373,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
@@ -3354,6 +3150,9 @@
       "awayFlag": "🇪🇸",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Spain",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -3363,50 +3162,31 @@
           "team": "Spain",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Spain",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 63,
+      "id": 537374,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_G",
+      "group": "GROUP_H",
       "matchday": 3,
       "date": "Fri 26 Jun",
-      "time": "11:00 PM ET",
-      "utcDate": "2026-06-27T03:00:00Z",
-      "home": "Egypt",
-      "homeFlag": "🇪🇬",
-      "away": "Iran",
-      "awayFlag": "🇮🇷",
-      "homeScore": 1,
-      "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "Mahmoud Saber",
-          "minute": "5",
-          "tag": "",
-          "team": "Egypt",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Ramin Rezaeian",
-          "minute": "14",
-          "tag": "",
-          "team": "Iran",
-          "og": false
-        }
-      ],
+      "time": "8:00 PM ET",
+      "utcDate": "2026-06-27T00:00:00Z",
+      "home": "Cape Verde Islands",
+      "homeFlag": "🇨🇻",
+      "away": "Saudi Arabia",
+      "awayFlag": "🇸🇦",
+      "homeScore": 0,
+      "awayScore": 0,
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 64,
+      "id": 537367,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
@@ -3420,6 +3200,9 @@
       "awayFlag": "🇧🇪",
       "homeScore": 1,
       "awayScore": 5,
+      "status": "fin",
+      "winner": "Belgium",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Ali Jast",
@@ -3465,13 +3248,47 @@
           "team": "Belgium",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Belgium",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 67,
+      "id": 537368,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_G",
+      "matchday": 3,
+      "date": "Fri 26 Jun",
+      "time": "11:00 PM ET",
+      "utcDate": "2026-06-27T03:00:00Z",
+      "home": "Egypt",
+      "homeFlag": "🇪🇬",
+      "away": "Iran",
+      "awayFlag": "🇮🇷",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "fin",
+      "winner": null,
+      "penaltyWin": null,
+      "homeGoals": [
+        {
+          "name": "Mahmoud Saber",
+          "minute": "5",
+          "tag": "",
+          "team": "Egypt",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Ramin Rezaeian",
+          "minute": "14",
+          "tag": "",
+          "team": "Iran",
+          "og": false
+        }
+      ]
+    },
+    {
+      "id": 537413,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -3485,6 +3302,9 @@
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": 0,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "England",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -3501,13 +3321,10 @@
           "team": "England",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "England",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 68,
+      "id": 537414,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
@@ -3521,6 +3338,9 @@
       "awayFlag": "🇬🇭",
       "homeScore": 2,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Croatia",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Petar Sučić",
@@ -3545,13 +3365,10 @@
           "team": "Ghana",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Croatia",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 71,
+      "id": 537407,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -3565,14 +3382,14 @@
       "awayFlag": "🇵🇹",
       "homeScore": 0,
       "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 72,
+      "id": 537408,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
@@ -3580,43 +3397,71 @@
       "date": "Sat 27 Jun",
       "time": "7:30 PM ET",
       "utcDate": "2026-06-27T23:30:00Z",
-      "home": "Democratic Republic of the Congo",
+      "home": "Congo DR",
       "homeFlag": "🇨🇩",
       "away": "Uzbekistan",
       "awayFlag": "🇺🇿",
       "homeScore": 3,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Congo DR",
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
+    },
+    {
+      "id": 537401,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_J",
+      "matchday": 3,
+      "date": "Sat 27 Jun",
+      "time": "10:00 PM ET",
+      "utcDate": "2026-06-28T02:00:00Z",
+      "home": "Jordan",
+      "homeFlag": "🇯🇴",
+      "away": "Argentina",
+      "awayFlag": "🇦🇷",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "fin",
+      "winner": "Argentina",
+      "penaltyWin": null,
       "homeGoals": [
         {
-          "name": "Fistvn Mail",
-          "minute": "78",
+          "name": "Mvsi Altmari",
+          "minute": "55",
           "tag": "",
-          "team": "Democratic Republic of the Congo",
-          "og": false
-        },
-        {
-          "name": "Yoane Wissa",
-          "minute": "90+1",
-          "tag": "",
-          "team": "Democratic Republic of the Congo",
+          "team": "Jordan",
           "og": false
         }
       ],
       "awayGoals": [
         {
-          "name": "Aldvr Shvmvrvdvf",
-          "minute": "10",
+          "name": "Jivani Lv Slsv",
+          "minute": "19",
           "tag": "",
-          "team": "Uzbekistan",
+          "team": "Argentina",
+          "og": false
+        },
+        {
+          "name": "Lautaro Martínez",
+          "minute": "31",
+          "tag": "(P)",
+          "team": "Argentina",
+          "og": false
+        },
+        {
+          "name": "Lionel Messi",
+          "minute": "80",
+          "tag": "",
+          "team": "Argentina",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Democratic Republic of the Congo",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 69,
+      "id": 537402,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
@@ -3630,6 +3475,9 @@
       "awayFlag": "🇦🇹",
       "homeScore": 3,
       "awayScore": 3,
+      "status": "fin",
+      "winner": null,
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Rafik Blghali",
@@ -3675,68 +3523,14 @@
           "team": "Austria",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": null,
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 70,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_J",
-      "matchday": 3,
-      "date": "Sat 27 Jun",
-      "time": "10:00 PM ET",
-      "utcDate": "2026-06-28T02:00:00Z",
-      "home": "Jordan",
-      "homeFlag": "🇯🇴",
-      "away": "Argentina",
-      "awayFlag": "🇦🇷",
-      "homeScore": 1,
-      "awayScore": 3,
-      "homeGoals": [
-        {
-          "name": "Mvsi Altmari",
-          "minute": "55",
-          "tag": "",
-          "team": "Jordan",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Jivani Lv Slsv",
-          "minute": "19",
-          "tag": "",
-          "team": "Argentina",
-          "og": false
-        },
-        {
-          "name": "Lautaro Martínez",
-          "minute": "31",
-          "tag": "(P)",
-          "team": "Argentina",
-          "og": false
-        },
-        {
-          "name": "Lionel Messi",
-          "minute": "80",
-          "tag": "",
-          "team": "Argentina",
-          "og": false
-        }
-      ],
-      "status": "fin",
-      "winner": "Argentina",
-      "penaltyWin": null
-    },
-    {
-      "id": 73,
+      "id": 537417,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Sun 28 Jun",
       "time": "3:00 PM ET",
       "utcDate": "2026-06-28T19:00:00Z",
@@ -3746,6 +3540,9 @@
       "awayFlag": "🇨🇦",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Canada",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -3755,17 +3552,14 @@
           "team": "Canada",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Canada",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 76,
+      "id": 537423,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Mon 29 Jun",
       "time": "1:00 PM ET",
       "utcDate": "2026-06-29T17:00:00Z",
@@ -3775,6 +3569,9 @@
       "awayFlag": "🇯🇵",
       "homeScore": 2,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Brazil",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Casemiro",
@@ -3799,17 +3596,14 @@
           "team": "Japan",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Brazil",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 74,
+      "id": 537415,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Mon 29 Jun",
       "time": "4:30 PM ET",
       "utcDate": "2026-06-29T20:30:00Z",
@@ -3819,6 +3613,9 @@
       "awayFlag": "🇵🇾",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Paraguay",
+      "penaltyWin": "Paraguay wins on penalties",
       "homeGoals": [
         {
           "name": "Kai Havertz",
@@ -3836,17 +3633,14 @@
           "team": "Paraguay",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Paraguay",
-      "penaltyWin": "Paraguay wins on penalties"
+      ]
     },
     {
-      "id": 75,
+      "id": 537418,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Mon 29 Jun",
       "time": "9:00 PM ET",
       "utcDate": "2026-06-30T01:00:00Z",
@@ -3856,6 +3650,9 @@
       "awayFlag": "🇲🇦",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Morocco",
+      "penaltyWin": "Morocco wins on penalties",
       "homeGoals": [
         {
           "name": "Kvdi Khakpv",
@@ -3873,17 +3670,14 @@
           "team": "Morocco",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Morocco",
-      "penaltyWin": "Morocco wins on penalties"
+      ]
     },
     {
-      "id": 78,
+      "id": 537424,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Tue 30 Jun",
       "time": "1:00 PM ET",
       "utcDate": "2026-06-30T17:00:00Z",
@@ -3893,6 +3687,9 @@
       "awayFlag": "🇳🇴",
       "homeScore": 1,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "Norway",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Amad Diallo",
@@ -3917,17 +3714,14 @@
           "team": "Norway",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Norway",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 77,
+      "id": 537416,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Tue 30 Jun",
       "time": "5:00 PM ET",
       "utcDate": "2026-06-30T21:00:00Z",
@@ -3937,6 +3731,9 @@
       "awayFlag": "🇸🇪",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "France",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Kylian Mbappé",
@@ -3960,17 +3757,14 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "France",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 79,
+      "id": 537425,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Tue 30 Jun",
       "time": "10:00 PM ET",
       "utcDate": "2026-07-01T02:00:00Z",
@@ -3980,6 +3774,9 @@
       "awayFlag": "🇪🇨",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Mexico",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Jvlian Kviinvnz",
@@ -3996,61 +3793,35 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Mexico",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 80,
+      "id": 537426,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Wed 1 Jul",
       "time": "12:00 PM ET",
       "utcDate": "2026-07-01T16:00:00Z",
       "home": "England",
       "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "away": "Democratic Republic of the Congo",
+      "away": "Congo DR",
       "awayFlag": "🇨🇩",
       "homeScore": 2,
       "awayScore": 1,
-      "homeGoals": [
-        {
-          "name": "Hri Kin",
-          "minute": "75",
-          "tag": "",
-          "team": "England",
-          "og": false
-        },
-        {
-          "name": "Hri Kin",
-          "minute": "86",
-          "tag": "",
-          "team": "England",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Braian Sipnga",
-          "minute": "7",
-          "tag": "",
-          "team": "Democratic Republic of the Congo",
-          "og": false
-        }
-      ],
       "status": "fin",
       "winner": "England",
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 82,
+      "id": 537422,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Wed 1 Jul",
       "time": "4:00 PM ET",
       "utcDate": "2026-07-01T20:00:00Z",
@@ -4060,6 +3831,9 @@
       "awayFlag": "🇸🇳",
       "homeScore": 3,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "Belgium",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Romelu Lukaku",
@@ -4098,53 +3872,35 @@
           "team": "Senegal",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Belgium",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 81,
+      "id": 537421,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Wed 1 Jul",
       "time": "8:00 PM ET",
       "utcDate": "2026-07-02T00:00:00Z",
       "home": "United States",
       "homeFlag": "🇺🇸",
-      "away": "Bosnia and Herzegovina",
+      "away": "Bosnia-Herzegovina",
       "awayFlag": "🇧🇦",
       "homeScore": 2,
       "awayScore": 0,
-      "homeGoals": [
-        {
-          "name": "Flvrin Balvgan",
-          "minute": "45",
-          "tag": "",
-          "team": "United States",
-          "og": false
-        },
-        {
-          "name": "Malik Tillman",
-          "minute": "82",
-          "tag": "",
-          "team": "United States",
-          "og": false
-        }
-      ],
-      "awayGoals": [],
       "status": "fin",
       "winner": "United States",
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 84,
+      "id": 537420,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Thu 2 Jul",
       "time": "3:00 PM ET",
       "utcDate": "2026-07-02T19:00:00Z",
@@ -4154,6 +3910,9 @@
       "awayFlag": "🇦🇹",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Spain",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Mikel Oyarzabal",
@@ -4177,17 +3936,14 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Spain",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 83,
+      "id": 537419,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Thu 2 Jul",
       "time": "7:00 PM ET",
       "utcDate": "2026-07-02T23:00:00Z",
@@ -4197,6 +3953,9 @@
       "awayFlag": "🇭🇷",
       "homeScore": 2,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Portugal",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Gvnchalv Ramvs",
@@ -4214,17 +3973,14 @@
           "team": "Croatia",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Portugal",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 85,
+      "id": 537429,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Thu 2 Jul",
       "time": "11:00 PM ET",
       "utcDate": "2026-07-03T03:00:00Z",
@@ -4234,6 +3990,9 @@
       "awayFlag": "🇩🇿",
       "homeScore": 2,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Switzerland",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Breel Embolo",
@@ -4250,17 +4009,14 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Switzerland",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 88,
+      "id": 537428,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Fri 3 Jul",
       "time": "2:00 PM ET",
       "utcDate": "2026-07-03T18:00:00Z",
@@ -4270,6 +4026,9 @@
       "awayFlag": "🇪🇬",
       "homeScore": 1,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Egypt",
+      "penaltyWin": "Egypt wins on penalties",
       "homeGoals": [
         {
           "name": "Mohamed Hany",
@@ -4287,75 +4046,35 @@
           "team": "Egypt",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Egypt",
-      "penaltyWin": "Egypt wins on penalties"
+      ]
     },
     {
-      "id": 86,
+      "id": 537427,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Fri 3 Jul",
       "time": "6:00 PM ET",
       "utcDate": "2026-07-03T22:00:00Z",
       "home": "Argentina",
       "homeFlag": "🇦🇷",
-      "away": "Cape Verde",
+      "away": "Cape Verde Islands",
       "awayFlag": "🇨🇻",
       "homeScore": 3,
       "awayScore": 2,
-      "homeGoals": [
-        {
-          "name": "Lionel Messi",
-          "minute": "29",
-          "tag": "",
-          "team": "Argentina",
-          "og": false
-        },
-        {
-          "name": "Lisandro Martínez",
-          "minute": "92",
-          "tag": "",
-          "team": "Argentina",
-          "og": false
-        },
-        {
-          "name": "Dini Bvrgs",
-          "minute": "111",
-          "tag": "",
-          "team": "Argentina",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Drvi Dviart",
-          "minute": "59",
-          "tag": "",
-          "team": "Cape Verde",
-          "og": false
-        },
-        {
-          "name": "Lvpz Kabral",
-          "minute": "103",
-          "tag": "",
-          "team": "Cape Verde",
-          "og": false
-        }
-      ],
       "status": "fin",
       "winner": "Argentina",
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 87,
+      "id": 537430,
       "round": "Round of 32",
       "stage": "LAST_32",
       "group": null,
-      "matchday": 4,
+      "matchday": null,
       "date": "Fri 3 Jul",
       "time": "9:30 PM ET",
       "utcDate": "2026-07-04T01:30:00Z",
@@ -4365,6 +4084,9 @@
       "awayFlag": "🇬🇭",
       "homeScore": 1,
       "awayScore": 0,
+      "status": "fin",
+      "winner": "Colombia",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Jan Arias",
@@ -4374,17 +4096,14 @@
           "og": false
         }
       ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "Colombia",
-      "penaltyWin": null
+      "awayGoals": []
     },
     {
-      "id": 90,
+      "id": 537376,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sat 4 Jul",
       "time": "1:00 PM ET",
       "utcDate": "2026-07-04T17:00:00Z",
@@ -4394,6 +4113,9 @@
       "awayFlag": "🇲🇦",
       "homeScore": 0,
       "awayScore": 3,
+      "status": "fin",
+      "winner": "Morocco",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -4417,17 +4139,14 @@
           "team": "Morocco",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Morocco",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 89,
+      "id": 537375,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sat 4 Jul",
       "time": "5:00 PM ET",
       "utcDate": "2026-07-04T21:00:00Z",
@@ -4437,18 +4156,18 @@
       "awayFlag": "🇫🇷",
       "homeScore": 0,
       "awayScore": 1,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "fin",
       "winner": "France",
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 91,
+      "id": 537377,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sun 5 Jul",
       "time": "4:00 PM ET",
       "utcDate": "2026-07-05T20:00:00Z",
@@ -4458,6 +4177,9 @@
       "awayFlag": "🇳🇴",
       "homeScore": 1,
       "awayScore": 2,
+      "status": "fin",
+      "winner": "Norway",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -4474,17 +4196,14 @@
           "team": "Norway",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Norway",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 92,
+      "id": 537378,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Sun 5 Jul",
       "time": "9:00 PM ET",
       "utcDate": "2026-07-06T01:00:00Z",
@@ -4494,6 +4213,9 @@
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": 2,
       "awayScore": 3,
+      "status": "fin",
+      "winner": "England",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Jvlian Kviinvnz",
@@ -4518,17 +4240,14 @@
           "team": "England",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "England",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 93,
+      "id": 537379,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Mon 6 Jul",
       "time": "3:00 PM ET",
       "utcDate": "2026-07-06T19:00:00Z",
@@ -4538,6 +4257,9 @@
       "awayFlag": "🇪🇸",
       "homeScore": 0,
       "awayScore": 1,
+      "status": "fin",
+      "winner": "Spain",
+      "penaltyWin": null,
       "homeGoals": [],
       "awayGoals": [
         {
@@ -4547,17 +4269,14 @@
           "team": "Spain",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Spain",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 94,
+      "id": 537380,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Mon 6 Jul",
       "time": "8:00 PM ET",
       "utcDate": "2026-07-07T00:00:00Z",
@@ -4567,6 +4286,9 @@
       "awayFlag": "🇧🇪",
       "homeScore": 1,
       "awayScore": 4,
+      "status": "fin",
+      "winner": "Belgium",
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Malik Tillman",
@@ -4605,17 +4327,14 @@
           "team": "Belgium",
           "og": false
         }
-      ],
-      "status": "fin",
-      "winner": "Belgium",
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 95,
+      "id": 537381,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Tue 7 Jul",
       "time": "12:00 PM ET",
       "utcDate": "2026-07-07T16:00:00Z",
@@ -4625,6 +4344,9 @@
       "awayFlag": "🇪🇬",
       "homeScore": 2,
       "awayScore": 2,
+      "status": "live",
+      "winner": null,
+      "penaltyWin": null,
       "homeGoals": [
         {
           "name": "Cristian Romero",
@@ -4656,17 +4378,14 @@
           "team": "Egypt",
           "og": false
         }
-      ],
-      "status": "live",
-      "winner": null,
-      "penaltyWin": null
+      ]
     },
     {
-      "id": 96,
+      "id": 537382,
       "round": "Round of 16",
       "stage": "LAST_16",
       "group": null,
-      "matchday": 5,
+      "matchday": null,
       "date": "Tue 7 Jul",
       "time": "4:00 PM ET",
       "utcDate": "2026-07-07T20:00:00Z",
@@ -4676,18 +4395,18 @@
       "awayFlag": "🇨🇴",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 97,
+      "id": 537383,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Thu 9 Jul",
       "time": "4:00 PM ET",
       "utcDate": "2026-07-09T20:00:00Z",
@@ -4697,18 +4416,18 @@
       "awayFlag": "🇲🇦",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 98,
+      "id": 537384,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Fri 10 Jul",
       "time": "3:00 PM ET",
       "utcDate": "2026-07-10T19:00:00Z",
@@ -4718,18 +4437,18 @@
       "awayFlag": "🇧🇪",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 99,
+      "id": 537385,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Sat 11 Jul",
       "time": "5:00 PM ET",
       "utcDate": "2026-07-11T21:00:00Z",
@@ -4739,116 +4458,116 @@
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 100,
+      "id": 537386,
       "round": "Quarter-finals",
       "stage": "QUARTER_FINALS",
       "group": null,
-      "matchday": 6,
+      "matchday": null,
       "date": "Sat 11 Jul",
-      "time": "8:00 PM ET",
-      "utcDate": "2026-07-12T00:00:00.000Z",
-      "home": "Winner Match 95",
+      "time": "9:00 PM ET",
+      "utcDate": "2026-07-12T01:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 96",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 101,
+      "id": 537387,
       "round": "Semi-finals",
       "stage": "SEMI_FINALS",
       "group": null,
-      "matchday": 7,
+      "matchday": null,
       "date": "Tue 14 Jul",
-      "time": "2:00 PM ET",
-      "utcDate": "2026-07-14T18:00:00.000Z",
-      "home": "Winner Match 97",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-14T19:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 98",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 102,
+      "id": 537388,
       "round": "Semi-finals",
       "stage": "SEMI_FINALS",
       "group": null,
-      "matchday": 7,
+      "matchday": null,
       "date": "Wed 15 Jul",
       "time": "3:00 PM ET",
-      "utcDate": "2026-07-15T19:00:00.000Z",
-      "home": "Winner Match 99",
+      "utcDate": "2026-07-15T19:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 100",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 103,
+      "id": 537389,
       "round": "3rd Place Playoff",
       "stage": "THIRD_PLACE",
       "group": null,
-      "matchday": 8,
+      "matchday": null,
       "date": "Sat 18 Jul",
       "time": "5:00 PM ET",
-      "utcDate": "2026-07-18T21:00:00.000Z",
-      "home": "Loser Match 101",
+      "utcDate": "2026-07-18T21:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Loser Match 102",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     },
     {
-      "id": 104,
+      "id": 537390,
       "round": "Final",
       "stage": "FINAL",
       "group": null,
-      "matchday": 9,
+      "matchday": null,
       "date": "Sun 19 Jul",
       "time": "3:00 PM ET",
-      "utcDate": "2026-07-19T19:00:00.000Z",
-      "home": "Winner Match 101",
+      "utcDate": "2026-07-19T19:00:00Z",
+      "home": null,
       "homeFlag": "🏳️",
-      "away": "Winner Match 102",
+      "away": null,
       "awayFlag": "🏳️",
       "homeScore": null,
       "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
       "status": "upcoming",
       "winner": null,
-      "penaltyWin": null
+      "penaltyWin": null,
+      "homeGoals": [],
+      "awayGoals": []
     }
   ],
   "topScorers": [
