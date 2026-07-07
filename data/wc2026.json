@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T17:25:28.062Z",
+  "lastUpdated": "2026-07-07T17:30:50.859Z",
   "groups": [
     {
       "group": "A",
@@ -4624,19 +4624,12 @@
       "away": "Egypt",
       "awayFlag": "🇪🇬",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 1,
       "homeGoals": [],
       "awayGoals": [
         {
           "name": "Yasser Ibrahim",
           "minute": "15",
-          "tag": "",
-          "team": "Egypt",
-          "og": false
-        },
-        {
-          "name": "Mostafa Ziko",
-          "minute": "58",
           "tag": "",
           "team": "Egypt",
           "og": false
