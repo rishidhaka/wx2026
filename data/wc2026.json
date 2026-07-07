@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T00:10:32.182Z",
+  "lastUpdated": "2026-07-07T00:15:23.379Z",
   "groups": [
     {
       "group": "A",
@@ -4566,9 +4566,17 @@
       "away": "Belgium",
       "awayFlag": "🇧🇪",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Sharl D Ktlar",
+          "minute": "9",
+          "tag": "",
+          "team": "Belgium",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
