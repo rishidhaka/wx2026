@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T17:40:43.140Z",
+  "lastUpdated": "2026-07-07T17:45:24.745Z",
   "groups": [
     {
       "group": "A",
@@ -4623,9 +4623,17 @@
       "homeFlag": "🇦🇷",
       "away": "Egypt",
       "awayFlag": "🇪🇬",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 2,
-      "homeGoals": [],
+      "homeGoals": [
+        {
+          "name": "Cristian Romero",
+          "minute": "79",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Yasser Ibrahim",
@@ -4856,7 +4864,7 @@
       "team": "Argentina",
       "flag": "🇦🇷",
       "goals": 7,
-      "assists": 0
+      "assists": 1
     },
     {
       "name": "Harry Kane",
