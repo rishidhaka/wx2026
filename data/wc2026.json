@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T16:15:35.299Z",
+  "lastUpdated": "2026-07-07T16:20:46.584Z",
   "groups": [
     {
       "group": "A",
@@ -4624,9 +4624,17 @@
       "away": "Egypt",
       "awayFlag": "🇪🇬",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Yasser Ibrahim",
+          "minute": "15",
+          "tag": "",
+          "team": "Egypt",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
