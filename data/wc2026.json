@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T02:00:37.247Z",
+  "lastUpdated": "2026-07-07T15:45:25.842Z",
   "groups": [
     {
       "group": "A",
@@ -4680,8 +4680,8 @@
       "group": null,
       "matchday": 6,
       "date": "Fri 10 Jul",
-      "time": "12:00 PM ET",
-      "utcDate": "2026-07-10T16:00:00.000Z",
+      "time": "3:00 PM ET",
+      "utcDate": "2026-07-10T19:00:00Z",
       "home": "Spain",
       "homeFlag": "🇪🇸",
       "away": "Belgium",
