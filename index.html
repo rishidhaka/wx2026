@@ -1041,11 +1041,14 @@ function startListeners(){
     }),
     db.collection("wc2026").doc("results").onSnapshot(s=>{
       results=s.exists?s.data():{};
-      // Re-merge locally-derived bracket so Firestore gaps don't wipe fixture-based scores
+      // Re-merge locally-derived bracket so Firestore gaps don't wipe fixture-based scores.
+      // Knockout rounds (r16+) always use derivedBracket — it's positional-order-correct.
+      // r32 only fills gaps since Firestore may have group-stage data we lack locally.
       if(Object.keys(derivedBracket).length){
         results.bracket=results.bracket||{};
+        const koRounds=new Set(['r16','qf','sf','final','winner']);
         Object.entries(derivedBracket).forEach(([k,v])=>{
-          if(Array.isArray(v)&&v.some(Boolean)&&!(results.bracket[k]||[]).some(Boolean))
+          if(Array.isArray(v)&&v.some(Boolean)&&(koRounds.has(k)||!(results.bracket[k]||[]).some(Boolean)))
             results.bracket[k]=v;
         });
       }
@@ -1239,12 +1242,21 @@ async function updateResultsFromLiveData(data) {
       if(idx>=0) r32Arr[idx]=f.winner;
     });
     const localBracket = { r32: r32Arr };
+    // R16–Final: derive winners by bracket position, not date order.
+    // r16[i] = winner of R16 match between r32Arr[i*2] and r32Arr[i*2+1], so
+    // Phase 2 positional scoring (picks[i] vs actual[i]) lines up correctly.
     [['LAST_16','r16',8],['QUARTER_FINALS','qf',4],['SEMI_FINALS','sf',2],['FINAL','final',1]].forEach(([stage,key,n])=>{
-      const done=fixtures.filter(f=>f.stage===stage&&f.winner).sort((a,b)=>(a.utcDate||'').localeCompare(b.utcDate||''));
+      const prev=key==='r16'?r32Arr:key==='qf'?localBracket.r16:key==='sf'?localBracket.qf:localBracket.sf;
       const arr=new Array(n).fill('');
-      done.forEach((f,i)=>{ if(i<n) arr[i]=f.winner; });
+      for(let i=0;i<n;i++){
+        const t1=prev?.[i*2],t2=prev?.[i*2+1];
+        if(!t1||!t2) continue;
+        const f=fixtures.find(f2=>f2.stage===stage&&f2.winner&&
+          ((teamsMatch(f2.home,t1)&&teamsMatch(f2.away,t2))||(teamsMatch(f2.home,t2)&&teamsMatch(f2.away,t1))));
+        if(f) arr[i]=f.winner;
+      }
       localBracket[key]=arr;
-      if(key==='final'&&done[0]?.winner) localBracket.winner=[done[0].winner];
+      if(key==='final'&&arr[0]) localBracket.winner=[arr[0]];
     });
     // Cache in global so onSnapshot can re-merge after Firestore overwrites results
     derivedBracket = localBracket;
@@ -1315,7 +1327,8 @@ const TEAM_NAME_ALIASES={
   "Türkiye":"Turkey",
   "Côte d'Ivoire":"Ivory Coast",
   "IR Iran":"Iran",
-  "Cabo Verde":"Cape Verde",
+  "Cabo Verde":"Cape Verde Islands",
+  "Cape Verde":"Cape Verde Islands",
   "Congo DR":"Democratic Republic of the Congo",
   "DR Congo":"Democratic Republic of the Congo",
   "Bosnia-Herzegovina":"Bosnia and Herzegovina",

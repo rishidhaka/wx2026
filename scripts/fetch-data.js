@@ -506,7 +506,7 @@ const PHASE2_R32_PAIRS = [
 const CANON_NAMES = {
   'USA':'United States','Türkiye':'Turkey',"Côte d'Ivoire":'Ivory Coast',
   'IR Iran':'Iran','Cabo Verde':'Cape Verde Islands','Cape Verde':'Cape Verde Islands',
-  'DR Congo':'Congo DR','Congo DR':'Congo DR',
+  'DR Congo':'Congo DR','Congo DR':'Congo DR','Democratic Republic of the Congo':'Congo DR',
   'Bosnia and Herzegovina':'Bosnia-Herzegovina',
   'Korea Republic':'South Korea','Czechia':'Czech Republic',
 };
@@ -547,16 +547,24 @@ function deriveResults(fixtures, groups) {
   }
   results.bracket.r32 = r32Arr;
 
-  // R16–Final: sort by kick-off time so index 0 = earliest fixture (consistent positional order)
-  const koStages = [['LAST_16','r16',8],['QUARTER_FINALS','qf',4],['SEMI_FINALS','sf',2],['FINAL','final',1]];
-  for (const [stage, key, n] of koStages) {
-    const done = fixtures
-      .filter(f => f.stage === stage && f.status === 'fin' && f.winner)
-      .sort((a, b) => (a.utcDate||'').localeCompare(b.utcDate||''));
+  // R16–Final: derive winners by bracket position so Phase 2 positional scoring works.
+  // r16[i] = winner of R16 match between r32[i*2] and r32[i*2+1], etc.
+  let prevArr = results.bracket.r32;
+  for (const [stage, key, n] of [['LAST_16','r16',8],['QUARTER_FINALS','qf',4],['SEMI_FINALS','sf',2],['FINAL','final',1]]) {
     const arr = new Array(n).fill('');
-    done.forEach((f, i) => { if (i < n) arr[i] = f.winner; });
+    for (let i = 0; i < n; i++) {
+      const t1 = prevArr[i*2], t2 = prevArr[i*2+1];
+      if (!t1 || !t2) continue;
+      const ct1 = canonTeam(t1), ct2 = canonTeam(t2);
+      const f = fixtures.find(f2 => f2.stage === stage && f2.winner && (
+        (canonTeam(f2.home)===ct1 && canonTeam(f2.away)===ct2) ||
+        (canonTeam(f2.home)===ct2 && canonTeam(f2.away)===ct1)
+      ));
+      if (f) arr[i] = f.winner;
+    }
     results.bracket[key] = arr;
-    if (key === 'final' && done[0]?.winner) results.bracket.winner = [done[0].winner];
+    if (key === 'final' && arr[0]) results.bracket.winner = [arr[0]];
+    prevArr = arr;
   }
 
   const groupFixtures = fixtures.filter(f => f.stage === 'GROUP_STAGE');
@@ -592,8 +600,11 @@ async function recalculateScores(results, scorers) {
       (phase1.bracket?.[round] || []).forEach(t => { if (t && (actualBracket[round]||[]).includes(t)) p1 += pts; });
     }
     if (phase1.goldenBoot && topScorer && phase1.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) p1 += 10;
-    for (const round of ['r16','qf','sf','final']) {
-      (phase2.bracket?.[round] || []).forEach(t => { if (t && (actualBracket[round]||[]).includes(t)) p2 += 5; });
+    const P2_PTS = { r32:1, r16:2, qf:3, sf:4, final:5 };
+    for (const [round, pts] of Object.entries(P2_PTS)) {
+      (phase2.bracket?.[round] || []).forEach((t, i) => {
+        if (t && actualBracket[round]?.[i] && t === actualBracket[round][i]) p2 += pts;
+      });
     }
     if (phase2.goldenBoot && topScorer && phase2.goldenBoot.toLowerCase().trim() === topScorer.toLowerCase().trim()) p2 += 5;
     scores[doc.id] = { p1, p2, total: p1 + p2 };
