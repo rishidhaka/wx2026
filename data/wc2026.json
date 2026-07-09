@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-09T21:20:34.954Z",
+  "lastUpdated": "2026-07-09T21:25:23.426Z",
   "groups": [
     {
       "group": "A",
@@ -4860,18 +4860,18 @@
   ],
   "topScorers": [
     {
+      "name": "Kylian Mbappé",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 8,
+      "assists": 2
+    },
+    {
       "name": "Lionel Messi",
       "team": "Argentina",
       "flag": "🇦🇷",
       "goals": 8,
       "assists": 1
-    },
-    {
-      "name": "Kylian Mbappé",
-      "team": "France",
-      "flag": "🇫🇷",
-      "goals": 7,
-      "assists": 2
     },
     {
       "name": "Erling Haaland",
