@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-09T22:00:45.539Z",
+  "lastUpdated": "2026-07-09T22:05:22.361Z",
   "groups": [
     {
       "group": "A",
@@ -4721,8 +4721,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "France",
       "penaltyWin": null
     },
     {
