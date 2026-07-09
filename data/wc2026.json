@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-09T21:30:41.350Z",
+  "lastUpdated": "2026-07-09T21:35:30.439Z",
   "groups": [
     {
       "group": "A",
@@ -4702,12 +4702,19 @@
       "homeFlag": "🇫🇷",
       "away": "Morocco",
       "awayFlag": "🇲🇦",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "homeGoals": [
         {
           "name": "Kylian Mbappé",
           "minute": "60",
+          "tag": "",
+          "team": "France",
+          "og": false
+        },
+        {
+          "name": "Ousmane Dembélé",
+          "minute": "66",
           "tag": "",
           "team": "France",
           "og": false
@@ -4896,6 +4903,13 @@
       "assists": 1
     },
     {
+      "name": "Ousmane Dembélé",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 5,
+      "assists": 2
+    },
+    {
       "name": "Julián Quiñones",
       "team": "Mexico",
       "flag": "🇲🇽",
@@ -4922,13 +4936,6 @@
       "flag": "🇪🇸",
       "goals": 4,
       "assists": 1
-    },
-    {
-      "name": "Ousmane Dembélé",
-      "team": "France",
-      "flag": "🇫🇷",
-      "goals": 4,
-      "assists": 2
     },
     {
       "name": "Ismaïla Sarr",
