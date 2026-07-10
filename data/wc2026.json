@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-10T19:40:37.740Z",
+  "lastUpdated": "2026-07-10T19:45:24.584Z",
   "groups": [
     {
       "group": "A",
@@ -4739,7 +4739,7 @@
       "away": "Belgium",
       "awayFlag": "🇧🇪",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Fabin Rviz",
@@ -4749,7 +4749,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Sharl D Ktlar",
+          "minute": "41",
+          "tag": "",
+          "team": "Belgium",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
