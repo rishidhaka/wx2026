@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-10T20:50:41.484Z",
+  "lastUpdated": "2026-07-10T20:55:20.494Z",
   "groups": [
     {
       "group": "A",
@@ -4738,12 +4738,19 @@
       "homeFlag": "🇪🇸",
       "away": "Belgium",
       "awayFlag": "🇧🇪",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "homeGoals": [
         {
           "name": "Fabin Rviz",
           "minute": "30",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        },
+        {
+          "name": "Mikel Merino",
+          "minute": "88",
           "tag": "",
           "team": "Spain",
           "og": false
