@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-09T22:05:22.361Z",
+  "lastUpdated": "2026-07-10T18:45:25.489Z",
   "groups": [
     {
       "group": "A",
@@ -2777,6 +2777,49 @@
       "penaltyWin": null
     },
     {
+      "id": 49,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_C",
+      "matchday": 3,
+      "date": "Wed 24 Jun",
+      "time": "6:00 PM ET",
+      "utcDate": "2026-06-24T22:00:00Z",
+      "home": "Scotland",
+      "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "away": "Brazil",
+      "awayFlag": "🇧🇷",
+      "homeScore": 0,
+      "awayScore": 3,
+      "homeGoals": [],
+      "awayGoals": [
+        {
+          "name": "Vinícius Júnior",
+          "minute": "7",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        },
+        {
+          "name": "Vinícius Júnior",
+          "minute": "45+3",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        },
+        {
+          "name": "Matheus Cunha",
+          "minute": "60",
+          "tag": "",
+          "team": "Brazil",
+          "og": false
+        }
+      ],
+      "status": "fin",
+      "winner": "Brazil",
+      "penaltyWin": null
+    },
+    {
       "id": 50,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
@@ -2842,46 +2885,32 @@
       "penaltyWin": null
     },
     {
-      "id": 49,
+      "id": 51,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
-      "group": "GROUP_C",
+      "group": "GROUP_A",
       "matchday": 3,
       "date": "Wed 24 Jun",
-      "time": "6:00 PM ET",
-      "utcDate": "2026-06-24T22:00:00Z",
-      "home": "Scotland",
-      "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-      "away": "Brazil",
-      "awayFlag": "🇧🇷",
-      "homeScore": 0,
-      "awayScore": 3,
-      "homeGoals": [],
-      "awayGoals": [
+      "time": "9:00 PM ET",
+      "utcDate": "2026-06-25T01:00:00Z",
+      "home": "South Africa",
+      "homeFlag": "🇿🇦",
+      "away": "South Korea",
+      "awayFlag": "🇰🇷",
+      "homeScore": 1,
+      "awayScore": 0,
+      "homeGoals": [
         {
-          "name": "Vinícius Júnior",
-          "minute": "7",
+          "name": "Taplv Maskv",
+          "minute": "63",
           "tag": "",
-          "team": "Brazil",
-          "og": false
-        },
-        {
-          "name": "Vinícius Júnior",
-          "minute": "45+3",
-          "tag": "",
-          "team": "Brazil",
-          "og": false
-        },
-        {
-          "name": "Matheus Cunha",
-          "minute": "60",
-          "tag": "",
-          "team": "Brazil",
+          "team": "South Africa",
           "og": false
         }
       ],
+      "awayGoals": [],
       "status": "fin",
-      "winner": "Brazil",
+      "winner": "South Africa",
       "penaltyWin": null
     },
     {
@@ -2925,35 +2954,6 @@
       ],
       "status": "fin",
       "winner": "Mexico",
-      "penaltyWin": null
-    },
-    {
-      "id": 51,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_A",
-      "matchday": 3,
-      "date": "Wed 24 Jun",
-      "time": "9:00 PM ET",
-      "utcDate": "2026-06-25T01:00:00Z",
-      "home": "South Africa",
-      "homeFlag": "🇿🇦",
-      "away": "South Korea",
-      "awayFlag": "🇰🇷",
-      "homeScore": 1,
-      "awayScore": 0,
-      "homeGoals": [
-        {
-          "name": "Taplv Maskv",
-          "minute": "63",
-          "tag": "",
-          "team": "South Africa",
-          "og": false
-        }
-      ],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": "South Africa",
       "penaltyWin": null
     },
     {
@@ -3125,6 +3125,27 @@
       "penaltyWin": null
     },
     {
+      "id": 57,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_D",
+      "matchday": 3,
+      "date": "Thu 25 Jun",
+      "time": "10:00 PM ET",
+      "utcDate": "2026-06-26T02:00:00Z",
+      "home": "Paraguay",
+      "homeFlag": "🇵🇾",
+      "away": "Australia",
+      "awayFlag": "🇦🇺",
+      "homeScore": 0,
+      "awayScore": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "status": "fin",
+      "winner": null,
+      "penaltyWin": null
+    },
+    {
       "id": 58,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
@@ -3180,27 +3201,6 @@
       ],
       "status": "fin",
       "winner": "Turkey",
-      "penaltyWin": null
-    },
-    {
-      "id": 57,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_D",
-      "matchday": 3,
-      "date": "Thu 25 Jun",
-      "time": "10:00 PM ET",
-      "utcDate": "2026-06-26T02:00:00Z",
-      "home": "Paraguay",
-      "homeFlag": "🇵🇾",
-      "away": "Australia",
-      "awayFlag": "🇦🇺",
-      "homeScore": 0,
-      "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": null,
       "penaltyWin": null
     },
     {
@@ -3551,6 +3551,27 @@
       "penaltyWin": null
     },
     {
+      "id": 71,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_K",
+      "matchday": 3,
+      "date": "Sat 27 Jun",
+      "time": "7:30 PM ET",
+      "utcDate": "2026-06-27T23:30:00Z",
+      "home": "Colombia",
+      "homeFlag": "🇨🇴",
+      "away": "Portugal",
+      "awayFlag": "🇵🇹",
+      "homeScore": 0,
+      "awayScore": 0,
+      "homeGoals": [],
+      "awayGoals": [],
+      "status": "fin",
+      "winner": null,
+      "penaltyWin": null
+    },
+    {
       "id": 72,
       "round": "Group Stage - Matchday 3",
       "stage": "GROUP_STAGE",
@@ -3592,78 +3613,6 @@
       ],
       "status": "fin",
       "winner": "Democratic Republic of the Congo",
-      "penaltyWin": null
-    },
-    {
-      "id": 71,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_K",
-      "matchday": 3,
-      "date": "Sat 27 Jun",
-      "time": "7:30 PM ET",
-      "utcDate": "2026-06-27T23:30:00Z",
-      "home": "Colombia",
-      "homeFlag": "🇨🇴",
-      "away": "Portugal",
-      "awayFlag": "🇵🇹",
-      "homeScore": 0,
-      "awayScore": 0,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "fin",
-      "winner": null,
-      "penaltyWin": null
-    },
-    {
-      "id": 70,
-      "round": "Group Stage - Matchday 3",
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_J",
-      "matchday": 3,
-      "date": "Sat 27 Jun",
-      "time": "10:00 PM ET",
-      "utcDate": "2026-06-28T02:00:00Z",
-      "home": "Jordan",
-      "homeFlag": "🇯🇴",
-      "away": "Argentina",
-      "awayFlag": "🇦🇷",
-      "homeScore": 1,
-      "awayScore": 3,
-      "homeGoals": [
-        {
-          "name": "Mvsi Altmari",
-          "minute": "55",
-          "tag": "",
-          "team": "Jordan",
-          "og": false
-        }
-      ],
-      "awayGoals": [
-        {
-          "name": "Jivani Lv Slsv",
-          "minute": "19",
-          "tag": "",
-          "team": "Argentina",
-          "og": false
-        },
-        {
-          "name": "Lautaro Martínez",
-          "minute": "31",
-          "tag": "(P)",
-          "team": "Argentina",
-          "og": false
-        },
-        {
-          "name": "Lionel Messi",
-          "minute": "80",
-          "tag": "",
-          "team": "Argentina",
-          "og": false
-        }
-      ],
-      "status": "fin",
-      "winner": "Argentina",
       "penaltyWin": null
     },
     {
@@ -3729,6 +3678,57 @@
       ],
       "status": "fin",
       "winner": null,
+      "penaltyWin": null
+    },
+    {
+      "id": 70,
+      "round": "Group Stage - Matchday 3",
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_J",
+      "matchday": 3,
+      "date": "Sat 27 Jun",
+      "time": "10:00 PM ET",
+      "utcDate": "2026-06-28T02:00:00Z",
+      "home": "Jordan",
+      "homeFlag": "🇯🇴",
+      "away": "Argentina",
+      "awayFlag": "🇦🇷",
+      "homeScore": 1,
+      "awayScore": 3,
+      "homeGoals": [
+        {
+          "name": "Mvsi Altmari",
+          "minute": "55",
+          "tag": "",
+          "team": "Jordan",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Jivani Lv Slsv",
+          "minute": "19",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        },
+        {
+          "name": "Lautaro Martínez",
+          "minute": "31",
+          "tag": "(P)",
+          "team": "Argentina",
+          "og": false
+        },
+        {
+          "name": "Lionel Messi",
+          "minute": "80",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        }
+      ],
+      "status": "fin",
+      "winner": "Argentina",
       "penaltyWin": null
     },
     {
@@ -4738,11 +4738,11 @@
       "homeFlag": "🇪🇸",
       "away": "Belgium",
       "awayFlag": "🇧🇪",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 0,
+      "awayScore": 0,
       "homeGoals": [],
       "awayGoals": [],
-      "status": "upcoming",
+      "status": "live",
       "winner": null,
       "penaltyWin": null
     },
@@ -4797,8 +4797,8 @@
       "date": "Tue 14 Jul",
       "time": "2:00 PM ET",
       "utcDate": "2026-07-14T18:00:00.000Z",
-      "home": "Winner Match 97",
-      "homeFlag": "🏳️",
+      "home": "France",
+      "homeFlag": "🇫🇷",
       "away": "Winner Match 98",
       "awayFlag": "🏳️",
       "homeScore": null,
