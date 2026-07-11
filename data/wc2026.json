@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-11T23:45:25.727Z",
+  "lastUpdated": "2026-07-11T23:50:36.065Z",
   "groups": [
     {
       "group": "A",
@@ -4809,8 +4809,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "England",
       "penaltyWin": null
     },
     {
@@ -4864,8 +4864,8 @@
       "date": "Wed 15 Jul",
       "time": "3:00 PM ET",
       "utcDate": "2026-07-15T19:00:00.000Z",
-      "home": "Winner Match 99",
-      "homeFlag": "🏳️",
+      "home": "England",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "away": "Winner Match 100",
       "awayFlag": "🏳️",
       "homeScore": null,
