@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-11T21:45:25.566Z",
+  "lastUpdated": "2026-07-11T21:50:38.242Z",
   "groups": [
     {
       "group": "A",
@@ -4783,7 +4783,7 @@
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [
         {
           "name": "Andrias Shldrvp",
@@ -4793,7 +4793,15 @@
           "og": false
         }
       ],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Jvd Blingham",
+          "minute": "45+2",
+          "tag": "",
+          "team": "England",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
@@ -4934,6 +4942,13 @@
       "assists": 1
     },
     {
+      "name": "Jude Bellingham",
+      "team": "England",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "goals": 5,
+      "assists": 1
+    },
+    {
       "name": "Ousmane Dembélé",
       "team": "France",
       "flag": "🇫🇷",
@@ -4951,13 +4966,6 @@
       "name": "Vinicius Junior",
       "team": "Brazil",
       "flag": "🇧🇷",
-      "goals": 4,
-      "assists": 1
-    },
-    {
-      "name": "Jude Bellingham",
-      "team": "England",
-      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "goals": 4,
       "assists": 1
     },
