@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-11T23:10:42.713Z",
+  "lastUpdated": "2026-07-11T23:15:22.195Z",
   "groups": [
     {
       "group": "A",
@@ -4783,7 +4783,7 @@
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [
         {
           "name": "Andrias Shldrvp",
@@ -4797,6 +4797,13 @@
         {
           "name": "Jvd Blingham",
           "minute": "45+2",
+          "tag": "",
+          "team": "England",
+          "og": false
+        },
+        {
+          "name": "Jvd Blingham",
+          "minute": "93",
           "tag": "",
           "team": "England",
           "og": false
@@ -4945,7 +4952,7 @@
       "name": "Jude Bellingham",
       "team": "England",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "goals": 5,
+      "goals": 6,
       "assists": 1
     },
     {
