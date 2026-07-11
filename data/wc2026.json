@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-11T22:20:38.697Z",
+  "lastUpdated": "2026-07-11T22:25:21.738Z",
   "groups": [
     {
       "group": "A",
@@ -4782,19 +4782,12 @@
       "homeFlag": "🇳🇴",
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeScore": 2,
+      "homeScore": 1,
       "awayScore": 1,
       "homeGoals": [
         {
           "name": "Andrias Shldrvp",
           "minute": "36",
-          "tag": "",
-          "team": "Norway",
-          "og": false
-        },
-        {
-          "name": "Tvrbivrn Hgm",
-          "minute": "55",
           "tag": "",
           "team": "Norway",
           "og": false
