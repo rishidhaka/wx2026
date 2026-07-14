@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T03:25:26.973Z",
+  "lastUpdated": "2026-07-14T18:45:21.840Z",
   "groups": [
     {
       "group": "A",
@@ -4826,12 +4826,42 @@
       "homeFlag": "🇦🇷",
       "away": "Switzerland",
       "awayFlag": "🇨🇭",
-      "homeScore": null,
-      "awayScore": null,
-      "homeGoals": [],
-      "awayGoals": [],
-      "status": "upcoming",
-      "winner": null,
+      "homeScore": 3,
+      "awayScore": 1,
+      "homeGoals": [
+        {
+          "name": "Alexis Mac Allister",
+          "minute": "10",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        },
+        {
+          "name": "Khvlin Alvarz",
+          "minute": "112",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        },
+        {
+          "name": "Lautaro Martínez",
+          "minute": "120+1",
+          "tag": "",
+          "team": "Argentina",
+          "og": false
+        }
+      ],
+      "awayGoals": [
+        {
+          "name": "Dn Andvi",
+          "minute": "67",
+          "tag": "",
+          "team": "Switzerland",
+          "og": false
+        }
+      ],
+      "status": "fin",
+      "winner": "Argentina",
       "penaltyWin": null
     },
     {
@@ -4863,11 +4893,11 @@
       "matchday": 7,
       "date": "Wed 15 Jul",
       "time": "3:00 PM ET",
-      "utcDate": "2026-07-15T19:00:00.000Z",
+      "utcDate": "2026-07-15T19:00:00Z",
       "home": "England",
       "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "away": "Winner Match 100",
-      "awayFlag": "🏳️",
+      "away": "Argentina",
+      "awayFlag": "🇦🇷",
       "homeScore": null,
       "awayScore": null,
       "homeGoals": [],
