@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-14T19:20:48.099Z",
+  "lastUpdated": "2026-07-14T19:25:24.302Z",
   "groups": [
     {
       "group": "A",
@@ -4878,7 +4878,7 @@
       "away": "Spain",
       "awayFlag": "🇪🇸",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "homeGoals": [],
       "awayGoals": [],
       "status": "live",
@@ -4986,6 +4986,13 @@
       "assists": 1
     },
     {
+      "name": "Mikel Oyarzabal",
+      "team": "Spain",
+      "flag": "🇪🇸",
+      "goals": 5,
+      "assists": 1
+    },
+    {
       "name": "Ousmane Dembélé",
       "team": "France",
       "flag": "🇫🇷",
@@ -5003,13 +5010,6 @@
       "name": "Vinicius Junior",
       "team": "Brazil",
       "flag": "🇧🇷",
-      "goals": 4,
-      "assists": 1
-    },
-    {
-      "name": "Mikel Oyarzabal",
-      "team": "Spain",
-      "flag": "🇪🇸",
       "goals": 4,
       "assists": 1
     },
