@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-14T20:20:42.449Z",
+  "lastUpdated": "2026-07-14T20:25:26.556Z",
   "groups": [
     {
       "group": "A",
@@ -4878,9 +4878,17 @@
       "away": "Spain",
       "awayFlag": "🇪🇸",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "homeGoals": [],
-      "awayGoals": [],
+      "awayGoals": [
+        {
+          "name": "Pedro Porro",
+          "minute": "58",
+          "tag": "",
+          "team": "Spain",
+          "og": false
+        }
+      ],
       "status": "live",
       "winner": null,
       "penaltyWin": null
