@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-15T21:05:24.297Z",
+  "lastUpdated": "2026-07-15T21:10:47.395Z",
   "groups": [
     {
       "group": "A",
@@ -4933,8 +4933,8 @@
           "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Argentina",
       "penaltyWin": null
     },
     {
