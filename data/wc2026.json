@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-15T20:46:28.116Z",
+  "lastUpdated": "2026-07-15T20:51:46.622Z",
   "groups": [
     {
       "group": "A",
@@ -4626,7 +4626,7 @@
       "away": "Argentina",
       "awayFlag": "🇦🇷",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
       "winner": null,
       "penaltyWin": null,
@@ -4697,7 +4697,7 @@
       "team": "Argentina",
       "flag": "🇦🇷",
       "goals": 8,
-      "assists": 2
+      "assists": 3
     },
     {
       "name": "Erling Haaland",
