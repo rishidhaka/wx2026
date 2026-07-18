@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-18T21:10:26.240Z",
+  "lastUpdated": "2026-07-18T22:04:17.917Z",
   "groups": [
     {
       "group": "A",
@@ -4951,12 +4951,33 @@
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 4,
       "homeGoals": [],
       "awayGoals": [
         {
           "name": "Dklan Rais",
           "minute": "3",
+          "tag": "",
+          "team": "England",
+          "og": false
+        },
+        {
+          "name": "Azri Knsa",
+          "minute": "18",
+          "tag": "",
+          "team": "England",
+          "og": false
+        },
+        {
+          "name": "Bvkaiv Saka",
+          "minute": "37",
+          "tag": "",
+          "team": "England",
+          "og": false
+        },
+        {
+          "name": "Bvkaiv Saka",
+          "minute": "45+1",
           "tag": "",
           "team": "England",
           "og": false
