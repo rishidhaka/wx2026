@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-18T22:04:17.917Z",
+  "lastUpdated": "2026-07-18T22:59:08.405Z",
   "groups": [
     {
       "group": "A",
@@ -4950,9 +4950,31 @@
       "homeFlag": "🇫🇷",
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeScore": 0,
-      "awayScore": 4,
-      "homeGoals": [],
+      "homeScore": 3,
+      "awayScore": 5,
+      "homeGoals": [
+        {
+          "name": "Kylian Mbappé",
+          "minute": "48",
+          "tag": "",
+          "team": "France",
+          "og": false
+        },
+        {
+          "name": "Bradley Barcola",
+          "minute": "54",
+          "tag": "",
+          "team": "France",
+          "og": false
+        },
+        {
+          "name": "Kylian Mbappé",
+          "minute": "66",
+          "tag": "",
+          "team": "France",
+          "og": false
+        }
+      ],
       "awayGoals": [
         {
           "name": "Dklan Rais",
@@ -5014,8 +5036,8 @@
       "name": "Kylian Mbappé",
       "team": "France",
       "flag": "🇫🇷",
-      "goals": 8,
-      "assists": 3
+      "goals": 10,
+      "assists": 4
     },
     {
       "name": "Lionel Messi",
@@ -5123,6 +5145,13 @@
       "assists": 0
     },
     {
+      "name": "Bradley Barcola",
+      "team": "France",
+      "flag": "🇫🇷",
+      "goals": 3,
+      "assists": 1
+    },
+    {
       "name": "Yoane Wissa",
       "team": "Congo DR",
       "flag": "🇨🇩",
@@ -5140,13 +5169,6 @@
       "name": "Jonathan David",
       "team": "Canada",
       "flag": "🇨🇦",
-      "goals": 3,
-      "assists": 0
-    },
-    {
-      "name": "Matheus Cunha",
-      "team": "Brazil",
-      "flag": "🇧🇷",
       "goals": 3,
       "assists": 0
     }
