@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-18T22:59:08.405Z",
+  "lastUpdated": "2026-07-18T23:52:10.291Z",
   "groups": [
     {
       "group": "A",
@@ -4950,8 +4950,8 @@
       "homeFlag": "🇫🇷",
       "away": "England",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeScore": 3,
-      "awayScore": 5,
+      "homeScore": 4,
+      "awayScore": 6,
       "homeGoals": [
         {
           "name": "Kylian Mbappé",
@@ -4970,6 +4970,13 @@
         {
           "name": "Kylian Mbappé",
           "minute": "66",
+          "tag": "",
+          "team": "France",
+          "og": false
+        },
+        {
+          "name": "Ousmane Dembélé",
+          "minute": "90+6",
           "tag": "",
           "team": "France",
           "og": false
@@ -5003,10 +5010,17 @@
           "tag": "",
           "team": "England",
           "og": false
+        },
+        {
+          "name": "Jvd Blingham",
+          "minute": "90+8",
+          "tag": "",
+          "team": "England",
+          "og": false
         }
       ],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "England",
       "penaltyWin": null
     },
     {
@@ -5054,6 +5068,13 @@
       "assists": 0
     },
     {
+      "name": "Jude Bellingham",
+      "team": "England",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "goals": 7,
+      "assists": 1
+    },
+    {
       "name": "Harry Kane",
       "team": "England",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
@@ -5061,11 +5082,11 @@
       "assists": 1
     },
     {
-      "name": "Jude Bellingham",
-      "team": "England",
-      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "name": "Ousmane Dembélé",
+      "team": "France",
+      "flag": "🇫🇷",
       "goals": 6,
-      "assists": 1
+      "assists": 2
     },
     {
       "name": "Mikel Oyarzabal",
@@ -5073,13 +5094,6 @@
       "flag": "🇪🇸",
       "goals": 5,
       "assists": 1
-    },
-    {
-      "name": "Ousmane Dembélé",
-      "team": "France",
-      "flag": "🇫🇷",
-      "goals": 5,
-      "assists": 2
     },
     {
       "name": "Julián Quiñones",
