@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-19T22:02:43.936Z",
+  "lastUpdated": "2026-07-19T22:59:45.528Z",
   "groups": [
     {
       "group": "A",
@@ -5048,8 +5048,8 @@
         }
       ],
       "awayGoals": [],
-      "status": "live",
-      "winner": null,
+      "status": "fin",
+      "winner": "Spain",
       "penaltyWin": null
     }
   ],
